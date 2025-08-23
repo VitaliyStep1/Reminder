@@ -7,53 +7,40 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		0479628A2E59CA8C0031FD73 /* PBXContainerItemProxy */ = {
+		04AE223E2E59F51400D29776 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 047962702E59CA8A0031FD73 /* Project object */;
+			containerPortal = 04AE22282E59F51300D29776 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 047962772E59CA8A0031FD73;
+			remoteGlobalIDString = 04AE222F2E59F51300D29776;
 			remoteInfo = Reminder;
 		};
-		047962942E59CA8C0031FD73 /* PBXContainerItemProxy */ = {
+		04AE22482E59F51400D29776 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 047962702E59CA8A0031FD73 /* Project object */;
+			containerPortal = 04AE22282E59F51300D29776 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 047962772E59CA8A0031FD73;
+			remoteGlobalIDString = 04AE222F2E59F51300D29776;
 			remoteInfo = Reminder;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		047962782E59CA8A0031FD73 /* Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		047962892E59CA8C0031FD73 /* ReminderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReminderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		047962932E59CA8C0031FD73 /* ReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04AE22302E59F51300D29776 /* Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04AE223D2E59F51400D29776 /* ReminderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReminderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04AE22472E59F51400D29776 /* ReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0479629B2E59CA8C0031FD73 /* Exceptions for "Reminder" folder in "Reminder" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 047962772E59CA8A0031FD73 /* Reminder */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0479627A2E59CA8A0031FD73 /* Reminder */ = {
+		04AE22322E59F51300D29776 /* Reminder */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0479629B2E59CA8C0031FD73 /* Exceptions for "Reminder" folder in "Reminder" target */,
-			);
 			path = Reminder;
 			sourceTree = "<group>";
 		};
-		0479628C2E59CA8C0031FD73 /* ReminderTests */ = {
+		04AE22402E59F51400D29776 /* ReminderTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ReminderTests;
 			sourceTree = "<group>";
 		};
-		047962962E59CA8C0031FD73 /* ReminderUITests */ = {
+		04AE224A2E59F51400D29776 /* ReminderUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ReminderUITests;
 			sourceTree = "<group>";
@@ -61,21 +48,21 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		047962752E59CA8A0031FD73 /* Frameworks */ = {
+		04AE222D2E59F51300D29776 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		047962862E59CA8C0031FD73 /* Frameworks */ = {
+		04AE223A2E59F51400D29776 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		047962902E59CA8C0031FD73 /* Frameworks */ = {
+		04AE22442E59F51400D29776 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -85,22 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0479626F2E59CA8A0031FD73 = {
+		04AE22272E59F51300D29776 = {
 			isa = PBXGroup;
 			children = (
-				0479627A2E59CA8A0031FD73 /* Reminder */,
-				0479628C2E59CA8C0031FD73 /* ReminderTests */,
-				047962962E59CA8C0031FD73 /* ReminderUITests */,
-				047962792E59CA8A0031FD73 /* Products */,
+				04AE22322E59F51300D29776 /* Reminder */,
+				04AE22402E59F51400D29776 /* ReminderTests */,
+				04AE224A2E59F51400D29776 /* ReminderUITests */,
+				04AE22312E59F51300D29776 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		047962792E59CA8A0031FD73 /* Products */ = {
+		04AE22312E59F51300D29776 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				047962782E59CA8A0031FD73 /* Reminder.app */,
-				047962892E59CA8C0031FD73 /* ReminderTests.xctest */,
-				047962932E59CA8C0031FD73 /* ReminderUITests.xctest */,
+				04AE22302E59F51300D29776 /* Reminder.app */,
+				04AE223D2E59F51400D29776 /* ReminderTests.xctest */,
+				04AE22472E59F51400D29776 /* ReminderUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,134 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		047962772E59CA8A0031FD73 /* Reminder */ = {
+		04AE222F2E59F51300D29776 /* Reminder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0479629C2E59CA8C0031FD73 /* Build configuration list for PBXNativeTarget "Reminder" */;
+			buildConfigurationList = 04AE22512E59F51400D29776 /* Build configuration list for PBXNativeTarget "Reminder" */;
 			buildPhases = (
-				047962742E59CA8A0031FD73 /* Sources */,
-				047962752E59CA8A0031FD73 /* Frameworks */,
-				047962762E59CA8A0031FD73 /* Resources */,
+				04AE222C2E59F51300D29776 /* Sources */,
+				04AE222D2E59F51300D29776 /* Frameworks */,
+				04AE222E2E59F51300D29776 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0479627A2E59CA8A0031FD73 /* Reminder */,
+				04AE22322E59F51300D29776 /* Reminder */,
 			);
 			name = Reminder;
 			packageProductDependencies = (
 			);
 			productName = Reminder;
-			productReference = 047962782E59CA8A0031FD73 /* Reminder.app */;
+			productReference = 04AE22302E59F51300D29776 /* Reminder.app */;
 			productType = "com.apple.product-type.application";
 		};
-		047962882E59CA8C0031FD73 /* ReminderTests */ = {
+		04AE223C2E59F51400D29776 /* ReminderTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 047962A12E59CA8C0031FD73 /* Build configuration list for PBXNativeTarget "ReminderTests" */;
+			buildConfigurationList = 04AE22542E59F51400D29776 /* Build configuration list for PBXNativeTarget "ReminderTests" */;
 			buildPhases = (
-				047962852E59CA8C0031FD73 /* Sources */,
-				047962862E59CA8C0031FD73 /* Frameworks */,
-				047962872E59CA8C0031FD73 /* Resources */,
+				04AE22392E59F51400D29776 /* Sources */,
+				04AE223A2E59F51400D29776 /* Frameworks */,
+				04AE223B2E59F51400D29776 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0479628B2E59CA8C0031FD73 /* PBXTargetDependency */,
+				04AE223F2E59F51400D29776 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				0479628C2E59CA8C0031FD73 /* ReminderTests */,
+				04AE22402E59F51400D29776 /* ReminderTests */,
 			);
 			name = ReminderTests;
 			packageProductDependencies = (
 			);
 			productName = ReminderTests;
-			productReference = 047962892E59CA8C0031FD73 /* ReminderTests.xctest */;
+			productReference = 04AE223D2E59F51400D29776 /* ReminderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		047962922E59CA8C0031FD73 /* ReminderUITests */ = {
+		04AE22462E59F51400D29776 /* ReminderUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 047962A42E59CA8C0031FD73 /* Build configuration list for PBXNativeTarget "ReminderUITests" */;
+			buildConfigurationList = 04AE22572E59F51400D29776 /* Build configuration list for PBXNativeTarget "ReminderUITests" */;
 			buildPhases = (
-				0479628F2E59CA8C0031FD73 /* Sources */,
-				047962902E59CA8C0031FD73 /* Frameworks */,
-				047962912E59CA8C0031FD73 /* Resources */,
+				04AE22432E59F51400D29776 /* Sources */,
+				04AE22442E59F51400D29776 /* Frameworks */,
+				04AE22452E59F51400D29776 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				047962952E59CA8C0031FD73 /* PBXTargetDependency */,
+				04AE22492E59F51400D29776 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				047962962E59CA8C0031FD73 /* ReminderUITests */,
+				04AE224A2E59F51400D29776 /* ReminderUITests */,
 			);
 			name = ReminderUITests;
 			packageProductDependencies = (
 			);
 			productName = ReminderUITests;
-			productReference = 047962932E59CA8C0031FD73 /* ReminderUITests.xctest */;
+			productReference = 04AE22472E59F51400D29776 /* ReminderUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		047962702E59CA8A0031FD73 /* Project object */ = {
+		04AE22282E59F51300D29776 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
-					047962772E59CA8A0031FD73 = {
+					04AE222F2E59F51300D29776 = {
 						CreatedOnToolsVersion = 16.4;
 					};
-					047962882E59CA8C0031FD73 = {
+					04AE223C2E59F51400D29776 = {
 						CreatedOnToolsVersion = 16.4;
-						TestTargetID = 047962772E59CA8A0031FD73;
+						TestTargetID = 04AE222F2E59F51300D29776;
 					};
-					047962922E59CA8C0031FD73 = {
+					04AE22462E59F51400D29776 = {
 						CreatedOnToolsVersion = 16.4;
-						TestTargetID = 047962772E59CA8A0031FD73;
+						TestTargetID = 04AE222F2E59F51300D29776;
 					};
 				};
 			};
-			buildConfigurationList = 047962732E59CA8A0031FD73 /* Build configuration list for PBXProject "Reminder" */;
+			buildConfigurationList = 04AE222B2E59F51300D29776 /* Build configuration list for PBXProject "Reminder" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 0479626F2E59CA8A0031FD73;
+			mainGroup = 04AE22272E59F51300D29776;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 047962792E59CA8A0031FD73 /* Products */;
+			productRefGroup = 04AE22312E59F51300D29776 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				047962772E59CA8A0031FD73 /* Reminder */,
-				047962882E59CA8C0031FD73 /* ReminderTests */,
-				047962922E59CA8C0031FD73 /* ReminderUITests */,
+				04AE222F2E59F51300D29776 /* Reminder */,
+				04AE223C2E59F51400D29776 /* ReminderTests */,
+				04AE22462E59F51400D29776 /* ReminderUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		047962762E59CA8A0031FD73 /* Resources */ = {
+		04AE222E2E59F51300D29776 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		047962872E59CA8C0031FD73 /* Resources */ = {
+		04AE223B2E59F51400D29776 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		047962912E59CA8C0031FD73 /* Resources */ = {
+		04AE22452E59F51400D29776 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		047962742E59CA8A0031FD73 /* Sources */ = {
+		04AE222C2E59F51300D29776 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		047962852E59CA8C0031FD73 /* Sources */ = {
+		04AE22392E59F51400D29776 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0479628F2E59CA8C0031FD73 /* Sources */ = {
+		04AE22432E59F51400D29776 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,80 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0479628B2E59CA8C0031FD73 /* PBXTargetDependency */ = {
+		04AE223F2E59F51400D29776 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 047962772E59CA8A0031FD73 /* Reminder */;
-			targetProxy = 0479628A2E59CA8C0031FD73 /* PBXContainerItemProxy */;
+			target = 04AE222F2E59F51300D29776 /* Reminder */;
+			targetProxy = 04AE223E2E59F51400D29776 /* PBXContainerItemProxy */;
 		};
-		047962952E59CA8C0031FD73 /* PBXTargetDependency */ = {
+		04AE22492E59F51400D29776 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 047962772E59CA8A0031FD73 /* Reminder */;
-			targetProxy = 047962942E59CA8C0031FD73 /* PBXContainerItemProxy */;
+			target = 04AE222F2E59F51300D29776 /* Reminder */;
+			targetProxy = 04AE22482E59F51400D29776 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0479629D2E59CA8C0031FD73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Reminder/Reminder.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8JYKW346TU;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Reminder/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ojexsoft.Reminder;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0479629E2E59CA8C0031FD73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Reminder/Reminder.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8JYKW346TU;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Reminder/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ojexsoft.Reminder;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		0479629F2E59CA8C0031FD73 /* Debug */ = {
+		04AE224F2E59F51400D29776 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -406,7 +333,7 @@
 			};
 			name = Debug;
 		};
-		047962A02E59CA8C0031FD73 /* Release */ = {
+		04AE22502E59F51400D29776 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -463,7 +390,63 @@
 			};
 			name = Release;
 		};
-		047962A22E59CA8C0031FD73 /* Debug */ = {
+		04AE22522E59F51400D29776 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JYKW346TU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ojexsoft.Reminder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		04AE22532E59F51400D29776 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8JYKW346TU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ojexsoft.Reminder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		04AE22552E59F51400D29776 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -482,7 +465,7 @@
 			};
 			name = Debug;
 		};
-		047962A32E59CA8C0031FD73 /* Release */ = {
+		04AE22562E59F51400D29776 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -501,7 +484,7 @@
 			};
 			name = Release;
 		};
-		047962A52E59CA8C0031FD73 /* Debug */ = {
+		04AE22582E59F51400D29776 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -518,7 +501,7 @@
 			};
 			name = Debug;
 		};
-		047962A62E59CA8C0031FD73 /* Release */ = {
+		04AE22592E59F51400D29776 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -538,43 +521,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		047962732E59CA8A0031FD73 /* Build configuration list for PBXProject "Reminder" */ = {
+		04AE222B2E59F51300D29776 /* Build configuration list for PBXProject "Reminder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0479629F2E59CA8C0031FD73 /* Debug */,
-				047962A02E59CA8C0031FD73 /* Release */,
+				04AE224F2E59F51400D29776 /* Debug */,
+				04AE22502E59F51400D29776 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0479629C2E59CA8C0031FD73 /* Build configuration list for PBXNativeTarget "Reminder" */ = {
+		04AE22512E59F51400D29776 /* Build configuration list for PBXNativeTarget "Reminder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0479629D2E59CA8C0031FD73 /* Debug */,
-				0479629E2E59CA8C0031FD73 /* Release */,
+				04AE22522E59F51400D29776 /* Debug */,
+				04AE22532E59F51400D29776 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		047962A12E59CA8C0031FD73 /* Build configuration list for PBXNativeTarget "ReminderTests" */ = {
+		04AE22542E59F51400D29776 /* Build configuration list for PBXNativeTarget "ReminderTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				047962A22E59CA8C0031FD73 /* Debug */,
-				047962A32E59CA8C0031FD73 /* Release */,
+				04AE22552E59F51400D29776 /* Debug */,
+				04AE22562E59F51400D29776 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		047962A42E59CA8C0031FD73 /* Build configuration list for PBXNativeTarget "ReminderUITests" */ = {
+		04AE22572E59F51400D29776 /* Build configuration list for PBXNativeTarget "ReminderUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				047962A52E59CA8C0031FD73 /* Debug */,
-				047962A62E59CA8C0031FD73 /* Release */,
+				04AE22582E59F51400D29776 /* Debug */,
+				04AE22592E59F51400D29776 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 047962702E59CA8A0031FD73 /* Project object */;
+	rootObject = 04AE22282E59F51300D29776 /* Project object */;
 }
