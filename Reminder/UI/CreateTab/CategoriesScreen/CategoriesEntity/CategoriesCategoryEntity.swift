@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CategoriesCategoryEntity: Identifiable {
+struct CategoriesCategoryEntity: Identifiable, Hashable {
   let id: Int
   let title: String
   let eventsAmount: String
