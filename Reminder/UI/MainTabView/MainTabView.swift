@@ -10,7 +10,7 @@ import SwiftUI
 struct MainTabView: View {
   var body: some View {
     TabView {
-      ClosestScreenView()
+      ClosestScreenView(viewModel: ClosestViewModel())
         .tabItem {
           Image(systemName: "house")
           Text("First")

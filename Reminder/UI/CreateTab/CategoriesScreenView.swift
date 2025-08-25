@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct CategoriesScreenView: View {
+  @StateObject var viewModel: CategoriesViewModel = .init()
   
   var body: some View {
-    Text("CategoriesScreenView")
+    NavigationStack {
+      List {
+        ForEach(viewModel.categoryEntities) { categoryEntity in
+          HStack {
+            Text(categoryEntity.title)
+            Spacer()
+            Text(categoryEntity.eventsAmount)
+          }
+        }
+      }
+      .navigationTitle(viewModel.navigationTitle)
+    }
   }
 }

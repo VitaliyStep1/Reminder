@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct ClosestScreenView: View {
+  @StateObject var viewModel: ClosestViewModel
   
   var body: some View {
-    Text("ClosestScreenView")
+    NavigationStack {
+      ZStack {
+        if let noEventsText = viewModel.noEventsText {
+          VStack {
+            Text(noEventsText)
+              .multilineTextAlignment(.center)
+            Button {
+              viewModel.createEventClicked()
+            } label: {
+              Text("Create Event")
+            }
+          }
+        }
+      }
+      .navigationTitle("Closest events")
+    }
   }
 }
