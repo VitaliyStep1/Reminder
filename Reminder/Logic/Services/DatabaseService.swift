@@ -69,7 +69,7 @@ class DatabaseService: DatabaseServiceProtocol {
     request.propertiesToFetch = ["defaultKey"]
     request.predicate = NSPredicate(format: "defaultKey IN %@", defaultKeys)
     let rows = try context.fetch(request)
-    return Set(rows.compactMap { $0["defaultKeys"] as? String })
+    return Set(rows.compactMap { $0["defaultKey"] as? String })
   }
   
 }

@@ -27,7 +27,10 @@ class CategoriesViewModel: ObservableObject {
   func loadCategories() {
     Task {
       let allCategories = await dataService?.takeAllCategories() ?? []
-      categoryEntities = allCategories.map(CategoriesCategoryEntity.init(category:))
+      let categoryEntities = allCategories.map(CategoriesCategoryEntity.init(category:))
+      await MainActor.run {
+        self.categoryEntities = categoryEntities
+      }
     }
   }
 }

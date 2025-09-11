@@ -9,5 +9,5 @@ struct DefaultCategory {
   let defaultKey: String
   var title: String
   let order: Int
-  let isUserCreated: Bool
+  let isUserCreated = false
 }
