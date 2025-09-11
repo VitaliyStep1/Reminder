@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import CoreData
 
 class CategoryViewModel: ObservableObject {
-  let categoryId: Int
+  let categoryId: NSManagedObjectID
   
-  init(categoryId: Int) {
+  @Published var eventsEntity: [CategoryEventEntity] = []
+  @Published var navigationTitle: String = "Events"
+  
+  init(categoryId: NSManagedObjectID) {
     self.categoryId = categoryId
   }
   

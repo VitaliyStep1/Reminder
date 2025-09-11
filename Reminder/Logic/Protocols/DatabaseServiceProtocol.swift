@@ -6,5 +6,6 @@
 //
 
 protocol DatabaseServiceProtocol {
-  
+  func addOrUpdate(defaultCategories: [DefaultCategory]) async throws
+  func fetchAllCategories() async throws -> [Category]
 }

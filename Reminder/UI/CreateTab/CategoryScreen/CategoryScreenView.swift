@@ -11,6 +11,10 @@ struct CategoryScreenView: View {
   @StateObject var viewModel: CategoryViewModel
   
   var body: some View {
-    Text("CategoryScreenView")
+    List {
+      
+    }
+    .navigationTitle(viewModel.navigationTitle)
+    
   }
 }

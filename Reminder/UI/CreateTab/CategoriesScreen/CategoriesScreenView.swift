@@ -9,14 +9,14 @@ import SwiftUI
 
 struct CategoriesScreenView: View {
   @StateObject var viewModel: CategoriesViewModel = .init()
-  @State private var path: [CategoriesCategoryEntity] = []
+  @EnvironmentObject var appDependencies: AppDependencies
   
   var body: some View {
-    NavigationStack(path: $path) {
+    NavigationStack(path: $viewModel.path) {
       List {
         ForEach(viewModel.categoryEntities) { categoryEntity in
           Button {
-            path.append(categoryEntity)
+            viewModel.categoryButtonClicked(categoryEntity)
           } label: {
             HStack {
               Text(categoryEntity.title)
@@ -25,6 +25,9 @@ struct CategoriesScreenView: View {
             }
           }
         }
+      }
+      .task {
+        viewModel.setupDataService(dataService: appDependencies.dataService)
       }
       .navigationTitle(viewModel.navigationTitle)
       .navigationDestination(for: CategoriesCategoryEntity.self) { categoryEntity in

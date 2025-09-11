@@ -6,15 +6,25 @@
 //
 
 class DataService: DataServiceProtocol {
-  func takeAllCategories() -> [Category] {
-    let allCategories: [Category] = [
-      .init(id: 1, title: "Birthdays", order: 1),
-      .init(id: 2, title: "Subscriptions", order: 2),
-      .init(id: 3, title: "Utilities", order: 3),
-      .init(id: 4, title: "Aniversaries", order: 4),
-      .init(id: 5, title: "Other", order: 5),
-    ]
-    return allCategories
+  private var databaseService: DatabaseServiceProtocol
+  private var defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol
+  
+  required init(databaseService: DatabaseServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol) {
+    self.databaseService = databaseService
+    self.defaultCategoriesDataService = defaultCategoriesDataService
+  }
+  
+  
+  public func setupDataAtStart() {
+    Task {
+      let defaultCategories = defaultCategoriesDataService.takeDefaultCategories()
+      try? await databaseService.addOrUpdate(defaultCategories: defaultCategories)
+    }
+  }
+  
+  func takeAllCategories() async -> [Category]? {
+    let categories = try? await databaseService.fetchAllCategories()
+    return categories
   }
   
   func takeAllEvents() -> [Event] {

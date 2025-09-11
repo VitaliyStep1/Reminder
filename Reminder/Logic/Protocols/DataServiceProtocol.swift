@@ -6,6 +6,9 @@
 //
 
 protocol DataServiceProtocol {
-  func takeAllCategories() -> [Category]
+  init(databaseService: DatabaseServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol)
+  func setupDataAtStart()
+  
+  func takeAllCategories() async -> [Category]?
   func takeAllEvents() -> [Event]
 }

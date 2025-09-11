@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import CoreData
 
-struct Event: Identifiable {
-  let id: Int
+struct Event {
   let title: String
   let date: Date
-  let category: Category
+  let comment: String
+  let categoryId: NSManagedObjectID?
 }
