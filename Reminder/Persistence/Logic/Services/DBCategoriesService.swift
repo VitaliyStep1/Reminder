@@ -1,5 +1,5 @@
 //
-//  DatabaseService.swift
+//  DBCategoriesService.swift
 //  Reminder
 //
 //  Created by Vitaliy Stepanenko on 24.08.2025.
@@ -7,7 +7,7 @@
 
 import CoreData
 
-class DatabaseService: DatabaseServiceProtocol {
+class DBCategoriesService: DBCategoriesServiceProtocol {
   private let container: NSPersistentContainer
   private var context: NSManagedObjectContext {
     container.viewContext
@@ -51,13 +51,43 @@ class DatabaseService: DatabaseServiceProtocol {
   }
   
   func fetchAllCategories() async throws -> [Category] {
+    
+    let countDescription = NSExpressionDescription()
+    countDescription.name = "eventCount"
+    countDescription.expression = NSExpression(forFunction: "count:", arguments: [NSExpression(forKeyPath: "category")])
+    countDescription.expressionResultType = .integer64AttributeType
+    
+    let eventsRequest = NSFetchRequest<NSDictionary>(entityName: "EventObject")
+    eventsRequest.resultType = .dictionaryResultType
+    eventsRequest.propertiesToFetch = ["category", countDescription]
+    eventsRequest.propertiesToGroupBy = ["category"]
+    
+    let eventRows = try context.fetch(eventsRequest)
+    var amountDict: [NSManagedObjectID: Int] = [:]
+    for eventRow in eventRows {
+      if let categoryOID = eventRow["category"] as? NSManagedObjectID,
+         let eventCount = eventRow["eventCount"] as? NSNumber {
+        amountDict[categoryOID] = eventCount.intValue
+      }
+    }
+    
     let request = NSFetchRequest<CategoryObject>(entityName: "CategoryObject")
     request.sortDescriptors = [
       NSSortDescriptor(key: "order", ascending: true),
       NSSortDescriptor(key: "title", ascending: true)
     ]
     let rows = try context.fetch(request)
-    return rows.map{ $0.takeCategory() }
+    let categories = rows.map { categoryObject in
+      Category(
+              id: categoryObject.objectID,
+              defaultKey: categoryObject.defaultKey ?? "",
+              title: categoryObject.title ?? "",
+              order: Int(categoryObject.order),
+              isUserCreated: categoryObject.isUserCreated,
+              eventsAmount: amountDict[categoryObject.objectID] ?? 0
+            )
+    }
+    return categories
   }
   
   private func fetchAddedCategoryDefaultKeys(defaultKeys: [String], context: NSManagedObjectContext) throws -> Set<String> {

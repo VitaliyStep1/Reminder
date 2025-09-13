@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import CoreData
 
 struct Event {
+  let id: ObjectId
   let title: String
   let date: Date
   let comment: String
-  let categoryId: NSManagedObjectID?
+  let categoryId: ObjectId?
 }

@@ -6,7 +6,7 @@
 //
 
 struct CategoryEventEntity: Identifiable {
-  let id: Int
+  let id: ObjectId
   let title: String
   let comment: String?
 }

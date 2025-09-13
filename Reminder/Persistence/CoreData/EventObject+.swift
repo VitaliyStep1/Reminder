@@ -8,13 +8,13 @@
 import Foundation
 
 
-extension EventObject {
-  func takeEvent() -> Event {
-    Event(
-      title: self.title ?? "",
-      date: self.date ?? Date(),
-      comment: self.comment ?? "",
-      categoryId: self.category?.objectID
-    )
-  }
-}
+//extension EventObject {
+//  func takeEvent() -> Event {
+//    Event(
+//      title: self.title ?? "",
+//      date: self.date ?? Date(),
+//      comment: self.comment ?? "",
+//      categoryId: self.category?.objectID
+//    )
+//  }
+//}

@@ -8,14 +8,15 @@
 import Foundation
 
 
-extension CategoryObject {
-  func takeCategory() -> Category {
-    Category(
-      id: self.objectID,
-      defaultKey: self.defaultKey ?? "",
-      title: self.title ?? "",
-      order: Int(self.order),
-      isUserCreated: self.isUserCreated
-    )
-  }
-}
+//extension CategoryObject {
+//  func takeCategory() -> Category {
+//    Category(
+//      id: self.objectID,
+//      defaultKey: self.defaultKey ?? "",
+//      title: self.title ?? "",
+//      order: Int(self.order),
+//      isUserCreated: self.isUserCreated,
+//      eventsAmount:
+//    )
+//  }
+//}
