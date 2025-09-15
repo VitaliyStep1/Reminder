@@ -11,6 +11,8 @@ struct CategoryScreenView: View {
   @EnvironmentObject var appDependencies: AppDependencies
   @StateObject var viewModel: CategoryViewModel
   
+  @State var isCreateEventViewVisible = false
+  
   var body: some View {
     ZStack {
       VStack {
@@ -37,8 +39,10 @@ struct CategoryScreenView: View {
         .padding(.bottom, 10)
         
       }
-      if viewModel.createEventViewIsPresented {
-        CategoryCreateEventView(title: $viewModel.createEventViewTitle, comment: $viewModel.createEventViewComment, createButtonAction: viewModel.createEventViewCreateButtonTapped)
+      if isCreateEventViewVisible {
+        CategoryCreateEventView(title: $viewModel.createEventViewTitle, comment: $viewModel.createEventViewComment, createButtonAction: viewModel.createEventViewCreateButtonTapped, cancelButtonAction: viewModel.createEventViewCancelButtonTapped)
+          .transition(.opacity)
+          .zIndex(1)
       }
     }
     .onAppear {
@@ -48,6 +52,17 @@ struct CategoryScreenView: View {
       viewModel.setup(dataService: appDependencies.dataService)
       viewModel.viewTaskCalled()
     }
+    .onReceive(viewModel.showCreateEventViewSubject, perform: {
+      withAnimation {
+        isCreateEventViewVisible = true
+      }
+    })
+    .onReceive(viewModel.hideCreateEventViewSubject, perform: {
+      withAnimation {
+        isCreateEventViewVisible = false
+      }
+    })
+    .animation(.easeInOut, value: isCreateEventViewVisible)
     .navigationTitle(viewModel.navigationTitle)
     
   }

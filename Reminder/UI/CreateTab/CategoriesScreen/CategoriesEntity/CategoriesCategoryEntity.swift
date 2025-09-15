@@ -5,10 +5,8 @@
 //  Created by Vitaliy Stepanenko on 23.08.2025.
 //
 
-import CoreData
-
 struct CategoriesCategoryEntity: Identifiable, Hashable {
-  let id: NSManagedObjectID
+  let id: ObjectId
   let title: String
   let eventsAmount: String
   

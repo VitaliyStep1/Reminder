@@ -5,7 +5,6 @@
 //  Created by Vitaliy Stepanenko on 24.08.2025.
 //
 import Foundation
-import CoreData
 
 protocol DataServiceProtocol {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol)

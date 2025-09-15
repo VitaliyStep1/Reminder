@@ -12,6 +12,7 @@ struct CategoryCreateEventView: View {
   @Binding var comment: String
   
   var createButtonAction: (() -> Void)?
+  var cancelButtonAction: (() -> Void)?
   
   var body: some View {
     ZStack {
@@ -27,6 +28,18 @@ struct CategoryCreateEventView: View {
             createButtonAction?()
           }) {
             Text("Create")
+              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+              .background(Color.blue)
+              .foregroundStyle(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+          .padding(.horizontal, 10)
+          .padding(.bottom, 10)
+          
+          Button(action: {
+            cancelButtonAction?()
+          }) {
+            Text("Cancel")
               .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
               .background(Color.blue)
               .foregroundStyle(.white)

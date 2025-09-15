@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreData
+import Combine
 
 class CategoryViewModel: ObservableObject {
   var dataService: DataServiceProtocol?
@@ -15,9 +15,11 @@ class CategoryViewModel: ObservableObject {
   @Published var eventEntities: [CategoryEventEntity] = []
   @Published var navigationTitle: String = "Events"
   
-  @Published var createEventViewIsPresented = false
   var createEventViewTitle = ""
   var createEventViewComment = ""
+  
+  let showCreateEventViewSubject = PassthroughSubject<Void, Never>()
+  let hideCreateEventViewSubject = PassthroughSubject<Void, Never>()
   
   init(categoryId: ObjectId) {
     self.categoryId = categoryId
@@ -44,12 +46,22 @@ class CategoryViewModel: ObservableObject {
       showCreateEventViewTitleShouldBeNotNilAlert()
       return
     }
-    createEventViewIsPresented = false
+    hideCreateEventView()
     createEvent()
   }
   
+  func createEventViewCancelButtonTapped() {
+    createEventViewTitle = ""
+    createEventViewComment = ""
+    hideCreateEventView()
+  }
+  
   private func showCreateEventView() {
-    createEventViewIsPresented = true
+    showCreateEventViewSubject.send()
+  }
+  
+  private func hideCreateEventView() {
+    hideCreateEventViewSubject.send()
   }
   
   private func createEvent() {
