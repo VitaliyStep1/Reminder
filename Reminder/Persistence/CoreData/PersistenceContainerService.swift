@@ -1,19 +1,16 @@
 //
-//  PersistentService.swift
+//  PersistenceContainerService.swift
 //  Reminder
 //
-//  Created by Vitaliy Stepanenko on 27.08.2025.
+//  Created by Vitaliy Stepanenko on 15.09.2025.
 //
 
 import CoreData
 
-class PersistenceService {
-  static let shared = PersistenceService()
+final class PersistenceContainerService {
   
-  let container: NSPersistentContainer
-  
-  init(inMemory: Bool = false) {
-    container = NSPersistentContainer(name: "Model") // matches .xcdatamodeld filename
+  func createPersistentContainer(inMemory: Bool = false) -> NSPersistentContainer {
+    let container = NSPersistentContainer(name: "Model")
     if inMemory {
       let description = container.persistentStoreDescriptions.first
       description?.url = URL(fileURLWithPath: "/dev/null")
@@ -26,5 +23,6 @@ class PersistenceService {
     }
     container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     container.viewContext.automaticallyMergesChangesFromParent = true
+    return container
   }
 }

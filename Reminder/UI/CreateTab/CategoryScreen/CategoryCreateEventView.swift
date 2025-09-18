@@ -48,7 +48,7 @@ struct CategoryCreateEventView: View {
           .padding(.horizontal, 10)
           .padding(.bottom, 10)
         }
-        .background(Color.orange)
+        .background(Color.yellow)
         .frame(width: geometry.size.width * 0.5)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
       }
@@ -56,6 +56,11 @@ struct CategoryCreateEventView: View {
   }
 }
 
-//#Preview {
-//  CategoryCreateEventView(title: .constant("Title 1"), comment: .constant("Comment 1"), createButtonAction: {})
-//}
+#Preview {
+  CategoryCreateEventView(
+    title: .constant("Sample Title"),
+    comment: .constant("Sample Comment"),
+    createButtonAction: { print("Create tapped") },
+    cancelButtonAction: { print("Cancel tapped") }
+  )
+}

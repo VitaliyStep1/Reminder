@@ -13,6 +13,6 @@ struct CategoriesCategoryEntity: Identifiable, Hashable {
   init(category: Category) {
     self.id = category.id
     self.title = category.title
-    self.eventsAmount = "0"
+    self.eventsAmount = String(category.eventsAmount)
   }
 }

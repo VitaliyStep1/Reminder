@@ -33,5 +33,25 @@ struct StartScreenView: View {
 }
 
 #Preview {
-  StartScreenView()
+  StartScreenPreview()
+}
+
+@MainActor
+private struct StartScreenPreview: View {
+  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
+  
+  var body: some View {
+    Group {
+      if let appDependencies = appDependenciesLoader.instance {
+        StartScreenView()
+          .environmentObject(AppConfiguration.preview)
+          .environmentObject(appDependencies)
+      } else {
+        ProgressView("Loading appDependencies...")
+      }
+    }
+    .task {
+      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
+    }
+  }
 }

@@ -8,4 +8,5 @@
 protocol DBCategoriesServiceProtocol {
   func addOrUpdate(defaultCategories: [DefaultCategory]) async throws
   func fetchAllCategories() async throws -> [Category]
+  func takeFirstCategoryObjectId() async throws -> ObjectId?
 }

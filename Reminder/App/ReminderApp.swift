@@ -6,17 +6,41 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 struct ReminderApp: App {
   @StateObject var appConfiguration = AppConfiguration()
-  @StateObject var appDependencies = AppDependencies()
+  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
   
   var body: some Scene {
     WindowGroup {
-      StartScreenView()
+      Group {
+        if let appDependencies = appDependenciesLoader.instance {
+          StartScreenView()
+            .environmentObject(appConfiguration)
+            .environmentObject(appDependencies)
+        } else {
+          // TODO: Splash screen should appear here!
+          ProgressView("Loading…")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+      }
+      .task {
+        await appDependenciesLoader.load()
+      }
     }
-    .environmentObject(appConfiguration)
-    .environmentObject(appDependencies)
+  }
+}
+
+@MainActor
+final class AppDependenciesLoader: ObservableObject {
+  @Published var instance: AppDependencies?
+  
+  func load() async {
+    guard instance == nil else {
+      return
+    }
+    instance = await AppDependencies.make()
   }
 }
