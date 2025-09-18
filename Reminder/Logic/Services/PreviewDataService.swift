@@ -11,6 +11,10 @@ final class PreviewDataService: PreviewDataServiceProtocol {
   private var dBCategoriesService: DBCategoriesServiceProtocol
   private var dBEventsService: DBEventsServiceProtocol
   
+  private var eventForPreviewData: (title: String, comment: String) {
+    (title: "Event 1", comment: "Comment 1")
+  }
+  
   required init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService: DBEventsServiceProtocol) {
     self.dBCategoriesService = dBCategoriesService
     self.dBEventsService = dBEventsService
@@ -21,12 +25,25 @@ final class PreviewDataService: PreviewDataServiceProtocol {
   }
   
   func addDataForPreview() async throws {
-    try await createEvent()
+    try await createEventIfNecessary()
   }
   
-  private func createEvent() async throws {
+  private func createEventIfNecessary() async throws {
+    let eventData = eventForPreviewData
+    let eventTitle = eventData.title
+    let eventComment = eventData.comment
+    let eventDate = Date()
+    
     if let categoryId = try? await dBCategoriesService.takeFirstCategoryObjectId() {
-      try await dBEventsService.createEvent(categoryId: categoryId, title: "Event 1", date: Date(), comment: "Comment 1")
+      let isNecessaryToCreateEvent = try await !isEventsExist(categoryId: categoryId)
+      if isNecessaryToCreateEvent {
+        try await dBEventsService.createEvent(categoryId: categoryId, title: eventTitle, date: eventDate, comment: eventComment)
+      }
     }
+  }
+  
+  private func isEventsExist(categoryId: ObjectId) async throws -> Bool {
+    let events = try await dBEventsService.fetchEvents(categoryId: categoryId)
+    return !events.isEmpty
   }
 }
