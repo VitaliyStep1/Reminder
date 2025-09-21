@@ -99,6 +99,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04AE22512E59F51400D29776 /* Build configuration list for PBXNativeTarget "Reminder" */;
 			buildPhases = (
+				04696D152E8026B500835885 /* SwiftGen Run Script */,
 				04AE222C2E59F51300D29776 /* Sources */,
 				04AE222D2E59F51300D29776 /* Frameworks */,
 				04AE222E2E59F51300D29776 /* Resources */,
@@ -230,6 +231,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04696D152E8026B500835885 /* SwiftGen Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Reminder/SwiftGen/swiftgen.yml",
+				"$(SRCROOT)/Reminder/Images.xcassets",
+			);
+			name = "SwiftGen Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Reminder/SwiftGen/Generated/ImagesSwiftGen.swift",
+				"${SRCROOT}/Reminder/SwiftGen/template.stencil",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nset -euo pipefail\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\n# SCRIPT_INPUT_FILE_0 → swiftgen.yml (from Input Files)\nCONFIG_PATH=\"${SCRIPT_INPUT_FILE_0}\"\n\nif command -v swiftgen >/dev/null 2>&1; then\n  swiftgen config run --config \"$CONFIG_PATH\"\nelse\n  echo \"error: SwiftGen not installed. See https://github.com/SwiftGen/SwiftGen\"\n  exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04AE222C2E59F51300D29776 /* Sources */ = {
