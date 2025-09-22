@@ -33,21 +33,25 @@ struct CategoryCreateEventView: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
         }
         
-        Button("Create") {
+        Button(action: {
           createButtonAction?()
+        }) {
+          Text("Create")
+            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+            .background(Color.blue)
+            .foregroundStyle(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .frame(maxWidth: .infinity, minHeight: 44)
-        .background(Color.blue)
-        .foregroundColor(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
         
-        Button("Cancel") {
+        Button(action: {
           cancelButtonAction?()
+        }) {
+          Text("Cancel")
+            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+            .background(Color.gray)
+            .foregroundStyle(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .frame(maxWidth: .infinity, minHeight: 44)
-        .background(Color.gray)
-        .foregroundColor(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
       }
       .padding()
       .frame(maxWidth: 400)
