@@ -40,7 +40,7 @@ struct CategoryScreenView: View {
         
       }
       if isCreateEventViewVisible {
-        CategoryCreateEventView(title: $viewModel.createEventViewTitle, comment: $viewModel.createEventViewComment, createButtonAction: viewModel.createEventViewCreateButtonTapped, cancelButtonAction: viewModel.createEventViewCancelButtonTapped)
+        CategoryCreateEventView(title: $viewModel.createEventViewTitle, date: $viewModel.createEventViewDate, comment: $viewModel.createEventViewComment, createButtonAction: viewModel.createEventViewCreateButtonTapped, cancelButtonAction: viewModel.createEventViewCancelButtonTapped)
           .transition(.opacity)
           .zIndex(1)
       }

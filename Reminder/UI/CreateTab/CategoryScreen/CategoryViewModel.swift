@@ -16,6 +16,7 @@ class CategoryViewModel: ObservableObject {
   @Published var navigationTitle: String = "Events"
   
   var createEventViewTitle = ""
+  var createEventViewDate = Date()
   var createEventViewComment = ""
   
   let showCreateEventViewSubject = PassthroughSubject<Void, Never>()
@@ -67,7 +68,7 @@ class CategoryViewModel: ObservableObject {
   private func createEvent() {
     let title = createEventViewTitle
     let comment = createEventViewComment
-    let date = Date()
+    let date = createEventViewDate
     Task {
       do {
         try await self.dataService?.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)

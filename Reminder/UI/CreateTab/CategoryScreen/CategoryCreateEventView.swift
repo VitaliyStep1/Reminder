@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryCreateEventView: View {
   @Binding var title: String
+  @Binding var date: Date
   @Binding var comment: String
   
   var createButtonAction: (() -> Void)?
@@ -27,6 +28,14 @@ struct CategoryCreateEventView: View {
           Text("Title:")
           TextField("Title", text: $title)
             .textFieldStyle(RoundedBorderTextFieldStyle())
+          
+          HStack {
+            Spacer()
+            DatePicker("", selection: $date, displayedComponents: [.date])
+              .datePickerStyle(.wheel)
+              .labelsHidden()
+            Spacer()
+          }
           
           Text("Comment:")
           TextField("Comment", text: $comment)
@@ -65,6 +74,7 @@ struct CategoryCreateEventView: View {
 #Preview {
   CategoryCreateEventView(
     title: .constant("Sample Title"),
+    date: .constant(Date()),
     comment: .constant("Sample Comment"),
     createButtonAction: { print("Create tapped") },
     cancelButtonAction: { print("Cancel tapped") }
