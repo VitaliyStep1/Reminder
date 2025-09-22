@@ -8,5 +8,6 @@
 struct CategoryEventEntity: Identifiable {
   let id: ObjectId
   let title: String
+  let date: String
   let comment: String?
 }

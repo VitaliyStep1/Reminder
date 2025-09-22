@@ -103,8 +103,9 @@ class CategoryViewModel: ObservableObject {
     Task {
       do {
         let events = try await dataService.fetchEvents(categoryId: categoryId)
-        let eventEntities = events.map { event in
-          CategoryEventEntity(id: event.id, title: event.title, comment: event.comment)
+        let eventEntities: [CategoryEventEntity] = events.map { event in
+          let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
+          return CategoryEventEntity(id: event.id, title: event.title, date: date, comment: event.comment)
         }
         
         await MainActor.run {

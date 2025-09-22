@@ -18,11 +18,22 @@ struct CategoryScreenView: View {
       VStack {
         List {
           ForEach(viewModel.eventEntities) { eventEntity in
-            HStack {
-              Text(eventEntity.title)
-              Spacer()
-              Text(eventEntity.comment ?? "")
+            VStack(alignment: .leading, spacing: 4) {
+              HStack {
+                Text(eventEntity.title)
+                  .font(.headline)
+                Spacer()
+                Text(eventEntity.date)
+                  .font(.subheadline)
+                  .foregroundStyle(.secondary)
+              }
+              if let comment = eventEntity.comment, !comment.isEmpty {
+                Text(comment)
+                  .font(.subheadline)
+                  .foregroundStyle(.secondary)
+              }
             }
+            .padding(.vertical, 4)
           }
         }
         Spacer()
