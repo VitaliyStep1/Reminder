@@ -16,42 +16,44 @@ struct CategoryCreateEventView: View {
   
   var body: some View {
     ZStack {
-      Color(.white)
-      GeometryReader { geometry in
-        VStack {
-          Text("Create Event")
+      Color(.systemBackground)
+        .ignoresSafeArea()
+      
+      VStack(spacing: 16) {
+        Text("Create Event")
+          .font(.headline)
+        
+        VStack(alignment: .leading, spacing: 8) {
           Text("Title:")
           TextField("Title", text: $title)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+          
           Text("Comment:")
           TextField("Comment", text: $comment)
-          Button(action: {
-            createButtonAction?()
-          }) {
-            Text("Create")
-              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-              .background(Color.blue)
-              .foregroundStyle(.white)
-              .clipShape(RoundedRectangle(cornerRadius: 10))
-          }
-          .padding(.horizontal, 10)
-          .padding(.bottom, 10)
-          
-          Button(action: {
-            cancelButtonAction?()
-          }) {
-            Text("Cancel")
-              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-              .background(Color.blue)
-              .foregroundStyle(.white)
-              .clipShape(RoundedRectangle(cornerRadius: 10))
-          }
-          .padding(.horizontal, 10)
-          .padding(.bottom, 10)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
         }
-        .background(Color.yellow)
-        .frame(width: geometry.size.width * 0.5)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        
+        Button("Create") {
+          createButtonAction?()
+        }
+        .frame(maxWidth: .infinity, minHeight: 44)
+        .background(Color.blue)
+        .foregroundColor(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        
+        Button("Cancel") {
+          cancelButtonAction?()
+        }
+        .frame(maxWidth: .infinity, minHeight: 44)
+        .background(Color.gray)
+        .foregroundColor(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
       }
+      .padding()
+      .frame(maxWidth: 400)
+      .background(Color(UIColor.secondarySystemBackground))
+      .clipShape(RoundedRectangle(cornerRadius: 16))
+      .shadow(radius: 10)
     }
   }
 }
