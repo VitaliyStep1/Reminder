@@ -64,6 +64,7 @@ struct CategoryScreenView: View {
     })
     .animation(.easeInOut, value: isCreateEventViewVisible)
     .navigationTitle(viewModel.navigationTitle)
+    .navigationBarTitleDisplayMode(.large)
     
   }
 }

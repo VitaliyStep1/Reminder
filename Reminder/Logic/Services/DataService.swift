@@ -38,4 +38,9 @@ class DataService: DataServiceProtocol {
     let events = try await dBEventsService.fetchEvents(categoryId: categoryId)
     return events
   }
+  
+  func fetchCategory(categoryId: ObjectId) async throws -> Category? {
+    let category = try? await dBCategoriesService.fetchCategory(categoryId: categoryId)
+    return category
+  }
 }

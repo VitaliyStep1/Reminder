@@ -52,25 +52,6 @@ class DBCategoriesService: DBCategoriesServiceProtocol {
   
   func fetchAllCategories() async throws -> [Category] {
     try await container.performBackgroundTask { context in
-      let countDescription = NSExpressionDescription()
-      countDescription.name = "eventCount"
-      countDescription.expression = NSExpression(forFunction: "count:", arguments: [NSExpression(forKeyPath: "category")])
-      countDescription.expressionResultType = .integer64AttributeType
-      
-      let eventsRequest = NSFetchRequest<NSDictionary>(entityName: "EventObject")
-      eventsRequest.resultType = .dictionaryResultType
-      eventsRequest.propertiesToFetch = ["category", countDescription]
-      eventsRequest.propertiesToGroupBy = ["category"]
-      
-      let eventRows = try context.fetch(eventsRequest)
-      var amountDict: [NSManagedObjectID: Int] = [:]
-      for eventRow in eventRows {
-        if let categoryObjectID = eventRow["category"] as? NSManagedObjectID,
-           let eventCount = eventRow["eventCount"] as? NSNumber {
-          amountDict[categoryObjectID] = eventCount.intValue
-        }
-      }
-      
       let request = NSFetchRequest<CategoryObject>(entityName: "CategoryObject")
       request.sortDescriptors = [
         NSSortDescriptor(key: "order", ascending: true),
@@ -80,17 +61,22 @@ class DBCategoriesService: DBCategoriesServiceProtocol {
       request.returnsObjectsAsFaults = false
       
       let rows = try context.fetch(request)
-      let categories = rows.map { categoryObject in
-        Category(
+      
+      return try rows.map { categoryObject in
+        let request: NSFetchRequest<EventObject> = EventObject.fetchRequest()
+        request.predicate = NSPredicate(format: "category == %@", categoryObject)
+        request.includesSubentities = false
+        let eventCount = try context.count(for: request)
+        
+        return Category(
           id: categoryObject.objectID,
           defaultKey: categoryObject.defaultKey ?? "",
           title: categoryObject.title ?? "",
           order: Int(categoryObject.order),
           isUserCreated: categoryObject.isUserCreated,
-          eventsAmount: amountDict[categoryObject.objectID] ?? 0
+          eventsAmount: eventCount
         )
       }
-      return categories
     }
   }
   
@@ -113,6 +99,30 @@ class DBCategoriesService: DBCategoriesServiceProtocol {
       request.fetchLimit = 1
       request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
       return try context.fetch(request).first?.objectID
+    }
+  }
+  
+  func fetchCategory(categoryId: ObjectId) async throws -> Category? {
+    try await container.performBackgroundTask { context in
+    
+      guard let categoryObject = try? context.existingObject(with: categoryId) as? CategoryObject else {
+        return nil
+      }
+      
+      let request: NSFetchRequest<EventObject> = EventObject.fetchRequest()
+      request.predicate = NSPredicate(format: "category == %@", categoryObject)
+      request.includesSubentities = false
+      
+      let count = try context.count(for: request)
+      
+      return Category(
+        id: categoryObject.objectID,
+        defaultKey: categoryObject.defaultKey ?? "",
+        title: categoryObject.title ?? "",
+        order: Int(categoryObject.order),
+        isUserCreated: categoryObject.isUserCreated,
+        eventsAmount: count
+      )
     }
   }
 }

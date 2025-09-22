@@ -15,4 +15,5 @@ protocol DataServiceProtocol {
   func fetchEvents(categoryId: ObjectId) async throws -> [Event]
   
   func takeAllCategories() async -> [Category]?
+  func fetchCategory(categoryId: ObjectId) async throws -> Category?
 }

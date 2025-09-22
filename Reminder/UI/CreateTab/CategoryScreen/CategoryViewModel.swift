@@ -13,7 +13,7 @@ class CategoryViewModel: ObservableObject {
   let categoryId: ObjectId
   
   @Published var eventEntities: [CategoryEventEntity] = []
-  @Published var navigationTitle: String = "Events"
+  @Published var navigationTitle: String = ""
   
   var createEventViewTitle = ""
   var createEventViewDate = Date()
@@ -28,14 +28,19 @@ class CategoryViewModel: ObservableObject {
   
   func setup(dataService: DataServiceProtocol) {
     self.dataService = dataService
+    
+    updateEventList()
+    updateNavigationTitle()
   }
   
   func viewAppeared() {
     updateEventList()
+    updateNavigationTitle()
   }
   
   func viewTaskCalled() {
     updateEventList()
+    updateNavigationTitle()
   }
   
   func addButtonTapped() {
@@ -108,6 +113,18 @@ class CategoryViewModel: ObservableObject {
       }
       catch {
         showEventsWereNotFetchedAlert()
+      }
+    }
+  }
+  
+  private func updateNavigationTitle() {
+    guard let dataService else {
+      return
+    }
+    Task {
+      let category = try? await dataService.fetchCategory(categoryId: categoryId)
+      await MainActor.run {
+        self.navigationTitle = category?.title ?? ""
       }
     }
   }
