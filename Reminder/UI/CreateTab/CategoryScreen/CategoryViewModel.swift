@@ -62,6 +62,11 @@ class CategoryViewModel: ObservableObject {
     hideCreateEventView()
   }
   
+  func eventTapped(eventId: ObjectId) {
+    print("Event tapped with id: \(eventId)")
+    showEditEventView()
+  }
+  
   private func showCreateEventView() {
     showCreateEventViewSubject.send()
   }
@@ -128,6 +133,10 @@ class CategoryViewModel: ObservableObject {
         self.navigationTitle = category?.title ?? ""
       }
     }
+  }
+  
+  private func showEditEventView() {
+    
   }
   
   private func showEventWasNotCreatedAlert() {

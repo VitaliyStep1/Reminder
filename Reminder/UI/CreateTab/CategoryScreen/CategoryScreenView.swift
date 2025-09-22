@@ -18,22 +18,14 @@ struct CategoryScreenView: View {
       VStack {
         List {
           ForEach(viewModel.eventEntities) { eventEntity in
-            VStack(alignment: .leading, spacing: 4) {
-              HStack {
-                Text(eventEntity.title)
-                  .font(.headline)
-                Spacer()
-                Text(eventEntity.date)
-                  .font(.subheadline)
-                  .foregroundStyle(.secondary)
-              }
-              if let comment = eventEntity.comment, !comment.isEmpty {
-                Text(comment)
-                  .font(.subheadline)
-                  .foregroundStyle(.secondary)
-              }
+            Button {
+              viewModel.eventTapped(eventId: eventEntity.id)
+            } label: {
+              CategoryEventCellView(title: eventEntity.title, dateString: eventEntity.date, comment: eventEntity.comment)
+                .padding(.vertical, 4)
             }
-            .padding(.vertical, 4)
+            .buttonStyle(.plain)
+            .listRowInsets(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
           }
         }
         Spacer()
