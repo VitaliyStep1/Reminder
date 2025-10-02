@@ -53,7 +53,7 @@ struct CategoryEventView: View {
           .foregroundStyle(.white)
           .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .disabled(viewModel.isSaving)
+        .disabled(viewModel.isSaving || viewModel.isDeleting)
         
         Button(action: {
           viewModel.cancelButtonTapped()
@@ -64,6 +64,7 @@ struct CategoryEventView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .disabled(viewModel.isSaving || viewModel.isDeleting)
         
         if viewModel.isDeleteButtonVisible {
           Button(action: {
@@ -82,6 +83,7 @@ struct CategoryEventView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
           }
+          .disabled(viewModel.isSaving || viewModel.isDeleting)
         }
       }
       .padding()
