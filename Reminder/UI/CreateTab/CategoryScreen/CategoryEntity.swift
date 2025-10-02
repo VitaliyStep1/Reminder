@@ -6,7 +6,10 @@
 //
 
 enum CategoryEntity {
-  enum EditEventError: Error {
-    
+  struct Event: Identifiable {
+    let id: ObjectId
+    let title: String
+    let date: String
+    let comment: String?
   }
 }

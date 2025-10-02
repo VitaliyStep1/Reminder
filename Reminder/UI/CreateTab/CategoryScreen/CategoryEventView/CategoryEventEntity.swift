@@ -6,14 +6,7 @@
 //
 
 enum CategoryEventEntity {
-  enum EditEventError: Error {
-    case noEventToEdit
-  }
-  
-  struct Event: Identifiable {
-    let id: ObjectId
-    let title: String
-    let date: String
-    let comment: String?
+  enum CreateEventError: Error {
+    case titleShouldBeNotEmpty
   }
 }

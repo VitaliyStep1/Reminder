@@ -123,6 +123,9 @@ class CategoryEventViewModel: ObservableObject {
     let title = self.title
     let comment = self.comment
     let date = self.date
+    guard !title.isEmpty else {
+      throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
+    }
     try await self.dataService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
   }
   
@@ -131,12 +134,6 @@ class CategoryEventViewModel: ObservableObject {
     let comment = self.comment
     let date = self.date
     try await self.dataService.editEvent(eventId: eventId, title: title, date: date, comment: comment)
-  }
-  
-  private func eventWasCreatedSuccessfully() {
-//    createEventViewTitle = ""
-//    createEventViewComment = ""
-//    updateEventList()
   }
   
   private func showEventWasNotCreatedAlert() {

@@ -12,7 +12,7 @@ class CategoryViewModel: ObservableObject {
   var dataService: DataServiceProtocol?
   let categoryId: ObjectId
   
-  @Published var entityEvents: [CategoryEventEntity.Event] = []
+  @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
   
   var createEventViewTitle = ""
@@ -46,33 +46,15 @@ class CategoryViewModel: ObservableObject {
     showCreateEventView()
   }
   
-//  func createEventViewCreateButtonTapped() {
-//    guard !createEventViewTitle.isEmpty else {
-//      showCreateEventViewTitleShouldBeNotNilAlert()
-//      return
-//    }
-//    hideCreateEventView()
-//    createEvent()
-//  }
-//  
-//  func createEventViewCancelButtonTapped() {
-//    createEventViewTitle = ""
-//    createEventViewComment = ""
-//    hideCreateEventView()
-//  }
-  
   func eventTapped(eventId: ObjectId) {
-    print("Event tapped with id: \(eventId)")
     showEditEventView(eventId: eventId)
   }
   
   func categoryEventWasUpdated() {
-    print("Category event was updated")
     updateEventList()
   }
   
   func closeViewWasCalled() {
-    print("Close view was called")
     hideCreateEventView()
   }
   
@@ -84,32 +66,6 @@ class CategoryViewModel: ObservableObject {
     eventViewSubject.send(.notVisible)
   }
   
-//  private func createEvent() {
-//    let title = createEventViewTitle
-//    let comment = createEventViewComment
-//    let date = createEventViewDate
-//    Task {
-//      do {
-//        try await self.dataService?.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
-//        await MainActor.run {
-//          eventWasCreatedSuccessfully()
-//        }
-//      }
-//      catch {
-//        print(error.localizedDescription)
-//        await MainActor.run {
-//          showEventWasNotCreatedAlert()
-//        }
-//      }
-//    }
-//  }
-  
-  private func eventWasCreatedSuccessfully() {
-    createEventViewTitle = ""
-    createEventViewComment = ""
-    updateEventList()
-  }
-  
   private func updateEventList() {
     guard let dataService else {
       return
@@ -117,9 +73,9 @@ class CategoryViewModel: ObservableObject {
     Task {
       do {
         let events = try await dataService.fetchEvents(categoryId: categoryId)
-        let entityEvents: [CategoryEventEntity.Event] = events.map { event in
+        let entityEvents: [CategoryEntity.Event] = events.map { event in
           let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
-          return CategoryEventEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
+          return CategoryEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
         }
         
         await MainActor.run {
@@ -148,15 +104,7 @@ class CategoryViewModel: ObservableObject {
     eventViewSubject.send(.edit(eventId: eventId))
   }
   
-  private func showEventWasNotCreatedAlert() {
-    
-  }
-  
   private func showEventsWereNotFetchedAlert() {
-    
-  }
-  
-  private func showCreateEventViewTitleShouldBeNotNilAlert() {
     
   }
 }
