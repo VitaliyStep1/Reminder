@@ -44,7 +44,7 @@ private struct StartScreenPreview: View {
     Group {
       if let appDependencies = appDependenciesLoader.instance {
         StartScreenView()
-          .environmentObject(AppConfiguration.preview)
+          .environmentObject(AppConfiguration.previewAppConfiguration)
           .environmentObject(appDependencies)
       } else {
         ProgressView("Loading appDependencies...")

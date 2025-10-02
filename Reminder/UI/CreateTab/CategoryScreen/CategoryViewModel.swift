@@ -12,15 +12,14 @@ class CategoryViewModel: ObservableObject {
   var dataService: DataServiceProtocol?
   let categoryId: ObjectId
   
-  @Published var eventEntities: [CategoryEventEntity] = []
+  @Published var entityEvents: [CategoryEventEntity.Event] = []
   @Published var navigationTitle: String = ""
   
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
   
-  let showCreateEventViewSubject = PassthroughSubject<Void, Never>()
-  let hideCreateEventViewSubject = PassthroughSubject<Void, Never>()
+  let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
   
   init(categoryId: ObjectId) {
     self.categoryId = categoryId
@@ -47,53 +46,63 @@ class CategoryViewModel: ObservableObject {
     showCreateEventView()
   }
   
-  func createEventViewCreateButtonTapped() {
-    guard !createEventViewTitle.isEmpty else {
-      showCreateEventViewTitleShouldBeNotNilAlert()
-      return
-    }
-    hideCreateEventView()
-    createEvent()
-  }
-  
-  func createEventViewCancelButtonTapped() {
-    createEventViewTitle = ""
-    createEventViewComment = ""
-    hideCreateEventView()
-  }
+//  func createEventViewCreateButtonTapped() {
+//    guard !createEventViewTitle.isEmpty else {
+//      showCreateEventViewTitleShouldBeNotNilAlert()
+//      return
+//    }
+//    hideCreateEventView()
+//    createEvent()
+//  }
+//  
+//  func createEventViewCancelButtonTapped() {
+//    createEventViewTitle = ""
+//    createEventViewComment = ""
+//    hideCreateEventView()
+//  }
   
   func eventTapped(eventId: ObjectId) {
     print("Event tapped with id: \(eventId)")
-    showEditEventView()
+    showEditEventView(eventId: eventId)
+  }
+  
+  func categoryEventWasUpdated() {
+    print("Category event was updated")
+    updateEventList()
+  }
+  
+  func closeViewWasCalled() {
+    print("Close view was called")
+    hideCreateEventView()
   }
   
   private func showCreateEventView() {
-    showCreateEventViewSubject.send()
+    eventViewSubject.send(.create(categoryId: categoryId))
   }
   
   private func hideCreateEventView() {
-    hideCreateEventViewSubject.send()
+    eventViewSubject.send(.notVisible)
   }
   
-  private func createEvent() {
-    let title = createEventViewTitle
-    let comment = createEventViewComment
-    let date = createEventViewDate
-    Task {
-      do {
-        try await self.dataService?.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
-        await MainActor.run {
-          eventWasCreatedSuccessfully()
-        }
-      }
-      catch {
-        print(error.localizedDescription)
-        await MainActor.run {
-          showEventWasNotCreatedAlert()
-        }
-      }
-    }
-  }
+//  private func createEvent() {
+//    let title = createEventViewTitle
+//    let comment = createEventViewComment
+//    let date = createEventViewDate
+//    Task {
+//      do {
+//        try await self.dataService?.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
+//        await MainActor.run {
+//          eventWasCreatedSuccessfully()
+//        }
+//      }
+//      catch {
+//        print(error.localizedDescription)
+//        await MainActor.run {
+//          showEventWasNotCreatedAlert()
+//        }
+//      }
+//    }
+//  }
   
   private func eventWasCreatedSuccessfully() {
     createEventViewTitle = ""
@@ -108,13 +117,13 @@ class CategoryViewModel: ObservableObject {
     Task {
       do {
         let events = try await dataService.fetchEvents(categoryId: categoryId)
-        let eventEntities: [CategoryEventEntity] = events.map { event in
+        let entityEvents: [CategoryEventEntity.Event] = events.map { event in
           let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
-          return CategoryEventEntity(id: event.id, title: event.title, date: date, comment: event.comment)
+          return CategoryEventEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
         }
         
         await MainActor.run {
-          self.eventEntities = eventEntities
+          self.entityEvents = entityEvents
         }
       }
       catch {
@@ -135,8 +144,8 @@ class CategoryViewModel: ObservableObject {
     }
   }
   
-  private func showEditEventView() {
-    
+  private func showEditEventView(eventId: ObjectId) {
+    eventViewSubject.send(.edit(eventId: eventId))
   }
   
   private func showEventWasNotCreatedAlert() {

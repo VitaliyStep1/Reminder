@@ -33,14 +33,4 @@ struct ReminderApp: App {
   }
 }
 
-@MainActor
-final class AppDependenciesLoader: ObservableObject {
-  @Published var instance: AppDependencies?
-  
-  func load() async {
-    guard instance == nil else {
-      return
-    }
-    instance = await AppDependencies.make()
-  }
-}
+

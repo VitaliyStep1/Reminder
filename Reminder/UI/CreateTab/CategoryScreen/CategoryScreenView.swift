@@ -11,13 +11,13 @@ struct CategoryScreenView: View {
   @EnvironmentObject var appDependencies: AppDependencies
   @StateObject var viewModel: CategoryViewModel
   
-  @State var isCreateEventViewVisible = false
+  @State var eventViewType: CategoryEventViewType = .notVisible
   
   var body: some View {
     ZStack {
       VStack {
         List {
-          ForEach(viewModel.eventEntities) { eventEntity in
+          ForEach(viewModel.entityEvents) { eventEntity in
             Button {
               viewModel.eventTapped(eventId: eventEntity.id)
             } label: {
@@ -42,8 +42,9 @@ struct CategoryScreenView: View {
         .padding(.bottom, 10)
         
       }
-      if isCreateEventViewVisible {
-        CategoryCreateEventView(title: $viewModel.createEventViewTitle, date: $viewModel.createEventViewDate, comment: $viewModel.createEventViewComment, createButtonAction: viewModel.createEventViewCreateButtonTapped, cancelButtonAction: viewModel.createEventViewCancelButtonTapped)
+      if eventViewType != .notVisible {
+        let categoryEventViewModel = CategoryEventViewModel(dataService: appDependencies.dataService, type: eventViewType, eventsWereChangedHandler: viewModel.categoryEventWasUpdated,closeViewHandler: viewModel.closeViewWasCalled)
+        CategoryEventView(viewModel: categoryEventViewModel)
           .transition(.opacity)
           .zIndex(1)
       }
@@ -55,17 +56,12 @@ struct CategoryScreenView: View {
       viewModel.setup(dataService: appDependencies.dataService)
       viewModel.viewTaskCalled()
     }
-    .onReceive(viewModel.showCreateEventViewSubject, perform: {
+    .onReceive(viewModel.eventViewSubject, perform: { type in
       withAnimation {
-        isCreateEventViewVisible = true
+        eventViewType = type
       }
     })
-    .onReceive(viewModel.hideCreateEventViewSubject, perform: {
-      withAnimation {
-        isCreateEventViewVisible = false
-      }
-    })
-    .animation(.easeInOut, value: isCreateEventViewVisible)
+    .animation(.easeInOut, value: (eventViewType != .notVisible))
     .navigationTitle(viewModel.navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     

@@ -49,7 +49,7 @@ private struct CategoriesScreenPreview: View {
     Group {
       if let appDependencies = appDependenciesLoader.instance {
         CategoriesScreenView(viewModel: CategoriesViewModel())
-          .environmentObject(AppConfiguration.preview)
+          .environmentObject(AppConfiguration.previewAppConfiguration)
           .environmentObject(appDependencies)
       } else {
         ProgressView("Loading appDependencies...")

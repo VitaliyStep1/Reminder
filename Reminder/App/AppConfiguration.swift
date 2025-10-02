@@ -11,5 +11,5 @@ class AppConfiguration: ObservableObject {
   let isWithSplashScreen = true
   
   @MainActor
-  static let preview = AppConfiguration()
+  static let previewAppConfiguration = AppConfiguration()
 }

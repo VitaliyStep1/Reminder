@@ -8,9 +8,9 @@
 import SwiftUI
 
 public struct CategoryEventCellView: View {
-  @State var title: String
-  @State var dateString: String
-  @State var comment: String?
+  var title: String
+  var dateString: String
+  var comment: String?
   
   public var body: some View {
     VStack(alignment: .leading, spacing: 4) {
@@ -31,4 +31,8 @@ public struct CategoryEventCellView: View {
     }
     .contentShape(Rectangle())
   }
+}
+
+#Preview {
+  CategoryEventCellView(title: "Title", dateString: "1.01.2001", comment: "Comment")
 }

@@ -32,7 +32,7 @@ final class AppDependencies: ObservableObject {
   static func make(isForPreview: Bool = false) async -> AppDependencies {
     let inMemory = false // Because in memory container does not support propertiesToGroupBy
     let container = PersistenceContainerService()
-      .createPersistentContainer(inMemory: false)
+      .createPersistentContainer(inMemory: inMemory)
     
     var previewService: PreviewDataService? = nil
     if isForPreview {
