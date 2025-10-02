@@ -40,12 +40,20 @@ struct CategoryEventView: View {
         Button(action: {
           viewModel.saveButtonTapped()
         }) {
-          Text(viewModel.saveButtonTitle)
-            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-            .background(Color.blue)
-            .foregroundStyle(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+          Group {
+            if viewModel.isSaving {
+              ProgressView()
+                .tint(.white)
+            } else {
+              Text(viewModel.saveButtonTitle)
+            }
+          }
+          .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+          .background(Color.blue)
+          .foregroundStyle(.white)
+          .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .disabled(viewModel.isSaving)
         
         Button(action: {
           viewModel.cancelButtonTapped()
@@ -61,11 +69,18 @@ struct CategoryEventView: View {
           Button(action: {
             viewModel.deleteButtonTapped()
           }) {
-            Text(viewModel.deleteButtonTitle)
-              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-              .background(Color.red)
-              .foregroundStyle(.white)
-              .clipShape(RoundedRectangle(cornerRadius: 10))
+            Group {
+              if viewModel.isDeleting {
+                ProgressView()
+                  .tint(.white)
+              } else {
+                Text(viewModel.deleteButtonTitle)
+              }
+            }
+            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+            .background(Color.red)
+            .foregroundStyle(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
           }
         }
       }

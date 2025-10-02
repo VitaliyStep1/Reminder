@@ -13,12 +13,12 @@ struct MainTabView: View {
       ClosestScreenView(viewModel: ClosestViewModel())
         .tabItem {
           Image(systemName: "house")
-          Text("First")
+          Text("Closest events")
         }
       CategoriesScreenView()
         .tabItem {
           Image(systemName: "music.note")
-          Text("Second")
+          Text("Create event")
         }
     }
   }

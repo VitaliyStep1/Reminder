@@ -17,6 +17,9 @@ class CategoryEventViewModel: ObservableObject {
   @Published var date: Date
   @Published var comment: String
   
+  @Published var isSaving = false
+  @Published var isDeleting = false
+  
   let viewTitle: String
   let isDeleteButtonVisible: Bool
   let saveButtonTitle: String
@@ -60,15 +63,15 @@ class CategoryEventViewModel: ObservableObject {
   
   func saveButtonTapped() {
     Task {
-      // TODO: Show progress view
+      await changeIsSavingOnMainActor(true)
       do {
         try await saveEvent()
         eventsWereChangedHandler()
-        // TODO: Hide progress view
+        await changeIsSavingOnMainActor(false)
         closeView()
       }
       catch {
-        // TODO: Hide progress view
+        await changeIsSavingOnMainActor(false)
         // TODO: Show error alert
       }
     }
@@ -80,17 +83,29 @@ class CategoryEventViewModel: ObservableObject {
   
   func deleteButtonTapped() {
     Task {
-      // TODO: Show progress view
+      await changeIsDeletingOnMainActor(true)
       do {
         try await deleteEvent()
         eventsWereChangedHandler()
-        // TODO: Hide progress view
+        await changeIsDeletingOnMainActor(false)
         closeView()
       }
       catch {
-        // TODO: Hide progress view
+        await changeIsDeletingOnMainActor(false)
         // TODO: Show error alert
       }
+    }
+  }
+  
+  private func changeIsSavingOnMainActor(_ isSaving: Bool) async {
+    await MainActor.run {
+      self.isSaving = isSaving
+    }
+  }
+  
+  private func changeIsDeletingOnMainActor(_ isDeleting: Bool) async {
+    await MainActor.run {
+      self.isDeleting = isDeleting
     }
   }
   
