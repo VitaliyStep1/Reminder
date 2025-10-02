@@ -33,6 +33,10 @@ class DataService: DataServiceProtocol {
     try await dBEventsService.editEvent(eventId: eventId, title: title, date: date, comment: comment)
   }
   
+  func deleteEvent(eventId: ObjectId) async throws {
+    try await dBEventsService.deleteEvent(eventId: eventId)
+  }
+  
   func takeAllCategories() async -> [Category]? {
     let categories = try? await dBCategoriesService.fetchAllCategories()
     return categories

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class CategoryEventViewModel: ObservableObject {
   let dataService: DataServiceProtocol
   let type: CategoryEventViewType
@@ -61,13 +60,16 @@ class CategoryEventViewModel: ObservableObject {
   
   func saveButtonTapped() {
     Task {
+      // TODO: Show progress view
       do {
         try await saveEvent()
         eventsWereChangedHandler()
+        // TODO: Hide progress view
         closeView()
       }
       catch {
-        // Show error alert
+        // TODO: Hide progress view
+        // TODO: Show error alert
       }
     }
   }
@@ -77,9 +79,19 @@ class CategoryEventViewModel: ObservableObject {
   }
   
   func deleteButtonTapped() {
-    deleteEvent()
-    eventsWereChangedHandler()
-    closeView()
+    Task {
+      // TODO: Show progress view
+      do {
+        try await deleteEvent()
+        eventsWereChangedHandler()
+        // TODO: Hide progress view
+        closeView()
+      }
+      catch {
+        // TODO: Hide progress view
+        // TODO: Show error alert
+      }
+    }
   }
   
   private func saveEvent() async throws {
@@ -94,8 +106,17 @@ class CategoryEventViewModel: ObservableObject {
     
   }
   
-  private func deleteEvent() {
-    
+  private func deleteEvent() async throws {
+    switch type {
+    case .edit(let eventId):
+      try await deleteEvent(eventId: eventId)
+    default:
+      break
+    }
+  }
+  
+  private func deleteEvent(eventId: ObjectId) async throws {
+    try await self.dataService.deleteEvent(eventId: eventId)
   }
   
   private func createEvent(categoryId: ObjectId) async throws {
@@ -136,9 +157,11 @@ class CategoryEventViewModel: ObservableObject {
     Task {
       let event = try? await dataService.fetchEvent(eventId: eventId)
       if let event {
-        self.title = event.title
-        self.date = event.date
-        self.comment = event.comment
+        await MainActor.run {
+          self.title = event.title
+          self.date = event.date
+          self.comment = event.comment
+        }
       } else {
         //TODO:
         // Close view

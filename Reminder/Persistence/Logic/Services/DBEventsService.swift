@@ -63,6 +63,25 @@ class DBEventsService: DBEventsServiceProtocol {
     }
   }
   
+  func deleteEvent(eventId: ObjectId) async throws {
+    try await withCheckedThrowingContinuation { continuation in
+      container.performBackgroundTask { context in
+        do {
+          guard let eventObject = try context.existingObject(with: eventId) as? EventObject else {
+            throw DeleteEventError.eventWasNotFetched
+          }
+          
+          context.delete(eventObject)
+          try context.save()
+          
+          continuation.resume(returning: ())
+        } catch {
+          continuation.resume(throwing: error)
+        }
+      }
+    }
+  }
+  
   func fetchEvents(categoryId: ObjectId) async throws -> [Event] {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
