@@ -14,6 +14,8 @@ class CategoryViewModel: ObservableObject {
   
   @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
+  @Published var isAlertVisible: Bool = false
+  var alertInfo: AlertInfo = AlertInfo(message: "")
   
   var createEventViewTitle = ""
   var createEventViewDate = Date()
@@ -83,7 +85,9 @@ class CategoryViewModel: ObservableObject {
         }
       }
       catch {
-        showEventsWereNotFetchedAlert()
+        await MainActor.run {
+          showEventsWereNotFetchedAlert()
+        }
       }
     }
   }
@@ -105,6 +109,7 @@ class CategoryViewModel: ObservableObject {
   }
   
   private func showEventsWereNotFetchedAlert() {
-    
+    alertInfo = AlertInfo(message: "Events were not fetched")
+    isAlertVisible = true
   }
 }

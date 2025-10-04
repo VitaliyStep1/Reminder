@@ -43,8 +43,12 @@ struct CategoryScreenView: View {
         
       }
       if eventViewType != .notVisible {
-        let categoryEventViewModel = CategoryEventViewModel(dataService: appDependencies.dataService, type: eventViewType, eventsWereChangedHandler: viewModel.categoryEventWasUpdated,closeViewHandler: viewModel.closeViewWasCalled)
-        CategoryEventView(viewModel: categoryEventViewModel)
+        CategoryEventOverlay(
+          dataService: appDependencies.dataService,
+          type: eventViewType,
+          onChanged: viewModel.categoryEventWasUpdated,
+          onClose: viewModel.closeViewWasCalled
+        )
           .transition(.opacity)
           .zIndex(1)
       }
@@ -64,7 +68,11 @@ struct CategoryScreenView: View {
     .animation(.easeInOut, value: (eventViewType != .notVisible))
     .navigationTitle(viewModel.navigationTitle)
     .navigationBarTitleDisplayMode(.large)
-    
+    .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {
+      Button(viewModel.alertInfo.buttonTitle, role: .cancel) {}
+    } message: {
+      Text(viewModel.alertInfo.message)
+    }
   }
 }
 

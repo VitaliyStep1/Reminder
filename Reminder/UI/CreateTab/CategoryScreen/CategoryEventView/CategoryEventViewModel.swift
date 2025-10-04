@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class CategoryEventViewModel: ObservableObject {
   let dataService: DataServiceProtocol
   let type: CategoryEventViewType
@@ -19,6 +20,13 @@ class CategoryEventViewModel: ObservableObject {
   
   @Published var isSaving = false
   @Published var isDeleting = false
+  @Published var isViewBlocked = false
+  
+  @Published var isAlertVisible: Bool = false
+  var alertInfo: AlertInfo = AlertInfo(message: "")
+  
+  @Published var isConfirmationDialogVisible: Bool = false
+  var confirmationDialogInfo: ConfirmationDialogInfo = ConfirmationDialogInfo(title: "", message: "")
   
   let viewTitle: String
   let isDeleteButtonVisible: Bool
@@ -63,16 +71,16 @@ class CategoryEventViewModel: ObservableObject {
   
   func saveButtonTapped() {
     Task {
-      await changeIsSavingOnMainActor(true)
+      changeIsSaving(true)
       do {
         try await saveEvent()
         eventsWereChangedHandler()
-        await changeIsSavingOnMainActor(false)
+        changeIsSaving(false)
         closeView()
       }
       catch {
-        await changeIsSavingOnMainActor(false)
-        // TODO: Show error alert
+        changeIsSaving(false)
+        showEventWasNotSavedAlert()
       }
     }
   }
@@ -82,31 +90,38 @@ class CategoryEventViewModel: ObservableObject {
   }
   
   func deleteButtonTapped() {
+    showDeleteConfirmation()
+  }
+  
+  private func showDeleteConfirmation() {
+    confirmationDialogInfo = ConfirmationDialogInfo(title: "Delete this event?", message: "This action cannot be undone.", deleteButtonHandler: { [weak self] in
+      self?.deletingEventConfirmed()
+    })
+    isConfirmationDialogVisible = true
+  }
+  
+  private func deletingEventConfirmed() {
     Task {
-      await changeIsDeletingOnMainActor(true)
+      changeIsDeleting(true)
       do {
         try await deleteEvent()
         eventsWereChangedHandler()
-        await changeIsDeletingOnMainActor(false)
+        changeIsDeleting(false)
         closeView()
       }
       catch {
-        await changeIsDeletingOnMainActor(false)
-        // TODO: Show error alert
+        changeIsDeleting(false)
+        showDeleteErrorAlert()
       }
     }
   }
   
-  private func changeIsSavingOnMainActor(_ isSaving: Bool) async {
-    await MainActor.run {
-      self.isSaving = isSaving
-    }
+  private func changeIsSaving(_ isSaving: Bool) {
+    self.isSaving = isSaving
   }
   
-  private func changeIsDeletingOnMainActor(_ isDeleting: Bool) async {
-    await MainActor.run {
-      self.isDeleting = isDeleting
-    }
+  private func changeIsDeleting(_ isDeleting: Bool) {
+    self.isDeleting = isDeleting
   }
   
   private func saveEvent() async throws {
@@ -151,10 +166,6 @@ class CategoryEventViewModel: ObservableObject {
     try await self.dataService.editEvent(eventId: eventId, title: title, date: date, comment: comment)
   }
   
-  private func showEventWasNotCreatedAlert() {
-    
-  }
-  
   private func closeView() {
     closeViewHandler()
   }
@@ -168,17 +179,31 @@ class CategoryEventViewModel: ObservableObject {
   private func fetchEvent(eventId: ObjectId) {
     Task {
       let event = try? await dataService.fetchEvent(eventId: eventId)
-      if let event {
-        await MainActor.run {
-          self.title = event.title
-          self.date = event.date
-          self.comment = event.comment
+      guard let event else {
+        isViewBlocked = true
+        showEventWasNotFoundAlert { [weak self] in
+          self?.closeView()
         }
-      } else {
-        //TODO:
-        // Close view
-        // Show error alert
+        return
       }
+      self.title = event.title
+      self.date = event.date
+      self.comment = event.comment
     }
+  }
+  
+  private func showEventWasNotSavedAlert() {
+    alertInfo = AlertInfo(message: "Event was not saved")
+    isAlertVisible = true
+  }
+  
+  private func showDeleteErrorAlert() {
+    alertInfo = AlertInfo(message: "Deleting event failed")
+    isAlertVisible = true
+  }
+  
+  private func showEventWasNotFoundAlert(completion: @escaping (() -> Void)) {
+    alertInfo = AlertInfo(message: "Event was not found", completion: completion)
+    isAlertVisible = true
   }
 }

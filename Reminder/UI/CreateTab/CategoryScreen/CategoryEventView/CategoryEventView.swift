@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategoryEventView: View {
-  @StateObject var viewModel: CategoryEventViewModel
+  @ObservedObject var viewModel: CategoryEventViewModel
   
   var body: some View {
     ZStack {
@@ -91,6 +91,24 @@ struct CategoryEventView: View {
       .background(Color(UIColor.secondarySystemBackground))
       .clipShape(RoundedRectangle(cornerRadius: 16))
       .shadow(radius: 10)
+    }
+    .disabled(viewModel.isViewBlocked)
+    .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {
+      Button(viewModel.alertInfo.buttonTitle, role: .cancel) {
+        viewModel.alertInfo.completion?()
+      }
+    } message: {
+      Text(viewModel.alertInfo.message)
+    }
+    .confirmationDialog(viewModel.confirmationDialogInfo.title,
+                        isPresented: $viewModel.isConfirmationDialogVisible,
+                        titleVisibility: .visible) {
+      Button(viewModel.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
+        viewModel.confirmationDialogInfo.deleteButtonHandler?()
+      }
+      Button(viewModel.confirmationDialogInfo.cancelButtonTitle, role: .cancel) { }
+    } message: {
+      Text(viewModel.confirmationDialogInfo.message)
     }
   }
 }
