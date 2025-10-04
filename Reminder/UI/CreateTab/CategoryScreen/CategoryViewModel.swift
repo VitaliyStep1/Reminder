@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class CategoryViewModel: ObservableObject {
   var dataService: DataServiceProtocol?
   let categoryId: ObjectId
@@ -80,14 +81,10 @@ class CategoryViewModel: ObservableObject {
           return CategoryEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
         }
         
-        await MainActor.run {
-          self.entityEvents = entityEvents
-        }
+        self.entityEvents = entityEvents
       }
       catch {
-        await MainActor.run {
           showEventsWereNotFetchedAlert()
-        }
       }
     }
   }
@@ -98,9 +95,7 @@ class CategoryViewModel: ObservableObject {
     }
     Task {
       let category = try? await dataService.fetchCategory(categoryId: categoryId)
-      await MainActor.run {
-        self.navigationTitle = category?.title ?? ""
-      }
+      navigationTitle = category?.title ?? ""
     }
   }
   
