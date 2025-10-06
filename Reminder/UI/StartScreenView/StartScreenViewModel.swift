@@ -8,9 +8,11 @@
 import Combine
 
 class StartScreenViewModel: ObservableObject {
-  var dataService: DataServiceProtocol?
+  let appConfiguration: AppConfigurationProtocol?
+  let dataService: DataServiceProtocol?
   
-  func setup(dataService: DataServiceProtocol) {
+  init(appConfiguration: AppConfigurationProtocol?, dataService: DataServiceProtocol?) {
+    self.appConfiguration = appConfiguration
     self.dataService = dataService
   }
   

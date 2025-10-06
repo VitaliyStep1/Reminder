@@ -7,31 +7,34 @@
 
 import Swinject
 
-final class DIContainer {
-  static let shared = DIContainer()
+final class DIService {
+//  static let shared = DIManager()
   let container: Container
   
-  private init() {
+  init() {
     container = Container()
-    DependencyMap.registerDependencies(container: container)
+    DependencyMap.registerDependencies(container: container, diService: self)
     validateDependenciesDebugOnly()
   }
   
-  func resolve<T>(_ type: T.Type) throws -> T {
-    if let dep = container.resolve(type) { return dep }
-#if DEBUG
-    assertionFailure("Failed to resolve: \(type)")
-#endif
-    throw DIError.notRegistered("\(type)")
-  }
+//  func resolve<T>(_ type: T.Type) throws -> T {
+//    if let dep = container.resolve(type) { return dep }
+//#if DEBUG
+//    assertionFailure("Failed to resolve: \(type)")
+//#endif
+//    throw DIError.notRegistered("\(type)")
+//  }
   
-  func tryResolve<T>(_ type: T.Type) -> T? {
+  func resolve<T>(_ type: T.Type) -> T? {
     container.resolve(type)
   }
   
   private func validateDependenciesDebugOnly() {
 #if DEBUG
     let checks: [() -> Any?] = [
+      { self.container.resolve(ViewFactory.self) },
+      { self.container.resolve(SplashScreenState.self) },
+      { self.container.resolve(AppConfigurationProtocol.self)},
       { self.container.resolve(DataServiceProtocol.self) },
       { self.container.resolve(DefaultCategoriesDataServiceProtocol.self) },
       { self.container.resolve(PreviewDataServiceProtocol.self) },

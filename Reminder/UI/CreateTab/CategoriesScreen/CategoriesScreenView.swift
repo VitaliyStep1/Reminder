@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CategoriesScreenView: View {
-  @StateObject var viewModel: CategoriesViewModel = .init()
-  @EnvironmentObject var appDependencies: AppDependencies
+  @StateObject var viewModel: CategoriesViewModel
+  @Environment(\.viewFactory) var viewFactory
   
   var body: some View {
     NavigationStack(path: $viewModel.path) {
@@ -27,36 +27,36 @@ struct CategoriesScreenView: View {
         }
       }
       .task {
-        viewModel.setupDataService(dataService: appDependencies.dataService)
+        viewModel.taskWasCalled()
       }
       .navigationTitle(viewModel.navigationTitle)
       .navigationDestination(for: CategoriesCategoryEntity.self) { categoryEntity in
-        CategoryScreenView(viewModel: CategoryViewModel(categoryId: categoryEntity.id))
+        viewFactory.make(.category(categoryEntity.id))
       }
     }
   }
 }
 
-#Preview {
-  CategoriesScreenPreview()
-}
-
-@MainActor
-private struct CategoriesScreenPreview: View {
-  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
-  
-  var body: some View {
-    Group {
-      if let appDependencies = appDependenciesLoader.instance {
-        CategoriesScreenView(viewModel: CategoriesViewModel())
-          .environmentObject(AppConfiguration.previewAppConfiguration)
-          .environmentObject(appDependencies)
-      } else {
-        ProgressView("Loading appDependencies...")
-      }
-    }
-    .task {
-      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
-    }
-  }
-}
+//#Preview {
+//  CategoriesScreenPreview()
+//}
+//
+//@MainActor
+//private struct CategoriesScreenPreview: View {
+//  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
+//  
+//  var body: some View {
+//    Group {
+//      if let appDependencies = appDependenciesLoader.instance {
+//        CategoriesScreenView(viewModel: CategoriesViewModel())
+////          .environmentObject(AppConfiguration.previewAppConfiguration)
+////          .environmentObject(appDependencies)
+//      } else {
+//        ProgressView("Loading appDependencies...")
+//      }
+//    }
+//    .task {
+//      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
+//    }
+//  }
+//}

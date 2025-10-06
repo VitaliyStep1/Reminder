@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct CategoryScreenView: View {
-  @EnvironmentObject var appDependencies: AppDependencies
   @StateObject var viewModel: CategoryViewModel
   
   @State var eventViewType: CategoryEventViewType = .notVisible
+  
+  @Environment(\.viewFactory) var viewFactory
   
   var body: some View {
     ZStack {
@@ -43,12 +44,7 @@ struct CategoryScreenView: View {
         
       }
       if eventViewType != .notVisible {
-        CategoryEventOverlay(
-          dataService: appDependencies.dataService,
-          type: eventViewType,
-          onChanged: viewModel.categoryEventWasUpdated,
-          onClose: viewModel.closeViewWasCalled
-        )
+        viewFactory.makeCategoryEventView(categoryEventViewType: eventViewType, eventsWereChangedHandler: viewModel.categoryEventWasUpdated, closeViewHandler: viewModel.closeViewWasCalled)
           .transition(.opacity)
           .zIndex(1)
       }
@@ -57,7 +53,6 @@ struct CategoryScreenView: View {
       viewModel.viewAppeared()
     }
     .task {
-      viewModel.setup(dataService: appDependencies.dataService)
       viewModel.viewTaskCalled()
     }
     .onReceive(viewModel.eventViewSubject, perform: { type in
@@ -76,33 +71,33 @@ struct CategoryScreenView: View {
   }
 }
 
-#Preview {
-  CategoryScreenPreview()
-}
-
-@MainActor
-private struct CategoryScreenPreview: View {
-  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
-  @State private var categoryId: ObjectId?
-  
-  var body: some View {
-    Group {
-      if let appDependencies = appDependenciesLoader.instance {
-        if let id = categoryId {
-          CategoryScreenView(viewModel: .init(categoryId: id))
-            .environmentObject(appDependencies)
-        } else {
-          Text("No category to preview")
-        }
-      } else {
-        ProgressView("Loading appDependencies...")
-      }
-    }
-    .task {
-      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
-      if let appDependencies = appDependenciesLoader.instance {
-        categoryId = try? await appDependencies.previewDataService?.takeFirstCategoryObjectId()
-      }
-    }
-  }
-}
+//#Preview {
+//  CategoryScreenPreview()
+//}
+//
+//@MainActor
+//private struct CategoryScreenPreview: View {
+//  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
+//  @State private var categoryId: ObjectId?
+//  
+//  var body: some View {
+//    Group {
+//      if let appDependencies = appDependenciesLoader.instance {
+//        if let id = categoryId {
+//          CategoryScreenView(viewModel: .init(categoryId: id))
+//            .environmentObject(appDependencies)
+//        } else {
+//          Text("No category to preview")
+//        }
+//      } else {
+//        ProgressView("Loading appDependencies...")
+//      }
+//    }
+//    .task {
+//      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
+//      if let appDependencies = appDependenciesLoader.instance {
+//        categoryId = try? await appDependencies.previewDataService?.takeFirstCategoryObjectId()
+//      }
+//    }
+//  }
+//}

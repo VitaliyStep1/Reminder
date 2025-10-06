@@ -8,14 +8,17 @@
 import SwiftUI
 
 class CategoriesViewModel: ObservableObject {
-  var dataService: DataServiceProtocol?
+  let dataService: DataServiceProtocol?
   
   @Published var categoryEntities: [CategoriesCategoryEntity] = []
   @Published var navigationTitle: String = "Categories"
   @Published var path: [CategoriesCategoryEntity] = []
   
-  func setupDataService(dataService: DataServiceProtocol) {
+  init(dataService: DataServiceProtocol?) {
     self.dataService = dataService
+  }
+  
+  func taskWasCalled() {
     
     loadCategories()
   }

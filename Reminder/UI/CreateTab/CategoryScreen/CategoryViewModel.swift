@@ -24,15 +24,9 @@ class CategoryViewModel: ObservableObject {
   
   let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
   
-  init(categoryId: ObjectId) {
+  init(categoryId: ObjectId, dataService: DataServiceProtocol?) {
     self.categoryId = categoryId
-  }
-  
-  func setup(dataService: DataServiceProtocol) {
     self.dataService = dataService
-    
-    updateEventList()
-    updateNavigationTitle()
   }
   
   func viewAppeared() {

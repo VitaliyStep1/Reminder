@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct StartScreenView: View {
-  let viewModel = StartScreenViewModel()
-  @EnvironmentObject var appConfiguration: AppConfiguration
-  @EnvironmentObject var appDependencies: AppDependencies
-  @State var isSplashScreenVisible: Bool = true
+  @StateObject var viewModel: StartScreenViewModel
+  @EnvironmentObject var splashState: SplashScreenState
+  @Environment(\.viewFactory) private var viewFactory
   
   var body: some View {
     Group {
-      if appConfiguration.isWithSplashScreen && isSplashScreenVisible {
-        SplashScreenView(isSplashScreenVisible: $isSplashScreenVisible)
+      if splashState.isVisible {
+        viewFactory.make(.splash)
       } else {
         takeMainScreen()
       }
     }
     .task {
-      viewModel.setup(dataService: appDependencies.dataService)
       viewModel.viewTaskCalled()
     }
   }
@@ -32,26 +30,26 @@ struct StartScreenView: View {
   }
 }
 
-#Preview {
-  StartScreenPreview()
-}
-
-@MainActor
-private struct StartScreenPreview: View {
-  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
-  
-  var body: some View {
-    Group {
-      if let appDependencies = appDependenciesLoader.instance {
-        StartScreenView()
-          .environmentObject(AppConfiguration.previewAppConfiguration)
-          .environmentObject(appDependencies)
-      } else {
-        ProgressView("Loading appDependencies...")
-      }
-    }
-    .task {
-      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
-    }
-  }
-}
+//#Preview {
+//  StartScreenPreview()
+//}
+//
+//@MainActor
+//private struct StartScreenPreview: View {
+//  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
+//  
+//  var body: some View {
+//    Group {
+//      if let appDependencies = appDependenciesLoader.instance {
+//        StartScreenView()
+//          .environmentObject(AppConfiguration.previewAppConfiguration)
+//          .environmentObject(appDependencies)
+//      } else {
+//        ProgressView("Loading appDependencies...")
+//      }
+//    }
+//    .task {
+//      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
+//    }
+//  }
+//}

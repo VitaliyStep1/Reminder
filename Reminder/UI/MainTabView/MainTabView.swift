@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct MainTabView: View {
+  @Environment(\.viewFactory) private var viewFactory
+  
   var body: some View {
     TabView {
-      ClosestScreenView(viewModel: ClosestViewModel())
+      viewFactory.make(.closest)
         .tabItem {
           Image(systemName: "house")
           Text("Closest events")
         }
-      CategoriesScreenView()
+      viewFactory.make(.categories)
         .tabItem {
           Image(systemName: "music.note")
           Text("Create event")

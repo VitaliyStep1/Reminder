@@ -9,7 +9,24 @@ import Swinject
 import CoreData
 
 struct DependencyMap {
-  static func registerDependencies(container: Container) {
+  static func registerDependencies(container: Container, diService: DIService) {
+    
+    // ViewFactory
+    container.register(ViewFactory.self) { _ in
+      ViewFactory(resolver: diService)
+    }
+    
+    // SplashScreenState
+    container.register(SplashScreenState.self) { _ in
+      SplashScreenState()
+    }
+    .inObjectScope(.container)
+    
+    // AppConfigurationProtocol
+    container.register(AppConfigurationProtocol.self) { _ in
+      AppConfiguration()
+    }
+    .inObjectScope(.container)
     
     // PersistenceContainerService
     container.register(PersistenceContainerService.self) { _ in

@@ -7,9 +7,15 @@
 
 import Foundation
 
-class AppConfiguration: ObservableObject {
+protocol AppConfigurationProtocol {
+  var isWithSplashScreen: Bool { get }
+  
+  static var previewAppConfiguration: AppConfigurationProtocol { get }
+}
+
+class AppConfiguration: ObservableObject, @preconcurrency AppConfigurationProtocol {
   let isWithSplashScreen = true
   
   @MainActor
-  static let previewAppConfiguration = AppConfiguration()
+  static let previewAppConfiguration: AppConfigurationProtocol = AppConfiguration()
 }
