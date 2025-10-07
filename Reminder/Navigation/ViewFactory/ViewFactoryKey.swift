@@ -8,7 +8,7 @@
 import SwiftUI
 
 private struct ViewFactoryKey: EnvironmentKey {
-  static let defaultValue: ViewFactory = ViewFactory(resolver: DIService())
+  static let defaultValue: ViewFactory = ViewFactory(resolver: DIService().resolver)
 }
 
 extension EnvironmentValues {

@@ -8,11 +8,14 @@
 import SwiftUI
 import Swinject
 
-@MainActor
 struct ViewFactory {
-  let resolver: DIService
+  private let resolver: Resolver
   
-  @ViewBuilder
+  init(resolver: Resolver) {
+    self.resolver = resolver
+  }
+  
+  @MainActor @ViewBuilder
   func make(_ route: Route) -> some View {
     switch route {
     case .start:
@@ -43,6 +46,7 @@ struct ViewFactory {
     }
   }
   
+  @MainActor
   func makeCategoryEventView(
     categoryEventViewType: CategoryEventViewType,
     eventsWereChangedHandler: @escaping () -> Void,

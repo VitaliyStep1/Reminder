@@ -13,7 +13,7 @@ struct ReminderApp: App {
   
   init() {
     let di = DIService()
-    viewFactory = di.resolve(ViewFactory.self)!
+    viewFactory = di.resolver.resolve(ViewFactory.self)!
   }
   
   var body: some Scene {

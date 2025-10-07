@@ -1,19 +1,19 @@
 //
-//  DependencyMap.swift
+//  DependencyAssembly.swift
 //  Reminder
 //
-//  Created by Vitaliy Stepanenko on 04.10.2025.
+//  Created by Vitaliy Stepanenko on 07.10.2025.
 //
 
 import Swinject
 import CoreData
 
-struct DependencyMap {
-  static func registerDependencies(container: Container, diService: DIService) {
-    
+final class DependencyAssembly: Assembly {
+  
+  func assemble(container: Container) {
     // ViewFactory
-    container.register(ViewFactory.self) { _ in
-      ViewFactory(resolver: diService)
+    container.register(ViewFactory.self) { r in
+      ViewFactory(resolver: r)
     }
     
     // SplashScreenState
@@ -39,14 +39,6 @@ struct DependencyMap {
       let factory = r.resolve(PersistenceContainerService.self)!
       let persistentContainer = factory.createPersistentContainer(inMemory: false)
       return persistentContainer
-    }
-    .inObjectScope(.container)
-    
-    // NSPersistentContainer - in memory
-    container.register(NSPersistentContainer.self) { r in
-      let factory = r.resolve(PersistenceContainerService.self)!
-      let pc = factory.createPersistentContainer(inMemory: true)
-      return pc
     }
     .inObjectScope(.container)
     
