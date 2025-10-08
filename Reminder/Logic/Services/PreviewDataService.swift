@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ReminderPersistence
 
 final class PreviewDataService: PreviewDataServiceProtocol {
   private var dBCategoriesService: DBCategoriesServiceProtocol

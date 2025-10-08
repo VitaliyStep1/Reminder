@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import ReminderPersistence
 
 @MainActor
 class CategoryViewModel: ObservableObject {

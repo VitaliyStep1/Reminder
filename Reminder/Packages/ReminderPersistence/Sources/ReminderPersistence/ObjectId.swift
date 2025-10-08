@@ -7,4 +7,4 @@
 
 import CoreData
 
-typealias ObjectId = NSManagedObjectID
+public typealias ObjectId = NSManagedObjectID

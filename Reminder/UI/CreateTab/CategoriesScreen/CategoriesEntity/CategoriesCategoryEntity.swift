@@ -5,6 +5,8 @@
 //  Created by Vitaliy Stepanenko on 23.08.2025.
 //
 
+import ReminderPersistence
+
 struct CategoriesCategoryEntity: Identifiable, Hashable {
   let id: ObjectId
   let title: String

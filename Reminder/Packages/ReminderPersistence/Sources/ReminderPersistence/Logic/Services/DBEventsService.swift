@@ -7,17 +7,17 @@
 
 import CoreData
 
-class DBEventsService: DBEventsServiceProtocol {
+public class DBEventsService: DBEventsServiceProtocol {
   private let container: NSPersistentContainer
   private var context: NSManagedObjectContext {
     container.viewContext
   }
   
-  init(container: NSPersistentContainer) {
+  public init(container: NSPersistentContainer) {
     self.container = container
   }
   
-  func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws {
+  public func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         do {
@@ -40,7 +40,7 @@ class DBEventsService: DBEventsServiceProtocol {
     }
   }
   
-  func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws {
+  public func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         do {
@@ -63,7 +63,7 @@ class DBEventsService: DBEventsServiceProtocol {
     }
   }
   
-  func deleteEvent(eventId: ObjectId) async throws {
+  public func deleteEvent(eventId: ObjectId) async throws {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         do {
@@ -82,7 +82,7 @@ class DBEventsService: DBEventsServiceProtocol {
     }
   }
   
-  func fetchEvents(categoryId: ObjectId) async throws -> [Event] {
+  public func fetchEvents(categoryId: ObjectId) async throws -> [Event] {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         guard let category = try? context.existingObject(with: categoryId) as? CategoryObject else {
@@ -109,7 +109,7 @@ class DBEventsService: DBEventsServiceProtocol {
     }
   }
   
-  func fetchEvent(eventId: ObjectId) async throws -> Event {
+  public func fetchEvent(eventId: ObjectId) async throws -> Event {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         guard let eventObject = try? context.existingObject(with: eventId) as? EventObject else {

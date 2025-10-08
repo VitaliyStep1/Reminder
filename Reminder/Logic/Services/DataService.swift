@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ReminderPersistence
 
 class DataService: DataServiceProtocol {
   private var dBCategoriesService: DBCategoriesServiceProtocol

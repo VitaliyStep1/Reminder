@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ReminderPersistence
 
 @MainActor
 class CategoryEventViewModel: ObservableObject {

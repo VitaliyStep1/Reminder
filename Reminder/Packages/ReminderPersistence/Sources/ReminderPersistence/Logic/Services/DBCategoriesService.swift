@@ -7,17 +7,17 @@
 
 import CoreData
 
-class DBCategoriesService: DBCategoriesServiceProtocol {
+public class DBCategoriesService: DBCategoriesServiceProtocol {
   private let container: NSPersistentContainer
   private var context: NSManagedObjectContext {
     container.viewContext
   }
   
-  init(container: NSPersistentContainer) {
+  public init(container: NSPersistentContainer) {
     self.container = container
   }
   
-  func addOrUpdate(defaultCategories categories: [DefaultCategory]) async throws {
+  public func addOrUpdate(defaultCategories categories: [DefaultCategory]) async throws {
     guard !categories.isEmpty else {
       return
     }
@@ -50,7 +50,7 @@ class DBCategoriesService: DBCategoriesServiceProtocol {
     }
   }
   
-  func fetchAllCategories() async throws -> [Category] {
+  public func fetchAllCategories() async throws -> [Category] {
     try await container.performBackgroundTask { context in
       let request = NSFetchRequest<CategoryObject>(entityName: "CategoryObject")
       request.sortDescriptors = [
@@ -93,7 +93,7 @@ class DBCategoriesService: DBCategoriesServiceProtocol {
   }
   
   //For #Preview
-  func takeFirstCategoryObjectId() async throws -> ObjectId? {
+  public func takeFirstCategoryObjectId() async throws -> ObjectId? {
     try await container.performBackgroundTask { context in
       let request: NSFetchRequest<CategoryObject> = CategoryObject.fetchRequest()
       request.fetchLimit = 1
@@ -102,7 +102,7 @@ class DBCategoriesService: DBCategoriesServiceProtocol {
     }
   }
   
-  func fetchCategory(categoryId: ObjectId) async throws -> Category? {
+  public func fetchCategory(categoryId: ObjectId) async throws -> Category? {
     try await container.performBackgroundTask { context in
     
       guard let categoryObject = try? context.existingObject(with: categoryId) as? CategoryObject else {

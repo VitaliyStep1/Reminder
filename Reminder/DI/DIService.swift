@@ -6,6 +6,7 @@
 //
 
 import Swinject
+import ReminderPersistence
 
 final class DIService {
   let assembler: Assembler

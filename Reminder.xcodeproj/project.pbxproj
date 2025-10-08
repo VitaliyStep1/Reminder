@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		047351E42E9662770039EC19 /* ReminderPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 047351E32E9662770039EC19 /* ReminderPersistence */; };
 		047552AE2E9199CD002921A0 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 047552AD2E9199CD002921A0 /* Swinject */; };
 /* End PBXBuildFile section */
 
@@ -33,9 +34,22 @@
 		04AE22472E59F51400D29776 /* ReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		047351E22E965CA50039EC19 /* Exceptions for "Reminder" folder in "Reminder" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Packages/ReminderPersistence,
+			);
+			target = 04AE222F2E59F51300D29776 /* Reminder */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		04AE22322E59F51300D29776 /* Reminder */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				047351E22E965CA50039EC19 /* Exceptions for "Reminder" folder in "Reminder" target */,
+			);
 			path = Reminder;
 			sourceTree = "<group>";
 		};
@@ -56,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047351E42E9662770039EC19 /* ReminderPersistence in Frameworks */,
 				047552AE2E9199CD002921A0 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +142,7 @@
 			name = Reminder;
 			packageProductDependencies = (
 				047552AD2E9199CD002921A0 /* Swinject */,
+				047351E32E9662770039EC19 /* ReminderPersistence */,
 			);
 			productName = Reminder;
 			productReference = 04AE22302E59F51300D29776 /* Reminder.app */;
@@ -616,6 +632,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		047351E32E9662770039EC19 /* ReminderPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ReminderPersistence;
+		};
 		047552AD2E9199CD002921A0 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 047552A72E919906002921A0 /* XCRemoteSwiftPackageReference "Swinject" */;

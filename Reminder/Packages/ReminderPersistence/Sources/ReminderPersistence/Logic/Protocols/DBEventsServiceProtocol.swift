@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DBEventsServiceProtocol {
+public protocol DBEventsServiceProtocol {
   func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws
   func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws
   func deleteEvent(eventId: ObjectId) async throws

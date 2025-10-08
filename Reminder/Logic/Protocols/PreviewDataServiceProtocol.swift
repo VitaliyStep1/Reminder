@@ -5,6 +5,8 @@
 //  Created by Vitaliy Stepanenko on 16.09.2025.
 //
 
+import ReminderPersistence
+
 protocol PreviewDataServiceProtocol {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol)
   
