@@ -6,6 +6,7 @@
 //
 
 import Combine
+import ReminderDomain
 
 class StartScreenViewModel: ObservableObject {
   let appConfiguration: AppConfigurationProtocol?
@@ -17,6 +18,8 @@ class StartScreenViewModel: ObservableObject {
   }
   
   func viewTaskCalled() {
-    dataService?.setupDataAtStart()
+    Task {
+      await dataService?.setupDataAtStart()
+    }
   }
 }

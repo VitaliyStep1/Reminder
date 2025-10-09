@@ -7,6 +7,7 @@
 
 import Swinject
 import ReminderPersistence
+import ReminderDomain
 
 final class DIService {
   let assembler: Assembler

@@ -7,9 +7,11 @@
 
 import ReminderPersistence
 
-class DefaultCategoriesDataService: DefaultCategoriesDataServiceProtocol {
+public class DefaultCategoriesDataService: DefaultCategoriesDataServiceProtocol {
   
-  func takeDefaultCategories() -> [DefaultCategory] {
+  public init() { }
+  
+  public func takeDefaultCategories() -> [DefaultCategory] {
     let categories: [DefaultCategory] = [
       .init(defaultKey: "Birthdays", title: "Birthdays", order: 1),
       .init(defaultKey: "Subscriptions", title: "Subscriptions", order: 2),

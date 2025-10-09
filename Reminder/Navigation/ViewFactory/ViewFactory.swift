@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Swinject
+import ReminderDomain
 
 struct ViewFactory {
   private let resolver: Resolver

@@ -9,11 +9,12 @@ public struct DefaultCategory {
   let defaultKey: String
   var title: String
   let order: Int
-  let isUserCreated = false
+  let isUserCreated: Bool
   
-  public init(defaultKey: String, title: String, order: Int) {
+  public init(defaultKey: String, title: String, order: Int, isUserCreated: Bool) {
     self.defaultKey = defaultKey
     self.title = title
     self.order = order
+    self.isUserCreated = isUserCreated
   }
 }

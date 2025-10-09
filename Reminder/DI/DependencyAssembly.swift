@@ -8,6 +8,7 @@
 import Swinject
 import CoreData
 import ReminderPersistence
+import ReminderDomain
 
 final class DependencyAssembly: Assembly {
   

@@ -8,7 +8,7 @@
 import Foundation
 import ReminderPersistence
 
-final class PreviewDataService: PreviewDataServiceProtocol {
+public  class PreviewDataService: PreviewDataServiceProtocol {
   private var dBCategoriesService: DBCategoriesServiceProtocol
   private var dBEventsService: DBEventsServiceProtocol
   
@@ -16,16 +16,16 @@ final class PreviewDataService: PreviewDataServiceProtocol {
     (title: "Event 1", comment: "Comment 1")
   }
   
-  required init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService: DBEventsServiceProtocol) {
+  public required init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService: DBEventsServiceProtocol) {
     self.dBCategoriesService = dBCategoriesService
     self.dBEventsService = dBEventsService
   }
   
-  func takeFirstCategoryObjectId() async throws -> ObjectId? {
+  public func takeFirstCategoryObjectId() async throws -> ObjectId? {
     try? await dBCategoriesService.takeFirstCategoryObjectId()
   }
   
-  func addDataForPreview() async throws {
+  public func addDataForPreview() async throws {
     try await createEventIfNecessary()
   }
   

@@ -7,6 +7,7 @@
 
 import Foundation
 import ReminderPersistence
+import ReminderDomain
 
 @MainActor
 class CategoryEventViewModel: ObservableObject {

@@ -7,7 +7,7 @@
 
 import ReminderPersistence
 
-protocol PreviewDataServiceProtocol {
+public protocol PreviewDataServiceProtocol {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol)
   
   func takeFirstCategoryObjectId() async throws -> ObjectId?

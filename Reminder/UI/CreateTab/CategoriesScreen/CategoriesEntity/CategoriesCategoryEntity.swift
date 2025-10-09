@@ -6,13 +6,14 @@
 //
 
 import ReminderPersistence
+import ReminderDomain
 
 struct CategoriesCategoryEntity: Identifiable, Hashable {
   let id: ObjectId
   let title: String
   let eventsAmount: String
   
-  init(category: Category) {
+  init(category: ReminderDomain.Category) {
     self.id = category.id
     self.title = category.title
     self.eventsAmount = String(category.eventsAmount)

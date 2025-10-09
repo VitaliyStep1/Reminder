@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderDomain
 
 class CategoriesViewModel: ObservableObject {
   let dataService: DataServiceProtocol?

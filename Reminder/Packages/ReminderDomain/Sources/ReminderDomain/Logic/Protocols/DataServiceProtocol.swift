@@ -7,11 +7,9 @@
 import Foundation
 import ReminderPersistence
 
-typealias Category = ReminderPersistence.Category
-
-protocol DataServiceProtocol {
+public protocol DataServiceProtocol {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol)
-  func setupDataAtStart()
+  func setupDataAtStart() async
   
   func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws
   func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws
