@@ -7,7 +7,7 @@
 import Foundation
 import ReminderPersistence
 
-public protocol DataServiceProtocol {
+public protocol DataServiceProtocol: Sendable {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol)
   func setupDataAtStart() async
   
@@ -18,6 +18,6 @@ public protocol DataServiceProtocol {
   func fetchEvents(categoryId: ObjectId) async throws -> [Event]
   func fetchEvent(eventId: ObjectId) async throws -> Event
   
-  func takeAllCategories() async -> [Category]?
+  func takeAllCategories() async throws -> [Category]
   func fetchCategory(categoryId: ObjectId) async throws -> Category?
 }

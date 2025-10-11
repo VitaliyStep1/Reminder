@@ -7,7 +7,7 @@
 
 import CoreData
 
-public class DBCategoriesService: DBCategoriesServiceProtocol {
+public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked Sendable {
   private let container: NSPersistentContainer
   private var context: NSManagedObjectContext {
     container.viewContext

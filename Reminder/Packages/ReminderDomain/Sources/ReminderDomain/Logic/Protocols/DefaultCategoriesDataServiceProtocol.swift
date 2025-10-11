@@ -7,6 +7,6 @@
 
 import ReminderPersistence
 
-public protocol DefaultCategoriesDataServiceProtocol {
+public protocol DefaultCategoriesDataServiceProtocol: Sendable {
   func takeDefaultCategories() -> [DefaultCategory]
 }

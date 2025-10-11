@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol DBEventsServiceProtocol {
+public protocol DBEventsServiceProtocol: Sendable {
   func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws
   func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws
   func deleteEvent(eventId: ObjectId) async throws

@@ -8,7 +8,7 @@
 import Foundation
 import ReminderPersistence
 
-public struct Event {
+public struct Event: Sendable {
   public let id: ObjectId
   public let title: String
   public let date: Date

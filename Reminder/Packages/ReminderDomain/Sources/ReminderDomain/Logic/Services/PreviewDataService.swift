@@ -8,7 +8,7 @@
 import Foundation
 import ReminderPersistence
 
-public  class PreviewDataService: PreviewDataServiceProtocol {
+public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Sendable {
   private var dBCategoriesService: DBCategoriesServiceProtocol
   private var dBEventsService: DBEventsServiceProtocol
   

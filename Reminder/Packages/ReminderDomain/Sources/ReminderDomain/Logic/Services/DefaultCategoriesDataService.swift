@@ -7,7 +7,7 @@
 
 import ReminderPersistence
 
-public class DefaultCategoriesDataService: DefaultCategoriesDataServiceProtocol {
+public final class DefaultCategoriesDataService: DefaultCategoriesDataServiceProtocol, Sendable {
   
   public init() { }
   

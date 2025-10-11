@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Category: Identifiable {
+public struct Category: Identifiable, Sendable {
   public let id: ObjectId
   public let defaultKey: String
   public var title: String

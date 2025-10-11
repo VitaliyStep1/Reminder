@@ -7,7 +7,7 @@
 
 import CoreData
 
-public class DBEventsService: DBEventsServiceProtocol {
+public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable {
   private let container: NSPersistentContainer
   private var context: NSManagedObjectContext {
     container.viewContext

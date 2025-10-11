@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		045FDDD82E98274200E02EB2 /* ReminderDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 045FDDD72E98274200E02EB2 /* ReminderDomain */; };
-		047351E42E9662770039EC19 /* ReminderPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 047351E32E9662770039EC19 /* ReminderPersistence */; };
+		045FDDDC2E98452C00E02EB2 /* ReminderDependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 045FDDDB2E98452C00E02EB2 /* ReminderDependencies */; };
+		045FDDE22E9849E400E02EB2 /* ReminderNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 045FDDE12E9849E400E02EB2 /* ReminderNavigation */; };
+		0462B7452E99819800F8BB01 /* ReminderPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 047351E32E9662770039EC19 /* ReminderPersistence */; };
 		047552AE2E9199CD002921A0 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 047552AD2E9199CD002921A0 /* Swinject */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +40,16 @@
 		047351E22E965CA50039EC19 /* Exceptions for "Reminder" folder in "Reminder" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Packages/ReminderConfigurations,
+				Packages/ReminderDependencies,
 				Packages/ReminderPersistence,
+				PackagesUI/ReminderClosestTab,
+				PackagesUI/ReminderCreateTab,
+				PackagesUI/ReminderMainTabView,
+				PackagesUI/ReminderNavigation,
+				PackagesUI/ReminderNavigationContracts,
+				PackagesUI/ReminderSharedUI,
+				PackagesUI/ReminderStartUI,
 			);
 			target = 04AE222F2E59F51300D29776 /* Reminder */;
 		};
@@ -71,8 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				045FDDD82E98274200E02EB2 /* ReminderDomain in Frameworks */,
-				047351E42E9662770039EC19 /* ReminderPersistence in Frameworks */,
+				0462B7452E99819800F8BB01 /* ReminderPersistence in Frameworks */,
+				045FDDDC2E98452C00E02EB2 /* ReminderDependencies in Frameworks */,
+				045FDDE22E9849E400E02EB2 /* ReminderNavigation in Frameworks */,
 				047552AE2E9199CD002921A0 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,7 +156,8 @@
 			packageProductDependencies = (
 				047552AD2E9199CD002921A0 /* Swinject */,
 				047351E32E9662770039EC19 /* ReminderPersistence */,
-				045FDDD72E98274200E02EB2 /* ReminderDomain */,
+				045FDDDB2E98452C00E02EB2 /* ReminderDependencies */,
+				045FDDE12E9849E400E02EB2 /* ReminderNavigation */,
 			);
 			productName = Reminder;
 			productReference = 04AE22302E59F51300D29776 /* Reminder.app */;
@@ -635,9 +647,13 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		045FDDD72E98274200E02EB2 /* ReminderDomain */ = {
+		045FDDDB2E98452C00E02EB2 /* ReminderDependencies */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = ReminderDomain;
+			productName = ReminderDependencies;
+		};
+		045FDDE12E9849E400E02EB2 /* ReminderNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ReminderNavigation;
 		};
 		047351E32E9662770039EC19 /* ReminderPersistence */ = {
 			isa = XCSwiftPackageProductDependency;

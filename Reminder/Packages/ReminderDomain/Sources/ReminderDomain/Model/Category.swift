@@ -8,7 +8,7 @@
 import Foundation
 import ReminderPersistence
 
-public struct Category: Identifiable {
+public struct Category: Sendable, Identifiable {
   public let id: ObjectId
   public let defaultKey: String
   public var title: String

@@ -8,12 +8,12 @@
 import Foundation
 import ReminderPersistence
 
-public class DataService: DataServiceProtocol {
+public actor DataService: DataServiceProtocol {
   private var dBCategoriesService: DBCategoriesServiceProtocol
   private var dBEventsService: DBEventsServiceProtocol
   private var defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol
   
-  public required init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService: DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol) {
+  public init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService: DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol) {
     self.dBCategoriesService = dBCategoriesService
     self.dBEventsService = dBEventsService
     self.defaultCategoriesDataService = defaultCategoriesDataService
@@ -39,11 +39,8 @@ public class DataService: DataServiceProtocol {
     try await dBEventsService.deleteEvent(eventId: eventId)
   }
   
-  public func takeAllCategories() async -> [Category]? {
-    let reminderPersistenceCategories = try? await dBCategoriesService.fetchAllCategories()
-    guard let reminderPersistenceCategories else {
-      return nil
-    }
+  public func takeAllCategories() async throws -> [Category] {
+    let reminderPersistenceCategories = try await dBCategoriesService.fetchAllCategories()
     let categories = reminderPersistenceCategories.map {
       Category.init(reminderPersistenceCategory: $0)
     }

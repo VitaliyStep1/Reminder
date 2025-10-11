@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
+import ReminderNavigationContracts
+import ReminderNavigation
+import ReminderDependencies
 
 @main
 struct ReminderApp: App {
-  private let viewFactory: ViewFactory
+  private let viewFactory: any ViewFactoryProtocol
   
   init() {
     let di = DIService()
-    viewFactory = di.resolver.resolve(ViewFactory.self)!
+    guard let viewFactory = di.resolver.resolve(ViewFactoryProtocol.self) else {
+      fatalError("Failed to resolve ViewFactoryProtocol.")
+    }
+    self.viewFactory = viewFactory
   }
   
   var body: some Scene {

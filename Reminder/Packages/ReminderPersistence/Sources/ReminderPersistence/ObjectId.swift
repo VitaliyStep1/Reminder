@@ -8,3 +8,5 @@
 import CoreData
 
 public typealias ObjectId = NSManagedObjectID
+
+extension NSManagedObjectID: @unchecked Sendable {} 
