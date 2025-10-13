@@ -21,8 +21,8 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
     self.dBEventsService = dBEventsService
   }
   
-  public func takeFirstCategoryObjectId() async throws -> ObjectId? {
-    try? await dBCategoriesService.takeFirstCategoryObjectId()
+  public func takeFirstCategoryIdentifier() async throws -> ObjectId? {
+    try? await dBCategoriesService.takeFirstCategoryIdentifier()
   }
   
   public func addDataForPreview() async throws {
@@ -35,7 +35,7 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
     let eventComment = eventData.comment
     let eventDate = Date()
     
-    if let categoryId = try? await dBCategoriesService.takeFirstCategoryObjectId() {
+    if let categoryId = try? await dBCategoriesService.takeFirstCategoryIdentifier() {
       let isNecessaryToCreateEvent = try await !isEventsExist(categoryId: categoryId)
       if isNecessaryToCreateEvent {
         try await dBEventsService.createEvent(categoryId: categoryId, title: eventTitle, date: eventDate, comment: eventComment)

@@ -14,7 +14,7 @@ extension EventObject {
     NSFetchRequest<EventObject>(entityName: "EventObject")
   }
   
-//  @NSManaged public var uuid: UUID
+  @NSManaged public var identifier: UUID
   @NSManaged public var title: String?
   @NSManaged public var date: Date?
   @NSManaged public var comment: String?

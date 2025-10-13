@@ -15,7 +15,7 @@ extension CategoryObject {
   }
   
   @NSManaged public var defaultKey: String?
-//  @NSManaged public var uuid: UUID
+  @NSManaged public var identifier: UUID
   @NSManaged public var title: String?
   @NSManaged public var order: Int32
   @NSManaged public var isUserCreated: Bool

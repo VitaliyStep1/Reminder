@@ -5,8 +5,6 @@
 //  Created by Vitaliy Stepanenko on 12.09.2025.
 //
 
-import CoreData
+import Foundation
 
-public typealias ObjectId = NSManagedObjectID
-
-extension NSManagedObjectID: @unchecked Sendable {} 
+public typealias ObjectId = UUID

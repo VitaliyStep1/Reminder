@@ -142,7 +142,7 @@ public struct CategoryEventView: View {
 //    .task {
 //      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
 //      if let appDependencies = appDependenciesLoader.instance {
-//        categoryId = try? await appDependencies.previewDataService?.takeFirstCategoryObjectId()
+//        categoryId = try? await appDependencies.previewDataService?.takeFirstCategoryIdentifier()
 //      }
 //    }
 //  }

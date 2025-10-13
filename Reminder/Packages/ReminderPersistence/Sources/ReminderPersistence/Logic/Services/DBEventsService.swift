@@ -21,11 +21,12 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         do {
-          guard let category = try context.existingObject(with: categoryId) as? CategoryObject else {
+          guard let category = try self.fetchCategoryObject(with: categoryId, context: context) else {
             throw CreateEventError.categoryWasNotFetched
           }
           
           let event = EventObject(context: context)
+          event.identifier = UUID()
           event.title = title
           event.date = date
           event.comment = comment
@@ -44,7 +45,7 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         do {
-          guard let eventObject = try context.existingObject(with: eventId) as? EventObject else {
+          guard let eventObject = try self.fetchEventObject(with: eventId, context: context) else {
             throw EditEventError.eventWasNotFetched
           }
           
@@ -67,7 +68,7 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
         do {
-          guard let eventObject = try context.existingObject(with: eventId) as? EventObject else {
+          guard let eventObject = try self.fetchEventObject(with: eventId, context: context) else {
             throw DeleteEventError.eventWasNotFetched
           }
           
@@ -85,21 +86,22 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
   public func fetchEvents(categoryId: ObjectId) async throws -> [Event] {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
-        guard let category = try? context.existingObject(with: categoryId) as? CategoryObject else {
-          continuation.resume(throwing: FetchCategoryError.categoryWasNotFetched)
-          return
-        }
         do {
+          guard let category = try self.fetchCategoryObject(with: categoryId, context: context) else {
+            continuation.resume(throwing: FetchCategoryError.categoryWasNotFetched)
+            return
+          }
+          
           let request = EventObject.fetchRequest()
           request.predicate = NSPredicate(format: "category == %@", category)
           request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
           request.returnsObjectsAsFaults = false
           let eventObjects = try context.fetch(request)
           let events = eventObjects.map { eventObject in
-            Event(id: eventObject.objectID,
+            Event(id: eventObject.identifier,
                   title: eventObject.title ?? "",
                   date: eventObject.date ?? Date(),
-                  comment: eventObject.comment ?? "", categoryId: category.objectID)
+                  comment: eventObject.comment ?? "", categoryId: category.identifier)
           }
           continuation.resume(returning: events)
         } catch {
@@ -112,21 +114,39 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
   public func fetchEvent(eventId: ObjectId) async throws -> Event {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { context in
-        guard let eventObject = try? context.existingObject(with: eventId) as? EventObject else {
-          continuation.resume(throwing: FetchEventError.eventWasNotFetched)
-          return
+        do {
+          guard let eventObject = try self.fetchEventObject(with: eventId, context: context) else {
+            continuation.resume(throwing: FetchEventError.eventWasNotFetched)
+            return
+          }
+          
+          let event = Event(
+            id: eventObject.identifier,
+            title: eventObject.title ?? "",
+            date: eventObject.date ?? Date(),
+            comment: eventObject.comment ?? "",
+            categoryId: eventObject.category?.identifier
+          )
+          
+          continuation.resume(returning: event)
+        } catch {
+          continuation.resume(throwing: error)
         }
-        
-        let event = Event(
-          id: eventObject.objectID,
-          title: eventObject.title ?? "",
-          date: eventObject.date ?? Date(),
-          comment: eventObject.comment ?? "",
-          categoryId: eventObject.category?.objectID
-        )
-        
-        continuation.resume(returning: event)
       }
     }
+  }
+  
+  private func fetchCategoryObject(with id: UUID, context: NSManagedObjectContext) throws -> CategoryObject? {
+    let request: NSFetchRequest<CategoryObject> = CategoryObject.fetchRequest()
+    request.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)
+    request.fetchLimit = 1
+    return try context.fetch(request).first
+  }
+  
+  private func fetchEventObject(with id: UUID, context: NSManagedObjectContext) throws -> EventObject? {
+    let request: NSFetchRequest<EventObject> = EventObject.fetchRequest()
+    request.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)
+    request.fetchLimit = 1
+    return try context.fetch(request).first
   }
 }
