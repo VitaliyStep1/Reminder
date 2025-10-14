@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ReminderNavigationContracts
-import ReminderNavigation
 import ReminderDependencies
 
 @main

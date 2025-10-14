@@ -117,33 +117,3 @@ public struct CategoryEventView: View {
   }
 }
 
-//#Preview {
-//  CategoryEventPreview()
-//}
-//
-//@MainActor
-//private struct CategoryEventPreview: View {
-//  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
-//  @State private var categoryId: ObjectId?
-//  
-//  var body: some View {
-//    Group {
-//      if let appDependencies = appDependenciesLoader.instance {
-//        if let categoryId {
-//          let viewModel = CategoryEventViewModel(dataService: appDependencies.dataService, type: .create(categoryId: categoryId), eventsWereChangedHandler: {}, closeViewHandler: {})
-//          CategoryEventView(viewModel: viewModel)
-//        } else {
-//          Text("No category to preview")
-//        }
-//      } else {
-//        ProgressView("Loading appDependencies...")
-//      }
-//    }
-//    .task {
-//      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
-//      if let appDependencies = appDependenciesLoader.instance {
-//        categoryId = try? await appDependencies.previewDataService?.takeFirstCategoryIdentifier()
-//      }
-//    }
-//  }
-//}
