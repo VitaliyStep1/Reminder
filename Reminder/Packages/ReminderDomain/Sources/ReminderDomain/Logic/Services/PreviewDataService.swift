@@ -21,7 +21,7 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
     self.dBEventsService = dBEventsService
   }
   
-  public func takeFirstCategoryIdentifier() async throws -> ObjectId? {
+  public func takeFirstCategoryIdentifier() async throws -> Identifier? {
     try? await dBCategoriesService.takeFirstCategoryIdentifier()
   }
   
@@ -43,7 +43,7 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
     }
   }
   
-  private func isEventsExist(categoryId: ObjectId) async throws -> Bool {
+  private func isEventsExist(categoryId: Identifier) async throws -> Bool {
     let events = try await dBEventsService.fetchEvents(categoryId: categoryId)
     return !events.isEmpty
   }

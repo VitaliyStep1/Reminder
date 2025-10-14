@@ -7,14 +7,13 @@
 
 import Foundation
 import Combine
-import ReminderPersistence
 import ReminderDomain
 import ReminderNavigationContracts
 
 @MainActor
 public class CategoryViewModel: ObservableObject {
   var dataService: DataServiceProtocol?
-  let categoryId: ObjectId
+  let categoryId: Identifier
   
   @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
@@ -27,7 +26,7 @@ public class CategoryViewModel: ObservableObject {
   
   let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
   
-  public init(categoryId: ObjectId, dataService: DataServiceProtocol?) {
+  public init(categoryId: Identifier, dataService: DataServiceProtocol?) {
     self.categoryId = categoryId
     self.dataService = dataService
   }
@@ -46,7 +45,7 @@ public class CategoryViewModel: ObservableObject {
     showCreateEventView()
   }
   
-  func eventTapped(eventId: ObjectId) {
+  func eventTapped(eventId: Identifier) {
     showEditEventView(eventId: eventId)
   }
   
@@ -96,7 +95,7 @@ public class CategoryViewModel: ObservableObject {
     }
   }
   
-  private func showEditEventView(eventId: ObjectId) {
+  private func showEditEventView(eventId: Identifier) {
     eventViewSubject.send(.edit(eventId: eventId))
   }
   

@@ -5,11 +5,10 @@
 //  Created by Vitaliy Stepanenko on 23.08.2025.
 //
 
-import ReminderPersistence
 import ReminderDomain
 
 struct CategoriesCategoryEntity: Identifiable, Hashable {
-  let id: ObjectId
+  let id: Identifier
   let title: String
   let eventsAmount: String
   

@@ -11,13 +11,13 @@ public protocol DataServiceProtocol: Sendable {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol)
   func setupDataAtStart() async
   
-  func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws
-  func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws
-  func deleteEvent(eventId: ObjectId) async throws
+  func createEvent(categoryId: Identifier, title: String, date: Date, comment: String) async throws
+  func editEvent(eventId: Identifier, title: String, date: Date, comment: String) async throws
+  func deleteEvent(eventId: Identifier) async throws
   
-  func fetchEvents(categoryId: ObjectId) async throws -> [Event]
-  func fetchEvent(eventId: ObjectId) async throws -> Event
+  func fetchEvents(categoryId: Identifier) async throws -> [Event]
+  func fetchEvent(eventId: Identifier) async throws -> Event
   
   func takeAllCategories() async throws -> [Category]
-  func fetchCategory(categoryId: ObjectId) async throws -> Category?
+  func fetchCategory(categoryId: Identifier) async throws -> Category?
 }

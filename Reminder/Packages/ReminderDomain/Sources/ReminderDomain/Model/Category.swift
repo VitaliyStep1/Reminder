@@ -9,14 +9,14 @@ import Foundation
 import ReminderPersistence
 
 public struct Category: Sendable, Identifiable {
-  public let id: ObjectId
+  public let id: Identifier
   public let defaultKey: String
   public var title: String
   public let order: Int
   public let isUserCreated: Bool
   public var eventsAmount: Int
   
-  init(id: ObjectId, defaultKey: String, title: String, order: Int, isUserCreated: Bool, eventsAmount: Int) {
+  init(id: Identifier, defaultKey: String, title: String, order: Int, isUserCreated: Bool, eventsAmount: Int) {
     self.id = id
     self.defaultKey = defaultKey
     self.title = title

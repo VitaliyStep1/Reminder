@@ -27,15 +27,15 @@ public actor DataService: DataServiceProtocol {
     try? await dBCategoriesService.addOrUpdate(defaultCategories: reminderPersistenceDefaultCategories)
   }
   
-  public func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String) async throws {
+  public func createEvent(categoryId: Identifier, title: String, date: Date, comment: String) async throws {
     try await dBEventsService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
   }
   
-  public func editEvent(eventId: ObjectId, title: String, date: Date, comment: String) async throws {
+  public func editEvent(eventId: Identifier, title: String, date: Date, comment: String) async throws {
     try await dBEventsService.editEvent(eventId: eventId, title: title, date: date, comment: comment)
   }
   
-  public func deleteEvent(eventId: ObjectId) async throws {
+  public func deleteEvent(eventId: Identifier) async throws {
     try await dBEventsService.deleteEvent(eventId: eventId)
   }
   
@@ -47,7 +47,7 @@ public actor DataService: DataServiceProtocol {
     return categories
   }
   
-  public func fetchEvents(categoryId: ObjectId) async throws -> [Event] {
+  public func fetchEvents(categoryId: Identifier) async throws -> [Event] {
     let reminderPersistenceEvents = try await dBEventsService.fetchEvents(categoryId: categoryId)
     let events = reminderPersistenceEvents.map {
       Event.init(reminderPersistenceEvent: $0)
@@ -55,13 +55,13 @@ public actor DataService: DataServiceProtocol {
     return events
   }
   
-  public func fetchEvent(eventId: ObjectId) async throws -> Event {
+  public func fetchEvent(eventId: Identifier) async throws -> Event {
     let reminderPersistenceEvent = try await dBEventsService.fetchEvent(eventId: eventId)
     let event = Event.init(reminderPersistenceEvent: reminderPersistenceEvent)
     return event
   }
   
-  public func fetchCategory(categoryId: ObjectId) async throws -> Category? {
+  public func fetchCategory(categoryId: Identifier) async throws -> Category? {
     let reminderPersistenceCategory = try? await dBCategoriesService.fetchCategory(categoryId: categoryId)
     let category = reminderPersistenceCategory.flatMap {
       Category.init(reminderPersistenceCategory: $0)

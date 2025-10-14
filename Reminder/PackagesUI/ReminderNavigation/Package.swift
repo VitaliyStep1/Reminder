@@ -14,7 +14,6 @@ let package = Package(
             targets: ["ReminderNavigation"]),
     ],
     dependencies: [
-      .package(path: "../ReminderPersistence"),
       .package(path: "../ReminderConfigurations"),
       .package(path: "../ReminderStartUI"),
       .package(path: "../ReminderMainTabView"),
@@ -26,7 +25,6 @@ let package = Package(
         .target(
           name: "ReminderNavigation",
           dependencies: [
-            "ReminderPersistence",
             "ReminderConfigurations",
             "ReminderStartUI",
             "ReminderMainTabView",

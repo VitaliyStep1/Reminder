@@ -9,13 +9,13 @@ import Foundation
 import ReminderPersistence
 
 public struct Event: Sendable {
-  public let id: ObjectId
+  public let id: Identifier
   public let title: String
   public let date: Date
   public let comment: String
-  public let categoryId: ObjectId?
+  public let categoryId: Identifier?
   
-  init(id: ObjectId, title: String, date: Date, comment: String, categoryId: ObjectId?) {
+  init(id: Identifier, title: String, date: Date, comment: String, categoryId: Identifier?) {
     self.id = id
     self.title = title
     self.date = date

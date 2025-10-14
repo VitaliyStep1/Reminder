@@ -5,8 +5,6 @@
 //  Created by Vitaliy Stepanenko on 10.09.2025.
 //
 
-import ReminderPersistence
-
 public final class DefaultCategoriesDataService: DefaultCategoriesDataServiceProtocol, Sendable {
   
   public init() { }

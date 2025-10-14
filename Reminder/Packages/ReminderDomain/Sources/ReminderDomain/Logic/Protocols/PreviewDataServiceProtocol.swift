@@ -10,6 +10,6 @@ import ReminderPersistence
 public protocol PreviewDataServiceProtocol: Sendable {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol)
   
-  func takeFirstCategoryIdentifier() async throws -> ObjectId?
+  func takeFirstCategoryIdentifier() async throws -> Identifier?
   func addDataForPreview() async throws
 }

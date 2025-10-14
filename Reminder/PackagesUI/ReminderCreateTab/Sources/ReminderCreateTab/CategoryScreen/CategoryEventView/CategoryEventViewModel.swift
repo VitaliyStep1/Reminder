@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ReminderPersistence
 import ReminderDomain
 import ReminderNavigationContracts
 
@@ -142,7 +141,7 @@ public class CategoryEventViewModel: ObservableObject {
     }
   }
   
-  private func deleteEvent(eventId: ObjectId) async throws {
+  private func deleteEvent(eventId: Identifier) async throws {
     guard let dataService else {
       //TODO : Throw error
       return
@@ -150,7 +149,7 @@ public class CategoryEventViewModel: ObservableObject {
     try await dataService.deleteEvent(eventId: eventId)
   }
   
-  private func createEvent(categoryId: ObjectId) async throws {
+  private func createEvent(categoryId: Identifier) async throws {
     guard let dataService else {
       //TODO : Throw error
       return
@@ -165,7 +164,7 @@ public class CategoryEventViewModel: ObservableObject {
     try await dataService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
   }
   
-  private func editEvent(eventId: ObjectId) async throws {
+  private func editEvent(eventId: Identifier) async throws {
     guard let dataService else {
       //TODO : Throw error
       return
@@ -186,7 +185,7 @@ public class CategoryEventViewModel: ObservableObject {
     }
   }
   
-  private func fetchEvent(eventId: ObjectId) {
+  private func fetchEvent(eventId: Identifier) {
     guard let dataService else {
       //TODO : Throw error
       return
