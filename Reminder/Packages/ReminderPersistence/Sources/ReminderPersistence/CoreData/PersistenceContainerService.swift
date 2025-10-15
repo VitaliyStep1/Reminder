@@ -7,7 +7,7 @@
 
 import CoreData
 
-public final class PersistenceContainerService {
+public final class PersistenceContainerService: PersistenceContainerServiceProtocol {
   
   public init() { }
   

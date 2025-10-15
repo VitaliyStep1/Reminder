@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ReminderPersistenceContracts
 
 public struct Category: Sendable, Identifiable {
   public let id: Identifier

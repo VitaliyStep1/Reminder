@@ -6,7 +6,6 @@
 //
 
 import Swinject
-import CoreData
 import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
@@ -35,34 +34,6 @@ final class DependencyAssembly: Assembly {
     // AppConfigurationProtocol
     container.register(AppConfigurationProtocol.self) { _ in
       AppConfiguration()
-    }
-    .inObjectScope(.container)
-    
-    // PersistenceContainerService
-    container.register(PersistenceContainerService.self) { _ in
-      PersistenceContainerService()
-    }
-    .inObjectScope(.container)
-    
-    // NSPersistentContainer - NOT in memory
-    container.register(NSPersistentContainer.self) { r in
-      let factory = r.resolve(PersistenceContainerService.self)!
-      let persistentContainer = factory.createPersistentContainer(inMemory: false)
-      return persistentContainer
-    }
-    .inObjectScope(.container)
-    
-    // DBCategoriesServiceProtocol
-    container.register(DBCategoriesServiceProtocol.self) { r in
-      let persistentContainer = r.resolve(NSPersistentContainer.self)!
-      return DBCategoriesService(container: persistentContainer)
-    }
-    .inObjectScope(.container)
-    
-    // DBEventsServiceProtocol
-    container.register(DBEventsServiceProtocol.self) { r in
-      let persistentContainer = r.resolve(NSPersistentContainer.self)!
-      return DBEventsService(container: persistentContainer)
     }
     .inObjectScope(.container)
     
