@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import ReminderDomain
+import ReminderDomainContracts
 import ReminderNavigationContracts
 
 @MainActor
 public class CategoryEventViewModel: ObservableObject {
-  let dataService: DataServiceProtocol?
+  let dataService: DataServiceProtocol
   let type: CategoryEventViewType
   let eventsWereChangedHandler: () -> Void
   let closeViewHandler: () -> Void
@@ -37,7 +37,7 @@ public class CategoryEventViewModel: ObservableObject {
   let deleteButtonTitle = "Delete"
   
   
-  public init(dataService: DataServiceProtocol?, type: CategoryEventViewType, eventsWereChangedHandler: @escaping () -> Void, closeViewHandler: @escaping () -> Void) {
+  public init(dataService: DataServiceProtocol, type: CategoryEventViewType, eventsWereChangedHandler: @escaping () -> Void, closeViewHandler: @escaping () -> Void) {
     self.dataService = dataService
     self.type = type
     self.eventsWereChangedHandler = eventsWereChangedHandler
@@ -142,18 +142,10 @@ public class CategoryEventViewModel: ObservableObject {
   }
   
   private func deleteEvent(eventId: Identifier) async throws {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
     try await dataService.deleteEvent(eventId: eventId)
   }
   
   private func createEvent(categoryId: Identifier) async throws {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
     
     let title = self.title
     let comment = self.comment
@@ -165,10 +157,6 @@ public class CategoryEventViewModel: ObservableObject {
   }
   
   private func editEvent(eventId: Identifier) async throws {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
     let title = self.title
     let comment = self.comment
     let date = self.date
@@ -186,10 +174,6 @@ public class CategoryEventViewModel: ObservableObject {
   }
   
   private func fetchEvent(eventId: Identifier) {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
     Task {
       let event = try? await dataService.fetchEvent(eventId: eventId)
       guard let event else {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderDomain
+import ReminderDomainContracts
 
 public enum Route: Hashable {
   case mainTabView

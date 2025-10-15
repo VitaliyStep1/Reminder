@@ -7,12 +7,12 @@
 
 import Foundation
 import Combine
-import ReminderDomain
+import ReminderDomainContracts
 import ReminderNavigationContracts
 
 @MainActor
 public class CategoryViewModel: ObservableObject {
-  var dataService: DataServiceProtocol?
+  var dataService: DataServiceProtocol
   let categoryId: Identifier
   
   @Published var entityEvents: [CategoryEntity.Event] = []
@@ -26,7 +26,7 @@ public class CategoryViewModel: ObservableObject {
   
   let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
   
-  public init(categoryId: Identifier, dataService: DataServiceProtocol?) {
+  public init(categoryId: Identifier, dataService: DataServiceProtocol) {
     self.categoryId = categoryId
     self.dataService = dataService
   }
@@ -66,9 +66,6 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func updateEventList() {
-    guard let dataService else {
-      return
-    }
     Task {
       do {
         let events = try await dataService.fetchEvents(categoryId: categoryId)
@@ -86,9 +83,6 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func updateNavigationTitle() {
-    guard let dataService else {
-      return
-    }
     Task {
       let category = try? await dataService.fetchCategory(categoryId: categoryId)
       navigationTitle = category?.title ?? ""

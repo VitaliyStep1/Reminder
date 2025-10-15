@@ -5,14 +5,14 @@
 //  Created by Vitaliy Stepanenko on 23.08.2025.
 //
 
-import ReminderDomain
+import ReminderDomainContracts
 
 struct CategoriesCategoryEntity: Identifiable, Hashable {
   let id: Identifier
   let title: String
   let eventsAmount: String
   
-  init(category: ReminderDomain.Category) {
+  init(category: ReminderDomainContracts.Category) {
     self.id = category.id
     self.title = category.title
     self.eventsAmount = String(category.eventsAmount)

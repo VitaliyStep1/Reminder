@@ -7,6 +7,7 @@
 
 import Swinject
 import ReminderPersistenceContracts
+import ReminderDomainContracts
 
 // Don't use func resolve outside this file
 // Instead add here computed property
@@ -19,5 +20,9 @@ extension Resolver {
   
   public var dbEventsServiceProtocol: DBEventsServiceProtocol {
     resolve(DBEventsServiceProtocol.self)!
+  }
+  
+  public var dataServiceProtocol: DataServiceProtocol {
+    resolve(DataServiceProtocol.self)!
   }
 }

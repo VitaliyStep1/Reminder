@@ -5,12 +5,14 @@
 //  Created by Vitaliy Stepanenko on 10.09.2025.
 //
 
+import ReminderDomainContracts
+
 public final class DefaultCategoriesDataService: DefaultCategoriesDataServiceProtocol, Sendable {
   
   public init() { }
   
-  public func takeDefaultCategories() -> [DefaultCategory] {
-    let categories: [DefaultCategory] = [
+  public func takeDefaultCategories() -> [ReminderDomainContracts.DefaultCategory] {
+    let categories: [ReminderDomainContracts.DefaultCategory] = [
       .init(defaultKey: "Birthdays", title: "Birthdays", order: 1),
       .init(defaultKey: "Subscriptions", title: "Subscriptions", order: 2),
       .init(defaultKey: "Utilities", title: "Utilities", order: 3),

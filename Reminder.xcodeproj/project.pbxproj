@@ -42,6 +42,7 @@
 			membershipExceptions = (
 				Packages/ReminderConfigurations,
 				Packages/ReminderDependencies,
+				Packages/ReminderDomainContracts,
 				Packages/ReminderPersistence,
 				Packages/ReminderPersistenceContracts,
 				Packages/ReminderResolver,

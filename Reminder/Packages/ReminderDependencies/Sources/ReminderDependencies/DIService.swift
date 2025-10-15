@@ -7,7 +7,7 @@
 
 import Swinject
 import ReminderPersistenceContracts
-import ReminderDomain
+import ReminderDomainContracts
 import ReminderNavigation
 import ReminderStartUI
 import ReminderConfigurations

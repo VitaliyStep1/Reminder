@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ReminderDomainContracts
 import ReminderPersistenceContracts
 
 public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Sendable {

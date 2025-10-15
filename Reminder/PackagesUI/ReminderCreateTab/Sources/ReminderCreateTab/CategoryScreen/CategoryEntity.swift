@@ -5,7 +5,7 @@
 //  Created by Vitaliy Stepanenko on 02.10.2025.
 //
 
-import ReminderDomain
+import ReminderDomainContracts
 
 enum CategoryEntity {
   struct Event: Identifiable {

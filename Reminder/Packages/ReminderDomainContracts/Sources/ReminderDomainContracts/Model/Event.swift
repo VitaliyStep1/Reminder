@@ -15,19 +15,11 @@ public struct Event: Sendable {
   public let comment: String
   public let categoryId: Identifier?
   
-  init(id: Identifier, title: String, date: Date, comment: String, categoryId: Identifier?) {
+  public init(id: Identifier, title: String, date: Date, comment: String, categoryId: Identifier?) {
     self.id = id
     self.title = title
     self.date = date
     self.comment = comment
     self.categoryId = categoryId
-  }
-  
-  init(reminderPersistenceEvent: ReminderPersistenceContracts.Event) {
-    self.id = reminderPersistenceEvent.id
-    self.title = reminderPersistenceEvent.title
-    self.date = reminderPersistenceEvent.date
-    self.comment = reminderPersistenceEvent.comment
-    self.categoryId = reminderPersistenceEvent.categoryId
   }
 }
