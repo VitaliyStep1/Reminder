@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReminderPersistence
+import ReminderPersistenceContracts
 
 public struct Event: Sendable {
   public let id: Identifier
@@ -23,7 +23,7 @@ public struct Event: Sendable {
     self.categoryId = categoryId
   }
   
-  init(reminderPersistenceEvent: ReminderPersistence.Event) {
+  init(reminderPersistenceEvent: ReminderPersistenceContracts.Event) {
     self.id = reminderPersistenceEvent.id
     self.title = reminderPersistenceEvent.title
     self.date = reminderPersistenceEvent.date

@@ -43,6 +43,7 @@
 				Packages/ReminderConfigurations,
 				Packages/ReminderDependencies,
 				Packages/ReminderPersistence,
+				Packages/ReminderPersistenceContracts,
 				PackagesUI/ReminderClosestTab,
 				PackagesUI/ReminderCreateTab,
 				PackagesUI/ReminderMainTabView,

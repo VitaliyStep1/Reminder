@@ -5,7 +5,7 @@
 //  Created by Vitaliy Stepanenko on 11.09.2025.
 //
 
-import ReminderPersistence
+import ReminderPersistenceContracts
 
 public struct DefaultCategory {
   let defaultKey: String
@@ -13,7 +13,7 @@ public struct DefaultCategory {
   let order: Int
   let isUserCreated = false
   
-  var reminderPersistenceDefaultCategory: ReminderPersistence.DefaultCategory {
-    ReminderPersistence.DefaultCategory(defaultKey: defaultKey, title: title, order: order, isUserCreated: isUserCreated)
+  var reminderPersistenceDefaultCategory: ReminderPersistenceContracts.DefaultCategory {
+    ReminderPersistenceContracts.DefaultCategory(defaultKey: defaultKey, title: title, order: order, isUserCreated: isUserCreated)
   }
 }

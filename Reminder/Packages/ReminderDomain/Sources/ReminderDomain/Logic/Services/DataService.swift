@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReminderPersistence
+import ReminderPersistenceContracts
 
 public actor DataService: DataServiceProtocol {
   private var dBCategoriesService: DBCategoriesServiceProtocol

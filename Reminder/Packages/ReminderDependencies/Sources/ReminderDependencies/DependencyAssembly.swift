@@ -7,6 +7,7 @@
 
 import Swinject
 import CoreData
+import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomain
 import ReminderNavigation

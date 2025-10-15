@@ -5,7 +5,7 @@
 //  Created by Vitaliy Stepanenko on 24.08.2025.
 //
 import Foundation
-import ReminderPersistence
+import ReminderPersistenceContracts
 
 public protocol DataServiceProtocol: Sendable {
   init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService:DBEventsServiceProtocol, defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol)

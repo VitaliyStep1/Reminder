@@ -6,10 +6,10 @@
 //
 
 public struct DefaultCategory {
-  let defaultKey: String
-  var title: String
-  let order: Int
-  let isUserCreated: Bool
+  public let defaultKey: String
+  public var title: String
+  public let order: Int
+  public let isUserCreated: Bool
   
   public init(defaultKey: String, title: String, order: Int, isUserCreated: Bool) {
     self.defaultKey = defaultKey

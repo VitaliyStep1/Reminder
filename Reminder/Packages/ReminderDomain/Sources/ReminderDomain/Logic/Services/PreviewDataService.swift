@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReminderPersistence
+import ReminderPersistenceContracts
 
 public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Sendable {
   private var dBCategoriesService: DBCategoriesServiceProtocol

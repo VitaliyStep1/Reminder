@@ -13,9 +13,15 @@ let package = Package(
             name: "ReminderPersistence",
             targets: ["ReminderPersistence"]),
     ],
+    dependencies: [
+      .package(path: "../ReminderPersistenceContracts")
+    ],
     targets: [
         .target(
             name: "ReminderPersistence",
+            dependencies: [
+              "ReminderPersistenceContracts"
+            ],
             resources: [
               .process("Model.xcdatamodeld")
             ]

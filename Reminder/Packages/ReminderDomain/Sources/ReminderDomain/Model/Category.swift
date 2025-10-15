@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReminderPersistence
+import ReminderPersistenceContracts
 
 public struct Category: Sendable, Identifiable {
   public let id: Identifier
@@ -25,7 +25,7 @@ public struct Category: Sendable, Identifiable {
     self.eventsAmount = eventsAmount
   }
   
-  init(reminderPersistenceCategory: ReminderPersistence.Category) {
+  init(reminderPersistenceCategory: ReminderPersistenceContracts.Category) {
     self.id = reminderPersistenceCategory.id
     self.defaultKey = reminderPersistenceCategory.defaultKey
     self.title = reminderPersistenceCategory.title
