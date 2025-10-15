@@ -8,6 +8,7 @@
 import Swinject
 import ReminderPersistenceContracts
 import ReminderDomainContracts
+import ReminderNavigationContracts
 
 // Don't use func resolve outside this file
 // Instead add here computed property
@@ -24,5 +25,9 @@ extension Resolver {
   
   public var dataServiceProtocol: DataServiceProtocol {
     resolve(DataServiceProtocol.self)!
+  }
+  
+  public var viewFactoryProtocol: ViewFactoryProtocol {
+    resolve(ViewFactoryProtocol.self)!
   }
 }

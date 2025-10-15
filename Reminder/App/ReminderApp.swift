@@ -15,9 +15,7 @@ struct ReminderApp: App {
   
   init() {
     let di = DIService()
-    guard let viewFactory = di.resolver.resolve(ViewFactoryProtocol.self) else {
-      fatalError("Failed to resolve ViewFactoryProtocol.")
-    }
+    let viewFactory = di.resolver.viewFactoryProtocol
     self.viewFactory = viewFactory
   }
   
