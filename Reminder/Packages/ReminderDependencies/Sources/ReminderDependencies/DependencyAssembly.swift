@@ -14,6 +14,7 @@ import ReminderNavigation
 import ReminderStartUI
 import ReminderConfigurations
 import ReminderNavigationContracts
+import ReminderResolver
 
 final class DependencyAssembly: Assembly {
   
@@ -71,11 +72,11 @@ final class DependencyAssembly: Assembly {
     .inObjectScope(.container)
     
     // DataServiceProtocol
-    container.register(DataServiceProtocol.self) { r in
+    container.register(DataServiceProtocol.self) { resolver in
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.dbEventsServiceProtocol
       guard
-        let dBCategoriesService = r.resolve(DBCategoriesServiceProtocol.self),
-        let dBEventsService = r.resolve(DBEventsServiceProtocol.self),
-        let defaultCategoriesDataService = r.resolve(DefaultCategoriesDataServiceProtocol.self)
+        let defaultCategoriesDataService = resolver.resolve(DefaultCategoriesDataServiceProtocol.self)
       else {
 #if DEBUG
         fatalError("PreviewDataService deps not resolved.")
@@ -92,17 +93,9 @@ final class DependencyAssembly: Assembly {
     .inObjectScope(.container)
     
     // PreviewDataServiceProtocol
-    container.register(PreviewDataServiceProtocol.self) { r in
-      guard
-        let dBCategoriesService = r.resolve(DBCategoriesServiceProtocol.self),
-        let dBEventsService = r.resolve(DBEventsServiceProtocol.self)
-      else {
-#if DEBUG
-        fatalError("PreviewDataService deps not resolved.")
-#else
-        return nil
-#endif
-      }
+    container.register(PreviewDataServiceProtocol.self) { resolver in
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.dbEventsServiceProtocol
       return PreviewDataService(dBCategoriesService: dBCategoriesService, dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)

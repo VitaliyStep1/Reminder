@@ -14,6 +14,7 @@ let package = Package(
             targets: ["ReminderDependencies"]),
     ],
     dependencies: [
+      .package(path: "../ReminderResolver"),
       .package(path: "../ReminderDomain"),
       .package(path: "../ReminderPersistence"),
       .package(path: "../ReminderNavigation"),
@@ -24,6 +25,7 @@ let package = Package(
         .target(
           name: "ReminderDependencies",
           dependencies: [
+            "ReminderResolver",
             "ReminderDomain",
             "ReminderPersistence",
             "ReminderNavigation",
