@@ -14,6 +14,9 @@ public class ResolverCheckService {
       resolver.dbEventsServiceProtocol,
       resolver.dataServiceProtocol,
       resolver.viewFactoryProtocol,
+      resolver.defaultCategoriesDataServiceProtocol,
+      resolver.appConfigurationProtocol,
+      resolver.splashScreenState,
     ]
     
     return dependencies

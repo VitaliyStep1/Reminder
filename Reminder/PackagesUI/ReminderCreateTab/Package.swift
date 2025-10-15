@@ -15,12 +15,14 @@ let package = Package(
     ],
     dependencies: [
       .package(path: "ReminderNavigationContracts"),
+      .package(path: "ReminderDomainContracts"),
     ],
     targets: [
         .target(
             name: "ReminderCreateTab",
             dependencies: [
-              "ReminderNavigationContracts"
+              "ReminderNavigationContracts",
+              "ReminderDomainContracts",
             ]
         ),
 

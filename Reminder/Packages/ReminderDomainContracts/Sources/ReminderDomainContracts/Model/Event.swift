@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ReminderPersistenceContracts
 
 public struct Event: Sendable {
   public let id: Identifier

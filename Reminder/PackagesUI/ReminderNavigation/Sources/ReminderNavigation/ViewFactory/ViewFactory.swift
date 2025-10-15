@@ -30,14 +30,14 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
     case .mainTabView:
       resultView = MainTabView()
     case .start:
-      let appConfiguration = resolver.resolve(AppConfigurationProtocol.self)
+      let appConfiguration = resolver.appConfigurationProtocol
       let dataService = resolver.dataServiceProtocol
       let viewModel = StartScreenViewModel(appConfiguration: appConfiguration, dataService: dataService)
-      let splashState = resolver.resolve(SplashScreenState.self)! // TODO: Remove "!"
+      let splashState = resolver.splashScreenState
       resultView = StartScreenView(viewModel: viewModel)
         .environmentObject(splashState)
     case .splash:
-      let splashState = resolver.resolve(SplashScreenState.self)! // TODO: Remove "!"
+      let splashState: SplashScreenState = resolver.splashScreenState
       let binding = Binding(
         get: { splashState.isVisible },
         set: { splashState.isVisible = $0 }

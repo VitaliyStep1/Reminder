@@ -47,15 +47,7 @@ final class DependencyAssembly: Assembly {
     container.register(DataServiceProtocol.self) { resolver in
       let dBCategoriesService = resolver.dbCategoriesServiceProtocol
       let dBEventsService = resolver.dbEventsServiceProtocol
-      guard
-        let defaultCategoriesDataService = resolver.resolve(DefaultCategoriesDataServiceProtocol.self)
-      else {
-#if DEBUG
-        fatalError("PreviewDataService deps not resolved.")
-#else
-        return nil
-#endif
-      }
+      let defaultCategoriesDataService = resolver.defaultCategoriesDataServiceProtocol
       return DataService(
         dBCategoriesService: dBCategoriesService,
         dBEventsService: dBEventsService,

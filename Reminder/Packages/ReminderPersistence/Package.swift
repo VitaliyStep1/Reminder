@@ -14,13 +14,15 @@ let package = Package(
             targets: ["ReminderPersistence"]),
     ],
     dependencies: [
+      .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
       .package(path: "../ReminderPersistenceContracts")
     ],
     targets: [
         .target(
             name: "ReminderPersistence",
             dependencies: [
-              "ReminderPersistenceContracts"
+              .product(name: "Swinject", package: "Swinject"),
+              "ReminderPersistenceContracts",
             ],
             resources: [
               .process("Model.xcdatamodeld")

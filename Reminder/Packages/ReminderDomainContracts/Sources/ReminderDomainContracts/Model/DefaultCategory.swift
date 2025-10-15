@@ -5,8 +5,6 @@
 //  Created by Vitaliy Stepanenko on 11.09.2025.
 //
 
-import ReminderPersistenceContracts
-
 public struct DefaultCategory {
   public let defaultKey: String
   public var title: String
