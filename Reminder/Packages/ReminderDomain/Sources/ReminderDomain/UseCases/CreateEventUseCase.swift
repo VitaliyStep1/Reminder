@@ -7,15 +7,16 @@
 
 import Foundation
 import ReminderDomainContracts
+import ReminderPersistenceContracts
 
 public struct CreateEventUseCase: CreateEventUseCaseProtocol {
-  private let dataService: DataServiceProtocol
+  private let dBEventsService: DBEventsServiceProtocol
 
-  public init(dataService: DataServiceProtocol) {
-    self.dataService = dataService
+  public init(dBEventsService: DBEventsServiceProtocol) {
+    self.dBEventsService = dBEventsService
   }
 
   public func execute(categoryId: Identifier, title: String, date: Date, comment: String) async throws {
-    try await dataService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
+    try await dBEventsService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
   }
 }

@@ -7,15 +7,31 @@
 
 import Foundation
 import ReminderDomainContracts
+import ReminderPersistenceContracts
 
 public struct SetupInitialDataUseCase: SetupInitialDataUseCaseProtocol {
-  private let dataService: DataServiceProtocol
+  private let defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol
+  private let dBCategoriesService: DBCategoriesServiceProtocol
 
-  public init(dataService: DataServiceProtocol) {
-    self.dataService = dataService
+  public init(
+    defaultCategoriesDataService: DefaultCategoriesDataServiceProtocol,
+    dBCategoriesService: DBCategoriesServiceProtocol
+  ) {
+    self.defaultCategoriesDataService = defaultCategoriesDataService
+    self.dBCategoriesService = dBCategoriesService
   }
 
   public func execute() async {
-    await dataService.setupDataAtStart()
+    let defaultCategories = defaultCategoriesDataService.takeDefaultCategories()
+    let persistenceDefaultCategories = defaultCategories.map {
+      ReminderPersistenceContracts.DefaultCategory(
+        defaultKey: $0.defaultKey,
+        title: $0.title,
+        order: $0.order,
+        isUserCreated: $0.isUserCreated
+      )
+    }
+
+    try? await dBCategoriesService.addOrUpdate(defaultCategories: persistenceDefaultCategories)
   }
 }

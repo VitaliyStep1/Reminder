@@ -24,10 +24,6 @@ extension Resolver {
     resolve(DBEventsServiceProtocol.self)!
   }
   
-  public var dataServiceProtocol: DataServiceProtocol {
-    resolve(DataServiceProtocol.self)!
-  }
-
   public var setupInitialDataUseCaseProtocol: SetupInitialDataUseCaseProtocol {
     resolve(SetupInitialDataUseCaseProtocol.self)!
   }

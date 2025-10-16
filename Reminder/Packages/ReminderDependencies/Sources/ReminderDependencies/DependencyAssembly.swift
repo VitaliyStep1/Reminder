@@ -42,66 +42,57 @@ final class DependencyAssembly: Assembly {
       DefaultCategoriesDataService()
     }
     .inObjectScope(.container)
-    
-    // DataServiceProtocol
-    container.register(DataServiceProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
-      let dBEventsService = resolver.dbEventsServiceProtocol
+
+    // Use Cases
+    container.register(SetupInitialDataUseCaseProtocol.self) { resolver in
       let defaultCategoriesDataService = resolver.defaultCategoriesDataServiceProtocol
-      return DataService(
-        dBCategoriesService: dBCategoriesService,
-        dBEventsService: dBEventsService,
-        defaultCategoriesDataService: defaultCategoriesDataService
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      return SetupInitialDataUseCase(
+        defaultCategoriesDataService: defaultCategoriesDataService,
+        dBCategoriesService: dBCategoriesService
       )
     }
     .inObjectScope(.container)
 
-    // Use Cases
-    container.register(SetupInitialDataUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return SetupInitialDataUseCase(dataService: dataService)
-    }
-    .inObjectScope(.container)
-
     container.register(FetchAllCategoriesUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return FetchAllCategoriesUseCase(dataService: dataService)
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      return FetchAllCategoriesUseCase(dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
 
     container.register(FetchCategoryUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return FetchCategoryUseCase(dataService: dataService)
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      return FetchCategoryUseCase(dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
 
     container.register(FetchEventsUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return FetchEventsUseCase(dataService: dataService)
+      let dBEventsService = resolver.dbEventsServiceProtocol
+      return FetchEventsUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(FetchEventUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return FetchEventUseCase(dataService: dataService)
+      let dBEventsService = resolver.dbEventsServiceProtocol
+      return FetchEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(CreateEventUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return CreateEventUseCase(dataService: dataService)
+      let dBEventsService = resolver.dbEventsServiceProtocol
+      return CreateEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(EditEventUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return EditEventUseCase(dataService: dataService)
+      let dBEventsService = resolver.dbEventsServiceProtocol
+      return EditEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(DeleteEventUseCaseProtocol.self) { resolver in
-      let dataService = resolver.dataServiceProtocol
-      return DeleteEventUseCase(dataService: dataService)
+      let dBEventsService = resolver.dbEventsServiceProtocol
+      return DeleteEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 

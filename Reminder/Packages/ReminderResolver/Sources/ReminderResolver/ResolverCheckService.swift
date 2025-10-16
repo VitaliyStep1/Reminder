@@ -12,7 +12,6 @@ public class ResolverCheckService {
     let dependencies: [Any] = [
       resolver.dbCategoriesServiceProtocol,
       resolver.dbEventsServiceProtocol,
-      resolver.dataServiceProtocol,
       resolver.setupInitialDataUseCaseProtocol,
       resolver.fetchAllCategoriesUseCaseProtocol,
       resolver.fetchCategoryUseCaseProtocol,

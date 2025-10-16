@@ -7,15 +7,16 @@
 
 import Foundation
 import ReminderDomainContracts
+import ReminderPersistenceContracts
 
 public struct DeleteEventUseCase: DeleteEventUseCaseProtocol {
-  private let dataService: DataServiceProtocol
+  private let dBEventsService: DBEventsServiceProtocol
 
-  public init(dataService: DataServiceProtocol) {
-    self.dataService = dataService
+  public init(dBEventsService: DBEventsServiceProtocol) {
+    self.dBEventsService = dBEventsService
   }
 
   public func execute(eventId: Identifier) async throws {
-    try await dataService.deleteEvent(eventId: eventId)
+    try await dBEventsService.deleteEvent(eventId: eventId)
   }
 }
