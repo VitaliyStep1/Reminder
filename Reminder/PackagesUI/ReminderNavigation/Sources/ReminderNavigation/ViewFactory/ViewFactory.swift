@@ -31,8 +31,11 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       resultView = MainTabView()
     case .start:
       let appConfiguration = resolver.appConfigurationProtocol
-      let dataService = resolver.dataServiceProtocol
-      let viewModel = StartScreenViewModel(appConfiguration: appConfiguration, dataService: dataService)
+      let setupInitialDataUseCase = resolver.setupInitialDataUseCaseProtocol
+      let viewModel = StartScreenViewModel(
+        appConfiguration: appConfiguration,
+        setupInitialDataUseCase: setupInitialDataUseCase
+      )
       let splashState = resolver.splashScreenState
       resultView = StartScreenView(viewModel: viewModel)
         .environmentObject(splashState)
@@ -44,12 +47,17 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       )
       resultView = SplashScreenView(isSplashScreenVisible: binding)
     case .categories:
-      let dataService = resolver.dataServiceProtocol
-      let viewModel = CategoriesViewModel(dataService: dataService)
+      let fetchAllCategoriesUseCase = resolver.fetchAllCategoriesUseCaseProtocol
+      let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase)
       resultView = CategoriesScreenView(viewModel: viewModel)
     case .category(let categoryId):
-      let dataService = resolver.dataServiceProtocol
-      let viewModel = CategoryViewModel(categoryId: categoryId, dataService: dataService)
+      let fetchEventsUseCase = resolver.fetchEventsUseCaseProtocol
+      let fetchCategoryUseCase = resolver.fetchCategoryUseCaseProtocol
+      let viewModel = CategoryViewModel(
+        categoryId: categoryId,
+        fetchEventsUseCase: fetchEventsUseCase,
+        fetchCategoryUseCase: fetchCategoryUseCase
+      )
       resultView = CategoryScreenView(viewModel: viewModel)
     case .closest:
       let viewModel = ClosestViewModel()
@@ -64,8 +72,15 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
     eventsWereChangedHandler: @escaping @Sendable () -> Void,
     closeViewHandler: @escaping @Sendable () -> Void
   ) -> AnyView {
-    let dataService = resolver.dataServiceProtocol
-    let viewModel = CategoryEventViewModel(dataService: dataService, type: categoryEventViewType, eventsWereChangedHandler: eventsWereChangedHandler, closeViewHandler: closeViewHandler)
+    let viewModel = CategoryEventViewModel(
+      createEventUseCase: resolver.createEventUseCaseProtocol,
+      editEventUseCase: resolver.editEventUseCaseProtocol,
+      deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
+      fetchEventUseCase: resolver.fetchEventUseCaseProtocol,
+      type: categoryEventViewType,
+      eventsWereChangedHandler: eventsWereChangedHandler,
+      closeViewHandler: closeViewHandler
+    )
     return AnyView(CategoryEventView(viewModel: viewModel))
   }
 }

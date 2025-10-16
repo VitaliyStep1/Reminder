@@ -7,12 +7,13 @@
 
 import Foundation
 import Combine
-import ReminderDomainContracts
 import ReminderNavigationContracts
+import ReminderDomainContracts
 
 @MainActor
 public class CategoryViewModel: ObservableObject {
-  var dataService: DataServiceProtocol
+  let fetchEventsUseCase: FetchEventsUseCaseProtocol
+  let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   let categoryId: Identifier
   
   @Published var entityEvents: [CategoryEntity.Event] = []
@@ -26,9 +27,14 @@ public class CategoryViewModel: ObservableObject {
   
   let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
   
-  public init(categoryId: Identifier, dataService: DataServiceProtocol) {
+  public init(
+    categoryId: Identifier,
+    fetchEventsUseCase: FetchEventsUseCaseProtocol,
+    fetchCategoryUseCase: FetchCategoryUseCaseProtocol
+  ) {
     self.categoryId = categoryId
-    self.dataService = dataService
+    self.fetchEventsUseCase = fetchEventsUseCase
+    self.fetchCategoryUseCase = fetchCategoryUseCase
   }
   
   func viewAppeared() {
@@ -66,25 +72,24 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func updateEventList() {
-    Task {
-      do {
-        let events = try await dataService.fetchEvents(categoryId: categoryId)
-        let entityEvents: [CategoryEntity.Event] = events.map { event in
-          let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
-          return CategoryEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
-        }
-        
-        self.entityEvents = entityEvents
-      }
-      catch {
+      Task {
+        do {
+          let events = try await fetchEventsUseCase.execute(categoryId: categoryId)
+          let entityEvents: [CategoryEntity.Event] = events.map { event in
+            let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
+            return CategoryEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
+          }
+
+          self.entityEvents = entityEvents
+        } catch {
           showEventsWereNotFetchedAlert()
+        }
       }
-    }
   }
   
   private func updateNavigationTitle() {
     Task {
-      let category = try? await dataService.fetchCategory(categoryId: categoryId)
+      let category = try? await fetchCategoryUseCase.execute(categoryId: categoryId)
       navigationTitle = category?.title ?? ""
     }
   }

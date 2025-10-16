@@ -6,12 +6,15 @@
 //
 
 import Foundation
-import ReminderDomainContracts
 import ReminderNavigationContracts
+import ReminderDomainContracts
 
 @MainActor
 public class CategoryEventViewModel: ObservableObject {
-  let dataService: DataServiceProtocol
+  let createEventUseCase: CreateEventUseCaseProtocol
+  let editEventUseCase: EditEventUseCaseProtocol
+  let deleteEventUseCase: DeleteEventUseCaseProtocol
+  let fetchEventUseCase: FetchEventUseCaseProtocol
   let type: CategoryEventViewType
   let eventsWereChangedHandler: () -> Void
   let closeViewHandler: () -> Void
@@ -37,8 +40,19 @@ public class CategoryEventViewModel: ObservableObject {
   let deleteButtonTitle = "Delete"
   
   
-  public init(dataService: DataServiceProtocol, type: CategoryEventViewType, eventsWereChangedHandler: @escaping () -> Void, closeViewHandler: @escaping () -> Void) {
-    self.dataService = dataService
+  public init(
+    createEventUseCase: CreateEventUseCaseProtocol,
+    editEventUseCase: EditEventUseCaseProtocol,
+    deleteEventUseCase: DeleteEventUseCaseProtocol,
+    fetchEventUseCase: FetchEventUseCaseProtocol,
+    type: CategoryEventViewType,
+    eventsWereChangedHandler: @escaping () -> Void,
+    closeViewHandler: @escaping () -> Void
+  ) {
+    self.createEventUseCase = createEventUseCase
+    self.editEventUseCase = editEventUseCase
+    self.deleteEventUseCase = deleteEventUseCase
+    self.fetchEventUseCase = fetchEventUseCase
     self.type = type
     self.eventsWereChangedHandler = eventsWereChangedHandler
     self.closeViewHandler = closeViewHandler
@@ -66,19 +80,18 @@ public class CategoryEventViewModel: ObservableObject {
   }
   
   func saveButtonTapped() {
-    Task {
-      changeIsSaving(true)
-      do {
-        try await saveEvent()
-        eventsWereChangedHandler()
-        changeIsSaving(false)
-        closeView()
+      Task {
+        changeIsSaving(true)
+        do {
+          try await saveEvent()
+          eventsWereChangedHandler()
+          changeIsSaving(false)
+          closeView()
+        } catch {
+          changeIsSaving(false)
+          showEventWasNotSavedAlert()
+        }
       }
-      catch {
-        changeIsSaving(false)
-        showEventWasNotSavedAlert()
-      }
-    }
   }
   
   func cancelButtonTapped() {
@@ -97,19 +110,18 @@ public class CategoryEventViewModel: ObservableObject {
   }
   
   private func deletingEventConfirmed() {
-    Task {
-      changeIsDeleting(true)
-      do {
-        try await deleteEvent()
-        eventsWereChangedHandler()
-        changeIsDeleting(false)
-        closeView()
+      Task {
+        changeIsDeleting(true)
+        do {
+          try await performDeleteEvent()
+          eventsWereChangedHandler()
+          changeIsDeleting(false)
+          closeView()
+        } catch {
+          changeIsDeleting(false)
+          showDeleteErrorAlert()
+        }
       }
-      catch {
-        changeIsDeleting(false)
-        showDeleteErrorAlert()
-      }
-    }
   }
   
   private func changeIsSaving(_ isSaving: Bool) {
@@ -132,35 +144,30 @@ public class CategoryEventViewModel: ObservableObject {
     
   }
   
-  private func deleteEvent() async throws {
+  private func performDeleteEvent() async throws {
     switch type {
     case .edit(let eventId):
-      try await deleteEvent(eventId: eventId)
+      try await deleteEventUseCase.execute(eventId: eventId)
     default:
       break
     }
   }
-  
-  private func deleteEvent(eventId: Identifier) async throws {
-    try await dataService.deleteEvent(eventId: eventId)
-  }
-  
+
   private func createEvent(categoryId: Identifier) async throws {
-    
     let title = self.title
     let comment = self.comment
     let date = self.date
     guard !title.isEmpty else {
       throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
     }
-    try await dataService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
+    try await createEventUseCase.execute(categoryId: categoryId, title: title, date: date, comment: comment)
   }
-  
+
   private func editEvent(eventId: Identifier) async throws {
     let title = self.title
     let comment = self.comment
     let date = self.date
-    try await dataService.editEvent(eventId: eventId, title: title, date: date, comment: comment)
+    try await editEventUseCase.execute(eventId: eventId, title: title, date: date, comment: comment)
   }
   
   private func closeView() {
@@ -175,7 +182,7 @@ public class CategoryEventViewModel: ObservableObject {
   
   private func fetchEvent(eventId: Identifier) {
     Task {
-      let event = try? await dataService.fetchEvent(eventId: eventId)
+      let event = try? await fetchEventUseCase.execute(eventId: eventId)
       guard let event else {
         isViewBlocked = true
         showEventWasNotFoundAlert { [weak self] in

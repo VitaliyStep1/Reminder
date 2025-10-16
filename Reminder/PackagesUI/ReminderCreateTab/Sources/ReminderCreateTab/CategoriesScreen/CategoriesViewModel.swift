@@ -10,14 +10,14 @@ import ReminderDomainContracts
 
 @MainActor
 public class CategoriesViewModel: ObservableObject {
-  let dataService: DataServiceProtocol
+  let fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol
   
   @Published var categoryEntities: [CategoriesCategoryEntity] = []
   @Published var navigationTitle: String = "Categories"
   @Published var path: [CategoriesCategoryEntity] = []
   
-  public init(dataService: DataServiceProtocol) {
-    self.dataService = dataService
+  public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol) {
+    self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
   }
   
   func taskWasCalled() {
@@ -31,12 +31,7 @@ public class CategoriesViewModel: ObservableObject {
   
   func loadCategories() {
     Task {
-      let allCategories: [ReminderDomainContracts.Category]
-      do {
-        allCategories = try await dataService.takeAllCategories()
-      } catch {
-        allCategories = []
-      }
+      let allCategories = (try? await fetchAllCategoriesUseCase.execute()) ?? []
       let categoryEntities = allCategories.map(CategoriesCategoryEntity.init(category:))
       await MainActor.run {
         self.categoryEntities = categoryEntities

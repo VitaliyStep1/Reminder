@@ -27,7 +27,39 @@ extension Resolver {
   public var dataServiceProtocol: DataServiceProtocol {
     resolve(DataServiceProtocol.self)!
   }
-  
+
+  public var setupInitialDataUseCaseProtocol: SetupInitialDataUseCaseProtocol {
+    resolve(SetupInitialDataUseCaseProtocol.self)!
+  }
+
+  public var fetchAllCategoriesUseCaseProtocol: FetchAllCategoriesUseCaseProtocol {
+    resolve(FetchAllCategoriesUseCaseProtocol.self)!
+  }
+
+  public var fetchCategoryUseCaseProtocol: FetchCategoryUseCaseProtocol {
+    resolve(FetchCategoryUseCaseProtocol.self)!
+  }
+
+  public var fetchEventsUseCaseProtocol: FetchEventsUseCaseProtocol {
+    resolve(FetchEventsUseCaseProtocol.self)!
+  }
+
+  public var fetchEventUseCaseProtocol: FetchEventUseCaseProtocol {
+    resolve(FetchEventUseCaseProtocol.self)!
+  }
+
+  public var createEventUseCaseProtocol: CreateEventUseCaseProtocol {
+    resolve(CreateEventUseCaseProtocol.self)!
+  }
+
+  public var editEventUseCaseProtocol: EditEventUseCaseProtocol {
+    resolve(EditEventUseCaseProtocol.self)!
+  }
+
+  public var deleteEventUseCaseProtocol: DeleteEventUseCaseProtocol {
+    resolve(DeleteEventUseCaseProtocol.self)!
+  }
+
   public var viewFactoryProtocol: ViewFactoryProtocol {
     resolve(ViewFactoryProtocol.self)!
   }

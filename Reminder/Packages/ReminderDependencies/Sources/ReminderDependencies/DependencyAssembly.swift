@@ -55,7 +55,56 @@ final class DependencyAssembly: Assembly {
       )
     }
     .inObjectScope(.container)
-    
+
+    // Use Cases
+    container.register(SetupInitialDataUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return SetupInitialDataUseCase(dataService: dataService)
+    }
+    .inObjectScope(.container)
+
+    container.register(FetchAllCategoriesUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return FetchAllCategoriesUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(FetchCategoryUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return FetchCategoryUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(FetchEventsUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return FetchEventsUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(FetchEventUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return FetchEventUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(CreateEventUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return CreateEventUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(EditEventUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return EditEventUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(DeleteEventUseCaseProtocol.self) { resolver in
+      let dataService = resolver.dataServiceProtocol
+      return DeleteEventUseCase(dataService: dataService)
+    }
+    .inObjectScope(.transient)
+
     // PreviewDataServiceProtocol
     container.register(PreviewDataServiceProtocol.self) { resolver in
       let dBCategoriesService = resolver.dbCategoriesServiceProtocol
