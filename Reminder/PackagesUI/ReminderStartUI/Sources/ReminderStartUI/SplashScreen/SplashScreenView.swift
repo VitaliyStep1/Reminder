@@ -24,7 +24,3 @@ public struct SplashScreenView: View {
     }
   }
 }
-
-//#Preview {
-//  SplashScreenView(isSplashScreenVisible: .constant(true))
-//}

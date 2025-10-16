@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-import ReminderPersistence
+import ReminderDomainContracts
 
 public enum Route: Hashable {
   case mainTabView
   case start
   case splash
   case categories
-  case category(ObjectId)
+  case category(Identifier)
   case closest
 }

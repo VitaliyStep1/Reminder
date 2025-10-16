@@ -4,29 +4,32 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReminderPersistence",
+    name: "ReminderResolver",
     platforms: [
       .iOS(.v16)
     ],
     products: [
         .library(
-            name: "ReminderPersistence",
-            targets: ["ReminderPersistence"]),
+            name: "ReminderResolver",
+            targets: ["ReminderResolver"]),
     ],
     dependencies: [
       .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
-      .package(path: "../ReminderPersistenceContracts")
+      .package(path: "../ReminderPersistenceContracts"),
+      .package(path: "../ReminderDomainContracts"),
+      .package(path: "../ReminderNavigationContracts"),
+      .package(path: "../ReminderConfigurations"),
     ],
     targets: [
         .target(
-            name: "ReminderPersistence",
+            name: "ReminderResolver",
             dependencies: [
               .product(name: "Swinject", package: "Swinject"),
               "ReminderPersistenceContracts",
-            ],
-            resources: [
-              .process("Model.xcdatamodeld")
-            ]
-        ),
+              "ReminderDomainContracts",
+              "ReminderNavigationContracts",
+              "ReminderConfigurations",
+            ]),
+
     ]
 )

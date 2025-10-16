@@ -90,33 +90,3 @@ public struct CategoryScreenView: View {
   }
 }
 
-//#Preview {
-//  CategoryScreenPreview()
-//}
-//
-//@MainActor
-//private struct CategoryScreenPreview: View {
-//  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
-//  @State private var categoryId: ObjectId?
-//  
-//  var body: some View {
-//    Group {
-//      if let appDependencies = appDependenciesLoader.instance {
-//        if let id = categoryId {
-//          CategoryScreenView(viewModel: .init(categoryId: id))
-//            .environmentObject(appDependencies)
-//        } else {
-//          Text("No category to preview")
-//        }
-//      } else {
-//        ProgressView("Loading appDependencies...")
-//      }
-//    }
-//    .task {
-//      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
-//      if let appDependencies = appDependenciesLoader.instance {
-//        categoryId = try? await appDependencies.previewDataService?.takeFirstCategoryIdentifier()
-//      }
-//    }
-//  }
-//}

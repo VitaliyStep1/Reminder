@@ -1,0 +1,26 @@
+//
+//  Category.swift
+//  Reminder
+//
+//  Created by Vitaliy Stepanenko on 23.08.2025.
+//
+
+import Foundation
+
+public struct Category: Sendable, Identifiable {
+  public let id: Identifier
+  public let defaultKey: String
+  public var title: String
+  public let order: Int
+  public let isUserCreated: Bool
+  public var eventsAmount: Int
+  
+  public init(id: Identifier, defaultKey: String, title: String, order: Int, isUserCreated: Bool, eventsAmount: Int) {
+    self.id = id
+    self.defaultKey = defaultKey
+    self.title = title
+    self.order = order
+    self.isUserCreated = isUserCreated
+    self.eventsAmount = eventsAmount
+  }
+}

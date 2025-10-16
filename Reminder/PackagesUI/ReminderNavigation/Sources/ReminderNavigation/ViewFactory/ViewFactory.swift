@@ -7,7 +7,8 @@
 
 import SwiftUI
 import Swinject
-import ReminderDomain
+import ReminderResolver
+import ReminderDomainContracts
 import ReminderConfigurations
 import ReminderStartUI
 import ReminderMainTabView
@@ -29,25 +30,25 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
     case .mainTabView:
       resultView = MainTabView()
     case .start:
-      let appConfiguration = resolver.resolve(AppConfigurationProtocol.self)
-      let dataService = resolver.resolve(DataServiceProtocol.self)
+      let appConfiguration = resolver.appConfigurationProtocol
+      let dataService = resolver.dataServiceProtocol
       let viewModel = StartScreenViewModel(appConfiguration: appConfiguration, dataService: dataService)
-      let splashState = resolver.resolve(SplashScreenState.self)! // TODO: Remove "!"
+      let splashState = resolver.splashScreenState
       resultView = StartScreenView(viewModel: viewModel)
         .environmentObject(splashState)
     case .splash:
-      let splashState = resolver.resolve(SplashScreenState.self)! // TODO: Remove "!"
+      let splashState: SplashScreenState = resolver.splashScreenState
       let binding = Binding(
         get: { splashState.isVisible },
         set: { splashState.isVisible = $0 }
       )
       resultView = SplashScreenView(isSplashScreenVisible: binding)
     case .categories:
-      let dataService = resolver.resolve(DataServiceProtocol.self)
+      let dataService = resolver.dataServiceProtocol
       let viewModel = CategoriesViewModel(dataService: dataService)
       resultView = CategoriesScreenView(viewModel: viewModel)
     case .category(let categoryId):
-      let dataService = resolver.resolve(DataServiceProtocol.self)
+      let dataService = resolver.dataServiceProtocol
       let viewModel = CategoryViewModel(categoryId: categoryId, dataService: dataService)
       resultView = CategoryScreenView(viewModel: viewModel)
     case .closest:
@@ -63,7 +64,7 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
     eventsWereChangedHandler: @escaping @Sendable () -> Void,
     closeViewHandler: @escaping @Sendable () -> Void
   ) -> AnyView {
-    let dataService = resolver.resolve(DataServiceProtocol.self)
+    let dataService = resolver.dataServiceProtocol
     let viewModel = CategoryEventViewModel(dataService: dataService, type: categoryEventViewType, eventsWereChangedHandler: eventsWereChangedHandler, closeViewHandler: closeViewHandler)
     return AnyView(CategoryEventView(viewModel: viewModel))
   }

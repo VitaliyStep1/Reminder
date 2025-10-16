@@ -5,8 +5,6 @@
 //  Created by Vitaliy Stepanenko on 10.09.2025.
 //
 
-import ReminderPersistence
-
 public protocol DefaultCategoriesDataServiceProtocol: Sendable {
   func takeDefaultCategories() -> [DefaultCategory]
 }

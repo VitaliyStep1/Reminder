@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import ReminderPersistenceContracts
 
 public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable {
   private let container: NSPersistentContainer

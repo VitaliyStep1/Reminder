@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import ReminderPersistenceContracts
 
 public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked Sendable {
   private let container: NSPersistentContainer
@@ -17,7 +18,7 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
     self.container = container
   }
   
-  public func addOrUpdate(defaultCategories categories: [DefaultCategory]) async throws {
+  public func addOrUpdate(defaultCategories categories: [ReminderPersistenceContracts.DefaultCategory]) async throws {
     guard !categories.isEmpty else {
       return
     }
@@ -51,7 +52,7 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
     }
   }
   
-  public func fetchAllCategories() async throws -> [Category] {
+  public func fetchAllCategories() async throws -> [ReminderPersistenceContracts.Category] {
     try await container.performBackgroundTask { context in
       let request = NSFetchRequest<CategoryObject>(entityName: "CategoryObject")
       request.sortDescriptors = [
@@ -103,7 +104,7 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
     }
   }
   
-  public func fetchCategory(categoryId: ObjectId) async throws -> Category? {
+  public func fetchCategory(categoryId: ObjectId) async throws -> ReminderPersistenceContracts.Category? {
     try await container.performBackgroundTask { context in
     
       guard let categoryObject = try self.fetchCategoryObject(with: categoryId, context: context) else {
