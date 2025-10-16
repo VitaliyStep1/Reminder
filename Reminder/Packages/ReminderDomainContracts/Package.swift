@@ -4,26 +4,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReminderCreateTab",
+    name: "ReminderDomainContracts",
     platforms: [
       .iOS(.v16)
     ],
     products: [
         .library(
-            name: "ReminderCreateTab",
-            targets: ["ReminderCreateTab"]),
+            name: "ReminderDomainContracts",
+            targets: ["ReminderDomainContracts"]),
     ],
     dependencies: [
-      .package(path: "ReminderNavigationContracts"),
-      .package(path: "ReminderDomainContracts"),
+      .package(path: "../ReminderPersistenceContracts")
     ],
     targets: [
         .target(
-            name: "ReminderCreateTab",
+            name: "ReminderDomainContracts",
             dependencies: [
-              "ReminderNavigationContracts",
-              "ReminderDomainContracts",
-            ]
+              "ReminderPersistenceContracts",
+            ],
         ),
 
     ]

@@ -14,13 +14,15 @@ let package = Package(
             targets: ["ReminderNavigationContracts"]),
     ],
     dependencies: [
-      .package(path: "../ReminderPersistence")
+      .package(path: "../ReminderDomain"),
+      .package(path: "../ReminderDomainContracts"),
     ],
     targets: [
         .target(
             name: "ReminderNavigationContracts",
             dependencies: [
-              "ReminderPersistence",
+              "ReminderDomain",
+              "ReminderDomainContracts",
             ]
         ),
 

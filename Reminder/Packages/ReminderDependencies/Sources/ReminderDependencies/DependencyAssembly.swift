@@ -6,13 +6,15 @@
 //
 
 import Swinject
-import CoreData
+import ReminderPersistenceContracts
 import ReminderPersistence
+import ReminderDomainContracts
 import ReminderDomain
 import ReminderNavigation
 import ReminderStartUI
 import ReminderConfigurations
 import ReminderNavigationContracts
+import ReminderResolver
 
 final class DependencyAssembly: Assembly {
   
@@ -35,34 +37,6 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.container)
     
-    // PersistenceContainerService
-    container.register(PersistenceContainerService.self) { _ in
-      PersistenceContainerService()
-    }
-    .inObjectScope(.container)
-    
-    // NSPersistentContainer - NOT in memory
-    container.register(NSPersistentContainer.self) { r in
-      let factory = r.resolve(PersistenceContainerService.self)!
-      let persistentContainer = factory.createPersistentContainer(inMemory: false)
-      return persistentContainer
-    }
-    .inObjectScope(.container)
-    
-    // DBCategoriesServiceProtocol
-    container.register(DBCategoriesServiceProtocol.self) { r in
-      let persistentContainer = r.resolve(NSPersistentContainer.self)!
-      return DBCategoriesService(container: persistentContainer)
-    }
-    .inObjectScope(.container)
-    
-    // DBEventsServiceProtocol
-    container.register(DBEventsServiceProtocol.self) { r in
-      let persistentContainer = r.resolve(NSPersistentContainer.self)!
-      return DBEventsService(container: persistentContainer)
-    }
-    .inObjectScope(.container)
-    
     // DefaultCategoriesDataServiceProtocol
     container.register(DefaultCategoriesDataServiceProtocol.self) { _ in
       DefaultCategoriesDataService()
@@ -70,18 +44,10 @@ final class DependencyAssembly: Assembly {
     .inObjectScope(.container)
     
     // DataServiceProtocol
-    container.register(DataServiceProtocol.self) { r in
-      guard
-        let dBCategoriesService = r.resolve(DBCategoriesServiceProtocol.self),
-        let dBEventsService = r.resolve(DBEventsServiceProtocol.self),
-        let defaultCategoriesDataService = r.resolve(DefaultCategoriesDataServiceProtocol.self)
-      else {
-#if DEBUG
-        fatalError("PreviewDataService deps not resolved.")
-#else
-        return nil
-#endif
-      }
+    container.register(DataServiceProtocol.self) { resolver in
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.dbEventsServiceProtocol
+      let defaultCategoriesDataService = resolver.defaultCategoriesDataServiceProtocol
       return DataService(
         dBCategoriesService: dBCategoriesService,
         dBEventsService: dBEventsService,
@@ -91,17 +57,9 @@ final class DependencyAssembly: Assembly {
     .inObjectScope(.container)
     
     // PreviewDataServiceProtocol
-    container.register(PreviewDataServiceProtocol.self) { r in
-      guard
-        let dBCategoriesService = r.resolve(DBCategoriesServiceProtocol.self),
-        let dBEventsService = r.resolve(DBEventsServiceProtocol.self)
-      else {
-#if DEBUG
-        fatalError("PreviewDataService deps not resolved.")
-#else
-        return nil
-#endif
-      }
+    container.register(PreviewDataServiceProtocol.self) { resolver in
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.dbEventsServiceProtocol
       return PreviewDataService(dBCategoriesService: dBCategoriesService, dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)

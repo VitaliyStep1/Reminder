@@ -5,11 +5,11 @@
 //  Created by Vitaliy Stepanenko on 02.10.2025.
 //
 
-import ReminderPersistence
+import ReminderDomainContracts
 
 enum CategoryEntity {
   struct Event: Identifiable {
-    let id: ObjectId
+    let id: Identifier
     let title: String
     let date: String
     let comment: String?

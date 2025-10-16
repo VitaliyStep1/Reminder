@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import ReminderPersistence
-import ReminderDomain
+import ReminderDomainContracts
 import ReminderNavigationContracts
 
 @MainActor
 public class CategoryEventViewModel: ObservableObject {
-  let dataService: DataServiceProtocol?
+  let dataService: DataServiceProtocol
   let type: CategoryEventViewType
   let eventsWereChangedHandler: () -> Void
   let closeViewHandler: () -> Void
@@ -38,7 +37,7 @@ public class CategoryEventViewModel: ObservableObject {
   let deleteButtonTitle = "Delete"
   
   
-  public init(dataService: DataServiceProtocol?, type: CategoryEventViewType, eventsWereChangedHandler: @escaping () -> Void, closeViewHandler: @escaping () -> Void) {
+  public init(dataService: DataServiceProtocol, type: CategoryEventViewType, eventsWereChangedHandler: @escaping () -> Void, closeViewHandler: @escaping () -> Void) {
     self.dataService = dataService
     self.type = type
     self.eventsWereChangedHandler = eventsWereChangedHandler
@@ -142,19 +141,11 @@ public class CategoryEventViewModel: ObservableObject {
     }
   }
   
-  private func deleteEvent(eventId: ObjectId) async throws {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
+  private func deleteEvent(eventId: Identifier) async throws {
     try await dataService.deleteEvent(eventId: eventId)
   }
   
-  private func createEvent(categoryId: ObjectId) async throws {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
+  private func createEvent(categoryId: Identifier) async throws {
     
     let title = self.title
     let comment = self.comment
@@ -165,11 +156,7 @@ public class CategoryEventViewModel: ObservableObject {
     try await dataService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
   }
   
-  private func editEvent(eventId: ObjectId) async throws {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
+  private func editEvent(eventId: Identifier) async throws {
     let title = self.title
     let comment = self.comment
     let date = self.date
@@ -186,11 +173,7 @@ public class CategoryEventViewModel: ObservableObject {
     }
   }
   
-  private func fetchEvent(eventId: ObjectId) {
-    guard let dataService else {
-      //TODO : Throw error
-      return
-    }
+  private func fetchEvent(eventId: Identifier) {
     Task {
       let event = try? await dataService.fetchEvent(eventId: eventId)
       guard let event else {

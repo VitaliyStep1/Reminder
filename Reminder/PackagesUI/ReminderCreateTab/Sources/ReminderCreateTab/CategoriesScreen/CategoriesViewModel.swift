@@ -6,17 +6,17 @@
 //
 
 import SwiftUI
-import ReminderDomain
+import ReminderDomainContracts
 
 @MainActor
 public class CategoriesViewModel: ObservableObject {
-  let dataService: DataServiceProtocol?
+  let dataService: DataServiceProtocol
   
   @Published var categoryEntities: [CategoriesCategoryEntity] = []
   @Published var navigationTitle: String = "Categories"
   @Published var path: [CategoriesCategoryEntity] = []
   
-  public init(dataService: DataServiceProtocol?) {
+  public init(dataService: DataServiceProtocol) {
     self.dataService = dataService
   }
   
@@ -31,9 +31,9 @@ public class CategoriesViewModel: ObservableObject {
   
   func loadCategories() {
     Task {
-      let allCategories: [ReminderDomain.Category]
+      let allCategories: [ReminderDomainContracts.Category]
       do {
-        allCategories = try await dataService?.takeAllCategories() ?? []
+        allCategories = try await dataService.takeAllCategories()
       } catch {
         allCategories = []
       }

@@ -14,25 +14,27 @@ let package = Package(
             targets: ["ReminderNavigation"]),
     ],
     dependencies: [
-      .package(path: "../ReminderPersistence"),
+      .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
       .package(path: "../ReminderConfigurations"),
       .package(path: "../ReminderStartUI"),
       .package(path: "../ReminderMainTabView"),
       .package(path: "../ReminderNavigationContracts"),
       .package(path: "../ReminderCreateTab"),
       .package(path: "../ReminderClosestTab"),
+      .package(path: "../ReminderDomainContracts"),
     ],
     targets: [
         .target(
           name: "ReminderNavigation",
           dependencies: [
-            "ReminderPersistence",
+            .product(name: "Swinject", package: "Swinject"),
             "ReminderConfigurations",
             "ReminderStartUI",
             "ReminderMainTabView",
             "ReminderNavigationContracts",
             "ReminderCreateTab",
             "ReminderClosestTab",
+            "ReminderDomainContracts",
           ]
         ),
     ]

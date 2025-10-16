@@ -46,26 +46,3 @@ public struct CategoriesScreenView: View {
   }
 }
 
-//#Preview {
-//  CategoriesScreenPreview()
-//}
-//
-//@MainActor
-//private struct CategoriesScreenPreview: View {
-//  @StateObject private var appDependenciesLoader = AppDependenciesLoader()
-//  
-//  var body: some View {
-//    Group {
-//      if let appDependencies = appDependenciesLoader.instance {
-//        CategoriesScreenView(viewModel: CategoriesViewModel())
-////          .environmentObject(AppConfiguration.previewAppConfiguration)
-////          .environmentObject(appDependencies)
-//      } else {
-//        ProgressView("Loading appDependencies...")
-//      }
-//    }
-//    .task {
-//      appDependenciesLoader.instance = await AppDependencies.make(isForPreview: true)
-//    }
-//  }
-//}
