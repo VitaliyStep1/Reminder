@@ -49,6 +49,7 @@
 				PackagesUI/ReminderClosestTab,
 				PackagesUI/ReminderCreateTab,
 				PackagesUI/ReminderMainTabView,
+				PackagesUI/ReminderMainTabViewContracts,
 				PackagesUI/ReminderNavigation,
 				PackagesUI/ReminderNavigationContracts,
 				PackagesUI/ReminderSharedUI,

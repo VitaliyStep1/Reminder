@@ -10,6 +10,7 @@ import ReminderPersistenceContracts
 import ReminderDomainContracts
 import ReminderNavigationContracts
 import ReminderConfigurations
+import ReminderMainTabViewContracts
 
 // Don't use func resolve outside this file
 // Instead add here computed property
@@ -70,5 +71,9 @@ extension Resolver {
   
   public var splashScreenState: SplashScreenState {
     resolve(SplashScreenState.self)!
+  }
+  
+  public var mainTabViewSelectionState: MainTabViewSelectionState {
+    resolve(MainTabViewSelectionState.self)!
   }
 }

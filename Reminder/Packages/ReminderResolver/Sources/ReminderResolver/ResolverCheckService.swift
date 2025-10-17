@@ -24,6 +24,7 @@ public class ResolverCheckService {
       resolver.defaultCategoriesDataServiceProtocol,
       resolver.appConfigurationProtocol,
       resolver.splashScreenState,
+      resolver.mainTabViewSelectionState,
     ]
     
     return dependencies

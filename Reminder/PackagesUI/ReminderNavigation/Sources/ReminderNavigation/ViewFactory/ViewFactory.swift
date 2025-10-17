@@ -29,6 +29,7 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
     switch route {
     case .mainTabView:
       resultView = MainTabView()
+        .environmentObject(resolver.mainTabViewSelectionState)
     case .start:
       let appConfiguration = resolver.appConfigurationProtocol
       let setupInitialDataUseCase = resolver.setupInitialDataUseCaseProtocol
@@ -60,7 +61,8 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       )
       resultView = CategoryScreenView(viewModel: viewModel)
     case .closest:
-      let viewModel = ClosestViewModel()
+      let mainTabViewSelectionState = resolver.mainTabViewSelectionState
+      let viewModel = ClosestViewModel(mainTabViewSelectionState: mainTabViewSelectionState)
       resultView = ClosestScreenView(viewModel: viewModel)
     }
     return AnyView(resultView)

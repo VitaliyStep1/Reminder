@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import ReminderMainTabViewContracts
 
 public class ClosestViewModel: ObservableObject {
+  let mainTabViewSelectionState: MainTabViewSelectionState
   @Published var noEventsText: String?
   @Published var closestMonthEntities: [ClosestMonthEntity] = [] {
     didSet {
@@ -15,7 +17,8 @@ public class ClosestViewModel: ObservableObject {
     }
   }
   
-  public init() {
+  public init(mainTabViewSelectionState: MainTabViewSelectionState) {
+    self.mainTabViewSelectionState = mainTabViewSelectionState
     updateNoEventsText()
   }
   
@@ -28,7 +31,7 @@ public class ClosestViewModel: ObservableObject {
   }
   
   private func showCategoriesTab() {
-    
+    mainTabViewSelectionState.selection = .create
   }
   
   private func updateNoEventsText() {

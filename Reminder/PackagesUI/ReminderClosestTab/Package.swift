@@ -13,9 +13,15 @@ let package = Package(
             name: "ReminderClosestTab",
             targets: ["ReminderClosestTab"]),
     ],
+    dependencies: [
+      .package(path: "../ReminderMainTabViewContracts"),
+    ],
     targets: [
         .target(
-            name: "ReminderClosestTab"),
-
+            name: "ReminderClosestTab",
+            dependencies: [
+              "ReminderMainTabViewContracts",
+            ]
+        ),
     ]
 )
