@@ -22,7 +22,8 @@ public class CategoryEventViewModel: ObservableObject {
   @Published var title: String
   @Published var date: Date
   @Published var comment: String
-  
+  @Published var remindRepeat: RemindRepeatEnum
+
   @Published var isSaving = false
   @Published var isDeleting = false
   @Published var isViewBlocked = false
@@ -38,6 +39,8 @@ public class CategoryEventViewModel: ObservableObject {
   let saveButtonTitle: String
   let cancelButtonTitle = "Cancel"
   let deleteButtonTitle = "Delete"
+
+  let remindRepeatOptions = RemindRepeatEnum.allCases
   
   
   public init(
@@ -60,6 +63,7 @@ public class CategoryEventViewModel: ObservableObject {
     self.title = ""
     self.date = Date()
     self.comment = ""
+    self.remindRepeat = .everyYear
     
     switch type {
     case .create:
@@ -157,17 +161,31 @@ public class CategoryEventViewModel: ObservableObject {
     let title = self.title
     let comment = self.comment
     let date = self.date
+    let remindRepeat = self.remindRepeat
     guard !title.isEmpty else {
       throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
     }
-    try await createEventUseCase.execute(categoryId: categoryId, title: title, date: date, comment: comment)
+    try await createEventUseCase.execute(
+      categoryId: categoryId,
+      title: title,
+      date: date,
+      comment: comment,
+      remindRepeat: remindRepeat
+    )
   }
 
   private func editEvent(eventId: Identifier) async throws {
     let title = self.title
     let comment = self.comment
     let date = self.date
-    try await editEventUseCase.execute(eventId: eventId, title: title, date: date, comment: comment)
+    let remindRepeat = self.remindRepeat
+    try await editEventUseCase.execute(
+      eventId: eventId,
+      title: title,
+      date: date,
+      comment: comment,
+      remindRepeat: remindRepeat
+    )
   }
   
   private func closeView() {
@@ -193,6 +211,18 @@ public class CategoryEventViewModel: ObservableObject {
       self.title = event.title
       self.date = event.date
       self.comment = event.comment
+      self.remindRepeat = event.remindRepeat
+    }
+  }
+
+  func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
+    switch remindRepeat {
+    case .everyYear:
+      return "Every Year"
+    case .everyMonth:
+      return "Every Month"
+    case .everyDay:
+      return "Every Day"
     }
   }
   

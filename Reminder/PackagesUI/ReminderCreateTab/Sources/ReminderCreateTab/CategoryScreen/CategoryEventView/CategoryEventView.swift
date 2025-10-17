@@ -39,8 +39,17 @@ public struct CategoryEventView: View {
           Text("Comment:")
           TextField("Comment", text: $viewModel.comment)
             .textFieldStyle(RoundedBorderTextFieldStyle())
+
+          Text("Repeat:")
+          Picker("Repeat", selection: $viewModel.remindRepeat) {
+            ForEach(viewModel.remindRepeatOptions, id: \.self) { option in
+              Text(viewModel.remindRepeatTitle(for: option))
+                .tag(option)
+            }
+          }
+          .pickerStyle(.segmented)
         }
-        
+
         Button(action: {
           viewModel.saveButtonTapped()
         }) {

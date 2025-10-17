@@ -18,5 +18,6 @@ extension EventObject {
   @NSManaged public var title: String?
   @NSManaged public var date: Date?
   @NSManaged public var comment: String?
+  @NSManaged public var remindRepeat: Int16
   @NSManaged public var category: CategoryObject?
 }

@@ -16,7 +16,19 @@ public struct EditEventUseCase: EditEventUseCaseProtocol {
     self.dBEventsService = dBEventsService
   }
 
-  public func execute(eventId: Identifier, title: String, date: Date, comment: String) async throws {
-    try await dBEventsService.editEvent(eventId: eventId, title: title, date: date, comment: comment)
+  public func execute(
+    eventId: Identifier,
+    title: String,
+    date: Date,
+    comment: String,
+    remindRepeat: RemindRepeatEnum
+  ) async throws {
+    try await dBEventsService.editEvent(
+      eventId: eventId,
+      title: title,
+      date: date,
+      comment: comment,
+      remindRepeat: remindRepeat.rawValue
+    )
   }
 }

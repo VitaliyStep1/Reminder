@@ -13,12 +13,21 @@ public struct Event: Sendable {
   public let date: Date
   public let comment: String
   public let categoryId: Identifier?
-  
-  public init(id: Identifier, title: String, date: Date, comment: String, categoryId: Identifier?) {
+  public let remindRepeat: RemindRepeatEnum
+
+  public init(
+    id: Identifier,
+    title: String,
+    date: Date,
+    comment: String,
+    categoryId: Identifier?,
+    remindRepeat: RemindRepeatEnum
+  ) {
     self.id = id
     self.title = title
     self.date = date
     self.comment = comment
     self.categoryId = categoryId
+    self.remindRepeat = remindRepeat
   }
 }

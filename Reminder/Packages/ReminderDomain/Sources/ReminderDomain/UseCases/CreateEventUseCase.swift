@@ -16,7 +16,19 @@ public struct CreateEventUseCase: CreateEventUseCaseProtocol {
     self.dBEventsService = dBEventsService
   }
 
-  public func execute(categoryId: Identifier, title: String, date: Date, comment: String) async throws {
-    try await dBEventsService.createEvent(categoryId: categoryId, title: title, date: date, comment: comment)
+  public func execute(
+    categoryId: Identifier,
+    title: String,
+    date: Date,
+    comment: String,
+    remindRepeat: RemindRepeatEnum
+  ) async throws {
+    try await dBEventsService.createEvent(
+      categoryId: categoryId,
+      title: title,
+      date: date,
+      comment: comment,
+      remindRepeat: remindRepeat.rawValue
+    )
   }
 }

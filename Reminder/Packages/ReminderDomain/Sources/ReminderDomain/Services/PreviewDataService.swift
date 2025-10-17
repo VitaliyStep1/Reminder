@@ -35,11 +35,18 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
     let eventTitle = eventData.title
     let eventComment = eventData.comment
     let eventDate = Date()
+    let remindRepeat = RemindRepeatEnum.everyYear.rawValue
     
     if let categoryId = try? await dBCategoriesService.takeFirstCategoryIdentifier() {
       let isNecessaryToCreateEvent = try await !isEventsExist(categoryId: categoryId)
       if isNecessaryToCreateEvent {
-        try await dBEventsService.createEvent(categoryId: categoryId, title: eventTitle, date: eventDate, comment: eventComment)
+        try await dBEventsService.createEvent(
+          categoryId: categoryId,
+          title: eventTitle,
+          date: eventDate,
+          comment: eventComment,
+          remindRepeat: remindRepeat
+        )
       }
     }
   }

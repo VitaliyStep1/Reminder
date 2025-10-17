@@ -8,5 +8,11 @@
 import Foundation
 
 public protocol EditEventUseCaseProtocol: Sendable {
-  func execute(eventId: Identifier, title: String, date: Date, comment: String) async throws
+  func execute(
+    eventId: Identifier,
+    title: String,
+    date: Date,
+    comment: String,
+    remindRepeat: RemindRepeatEnum
+  ) async throws
 }

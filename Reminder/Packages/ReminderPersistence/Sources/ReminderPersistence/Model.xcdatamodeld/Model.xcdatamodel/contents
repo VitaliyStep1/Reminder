@@ -12,6 +12,7 @@
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="remindRepeat" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryObject" inverseName="events" inverseEntity="CategoryObject"/>
     </entity>
