@@ -18,92 +18,93 @@ public struct CategoryEventView: View {
     ZStack {
       Color(.systemBackground)
         .ignoresSafeArea()
-      
-      VStack(spacing: 16) {
-        Text(viewModel.viewTitle)
-          .font(.headline)
-        
-        VStack(alignment: .leading, spacing: 8) {
-          Text("Title:")
-          TextField("Title", text: $viewModel.title)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+      ScrollView {
+        VStack(spacing: 16) {
+          Text(viewModel.viewTitle)
+            .font(.headline)
           
-          HStack {
-            Spacer()
-            DatePicker("", selection: $viewModel.date, displayedComponents: [.date])
-              .datePickerStyle(.wheel)
-              .labelsHidden()
-            Spacer()
+          VStack(alignment: .leading, spacing: 8) {
+            Text("Title:")
+            TextField("Title", text: $viewModel.title)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            HStack {
+              Spacer()
+              DatePicker("", selection: $viewModel.date, displayedComponents: [.date])
+                .datePickerStyle(.wheel)
+                .labelsHidden()
+              Spacer()
+            }
+            
+            Text("Comment:")
+            TextField("Comment", text: $viewModel.comment)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Text("Repeat:")
+            Picker("Repeat", selection: $viewModel.remindRepeat) {
+              ForEach(viewModel.remindRepeatOptions, id: \.self) { option in
+                Text(viewModel.remindRepeatTitle(for: option))
+                  .tag(option)
+              }
+            }
+            .pickerStyle(.segmented)
           }
           
-          Text("Comment:")
-          TextField("Comment", text: $viewModel.comment)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-
-          Text("Repeat:")
-          Picker("Repeat", selection: $viewModel.remindRepeat) {
-            ForEach(viewModel.remindRepeatOptions, id: \.self) { option in
-              Text(viewModel.remindRepeatTitle(for: option))
-                .tag(option)
-            }
-          }
-          .pickerStyle(.segmented)
-        }
-
-        Button(action: {
-          viewModel.saveButtonTapped()
-        }) {
-          Group {
-            if viewModel.isSaving {
-              ProgressView()
-                .tint(.white)
-            } else {
-              Text(viewModel.saveButtonTitle)
-            }
-          }
-          .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-          .background(Color.blue)
-          .foregroundStyle(.white)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
-        .disabled(viewModel.isSaving || viewModel.isDeleting)
-        
-        Button(action: {
-          viewModel.cancelButtonTapped()
-        }) {
-          Text(viewModel.cancelButtonTitle)
-            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-            .background(Color.gray)
-            .foregroundStyle(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
-        .disabled(viewModel.isSaving || viewModel.isDeleting)
-        
-        if viewModel.isDeleteButtonVisible {
           Button(action: {
-            viewModel.deleteButtonTapped()
+            viewModel.saveButtonTapped()
           }) {
             Group {
-              if viewModel.isDeleting {
+              if viewModel.isSaving {
                 ProgressView()
                   .tint(.white)
               } else {
-                Text(viewModel.deleteButtonTitle)
+                Text(viewModel.saveButtonTitle)
               }
             }
             .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-            .background(Color.red)
+            .background(Color.blue)
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
           }
           .disabled(viewModel.isSaving || viewModel.isDeleting)
+          
+          Button(action: {
+            viewModel.cancelButtonTapped()
+          }) {
+            Text(viewModel.cancelButtonTitle)
+              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+              .background(Color.gray)
+              .foregroundStyle(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+          .disabled(viewModel.isSaving || viewModel.isDeleting)
+          
+          if viewModel.isDeleteButtonVisible {
+            Button(action: {
+              viewModel.deleteButtonTapped()
+            }) {
+              Group {
+                if viewModel.isDeleting {
+                  ProgressView()
+                    .tint(.white)
+                } else {
+                  Text(viewModel.deleteButtonTitle)
+                }
+              }
+              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+              .background(Color.red)
+              .foregroundStyle(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .disabled(viewModel.isSaving || viewModel.isDeleting)
+          }
         }
+        .padding()
+        .frame(maxWidth: 400)
+        .background(Color(UIColor.secondarySystemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(radius: 10)
       }
-      .padding()
-      .frame(maxWidth: 400)
-      .background(Color(UIColor.secondarySystemBackground))
-      .clipShape(RoundedRectangle(cornerRadius: 16))
-      .shadow(radius: 10)
     }
     .disabled(viewModel.isViewBlocked)
     .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {
