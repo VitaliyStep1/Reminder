@@ -19,13 +19,15 @@ public struct FetchCategoryUseCase: FetchCategoryUseCaseProtocol {
   public func execute(categoryId: Identifier) async throws -> ReminderDomainContracts.Category? {
     let category = try? await dBCategoriesService.fetchCategory(categoryId: categoryId)
     return category.flatMap { category in
-      ReminderDomainContracts.Category(
+      let categoryRepeat = CategoryRepeatEnum(fromRawValue: category.categoryRepeat)
+      return ReminderDomainContracts.Category(
         id: category.id,
         defaultKey: category.defaultKey,
         title: category.title,
         order: category.order,
         isUserCreated: category.isUserCreated,
-        eventsAmount: category.eventsAmount
+        eventsAmount: category.eventsAmount,
+        categoryRepeat: categoryRepeat
       )
     }
   }

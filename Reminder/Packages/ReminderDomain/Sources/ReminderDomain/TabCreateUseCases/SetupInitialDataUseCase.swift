@@ -28,7 +28,8 @@ public struct SetupInitialDataUseCase: SetupInitialDataUseCaseProtocol {
         defaultKey: $0.defaultKey,
         title: $0.title,
         order: $0.order,
-        isUserCreated: $0.isUserCreated
+        isUserCreated: $0.isUserCreated,
+        categoryRepeat: $0.categoryRepeat.rawValue
       )
     }
 

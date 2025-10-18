@@ -14,13 +14,23 @@ public struct Category: Sendable, Identifiable {
   public let order: Int
   public let isUserCreated: Bool
   public var eventsAmount: Int
-  
-  public init(id: Identifier, defaultKey: String, title: String, order: Int, isUserCreated: Bool, eventsAmount: Int) {
+  public var categoryRepeat: CategoryRepeatEnum
+
+  public init(
+    id: Identifier,
+    defaultKey: String,
+    title: String,
+    order: Int,
+    isUserCreated: Bool,
+    eventsAmount: Int,
+    categoryRepeat: CategoryRepeatEnum
+  ) {
     self.id = id
     self.defaultKey = defaultKey
     self.title = title
     self.order = order
     self.isUserCreated = isUserCreated
     self.eventsAmount = eventsAmount
+    self.categoryRepeat = categoryRepeat
   }
 }

@@ -35,6 +35,7 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
           if let categoryObject = try context.fetch(fetchRequest).first {
             categoryObject.title = category.title
             categoryObject.order = Int32(category.order)
+            categoryObject.categoryRepeat = Int16(category.categoryRepeat)
           }
         } else {
           let categoryObject = CategoryObject(context: context)
@@ -43,6 +44,7 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
           categoryObject.title = category.title
           categoryObject.order = Int32(category.order)
           categoryObject.isUserCreated = category.isUserCreated
+          categoryObject.categoryRepeat = Int16(category.categoryRepeat)
         }
       }
       
@@ -76,7 +78,8 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
           title: categoryObject.title ?? "",
           order: Int(categoryObject.order),
           isUserCreated: categoryObject.isUserCreated,
-          eventsAmount: eventCount
+          eventsAmount: eventCount,
+          categoryRepeat: Int(categoryObject.categoryRepeat)
         )
       }
     }
@@ -123,7 +126,8 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
         title: categoryObject.title ?? "",
         order: Int(categoryObject.order),
         isUserCreated: categoryObject.isUserCreated,
-        eventsAmount: eventsAmount
+        eventsAmount: eventsAmount,
+        categoryRepeat: Int(categoryObject.categoryRepeat)
       )
     }
   }

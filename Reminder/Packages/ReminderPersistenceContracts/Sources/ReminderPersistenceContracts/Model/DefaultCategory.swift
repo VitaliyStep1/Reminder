@@ -10,11 +10,13 @@ public struct DefaultCategory {
   public var title: String
   public let order: Int
   public let isUserCreated: Bool
-  
-  public init(defaultKey: String, title: String, order: Int, isUserCreated: Bool) {
+  public let categoryRepeat: Int
+
+  public init(defaultKey: String, title: String, order: Int, isUserCreated: Bool, categoryRepeat: Int) {
     self.defaultKey = defaultKey
     self.title = title
     self.order = order
     self.isUserCreated = isUserCreated
+    self.categoryRepeat = categoryRepeat
   }
 }

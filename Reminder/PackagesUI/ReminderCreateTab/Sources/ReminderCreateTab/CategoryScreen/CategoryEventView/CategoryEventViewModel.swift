@@ -223,6 +223,8 @@ public class CategoryEventViewModel: ObservableObject {
       return "Every Month"
     case .everyDay:
       return "Every Day"
+    case .notRepeat:
+      return "Not Repeat"
     }
   }
   
