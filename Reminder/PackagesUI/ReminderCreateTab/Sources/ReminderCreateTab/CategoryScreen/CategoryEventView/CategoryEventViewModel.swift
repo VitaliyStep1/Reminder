@@ -42,6 +42,7 @@ public class CategoryEventViewModel: ObservableObject {
 
   let remindRepeatOptions = RemindRepeatEnum.allCases
   
+  var category: ReminderDomainContracts.Category?
   
   public init(
     createEventUseCase: CreateEventUseCaseProtocol,
@@ -80,7 +81,7 @@ public class CategoryEventViewModel: ObservableObject {
       saveButtonTitle = ""
     }
     
-    fetchEventIfNeeded()
+    fetchEventIfNeededAndCategory()
   }
   
   func saveButtonTapped() {
@@ -192,27 +193,64 @@ public class CategoryEventViewModel: ObservableObject {
     closeViewHandler()
   }
   
-  private func fetchEventIfNeeded() {
-    if case .edit(let eventId) = type {
-      fetchEvent(eventId: eventId)
+  private func fetchEventIfNeededAndCategory() {
+    var eventId: Identifier?
+    var categoryId: Identifier?
+    switch type {
+    case .create(let categoryId_):
+      categoryId = categoryId_
+    case .edit(let eventId_):
+      eventId = eventId_
+    default:
+      break
+    }
+    Task {
+      if let eventId {
+        let event = await fetchEventAndUpdateOrClose(eventId: eventId)
+        if let event, let categoryId_ = event.categoryId {
+          categoryId = categoryId_
+        }
+      }
+      if let categoryId {
+        let category = await fetchCategoryAndUpdateOrClose(categoryId: categoryId)
+        
+      }
     }
   }
   
-  private func fetchEvent(eventId: Identifier) {
-    Task {
+  //TODO: Refactor
+  private func fetchCategoryAndUpdateOrClose(categoryId: Identifier) async -> ReminderDomainContracts.Category? {
+    let category = try? await fetchCategoryUseCase.execute(categoryId: categoryId)
+    guard let category else {
+      isViewBlocked = true
+      showCategoryWasNotFoundAlert { [weak self] in
+        self?.closeView()
+      }
+      return nil
+    }
+    updateForCategory(category: category)
+    return category
+  }
+  
+  private func updateForCategory(category: ReminderDomainContracts.Category) {
+    
+  }
+  
+  //TODO: Refactor
+  private func fetchEventAndUpdateOrClose(eventId: Identifier) async -> Event? {
       let event = try? await fetchEventUseCase.execute(eventId: eventId)
       guard let event else {
         isViewBlocked = true
         showEventWasNotFoundAlert { [weak self] in
           self?.closeView()
         }
-        return
+        return nil
       }
       self.title = event.title
       self.date = event.date
       self.comment = event.comment
       self.remindRepeat = event.remindRepeat
-    }
+    return event
   }
 
   func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
@@ -240,6 +278,11 @@ public class CategoryEventViewModel: ObservableObject {
   
   private func showEventWasNotFoundAlert(completion: @escaping (() -> Void)) {
     alertInfo = AlertInfo(message: "Event was not found", completion: completion)
+    isAlertVisible = true
+  }
+  
+  private func showCategoryWasNotFoundAlert(completion: @escaping (() -> Void)) {
+    alertInfo = AlertInfo(message: "Category was not found", completion: completion)
     isAlertVisible = true
   }
 }
