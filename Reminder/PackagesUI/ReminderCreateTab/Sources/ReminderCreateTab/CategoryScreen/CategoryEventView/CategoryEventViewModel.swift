@@ -41,7 +41,7 @@ public class CategoryEventViewModel: ObservableObject {
   let cancelButtonTitle = "Cancel"
   let deleteButtonTitle = "Delete"
 
-  let remindRepeatOptions = RemindRepeatEnum.allCases
+  @Published private(set) var remindRepeatOptions: [RemindRepeatEnum] = []
   
   var category: ReminderDomainContracts.Category?
   
@@ -237,9 +237,16 @@ public class CategoryEventViewModel: ObservableObject {
   
   private func updateForCategory(category: ReminderDomainContracts.Category) {
     self.category = category
-    
+
+    let options = category.categoryRepeat.chooseOptions
+    remindRepeatOptions = options
+
     if case .create = type {
       remindRepeat = category.categoryRepeat.defaultRemindRepeat
+    }
+
+    if let firstOption = options.first, !options.contains(remindRepeat) {
+      remindRepeat = firstOption
     }
   }
   
