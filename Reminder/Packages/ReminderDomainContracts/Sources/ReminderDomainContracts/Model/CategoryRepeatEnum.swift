@@ -19,7 +19,7 @@ public enum CategoryRepeatEnum: Int, CaseIterable, Sendable {
     self = Self.init(rawValue: fromRawValue) ?? .repeatEveryYear_notChoose
   }
   
-  var defaultRemindRepeat: RemindRepeatEnum {
+  public var defaultRemindRepeat: RemindRepeatEnum {
     switch self {
     case .repeatEveryYear_notChoose:
       return .everyYear
@@ -40,7 +40,7 @@ public enum CategoryRepeatEnum: Int, CaseIterable, Sendable {
     }
   }
   
-  var chooseOptions: [RemindRepeatEnum] {
+  public var chooseOptions: [RemindRepeatEnum] {
     switch self {
     case .repeatEveryYear_chooseAll,
         .repeatEveryMonth_chooseAll,

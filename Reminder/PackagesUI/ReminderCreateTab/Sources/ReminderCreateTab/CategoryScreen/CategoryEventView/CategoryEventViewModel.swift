@@ -15,6 +15,7 @@ public class CategoryEventViewModel: ObservableObject {
   let editEventUseCase: EditEventUseCaseProtocol
   let deleteEventUseCase: DeleteEventUseCaseProtocol
   let fetchEventUseCase: FetchEventUseCaseProtocol
+  let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   let type: CategoryEventViewType
   let eventsWereChangedHandler: () -> Void
   let closeViewHandler: () -> Void
@@ -49,6 +50,7 @@ public class CategoryEventViewModel: ObservableObject {
     editEventUseCase: EditEventUseCaseProtocol,
     deleteEventUseCase: DeleteEventUseCaseProtocol,
     fetchEventUseCase: FetchEventUseCaseProtocol,
+    fetchCategoryUseCase: FetchCategoryUseCaseProtocol,
     type: CategoryEventViewType,
     eventsWereChangedHandler: @escaping () -> Void,
     closeViewHandler: @escaping () -> Void
@@ -57,6 +59,7 @@ public class CategoryEventViewModel: ObservableObject {
     self.editEventUseCase = editEventUseCase
     self.deleteEventUseCase = deleteEventUseCase
     self.fetchEventUseCase = fetchEventUseCase
+    self.fetchCategoryUseCase = fetchCategoryUseCase
     self.type = type
     self.eventsWereChangedHandler = eventsWereChangedHandler
     self.closeViewHandler = closeViewHandler
@@ -233,7 +236,11 @@ public class CategoryEventViewModel: ObservableObject {
   }
   
   private func updateForCategory(category: ReminderDomainContracts.Category) {
+    self.category = category
     
+    if case .create = type {
+      remindRepeat = category.categoryRepeat.defaultRemindRepeat
+    }
   }
   
   //TODO: Refactor
