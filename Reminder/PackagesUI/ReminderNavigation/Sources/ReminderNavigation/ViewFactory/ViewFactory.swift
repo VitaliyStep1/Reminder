@@ -74,8 +74,8 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
     eventsWereChangedHandler: @escaping @Sendable () -> Void,
     closeViewHandler: @escaping @Sendable () -> Void
   ) -> AnyView {
-    let store = CategoryEventViewStore()
-    let presenter = CategoryEventPresenter(store: store, type: categoryEventViewType)
+    let store = CategoryEventViewStore(categoryEventViewType: categoryEventViewType)
+    let presenter = CategoryEventPresenter(store: store)
     let interactor = CategoryEventInteractor(
       createEventUseCase: resolver.createEventUseCaseProtocol,
       editEventUseCase: resolver.editEventUseCaseProtocol,
@@ -84,7 +84,6 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
       presenter: presenter,
       store: store,
-      type: categoryEventViewType,
       eventsWereChangedHandler: eventsWereChangedHandler,
       closeViewHandler: closeViewHandler
     )

@@ -7,9 +7,12 @@
 
 import Foundation
 import ReminderDomainContracts
+import ReminderNavigationContracts
 
 @MainActor
 public final class CategoryEventViewStore: ObservableObject {
+  public let categoryEventViewType: CategoryEventViewType
+
   @Published public var eventTitle: String
   @Published public var eventDate: Date
   @Published public var eventComment: String
@@ -33,10 +36,11 @@ public final class CategoryEventViewStore: ObservableObject {
   
   @Published public var remindRepeatOptions: [RemindRepeatEnum]
   public var remindRepeatTitles: [RemindRepeatEnum: String]
-  
+
   public var category: ReminderDomainContracts.Category?
-  
-  public init() {
+
+  public init(categoryEventViewType: CategoryEventViewType) {
+    self.categoryEventViewType = categoryEventViewType
     self.eventTitle = ""
     self.eventDate = Date()
     self.eventComment = ""

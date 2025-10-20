@@ -12,11 +12,9 @@ import ReminderDomainContracts
 @MainActor
 public final class CategoryEventPresenter {
   private let store: CategoryEventViewStore
-  private let type: CategoryEventViewType
-  
-  public init(store: CategoryEventViewStore, type: CategoryEventViewType) {
+
+  public init(store: CategoryEventViewStore) {
     self.store = store
-    self.type = type
     configureView()
   }
   
@@ -55,10 +53,10 @@ public final class CategoryEventPresenter {
     store.remindRepeatOptions = options
     store.remindRepeatTitles = Dictionary(uniqueKeysWithValues: options.map { ($0, remindRepeatTitle(for: $0)) })
     
-    if case .create = type {
+    if case .create = store.categoryEventViewType {
       store.eventRemindRepeat = category.categoryRepeat.defaultRemindRepeat
     }
-    
+
     if let firstOption = options.first, !options.contains(store.eventRemindRepeat) {
       store.eventRemindRepeat = firstOption
     }
@@ -88,7 +86,7 @@ public final class CategoryEventPresenter {
   }
   
   private func configureView() {
-    switch type {
+    switch store.categoryEventViewType {
     case .create:
       store.viewTitle = "Create Event"
       store.isDeleteButtonVisible = false

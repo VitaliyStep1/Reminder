@@ -19,10 +19,9 @@ public final class CategoryEventInteractor {
   
   private let presenter: CategoryEventPresenter
   private let store: CategoryEventViewStore
-  private let type: CategoryEventViewType
   private let eventsWereChangedHandler: () -> Void
   private let closeViewHandler: () -> Void
-  
+
   public init(
     createEventUseCase: CreateEventUseCaseProtocol,
     editEventUseCase: EditEventUseCaseProtocol,
@@ -31,7 +30,6 @@ public final class CategoryEventInteractor {
     fetchCategoryUseCase: FetchCategoryUseCaseProtocol,
     presenter: CategoryEventPresenter,
     store: CategoryEventViewStore,
-    type: CategoryEventViewType,
     eventsWereChangedHandler: @escaping () -> Void,
     closeViewHandler: @escaping () -> Void
   ) {
@@ -42,7 +40,6 @@ public final class CategoryEventInteractor {
     self.fetchCategoryUseCase = fetchCategoryUseCase
     self.presenter = presenter
     self.store = store
-    self.type = type
     self.eventsWereChangedHandler = eventsWereChangedHandler
     self.closeViewHandler = closeViewHandler
   }
@@ -96,7 +93,7 @@ public final class CategoryEventInteractor {
   }
   
   private func saveEvent() async throws {
-    switch type {
+    switch store.categoryEventViewType {
     case .create(let categoryId):
       try await createEvent(categoryId: categoryId)
     case .edit(let eventId):
@@ -107,7 +104,7 @@ public final class CategoryEventInteractor {
   }
   
   private func performDeleteEvent() async throws {
-    switch type {
+    switch store.categoryEventViewType {
     case .edit(let eventId):
       try await deleteEventUseCase.execute(eventId: eventId)
     default:
@@ -150,7 +147,7 @@ public final class CategoryEventInteractor {
     var eventId: Identifier?
     var categoryId: Identifier?
     
-    switch type {
+    switch store.categoryEventViewType {
     case .create(let categoryId_):
       categoryId = categoryId_
     case .edit(let eventId_):
