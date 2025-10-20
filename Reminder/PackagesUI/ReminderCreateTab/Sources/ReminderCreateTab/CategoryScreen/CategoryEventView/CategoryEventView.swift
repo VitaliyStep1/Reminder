@@ -42,15 +42,18 @@ public struct CategoryEventView: View {
             TextField("Comment", text: $store.eventComment)
               .textFieldStyle(RoundedBorderTextFieldStyle())
             
-            if !store.remindRepeatOptions.isEmpty {
-              Text("Repeat:")
+            Text("Repeat:")
+            switch store.repeatRepresentationEnum {
+            case .picker(let values, let titles):
               Picker("Repeat", selection: $store.eventRemindRepeat) {
-                ForEach(store.remindRepeatOptions, id: \.self) { option in
-                  Text(store.remindRepeatTitles[option] ?? "")
+                ForEach(values, id: \.self) { option in
+                  Text(titles[option] ?? "")
                     .tag(option)
                 }
               }
               .pickerStyle(.segmented)
+            case .text(let text):
+              Text(text)
             }
           }
           

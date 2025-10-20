@@ -50,8 +50,14 @@ public final class CategoryEventPresenter {
     store.category = category
     
     let options = category.categoryRepeat.chooseOptions
-    store.remindRepeatOptions = options
-    store.remindRepeatTitles = Dictionary(uniqueKeysWithValues: options.map { ($0, remindRepeatTitle(for: $0)) })
+    if options.isEmpty {
+      let remindRepeatText = remindRepeatTitle(for: store.eventRemindRepeat)
+      store.repeatRepresentationEnum = .text(text: remindRepeatText)
+    } else {
+      let remindRepeatValues = options
+      let remindRepeatTitles = Dictionary(uniqueKeysWithValues: remindRepeatValues.map { ($0, remindRepeatTitle(for: $0)) })
+      store.repeatRepresentationEnum = .picker(values: remindRepeatValues, titles: remindRepeatTitles)
+    }
     
     if case .create = store.categoryEventViewType {
       store.eventRemindRepeat = category.categoryRepeat.defaultRemindRepeat

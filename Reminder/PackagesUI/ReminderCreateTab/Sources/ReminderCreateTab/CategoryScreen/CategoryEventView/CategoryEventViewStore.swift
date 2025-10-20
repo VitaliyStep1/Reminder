@@ -33,11 +33,10 @@ public final class CategoryEventViewStore: ObservableObject {
   @Published public var saveButtonTitle: String
   public let cancelButtonTitle: String
   public let deleteButtonTitle: String
-  
-  @Published public var remindRepeatOptions: [RemindRepeatEnum]
-  public var remindRepeatTitles: [RemindRepeatEnum: String]
 
   public var category: ReminderDomainContracts.Category?
+  
+  @Published var repeatRepresentationEnum: CategoryEventEntity.RepeatRepresentationEnum
 
   public init(categoryEventViewType: CategoryEventViewType) {
     self.categoryEventViewType = categoryEventViewType
@@ -57,8 +56,7 @@ public final class CategoryEventViewStore: ObservableObject {
     self.saveButtonTitle = ""
     self.cancelButtonTitle = "Cancel"
     self.deleteButtonTitle = "Delete"
-    self.remindRepeatOptions = []
-    self.remindRepeatTitles = [:]
     self.category = nil
+    self.repeatRepresentationEnum = .text(text: "")
   }
 }
