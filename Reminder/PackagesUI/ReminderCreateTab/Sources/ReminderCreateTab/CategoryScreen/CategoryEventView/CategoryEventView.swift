@@ -8,10 +8,12 @@
 import SwiftUI
 
 public struct CategoryEventView: View {
-  @ObservedObject var viewModel: CategoryEventViewModel
-  
-  public init(viewModel: CategoryEventViewModel) {
-    self.viewModel = viewModel
+  @ObservedObject var store: CategoryEventViewStore
+  let interactor: CategoryEventInteractor
+
+  public init(store: CategoryEventViewStore, interactor: CategoryEventInteractor) {
+    self.store = store
+    self.interactor = interactor
   }
   
   public var body: some View {
@@ -20,31 +22,31 @@ public struct CategoryEventView: View {
         .ignoresSafeArea()
       ScrollView {
         VStack(spacing: 16) {
-          Text(viewModel.viewTitle)
+          Text(store.viewTitle)
             .font(.headline)
           
           VStack(alignment: .leading, spacing: 8) {
             Text("Title:")
-            TextField("Title", text: $viewModel.title)
+            TextField("Title", text: $store.title)
               .textFieldStyle(RoundedBorderTextFieldStyle())
             
             HStack {
               Spacer()
-              DatePicker("", selection: $viewModel.date, displayedComponents: [.date])
+              DatePicker("", selection: $store.date, displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
               Spacer()
             }
             
             Text("Comment:")
-            TextField("Comment", text: $viewModel.comment)
+            TextField("Comment", text: $store.comment)
               .textFieldStyle(RoundedBorderTextFieldStyle())
             
-            if !viewModel.remindRepeatOptions.isEmpty {
+            if !store.remindRepeatOptions.isEmpty {
               Text("Repeat:")
-              Picker("Repeat", selection: $viewModel.remindRepeat) {
-                ForEach(viewModel.remindRepeatOptions, id: \.self) { option in
-                  Text(viewModel.remindRepeatTitle(for: option))
+              Picker("Repeat", selection: $store.remindRepeat) {
+                ForEach(store.remindRepeatOptions, id: \.self) { option in
+                  Text(store.remindRepeatTitles[option] ?? "")
                     .tag(option)
                 }
               }
@@ -53,14 +55,14 @@ public struct CategoryEventView: View {
           }
           
           Button(action: {
-            viewModel.saveButtonTapped()
+            interactor.saveButtonTapped()
           }) {
             Group {
-              if viewModel.isSaving {
+              if store.isSaving {
                 ProgressView()
                   .tint(.white)
               } else {
-                Text(viewModel.saveButtonTitle)
+                Text(store.saveButtonTitle)
               }
             }
             .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
@@ -68,29 +70,29 @@ public struct CategoryEventView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
           }
-          .disabled(viewModel.isSaving || viewModel.isDeleting)
-          
+          .disabled(store.isSaving || store.isDeleting)
+
           Button(action: {
-            viewModel.cancelButtonTapped()
+            interactor.cancelButtonTapped()
           }) {
-            Text(viewModel.cancelButtonTitle)
+            Text(store.cancelButtonTitle)
               .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
               .background(Color.gray)
               .foregroundStyle(.white)
               .clipShape(RoundedRectangle(cornerRadius: 10))
           }
-          .disabled(viewModel.isSaving || viewModel.isDeleting)
-          
-          if viewModel.isDeleteButtonVisible {
+          .disabled(store.isSaving || store.isDeleting)
+
+          if store.isDeleteButtonVisible {
             Button(action: {
-              viewModel.deleteButtonTapped()
+              interactor.deleteButtonTapped()
             }) {
               Group {
-                if viewModel.isDeleting {
+                if store.isDeleting {
                   ProgressView()
                     .tint(.white)
                 } else {
-                  Text(viewModel.deleteButtonTitle)
+                  Text(store.deleteButtonTitle)
                 }
               }
               .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
@@ -98,7 +100,7 @@ public struct CategoryEventView: View {
               .foregroundStyle(.white)
               .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-            .disabled(viewModel.isSaving || viewModel.isDeleting)
+            .disabled(store.isSaving || store.isDeleting)
           }
         }
         .padding()
@@ -108,23 +110,26 @@ public struct CategoryEventView: View {
         .shadow(radius: 10)
       }
     }
-    .disabled(viewModel.isViewBlocked)
-    .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {
-      Button(viewModel.alertInfo.buttonTitle, role: .cancel) {
-        viewModel.alertInfo.completion?()
+    .disabled(store.isViewBlocked)
+    .alert(store.alertInfo.title, isPresented: $store.isAlertVisible) {
+      Button(store.alertInfo.buttonTitle, role: .cancel) {
+        store.alertInfo.completion?()
       }
     } message: {
-      Text(viewModel.alertInfo.message)
+      Text(store.alertInfo.message)
     }
-    .confirmationDialog(viewModel.confirmationDialogInfo.title,
-                        isPresented: $viewModel.isConfirmationDialogVisible,
+    .confirmationDialog(store.confirmationDialogInfo.title,
+                        isPresented: $store.isConfirmationDialogVisible,
                         titleVisibility: .visible) {
-      Button(viewModel.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
-        viewModel.confirmationDialogInfo.deleteButtonHandler?()
+      Button(store.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
+        store.confirmationDialogInfo.deleteButtonHandler?()
       }
-      Button(viewModel.confirmationDialogInfo.cancelButtonTitle, role: .cancel) { }
+      Button(store.confirmationDialogInfo.cancelButtonTitle, role: .cancel) { }
     } message: {
-      Text(viewModel.confirmationDialogInfo.message)
+      Text(store.confirmationDialogInfo.message)
+    }
+    .onAppear {
+      interactor.onAppear()
     }
   }
 }
