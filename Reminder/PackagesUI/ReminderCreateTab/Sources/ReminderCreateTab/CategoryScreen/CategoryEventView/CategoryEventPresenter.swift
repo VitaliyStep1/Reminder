@@ -6,15 +6,18 @@
 //
 
 import Foundation
+import Combine
 import ReminderNavigationContracts
 import ReminderDomainContracts
 
 @MainActor
 public final class CategoryEventPresenter {
   private let store: CategoryEventViewStore
+  private var cancellables = Set<AnyCancellable>()
 
   public init(store: CategoryEventViewStore) {
     self.store = store
+    configureBindings()
     configureView()
   }
   
@@ -106,6 +109,20 @@ public final class CategoryEventPresenter {
       store.isDeleteButtonVisible = false
       store.saveButtonTitle = ""
     }
+  }
+
+  private func configureBindings() {
+    store.$eventRemindRepeat
+      .receive(on: RunLoop.main)
+      .sink { [weak self] remindRepeat in
+        self?.updateRepeatRepresentationIfNeeded(for: remindRepeat)
+      }
+      .store(in: &cancellables)
+  }
+
+  private func updateRepeatRepresentationIfNeeded(for remindRepeat: RemindRepeatEnum) {
+    guard case .text = store.repeatRepresentationEnum else { return }
+    store.repeatRepresentationEnum = .text(text: remindRepeatTitle(for: remindRepeat))
   }
   
   private func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
