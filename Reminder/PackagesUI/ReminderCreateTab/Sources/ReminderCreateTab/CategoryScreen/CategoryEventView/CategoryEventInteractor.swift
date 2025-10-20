@@ -116,10 +116,10 @@ public final class CategoryEventInteractor {
   }
   
   private func createEvent(categoryId: Identifier) async throws {
-    let title = store.title
-    let comment = store.comment
-    let date = store.date
-    let remindRepeat = store.remindRepeat
+    let title = store.eventTitle
+    let comment = store.eventComment
+    let date = store.eventDate
+    let remindRepeat = store.eventRemindRepeat
     guard !title.isEmpty else {
       throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
     }
@@ -133,10 +133,10 @@ public final class CategoryEventInteractor {
   }
   
   private func editEvent(eventId: Identifier) async throws {
-    let title = store.title
-    let comment = store.comment
-    let date = store.date
-    let remindRepeat = store.remindRepeat
+    let title = store.eventTitle
+    let comment = store.eventComment
+    let date = store.eventDate
+    let remindRepeat = store.eventRemindRepeat
     try await editEventUseCase.execute(
       eventId: eventId,
       title: title,

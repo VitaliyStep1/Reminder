@@ -27,24 +27,24 @@ public struct CategoryEventView: View {
           
           VStack(alignment: .leading, spacing: 8) {
             Text("Title:")
-            TextField("Title", text: $store.title)
+            TextField("Title", text: $store.eventTitle)
               .textFieldStyle(RoundedBorderTextFieldStyle())
             
             HStack {
               Spacer()
-              DatePicker("", selection: $store.date, displayedComponents: [.date])
+              DatePicker("", selection: $store.eventDate, displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
               Spacer()
             }
             
             Text("Comment:")
-            TextField("Comment", text: $store.comment)
+            TextField("Comment", text: $store.eventComment)
               .textFieldStyle(RoundedBorderTextFieldStyle())
             
             if !store.remindRepeatOptions.isEmpty {
               Text("Repeat:")
-              Picker("Repeat", selection: $store.remindRepeat) {
+              Picker("Repeat", selection: $store.eventRemindRepeat) {
                 ForEach(store.remindRepeatOptions, id: \.self) { option in
                   Text(store.remindRepeatTitles[option] ?? "")
                     .tag(option)

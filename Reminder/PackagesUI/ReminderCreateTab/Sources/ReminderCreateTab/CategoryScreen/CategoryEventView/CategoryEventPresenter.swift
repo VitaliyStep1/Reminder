@@ -42,10 +42,10 @@ public final class CategoryEventPresenter {
   }
   
   public func presentEvent(_ event: Event) {
-    store.title = event.title
-    store.date = event.date
-    store.comment = event.comment
-    store.remindRepeat = event.remindRepeat
+    store.eventTitle = event.title
+    store.eventDate = event.date
+    store.eventComment = event.comment
+    store.eventRemindRepeat = event.remindRepeat
   }
   
   public func presentCategory(_ category: ReminderDomainContracts.Category) {
@@ -56,11 +56,11 @@ public final class CategoryEventPresenter {
     store.remindRepeatTitles = Dictionary(uniqueKeysWithValues: options.map { ($0, remindRepeatTitle(for: $0)) })
     
     if case .create = type {
-      store.remindRepeat = category.categoryRepeat.defaultRemindRepeat
+      store.eventRemindRepeat = category.categoryRepeat.defaultRemindRepeat
     }
     
-    if let firstOption = options.first, !options.contains(store.remindRepeat) {
-      store.remindRepeat = firstOption
+    if let firstOption = options.first, !options.contains(store.eventRemindRepeat) {
+      store.eventRemindRepeat = firstOption
     }
   }
   

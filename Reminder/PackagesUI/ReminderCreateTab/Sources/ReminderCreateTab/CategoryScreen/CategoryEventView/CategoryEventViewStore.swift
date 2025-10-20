@@ -10,10 +10,10 @@ import ReminderDomainContracts
 
 @MainActor
 public final class CategoryEventViewStore: ObservableObject {
-  @Published public var title: String
-  @Published public var date: Date
-  @Published public var comment: String
-  @Published public var remindRepeat: RemindRepeatEnum
+  @Published public var eventTitle: String
+  @Published public var eventDate: Date
+  @Published public var eventComment: String
+  @Published public var eventRemindRepeat: RemindRepeatEnum
   
   @Published public var isSaving: Bool
   @Published public var isDeleting: Bool
@@ -37,10 +37,10 @@ public final class CategoryEventViewStore: ObservableObject {
   public var category: ReminderDomainContracts.Category?
   
   public init() {
-    self.title = ""
-    self.date = Date()
-    self.comment = ""
-    self.remindRepeat = .everyYear
+    self.eventTitle = ""
+    self.eventDate = Date()
+    self.eventComment = ""
+    self.eventRemindRepeat = .everyYear
     self.isSaving = false
     self.isDeleting = false
     self.isViewBlocked = false
