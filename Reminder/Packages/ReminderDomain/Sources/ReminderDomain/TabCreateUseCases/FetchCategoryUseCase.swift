@@ -20,6 +20,7 @@ public struct FetchCategoryUseCase: FetchCategoryUseCaseProtocol {
     let category = try? await dBCategoriesService.fetchCategory(categoryId: categoryId)
     return category.flatMap { category in
       let categoryRepeat = CategoryRepeatEnum(fromRawValue: category.categoryRepeat)
+      let categoryGroup = CategoryGroupEnum(fromRawValue: category.categoryGroup)
       return ReminderDomainContracts.Category(
         id: category.id,
         defaultKey: category.defaultKey,
@@ -27,7 +28,8 @@ public struct FetchCategoryUseCase: FetchCategoryUseCaseProtocol {
         order: category.order,
         isUserCreated: category.isUserCreated,
         eventsAmount: category.eventsAmount,
-        categoryRepeat: categoryRepeat
+        categoryRepeat: categoryRepeat,
+        categoryGroup: categoryGroup
       )
     }
   }

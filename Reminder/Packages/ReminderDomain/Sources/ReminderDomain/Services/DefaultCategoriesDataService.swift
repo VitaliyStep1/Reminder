@@ -13,14 +13,14 @@ public final class DefaultCategoriesDataService: DefaultCategoriesDataServicePro
   
   public func takeDefaultCategories() -> [ReminderDomainContracts.DefaultCategory] {
     let categories: [ReminderDomainContracts.DefaultCategory] = [
-      .init(defaultKey: "Birthdays", title: "Birthdays", order: 1, categoryRepeat: .repeatEveryYear_notChoose),
-      .init(defaultKey: "Subscriptions", title: "Subscriptions", order: 2, categoryRepeat: .repeatEveryMonth_notChoose),
-      .init(defaultKey: "Utilities", title: "Utilities", order: 3, categoryRepeat: .repeatEveryMonth_notChoose),
-      .init(defaultKey: "Aniversaries", title: "Aniversaries", order: 4, categoryRepeat: .repeatEveryYear_notChoose),
-      .init(defaultKey: "Other_repeatEveryYear", title: "Other - repeat every year", order: 5, categoryRepeat: .repeatEveryYear_chooseAll),
-      .init(defaultKey: "Other_repeatEveryMonth", title: "Other - repeat every month", order: 6, categoryRepeat: .repeatEveryMonth_chooseAll),
-      .init(defaultKey: "Other_repeatEveryDay", title: "Other - repeat every day", order: 7, categoryRepeat: .repeatEveryDay_chooseAll),
-      .init(defaultKey: "Other_notRepeat", title: "Other - not repeat", order: 8, categoryRepeat: .notRepeat_chooseAll),
+      .init(defaultKey: "Birthdays", title: "Birthdays", order: 1, categoryRepeat: .repeatEveryYear_notChoose, categoryGroup: .birthdays),
+      .init(defaultKey: "Subscriptions", title: "Subscriptions", order: 2, categoryRepeat: .repeatEveryMonth_notChoose, categoryGroup: .subscriptions),
+      .init(defaultKey: "Utilities", title: "Utilities", order: 3, categoryRepeat: .repeatEveryMonth_notChoose, categoryGroup: .utilities),
+      .init(defaultKey: "Aniversaries", title: "Aniversaries", order: 4, categoryRepeat: .repeatEveryYear_notChoose, categoryGroup: .aniversaries),
+      .init(defaultKey: "Other_repeatEveryYear", title: "Other - every year", order: 5, categoryRepeat: .repeatEveryYear_chooseAll, categoryGroup: .other),
+      .init(defaultKey: "Other_repeatEveryMonth", title: "Other - every month", order: 6, categoryRepeat: .repeatEveryMonth_chooseAll, categoryGroup: .other),
+      .init(defaultKey: "Other_repeatEveryDay", title: "Other - every day", order: 7, categoryRepeat: .repeatEveryDay_chooseAll, categoryGroup: .other),
+      .init(defaultKey: "Other_notRepeat", title: "Other - one time", order: 8, categoryRepeat: .notRepeat_chooseAll, categoryGroup: .other),
     ]
     return categories
   }

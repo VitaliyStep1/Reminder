@@ -14,7 +14,7 @@ import ReminderDomainContracts
 public class CategoryViewModel: ObservableObject {
   let fetchEventsUseCase: FetchEventsUseCaseProtocol
   let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
-  let categoryId: Identifier
+  var categoryId: Identifier
   
   @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
@@ -55,8 +55,19 @@ public class CategoryViewModel: ObservableObject {
     showEditEventView(eventId: eventId)
   }
   
-  func categoryEventWasUpdated() {
+  func categoryEventWasUpdated(newCategoryId: Identifier?) {
+    if let newCategoryId {
+      updateCategoryId(newCategoryId: newCategoryId)
+    } else {
+      updateEventList()
+    }
+  }
+  
+  private func updateCategoryId(newCategoryId: Identifier) {
+    self.categoryId = newCategoryId
+    
     updateEventList()
+    updateNavigationTitle()
   }
   
   func closeViewWasCalled() {

@@ -71,7 +71,7 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
   @MainActor
   public func makeCategoryEventView(
     categoryEventViewType: CategoryEventViewType,
-    eventsWereChangedHandler: @escaping @Sendable () -> Void,
+    eventsWereChangedHandler: @escaping @Sendable (Identifier?) -> Void,
     closeViewHandler: @escaping @Sendable () -> Void
   ) -> AnyView {
     let store = CategoryEventViewStore(categoryEventViewType: categoryEventViewType)

@@ -11,9 +11,11 @@ import ReminderPersistenceContracts
 
 public struct EditEventUseCase: EditEventUseCaseProtocol {
   private let dBEventsService: DBEventsServiceProtocol
-
-  public init(dBEventsService: DBEventsServiceProtocol) {
+  private let dBCategoriesService: DBCategoriesServiceProtocol
+  
+  public init(dBEventsService: DBEventsServiceProtocol, dBCategoriesService: DBCategoriesServiceProtocol) {
     self.dBEventsService = dBEventsService
+    self.dBCategoriesService = dBCategoriesService
   }
 
   public func execute(
@@ -22,13 +24,18 @@ public struct EditEventUseCase: EditEventUseCaseProtocol {
     date: Date,
     comment: String,
     remindRepeat: RemindRepeatEnum
-  ) async throws {
+  ) async throws -> Identifier? {
+    let calculateCategoryIdForEventService = CalculateCategoryIdForEventService(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
+    let newCategoryId = try await calculateCategoryIdForEventService.calculateNewCategoryIdForEditingEvent(eventId: eventId, remindRepeat: remindRepeat)
     try await dBEventsService.editEvent(
       eventId: eventId,
       title: title,
       date: date,
       comment: comment,
-      remindRepeat: remindRepeat.rawValue
+      remindRepeat: remindRepeat.rawValue,
+      newCategoryId: newCategoryId
     )
+    return newCategoryId
   }
+    
 }

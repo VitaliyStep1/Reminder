@@ -14,5 +14,5 @@ public protocol CreateEventUseCaseProtocol: Sendable {
     date: Date,
     comment: String,
     remindRepeat: RemindRepeatEnum
-  ) async throws
+  ) async throws -> Identifier?
 }

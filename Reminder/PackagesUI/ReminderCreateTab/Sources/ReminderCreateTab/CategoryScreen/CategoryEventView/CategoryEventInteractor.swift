@@ -19,7 +19,7 @@ public final class CategoryEventInteractor {
   
   private let presenter: CategoryEventPresenter
   private let store: CategoryEventViewStore
-  private let eventsWereChangedHandler: () -> Void
+  private let eventsWereChangedHandler: (Identifier?) -> Void
   private let closeViewHandler: () -> Void
 
   public init(
@@ -30,7 +30,7 @@ public final class CategoryEventInteractor {
     fetchCategoryUseCase: FetchCategoryUseCaseProtocol,
     presenter: CategoryEventPresenter,
     store: CategoryEventViewStore,
-    eventsWereChangedHandler: @escaping () -> Void,
+    eventsWereChangedHandler: @escaping (Identifier?) -> Void,
     closeViewHandler: @escaping () -> Void
   ) {
     self.createEventUseCase = createEventUseCase
@@ -55,8 +55,8 @@ public final class CategoryEventInteractor {
       guard let self else { return }
       presenter.presentSaving(true)
       do {
-        try await self.saveEvent()
-        eventsWereChangedHandler()
+        let newCategoryId = try await self.saveEvent()
+        eventsWereChangedHandler(newCategoryId)
         presenter.presentSaving(false)
         closeView()
       } catch {
@@ -82,7 +82,7 @@ public final class CategoryEventInteractor {
       presenter.presentDeleting(true)
       do {
         try await self.performDeleteEvent()
-        eventsWereChangedHandler()
+        eventsWereChangedHandler(nil)
         presenter.presentDeleting(false)
         closeView()
       } catch {
@@ -92,15 +92,17 @@ public final class CategoryEventInteractor {
     }
   }
   
-  private func saveEvent() async throws {
+  private func saveEvent() async throws -> Identifier? {
+    var newCategoryId: Identifier?
     switch store.categoryEventViewType {
     case .create(let categoryId):
-      try await createEvent(categoryId: categoryId)
+      newCategoryId = try await createEvent(categoryId: categoryId)
     case .edit(let eventId):
-      try await editEvent(eventId: eventId)
+      newCategoryId = try await editEvent(eventId: eventId)
     default:
       break
     }
+    return newCategoryId
   }
   
   private func performDeleteEvent() async throws {
@@ -112,7 +114,7 @@ public final class CategoryEventInteractor {
     }
   }
   
-  private func createEvent(categoryId: Identifier) async throws {
+  private func createEvent(categoryId: Identifier) async throws -> Identifier? {
     let title = store.eventTitle
     let comment = store.eventComment
     let date = store.eventDate
@@ -120,27 +122,29 @@ public final class CategoryEventInteractor {
     guard !title.isEmpty else {
       throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
     }
-    try await createEventUseCase.execute(
+    let newCategoryId = try await createEventUseCase.execute(
       categoryId: categoryId,
       title: title,
       date: date,
       comment: comment,
       remindRepeat: remindRepeat
     )
+    return newCategoryId
   }
   
-  private func editEvent(eventId: Identifier) async throws {
+  private func editEvent(eventId: Identifier) async throws -> Identifier? {
     let title = store.eventTitle
     let comment = store.eventComment
     let date = store.eventDate
     let remindRepeat = store.eventRemindRepeat
-    try await editEventUseCase.execute(
+    let newCategoryId = try await editEventUseCase.execute(
       eventId: eventId,
       title: title,
       date: date,
       comment: comment,
       remindRepeat: remindRepeat
     )
+    return newCategoryId
   }
   
   private func fetchEventIfNeededAndCategory() async {

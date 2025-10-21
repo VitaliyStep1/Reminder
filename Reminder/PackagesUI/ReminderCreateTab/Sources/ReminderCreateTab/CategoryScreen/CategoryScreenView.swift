@@ -52,9 +52,9 @@ public struct CategoryScreenView: View {
         if let viewFactory {
           viewFactory.makeCategoryEventView(
             categoryEventViewType: eventViewType,
-            eventsWereChangedHandler: {
+            eventsWereChangedHandler: { newCategoryId in
               Task { @MainActor in
-                viewModel.categoryEventWasUpdated()
+                viewModel.categoryEventWasUpdated(newCategoryId: newCategoryId)
               }
             },
             closeViewHandler: {

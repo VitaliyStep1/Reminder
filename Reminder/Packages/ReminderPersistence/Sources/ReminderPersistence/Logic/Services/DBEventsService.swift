@@ -54,11 +54,20 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
     title: String,
     date: Date,
     comment: String,
-    remindRepeat: Int
+    remindRepeat: Int,
+    newCategoryId: ObjectId?
   ) async throws {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { [self] context in
         do {
+          var newCategory: CategoryObject?
+          if let newCategoryId {
+            guard let category = try self.fetchCategoryObject(with: newCategoryId, context: context) else {
+              throw CreateEventError.categoryWasNotFetched
+            }
+            newCategory = category
+          }
+          
           guard let eventObject = try self.fetchEventObject(with: eventId, context: context) else {
             throw EditEventError.eventWasNotFetched
           }
@@ -68,7 +77,10 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
           eventObject.date = date
           eventObject.comment = comment
           eventObject.remindRepeat = takeInt16RepeatValue(remindRepeat)
-
+          if let newCategory {
+            eventObject.category = newCategory
+          }
+          
           try context.save()
 
           continuation.resume(returning: ())

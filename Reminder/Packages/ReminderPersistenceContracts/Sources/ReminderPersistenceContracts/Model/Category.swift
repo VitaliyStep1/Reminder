@@ -15,6 +15,7 @@ public struct Category: Identifiable, Sendable {
   public let isUserCreated: Bool
   public var eventsAmount: Int
   public var categoryRepeat: Int
+  public var categoryGroup: Int
 
   public init(
     id: ObjectId,
@@ -23,7 +24,8 @@ public struct Category: Identifiable, Sendable {
     order: Int,
     isUserCreated: Bool,
     eventsAmount: Int,
-    categoryRepeat: Int
+    categoryRepeat: Int,
+    categoryGroup: Int
   ) {
     self.id = id
     self.defaultKey = defaultKey
@@ -32,5 +34,6 @@ public struct Category: Identifiable, Sendable {
     self.isUserCreated = isUserCreated
     self.eventsAmount = eventsAmount
     self.categoryRepeat = categoryRepeat
+    self.categoryGroup = categoryGroup
   }
 }

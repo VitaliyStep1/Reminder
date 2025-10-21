@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CategoryObject" representedClassName=".CategoryObject" syncable="YES">
         <attribute name="categoryRepeat" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="categoryGroup" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="defaultKey" optional="YES" attributeType="String"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isUserCreated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

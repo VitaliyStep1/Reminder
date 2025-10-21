@@ -75,13 +75,15 @@ final class DependencyAssembly: Assembly {
     
     container.register(CreateEventUseCaseProtocol.self) { resolver in
       let dBEventsService = resolver.dbEventsServiceProtocol
-      return CreateEventUseCase(dBEventsService: dBEventsService)
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      return CreateEventUseCase(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
     
     container.register(EditEventUseCaseProtocol.self) { resolver in
       let dBEventsService = resolver.dbEventsServiceProtocol
-      return EditEventUseCase(dBEventsService: dBEventsService)
+      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      return EditEventUseCase(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
     

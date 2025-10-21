@@ -1,38 +1,35 @@
 //
-//  Category.swift
-//  Reminder
+//  CategoryWithoutEventsAmount.swift
+//  ReminderPersistenceContracts
 //
-//  Created by Vitaliy Stepanenko on 23.08.2025.
+//  Created by Vitaliy Stepanenko on 21.10.2025.
 //
 
 import Foundation
 
-public struct Category: Sendable, Identifiable {
-  public let id: Identifier
+public struct CategoryWithoutEventsAmount: Identifiable, Sendable {
+  public let id: ObjectId
   public let defaultKey: String
   public var title: String
   public let order: Int
   public let isUserCreated: Bool
-  public var eventsAmount: Int
-  public var categoryRepeat: CategoryRepeatEnum
-  public let categoryGroup: CategoryGroupEnum
-
+  public var categoryRepeat: Int
+  public var categoryGroup: Int
+  
   public init(
-    id: Identifier,
+    id: ObjectId,
     defaultKey: String,
     title: String,
     order: Int,
     isUserCreated: Bool,
-    eventsAmount: Int,
-    categoryRepeat: CategoryRepeatEnum,
-    categoryGroup: CategoryGroupEnum
+    categoryRepeat: Int,
+    categoryGroup: Int
   ) {
     self.id = id
     self.defaultKey = defaultKey
     self.title = title
     self.order = order
     self.isUserCreated = isUserCreated
-    self.eventsAmount = eventsAmount
     self.categoryRepeat = categoryRepeat
     self.categoryGroup = categoryGroup
   }
