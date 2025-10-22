@@ -10,6 +10,7 @@ import ReminderPersistenceContracts
 import ReminderDomainContracts
 import ReminderNavigationContracts
 import ReminderConfigurations
+import ReminderMainTabViewContracts
 
 // Don't use func resolve outside this file
 // Instead add here computed property
@@ -24,10 +25,38 @@ extension Resolver {
     resolve(DBEventsServiceProtocol.self)!
   }
   
-  public var dataServiceProtocol: DataServiceProtocol {
-    resolve(DataServiceProtocol.self)!
+  public var setupInitialDataUseCaseProtocol: SetupInitialDataUseCaseProtocol {
+    resolve(SetupInitialDataUseCaseProtocol.self)!
   }
-  
+
+  public var fetchAllCategoriesUseCaseProtocol: FetchAllCategoriesUseCaseProtocol {
+    resolve(FetchAllCategoriesUseCaseProtocol.self)!
+  }
+
+  public var fetchCategoryUseCaseProtocol: FetchCategoryUseCaseProtocol {
+    resolve(FetchCategoryUseCaseProtocol.self)!
+  }
+
+  public var fetchEventsUseCaseProtocol: FetchEventsUseCaseProtocol {
+    resolve(FetchEventsUseCaseProtocol.self)!
+  }
+
+  public var fetchEventUseCaseProtocol: FetchEventUseCaseProtocol {
+    resolve(FetchEventUseCaseProtocol.self)!
+  }
+
+  public var createEventUseCaseProtocol: CreateEventUseCaseProtocol {
+    resolve(CreateEventUseCaseProtocol.self)!
+  }
+
+  public var editEventUseCaseProtocol: EditEventUseCaseProtocol {
+    resolve(EditEventUseCaseProtocol.self)!
+  }
+
+  public var deleteEventUseCaseProtocol: DeleteEventUseCaseProtocol {
+    resolve(DeleteEventUseCaseProtocol.self)!
+  }
+
   public var viewFactoryProtocol: ViewFactoryProtocol {
     resolve(ViewFactoryProtocol.self)!
   }
@@ -42,5 +71,9 @@ extension Resolver {
   
   public var splashScreenState: SplashScreenState {
     resolve(SplashScreenState.self)!
+  }
+  
+  public var mainTabViewSelectionState: MainTabViewSelectionState {
+    resolve(MainTabViewSelectionState.self)!
   }
 }

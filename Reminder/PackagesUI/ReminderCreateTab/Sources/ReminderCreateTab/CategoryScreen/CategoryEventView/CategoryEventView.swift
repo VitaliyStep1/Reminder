@@ -8,111 +8,131 @@
 import SwiftUI
 
 public struct CategoryEventView: View {
-  @ObservedObject var viewModel: CategoryEventViewModel
-  
-  public init(viewModel: CategoryEventViewModel) {
-    self.viewModel = viewModel
+  @ObservedObject var store: CategoryEventViewStore
+  let interactor: CategoryEventInteractor
+
+  public init(store: CategoryEventViewStore, interactor: CategoryEventInteractor) {
+    self.store = store
+    self.interactor = interactor
   }
   
   public var body: some View {
     ZStack {
       Color(.systemBackground)
         .ignoresSafeArea()
-      
-      VStack(spacing: 16) {
-        Text(viewModel.viewTitle)
-          .font(.headline)
-        
-        VStack(alignment: .leading, spacing: 8) {
-          Text("Title:")
-          TextField("Title", text: $viewModel.title)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+      ScrollView {
+        VStack(spacing: 16) {
+          Text(store.viewTitle)
+            .font(.headline)
           
-          HStack {
-            Spacer()
-            DatePicker("", selection: $viewModel.date, displayedComponents: [.date])
-              .datePickerStyle(.wheel)
-              .labelsHidden()
-            Spacer()
-          }
-          
-          Text("Comment:")
-          TextField("Comment", text: $viewModel.comment)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-        }
-        
-        Button(action: {
-          viewModel.saveButtonTapped()
-        }) {
-          Group {
-            if viewModel.isSaving {
-              ProgressView()
-                .tint(.white)
-            } else {
-              Text(viewModel.saveButtonTitle)
+          VStack(alignment: .leading, spacing: 8) {
+            Text("Title:")
+            TextField("Title", text: $store.eventTitle)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            HStack {
+              Spacer()
+              DatePicker("", selection: $store.eventDate, displayedComponents: [.date])
+                .datePickerStyle(.wheel)
+                .labelsHidden()
+              Spacer()
+            }
+            
+            Text("Comment:")
+            TextField("Comment", text: $store.eventComment)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Text("Repeat:")
+            switch store.repeatRepresentationEnum {
+            case .picker(let values, let titles):
+              Picker("Repeat", selection: $store.eventRemindRepeat) {
+                ForEach(values, id: \.self) { option in
+                  Text(titles[option] ?? "")
+                    .tag(option)
+                }
+              }
+              .pickerStyle(.segmented)
+            case .text(let text):
+              Text(text)
             }
           }
-          .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-          .background(Color.blue)
-          .foregroundStyle(.white)
-          .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
-        .disabled(viewModel.isSaving || viewModel.isDeleting)
-        
-        Button(action: {
-          viewModel.cancelButtonTapped()
-        }) {
-          Text(viewModel.cancelButtonTitle)
-            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-            .background(Color.gray)
-            .foregroundStyle(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
-        .disabled(viewModel.isSaving || viewModel.isDeleting)
-        
-        if viewModel.isDeleteButtonVisible {
+          
           Button(action: {
-            viewModel.deleteButtonTapped()
+            interactor.saveButtonTapped()
           }) {
             Group {
-              if viewModel.isDeleting {
+              if store.isSaving {
                 ProgressView()
                   .tint(.white)
               } else {
-                Text(viewModel.deleteButtonTitle)
+                Text(store.saveButtonTitle)
               }
             }
             .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-            .background(Color.red)
+            .background(Color.blue)
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
           }
-          .disabled(viewModel.isSaving || viewModel.isDeleting)
+          .disabled(store.isSaving || store.isDeleting)
+
+          Button(action: {
+            interactor.cancelButtonTapped()
+          }) {
+            Text(store.cancelButtonTitle)
+              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+              .background(Color.gray)
+              .foregroundStyle(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+          .disabled(store.isSaving || store.isDeleting)
+
+          if store.isDeleteButtonVisible {
+            Button(action: {
+              interactor.deleteButtonTapped()
+            }) {
+              Group {
+                if store.isDeleting {
+                  ProgressView()
+                    .tint(.white)
+                } else {
+                  Text(store.deleteButtonTitle)
+                }
+              }
+              .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
+              .background(Color.red)
+              .foregroundStyle(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .disabled(store.isSaving || store.isDeleting)
+          }
         }
+        .padding()
+        .frame(maxWidth: 400)
+        .background(Color(UIColor.secondarySystemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(radius: 10)
       }
-      .padding()
-      .frame(maxWidth: 400)
-      .background(Color(UIColor.secondarySystemBackground))
-      .clipShape(RoundedRectangle(cornerRadius: 16))
-      .shadow(radius: 10)
     }
-    .disabled(viewModel.isViewBlocked)
-    .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {
-      Button(viewModel.alertInfo.buttonTitle, role: .cancel) {
-        viewModel.alertInfo.completion?()
+    .disabled(store.isViewBlocked)
+    .alert(store.alertInfo.title, isPresented: $store.isAlertVisible) {
+      Button(store.alertInfo.buttonTitle, role: .cancel) {
+        store.alertInfo.completion?()
       }
     } message: {
-      Text(viewModel.alertInfo.message)
+      Text(store.alertInfo.message)
     }
-    .confirmationDialog(viewModel.confirmationDialogInfo.title,
-                        isPresented: $viewModel.isConfirmationDialogVisible,
+    .confirmationDialog(store.confirmationDialogInfo.title,
+                        isPresented: $store.isConfirmationDialogVisible,
                         titleVisibility: .visible) {
-      Button(viewModel.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
-        viewModel.confirmationDialogInfo.deleteButtonHandler?()
+      Button(store.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
+        store.confirmationDialogInfo.deleteButtonHandler?()
       }
-      Button(viewModel.confirmationDialogInfo.cancelButtonTitle, role: .cancel) { }
+      Button(store.confirmationDialogInfo.cancelButtonTitle, role: .cancel) { }
     } message: {
-      Text(viewModel.confirmationDialogInfo.message)
+      Text(store.confirmationDialogInfo.message)
+    }
+    .onAppear {
+      interactor.onAppear()
     }
   }
 }

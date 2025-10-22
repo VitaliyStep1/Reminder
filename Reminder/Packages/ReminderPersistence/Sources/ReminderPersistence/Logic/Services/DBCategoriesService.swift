@@ -35,6 +35,8 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
           if let categoryObject = try context.fetch(fetchRequest).first {
             categoryObject.title = category.title
             categoryObject.order = Int32(category.order)
+            categoryObject.categoryRepeat = Int16(category.categoryRepeat)
+            categoryObject.categoryGroup = Int16(category.categoryGroup)
           }
         } else {
           let categoryObject = CategoryObject(context: context)
@@ -43,6 +45,8 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
           categoryObject.title = category.title
           categoryObject.order = Int32(category.order)
           categoryObject.isUserCreated = category.isUserCreated
+          categoryObject.categoryRepeat = Int16(category.categoryRepeat)
+          categoryObject.categoryGroup = Int16(category.categoryGroup)
         }
       }
       
@@ -61,22 +65,30 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
       ]
       request.fetchBatchSize = 64
       request.returnsObjectsAsFaults = false
-      
+
       let rows = try context.fetch(request)
-      
+
+      return try rows.map { try self.mapCategoryObjectToCategory($0, context: context) }
+    }
+  }
+
+  public func fetchAllCategoriesWithCategoryGroup(categoryGroup: Int) async throws -> [ReminderPersistenceContracts.CategoryWithoutEventsAmount] {
+    try await container.performBackgroundTask { context in
+      let request = NSFetchRequest<CategoryObject>(entityName: "CategoryObject")
+      request.predicate = NSPredicate(format: "categoryGroup == %d", categoryGroup)
+      request.returnsObjectsAsFaults = false
+
+      let rows = try context.fetch(request)
+
       return try rows.map { categoryObject in
-        let request: NSFetchRequest<EventObject> = EventObject.fetchRequest()
-        request.predicate = NSPredicate(format: "category == %@", categoryObject)
-        request.includesSubentities = false
-        let eventCount = try context.count(for: request)
-        
-        return Category(
+        CategoryWithoutEventsAmount(
           id: categoryObject.identifier,
           defaultKey: categoryObject.defaultKey ?? "",
           title: categoryObject.title ?? "",
           order: Int(categoryObject.order),
           isUserCreated: categoryObject.isUserCreated,
-          eventsAmount: eventCount
+          categoryRepeat: Int(categoryObject.categoryRepeat),
+          categoryGroup: Int(categoryObject.categoryGroup)
         )
       }
     }
@@ -106,32 +118,37 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
   
   public func fetchCategory(categoryId: ObjectId) async throws -> ReminderPersistenceContracts.Category? {
     try await container.performBackgroundTask { context in
-    
+
       guard let categoryObject = try self.fetchCategoryObject(with: categoryId, context: context) else {
         return nil
       }
-      
-      let request: NSFetchRequest<EventObject> = EventObject.fetchRequest()
-      request.predicate = NSPredicate(format: "category == %@", categoryObject)
-      request.includesSubentities = false
-      
-      let eventsAmount = try context.count(for: request)
-      
-      return Category(
-        id: categoryObject.identifier,
-        defaultKey: categoryObject.defaultKey ?? "",
-        title: categoryObject.title ?? "",
-        order: Int(categoryObject.order),
-        isUserCreated: categoryObject.isUserCreated,
-        eventsAmount: eventsAmount
-      )
+
+      return try self.mapCategoryObjectToCategory(categoryObject, context: context)
     }
   }
-  
+
   private func fetchCategoryObject(with id: UUID, context: NSManagedObjectContext) throws -> CategoryObject? {
     let request: NSFetchRequest<CategoryObject> = CategoryObject.fetchRequest()
     request.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)
     request.fetchLimit = 1
     return try context.fetch(request).first
+  }
+
+  private func mapCategoryObjectToCategory(_ categoryObject: CategoryObject, context: NSManagedObjectContext) throws -> ReminderPersistenceContracts.Category {
+    let request: NSFetchRequest<EventObject> = EventObject.fetchRequest()
+    request.predicate = NSPredicate(format: "category == %@", categoryObject)
+    request.includesSubentities = false
+    let eventCount = try context.count(for: request)
+
+    return Category(
+      id: categoryObject.identifier,
+      defaultKey: categoryObject.defaultKey ?? "",
+      title: categoryObject.title ?? "",
+      order: Int(categoryObject.order),
+      isUserCreated: categoryObject.isUserCreated,
+      eventsAmount: eventCount,
+      categoryRepeat: Int(categoryObject.categoryRepeat),
+      categoryGroup: Int(categoryObject.categoryGroup)
+    )
   }
 }

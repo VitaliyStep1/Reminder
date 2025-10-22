@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CategoryObject" representedClassName=".CategoryObject" syncable="YES">
+        <attribute name="categoryRepeat" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="categoryGroup" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="defaultKey" optional="YES" attributeType="String"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isUserCreated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -12,6 +14,7 @@
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="remindRepeat" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryObject" inverseName="events" inverseEntity="CategoryObject"/>
     </entity>

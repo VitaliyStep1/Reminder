@@ -6,20 +6,23 @@
 //
 
 import Combine
-import ReminderDomainContracts
 import ReminderConfigurations
+import ReminderDomainContracts
 
 @MainActor
 public class StartScreenViewModel: ObservableObject {
   let appConfiguration: AppConfigurationProtocol
-  let dataService: DataServiceProtocol
-  
-  public init(appConfiguration: AppConfigurationProtocol, dataService: DataServiceProtocol) {
+  let setupInitialDataUseCase: SetupInitialDataUseCaseProtocol
+
+  public init(
+    appConfiguration: AppConfigurationProtocol,
+    setupInitialDataUseCase: SetupInitialDataUseCaseProtocol
+  ) {
     self.appConfiguration = appConfiguration
-    self.dataService = dataService
+    self.setupInitialDataUseCase = setupInitialDataUseCase
   }
-  
+
   func viewTaskCalled() async {
-    await dataService.setupDataAtStart()
+    await setupInitialDataUseCase.execute()
   }
 }

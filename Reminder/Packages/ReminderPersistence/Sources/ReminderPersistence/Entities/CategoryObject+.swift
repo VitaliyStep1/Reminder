@@ -19,6 +19,8 @@ extension CategoryObject {
   @NSManaged public var title: String?
   @NSManaged public var order: Int32
   @NSManaged public var isUserCreated: Bool
-  
+  @NSManaged public var categoryRepeat: Int16
+  @NSManaged public var categoryGroup: Int16
+
   @NSManaged public var events: Set<EventObject>
 }
