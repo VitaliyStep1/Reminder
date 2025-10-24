@@ -46,6 +46,7 @@
 				Packages/ReminderPersistence,
 				Packages/ReminderPersistenceContracts,
 				Packages/ReminderResolver,
+				Packages/ReminderUserDefaultsStorage,
 				PackagesUI/ReminderClosestTab,
 				PackagesUI/ReminderCreateTab,
 				PackagesUI/ReminderMainTabView,

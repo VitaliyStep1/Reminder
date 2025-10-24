@@ -20,6 +20,7 @@ let package = Package(
       .package(path: "../ReminderNavigationContracts"),
       .package(path: "../ReminderConfigurations"),
       .package(path: "../ReminderMainTabViewContracts"),
+      .package(path: "../ReminderUserDefaultsStorage"),
     ],
     targets: [
         .target(
@@ -31,6 +32,7 @@ let package = Package(
               "ReminderNavigationContracts",
               "ReminderConfigurations",
               "ReminderMainTabViewContracts",
+              "ReminderUserDefaultsStorage",
             ]),
 
     ]

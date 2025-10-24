@@ -6,12 +6,26 @@
 //
 
 import Foundation
+import ReminderDomainContracts
 
 @MainActor
 public final class SettingsViewModel: ObservableObject {
-  @Published public var remindTimeDate: Date
+  let takeDefaultRemindTimeDateUseCase: TakeDefaultRemindTimeDateUseCaseProtocol
+  let updateDefaultRemindTimeDateUseCase: UpdateDefaultRemindTimeDateUseCaseProtocol
+  
+  @Published public var remindTimeDate: Date {
+    didSet {
+      guard remindTimeDate != oldValue else {
+        return
+      }
+      
+      updateDefaultRemindTimeDateUseCase.execute(date: remindTimeDate)
+    }
+  }
 
-  public init(remindTimeDate: Date = Date()) {
-    self.remindTimeDate = remindTimeDate
+  public init(takeDefaultRemindTimeDateUseCase: TakeDefaultRemindTimeDateUseCaseProtocol, updateDefaultRemindTimeDateUseCase: UpdateDefaultRemindTimeDateUseCaseProtocol) {
+    self.takeDefaultRemindTimeDateUseCase = takeDefaultRemindTimeDateUseCase
+    self.updateDefaultRemindTimeDateUseCase = updateDefaultRemindTimeDateUseCase
+    self.remindTimeDate = takeDefaultRemindTimeDateUseCase.execute()
   }
 }

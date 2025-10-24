@@ -17,6 +17,8 @@ let package = Package(
       .package(path: "../ReminderDomainContracts"),
       .package(path: "../ReminderPersistence"),
       .package(path: "../ReminderPersistenceContracts"),
+      .package(path: "../ReminderConfigurations"),
+      .package(path: "../ReminderUserDefaultsStorage"),
     ],
     targets: [
         .target(
@@ -25,6 +27,8 @@ let package = Package(
               "ReminderDomainContracts",
               "ReminderPersistence",
               "ReminderPersistenceContracts",
+              "ReminderConfigurations",
+              "ReminderUserDefaultsStorage",
             ]
         ),
     ]

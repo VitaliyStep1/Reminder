@@ -13,9 +13,16 @@ let package = Package(
             name: "ReminderSettingsTab",
             targets: ["ReminderSettingsTab"]),
     ],
+    dependencies: [
+      .package(path: "ReminderDomainContracts"),
+    ],
     targets: [
         .target(
-            name: "ReminderSettingsTab"),
+          name: "ReminderSettingsTab",
+          dependencies: [
+            "ReminderDomainContracts",
+          ]
+        ),
 
     ]
 )

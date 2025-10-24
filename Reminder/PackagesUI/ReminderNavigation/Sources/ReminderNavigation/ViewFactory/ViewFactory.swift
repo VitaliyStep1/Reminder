@@ -66,7 +66,9 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       let viewModel = ClosestViewModel(mainTabViewSelectionState: mainTabViewSelectionState)
       resultView = ClosestScreenView(viewModel: viewModel)
     case .settings:
-      let viewModel = SettingsViewModel()
+      let takeDefaultRemindTimeDateUseCase = resolver.takeDefaultRemindTimeDateUseCaseProtocol
+      let updateDefaultRemindTimeDateUseCase = resolver.updateDefaultRemindTimeDateUseCaseProtocol
+      let viewModel = SettingsViewModel(takeDefaultRemindTimeDateUseCase: takeDefaultRemindTimeDateUseCase, updateDefaultRemindTimeDateUseCase: updateDefaultRemindTimeDateUseCase)
       resultView = SettingsScreenView(viewModel: viewModel)
     }
     return AnyView(resultView)

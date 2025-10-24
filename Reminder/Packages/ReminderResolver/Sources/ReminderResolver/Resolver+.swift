@@ -11,6 +11,7 @@ import ReminderDomainContracts
 import ReminderNavigationContracts
 import ReminderConfigurations
 import ReminderMainTabViewContracts
+import ReminderUserDefaultsStorage
 
 // Don't use func resolve outside this file
 // Instead add here computed property
@@ -56,6 +57,14 @@ extension Resolver {
   public var deleteEventUseCaseProtocol: DeleteEventUseCaseProtocol {
     resolve(DeleteEventUseCaseProtocol.self)!
   }
+  
+  public var takeDefaultRemindTimeDateUseCaseProtocol: TakeDefaultRemindTimeDateUseCaseProtocol {
+    resolve(TakeDefaultRemindTimeDateUseCaseProtocol.self)!
+  }
+  
+  public var updateDefaultRemindTimeDateUseCaseProtocol: UpdateDefaultRemindTimeDateUseCaseProtocol {
+    resolve(UpdateDefaultRemindTimeDateUseCaseProtocol.self)!
+  }
 
   public var viewFactoryProtocol: ViewFactoryProtocol {
     resolve(ViewFactoryProtocol.self)!
@@ -75,5 +84,9 @@ extension Resolver {
   
   public var mainTabViewSelectionState: MainTabViewSelectionState {
     resolve(MainTabViewSelectionState.self)!
+  }
+  
+  public var userDefaultsServiceProtocol: UserDefaultsServiceProtocol {
+    resolve(UserDefaultsServiceProtocol.self)!
   }
 }
