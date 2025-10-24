@@ -52,6 +52,7 @@
 				PackagesUI/ReminderMainTabViewContracts,
 				PackagesUI/ReminderNavigation,
 				PackagesUI/ReminderNavigationContracts,
+				PackagesUI/ReminderSettingsTab,
 				PackagesUI/ReminderSharedUI,
 				PackagesUI/ReminderStartUI,
 			);
