@@ -8,8 +8,10 @@
 import Foundation
 
 @MainActor
-public class SettingsViewModel: ObservableObject {
-  public init() { }
-  
-  
+public final class SettingsViewModel: ObservableObject {
+  @Published public var remindTimeDate: Date
+
+  public init(remindTimeDate: Date = Date()) {
+    self.remindTimeDate = remindTimeDate
+  }
 }
