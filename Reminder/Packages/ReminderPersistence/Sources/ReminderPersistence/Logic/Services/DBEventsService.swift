@@ -38,6 +38,8 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
           event.date = date
           event.comment = comment
           event.remindRepeat = takeInt16RepeatValue(remindRepeat)
+          event.isCustomRemindTime = false
+          event.customRemindTimeDate = nil
           event.category = category
           try context.save()
 
@@ -131,7 +133,9 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
               date: eventObject.date ?? Date(),
               comment: eventObject.comment ?? "",
               categoryId: category.identifier,
-              remindRepeat: Int(eventObject.remindRepeat)
+              remindRepeat: Int(eventObject.remindRepeat),
+              isCustomRemindTime: eventObject.isCustomRemindTime,
+              customRemindTimeDate: eventObject.customRemindTimeDate
             )
           }
           continuation.resume(returning: events)
@@ -157,7 +161,9 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
             date: eventObject.date ?? Date(),
             comment: eventObject.comment ?? "",
             categoryId: eventObject.category?.identifier,
-            remindRepeat: Int(eventObject.remindRepeat)
+            remindRepeat: Int(eventObject.remindRepeat),
+            isCustomRemindTime: eventObject.isCustomRemindTime,
+            customRemindTimeDate: eventObject.customRemindTimeDate
           )
 
           continuation.resume(returning: event)

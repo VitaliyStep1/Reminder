@@ -14,6 +14,8 @@ public struct Event: Sendable {
   public let comment: String
   public let categoryId: ObjectId?
   public let remindRepeat: Int
+  public let isCustomRemindTime: Bool
+  public let customRemindTimeDate: Date?
 
   public init(
     id: ObjectId,
@@ -21,7 +23,9 @@ public struct Event: Sendable {
     date: Date,
     comment: String,
     categoryId: ObjectId?,
-    remindRepeat: Int
+    remindRepeat: Int,
+    isCustomRemindTime: Bool,
+    customRemindTimeDate: Date?
   ) {
     self.id = id
     self.title = title
@@ -29,5 +33,7 @@ public struct Event: Sendable {
     self.comment = comment
     self.categoryId = categoryId
     self.remindRepeat = remindRepeat
+    self.isCustomRemindTime = isCustomRemindTime
+    self.customRemindTimeDate = customRemindTimeDate
   }
 }

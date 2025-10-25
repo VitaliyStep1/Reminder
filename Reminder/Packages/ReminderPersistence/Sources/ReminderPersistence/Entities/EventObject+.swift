@@ -19,5 +19,7 @@ extension EventObject {
   @NSManaged public var date: Date?
   @NSManaged public var comment: String?
   @NSManaged public var remindRepeat: Int16
+  @NSManaged public var isCustomRemindTime: Bool
+  @NSManaged public var customRemindTimeDate: Date?
   @NSManaged public var category: CategoryObject?
 }
