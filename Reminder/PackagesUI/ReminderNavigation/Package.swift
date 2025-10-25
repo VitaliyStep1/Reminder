@@ -19,9 +19,10 @@ let package = Package(
       .package(path: "../ReminderStartUI"),
       .package(path: "../ReminderMainTabView"),
       .package(path: "../ReminderNavigationContracts"),
+      .package(path: "../ReminderDomainContracts"),
       .package(path: "../ReminderCreateTab"),
       .package(path: "../ReminderClosestTab"),
-      .package(path: "../ReminderDomainContracts"),
+      .package(path: "../ReminderSettingsTab"),
     ],
     targets: [
         .target(
@@ -32,9 +33,10 @@ let package = Package(
             "ReminderStartUI",
             "ReminderMainTabView",
             "ReminderNavigationContracts",
+            "ReminderDomainContracts",
             "ReminderCreateTab",
             "ReminderClosestTab",
-            "ReminderDomainContracts",
+            "ReminderSettingsTab",
           ]
         ),
     ]

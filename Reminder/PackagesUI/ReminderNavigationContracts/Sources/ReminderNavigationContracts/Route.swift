@@ -15,4 +15,5 @@ public enum Route: Hashable {
   case categories
   case category(Identifier)
   case closest
+  case settings
 }

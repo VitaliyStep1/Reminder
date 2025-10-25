@@ -30,6 +30,12 @@ public struct MainTabView: View {
             Text("Create event")
           }
           .tag(MainTabViewSelectionEnum.create)
+        viewFactory.make(.settings)
+          .tabItem {
+            Image(systemName: "gearshape")
+            Text("Settings")
+          }
+          .tag(MainTabViewSelectionEnum.settings)
       }
     }
   }

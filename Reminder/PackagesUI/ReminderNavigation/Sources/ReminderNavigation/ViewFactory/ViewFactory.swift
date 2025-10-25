@@ -15,6 +15,7 @@ import ReminderMainTabView
 import ReminderNavigationContracts
 import ReminderCreateTab
 import ReminderClosestTab
+import ReminderSettingsTab
 
 public class ViewFactory: @preconcurrency ViewFactoryProtocol {
   private let resolver: Resolver
@@ -64,6 +65,11 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       let mainTabViewSelectionState = resolver.mainTabViewSelectionState
       let viewModel = ClosestViewModel(mainTabViewSelectionState: mainTabViewSelectionState)
       resultView = ClosestScreenView(viewModel: viewModel)
+    case .settings:
+      let takeDefaultRemindTimeDateUseCase = resolver.takeDefaultRemindTimeDateUseCaseProtocol
+      let updateDefaultRemindTimeDateUseCase = resolver.updateDefaultRemindTimeDateUseCaseProtocol
+      let viewModel = SettingsViewModel(takeDefaultRemindTimeDateUseCase: takeDefaultRemindTimeDateUseCase, updateDefaultRemindTimeDateUseCase: updateDefaultRemindTimeDateUseCase)
+      resultView = SettingsScreenView(viewModel: viewModel)
     }
     return AnyView(resultView)
   }

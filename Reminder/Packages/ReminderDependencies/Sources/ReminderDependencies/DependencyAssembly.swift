@@ -16,6 +16,7 @@ import ReminderConfigurations
 import ReminderNavigationContracts
 import ReminderResolver
 import ReminderMainTabViewContracts
+import ReminderUserDefaultsStorage
 
 final class DependencyAssembly: Assembly {
   
@@ -47,7 +48,7 @@ final class DependencyAssembly: Assembly {
         dBCategoriesService: dBCategoriesService
       )
     }
-    .inObjectScope(.container)
+    .inObjectScope(.transient)
     
     container.register(FetchAllCategoriesUseCaseProtocol.self) { resolver in
       let dBCategoriesService = resolver.dbCategoriesServiceProtocol
@@ -93,6 +94,19 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.transient)
     
+    container.register(TakeDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
+      let appConfiguration = resolver.appConfigurationProtocol
+      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      return TakeDefaultRemindTimeDateUseCase(appConfiguration: appConfiguration, userDefaultsService: userDefaultsService)
+    }
+    .inObjectScope(.transient)
+
+    container.register(UpdateDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
+      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      return UpdateDefaultRemindTimeDateUseCase(userDefaultsService: userDefaultsService)
+    }
+    .inObjectScope(.transient)
+    
     // PreviewDataServiceProtocol
     container.register(PreviewDataServiceProtocol.self) { resolver in
       let dBCategoriesService = resolver.dbCategoriesServiceProtocol
@@ -110,6 +124,11 @@ final class DependencyAssembly: Assembly {
     // SplashScreenState
     container.register(MainTabViewSelectionState.self) { _ in
       MainTabViewSelectionState(selection: .closest)
+    }
+    .inObjectScope(.container)
+    
+    container.register(UserDefaultsServiceProtocol.self) { _ in
+      UserDefaultsService()
     }
     .inObjectScope(.container)
   }

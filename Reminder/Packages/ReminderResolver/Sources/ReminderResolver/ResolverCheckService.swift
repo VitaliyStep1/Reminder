@@ -20,11 +20,14 @@ public class ResolverCheckService {
       resolver.createEventUseCaseProtocol,
       resolver.editEventUseCaseProtocol,
       resolver.deleteEventUseCaseProtocol,
+      resolver.takeDefaultRemindTimeDateUseCaseProtocol,
+      resolver.updateDefaultRemindTimeDateUseCaseProtocol,
       resolver.viewFactoryProtocol,
       resolver.defaultCategoriesDataServiceProtocol,
       resolver.appConfigurationProtocol,
       resolver.splashScreenState,
       resolver.mainTabViewSelectionState,
+      resolver.userDefaultsServiceProtocol,
     ]
     
     return dependencies

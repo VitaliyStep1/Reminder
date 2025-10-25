@@ -8,4 +8,5 @@
 public enum MainTabViewSelectionEnum {
   case closest
   case create
+  case settings
 }
