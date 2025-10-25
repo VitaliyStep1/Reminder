@@ -23,7 +23,10 @@ public struct EditEventUseCase: EditEventUseCaseProtocol {
     title: String,
     date: Date,
     comment: String,
-    remindRepeat: RemindRepeatEnum
+    remindRepeat: RemindRepeatEnum,
+    remindTimeDate1: Date,
+    remindTimeDate2: Date?,
+    remindTimeDate3: Date?
   ) async throws -> Identifier? {
     let calculateCategoryIdForEventService = CalculateCategoryIdForEventService(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     let newCategoryId = try await calculateCategoryIdForEventService.calculateNewCategoryIdForEditingEvent(eventId: eventId, remindRepeat: remindRepeat)
@@ -33,6 +36,9 @@ public struct EditEventUseCase: EditEventUseCaseProtocol {
       date: date,
       comment: comment,
       remindRepeat: remindRepeat.rawValue,
+      remindTimeDate1: remindTimeDate1,
+      remindTimeDate2: remindTimeDate2,
+      remindTimeDate3: remindTimeDate3,
       newCategoryId: newCategoryId
     )
     return newCategoryId

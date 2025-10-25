@@ -8,8 +8,8 @@
 import Foundation
 
 public protocol DBEventsServiceProtocol: Sendable {
-  func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String, remindRepeat: Int) async throws
-  func editEvent(eventId: ObjectId, title: String, date: Date, comment: String, remindRepeat: Int, newCategoryId: ObjectId?) async throws
+  func createEvent(categoryId: ObjectId, title: String, date: Date, comment: String, remindRepeat: Int, remindTimeDate1: Date, remindTimeDate2: Date?, remindTimeDate3: Date?) async throws
+  func editEvent(eventId: ObjectId, title: String, date: Date, comment: String, remindRepeat: Int, remindTimeDate1: Date, remindTimeDate2: Date?, remindTimeDate3: Date?, newCategoryId: ObjectId?) async throws
   func deleteEvent(eventId: ObjectId) async throws
   func fetchEvents(categoryId: ObjectId) async throws -> [Event]
   func fetchEvent(eventId: ObjectId) async throws -> Event

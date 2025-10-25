@@ -23,7 +23,10 @@ public struct CreateEventUseCase: CreateEventUseCaseProtocol {
     title: String,
     date: Date,
     comment: String,
-    remindRepeat: RemindRepeatEnum
+    remindRepeat: RemindRepeatEnum,
+    remindTimeDate1: Date,
+    remindTimeDate2: Date?,
+    remindTimeDate3: Date?
   ) async throws -> Identifier? {
     let calculateCategoryIdForEventService = CalculateCategoryIdForEventService(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     let newCategoryId = try await calculateCategoryIdForEventService.calculateNewCategoryIdForCreatingEvent(categoryId: categoryId, remindRepeat: remindRepeat)
@@ -34,7 +37,10 @@ public struct CreateEventUseCase: CreateEventUseCaseProtocol {
       title: title,
       date: date,
       comment: comment,
-      remindRepeat: remindRepeat.rawValue
+      remindRepeat: remindRepeat.rawValue,
+      remindTimeDate1: remindTimeDate1,
+      remindTimeDate2: remindTimeDate2,
+      remindTimeDate3: remindTimeDate3
     )
     return newCategoryId
   }

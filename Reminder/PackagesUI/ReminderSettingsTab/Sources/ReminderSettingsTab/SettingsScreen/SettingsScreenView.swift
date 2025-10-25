@@ -20,7 +20,7 @@ public struct SettingsScreenView: View {
         Section {
           DatePicker(
             "Default remind time:",
-            selection: $viewModel.remindTimeDate,
+            selection: $viewModel.defaultRemindTimeDate,
             displayedComponents: .hourAndMinute
           )
           .datePickerStyle(.compact)

@@ -95,9 +95,8 @@ final class DependencyAssembly: Assembly {
     .inObjectScope(.transient)
     
     container.register(TakeDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
-      let appConfiguration = resolver.appConfigurationProtocol
-      let userDefaultsService = resolver.userDefaultsServiceProtocol
-      return TakeDefaultRemindTimeDateUseCase(appConfiguration: appConfiguration, userDefaultsService: userDefaultsService)
+      let defaultRemindTimeService = resolver.defaultRemindTimeServiceProtocol
+      return TakeDefaultRemindTimeDateUseCase(defaultRemindTimeService: defaultRemindTimeService)
     }
     .inObjectScope(.transient)
 
@@ -106,6 +105,11 @@ final class DependencyAssembly: Assembly {
       return UpdateDefaultRemindTimeDateUseCase(userDefaultsService: userDefaultsService)
     }
     .inObjectScope(.transient)
+    
+    container.register(FetchDefaultEventDataWhenEventCreatingUseCaseProtocol.self) { resolver in
+      let defaultRemindTimeService = resolver.defaultRemindTimeServiceProtocol
+      return FetchDefaultEventDataWhenEventCreatingUseCase(defaultRemindTimeService: defaultRemindTimeService)
+    }
     
     // PreviewDataServiceProtocol
     container.register(PreviewDataServiceProtocol.self) { resolver in
@@ -129,6 +133,14 @@ final class DependencyAssembly: Assembly {
     
     container.register(UserDefaultsServiceProtocol.self) { _ in
       UserDefaultsService()
+    }
+    .inObjectScope(.container)
+    
+    container.register(DefaultRemindTimeServiceProtocol.self) { resolver in
+      let appConfiguration = resolver.appConfigurationProtocol
+      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      
+      return DefaultRemindTimeService(appConfiguration: appConfiguration, userDefaultsService: userDefaultsService)
     }
     .inObjectScope(.container)
   }

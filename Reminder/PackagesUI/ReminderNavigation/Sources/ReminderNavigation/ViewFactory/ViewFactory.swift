@@ -88,6 +88,7 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
       fetchEventUseCase: resolver.fetchEventUseCaseProtocol,
       fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
+      fetchDefaultEventDataWhenEventCreatingUseCase: resolver.fetchDefaultEventDataWhenEventCreatingUseCaseProtocol,
       presenter: presenter,
       store: store,
       eventsWereChangedHandler: eventsWereChangedHandler,

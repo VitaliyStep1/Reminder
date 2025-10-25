@@ -16,6 +16,7 @@ public final class CategoryEventInteractor {
   private let deleteEventUseCase: DeleteEventUseCaseProtocol
   private let fetchEventUseCase: FetchEventUseCaseProtocol
   private let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
+  private let fetchDefaultEventDataWhenEventCreatingUseCase: FetchDefaultEventDataWhenEventCreatingUseCaseProtocol
   
   private let presenter: CategoryEventPresenter
   private let store: CategoryEventViewStore
@@ -28,6 +29,7 @@ public final class CategoryEventInteractor {
     deleteEventUseCase: DeleteEventUseCaseProtocol,
     fetchEventUseCase: FetchEventUseCaseProtocol,
     fetchCategoryUseCase: FetchCategoryUseCaseProtocol,
+    fetchDefaultEventDataWhenEventCreatingUseCase: FetchDefaultEventDataWhenEventCreatingUseCaseProtocol,
     presenter: CategoryEventPresenter,
     store: CategoryEventViewStore,
     eventsWereChangedHandler: @escaping (Identifier?) -> Void,
@@ -38,15 +40,18 @@ public final class CategoryEventInteractor {
     self.deleteEventUseCase = deleteEventUseCase
     self.fetchEventUseCase = fetchEventUseCase
     self.fetchCategoryUseCase = fetchCategoryUseCase
+    self.fetchDefaultEventDataWhenEventCreatingUseCase = fetchDefaultEventDataWhenEventCreatingUseCase
     self.presenter = presenter
     self.store = store
     self.eventsWereChangedHandler = eventsWereChangedHandler
     self.closeViewHandler = closeViewHandler
+    
+    fetchDefaultData()
   }
   
   public func onAppear() {
     Task { [weak self] in
-      await self?.fetchEventIfNeededAndCategory()
+      await self?.fetchNecessaryData()
     }
   }
   
@@ -74,6 +79,27 @@ public final class CategoryEventInteractor {
     presenter.presentDeleteConfirmation { [weak self] in
       self?.deletingEventConfirmed()
     }
+  }
+
+  public func addRemindTimeButtonTapped() {
+    if store.remindTimeDate2 == nil {
+      store.remindTimeDate2 = store.defaultRemindTimeDate
+    } else if store.remindTimeDate3 == nil {
+      store.remindTimeDate3 = store.defaultRemindTimeDate
+    }
+  }
+
+  public func removeRemindTimeDate2ButtonTapped() {
+    if let remindTimeDate3 = store.remindTimeDate3 {
+      store.remindTimeDate2 = remindTimeDate3
+      store.remindTimeDate3 = nil
+    } else {
+      store.remindTimeDate2 = nil
+    }
+  }
+
+  public func removeRemindTimeDate3ButtonTapped() {
+    store.remindTimeDate3 = nil
   }
   
   private func deletingEventConfirmed() {
@@ -119,6 +145,9 @@ public final class CategoryEventInteractor {
     let comment = store.eventComment
     let date = store.eventDate
     let remindRepeat = store.eventRemindRepeat
+    let remindTimeDate1 = store.remindTimeDate1
+    let remindTimeDate2 = store.remindTimeDate2
+    let remindTimeDate3 = store.remindTimeDate3
     guard !title.isEmpty else {
       throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
     }
@@ -127,7 +156,10 @@ public final class CategoryEventInteractor {
       title: title,
       date: date,
       comment: comment,
-      remindRepeat: remindRepeat
+      remindRepeat: remindRepeat,
+      remindTimeDate1: remindTimeDate1,
+      remindTimeDate2: remindTimeDate2,
+      remindTimeDate3: remindTimeDate3
     )
     return newCategoryId
   }
@@ -137,17 +169,29 @@ public final class CategoryEventInteractor {
     let comment = store.eventComment
     let date = store.eventDate
     let remindRepeat = store.eventRemindRepeat
+    let remindTimeDate1 = store.remindTimeDate1
+    let remindTimeDate2 = store.remindTimeDate2
+    let remindTimeDate3 = store.remindTimeDate3
     let newCategoryId = try await editEventUseCase.execute(
       eventId: eventId,
       title: title,
       date: date,
       comment: comment,
-      remindRepeat: remindRepeat
+      remindRepeat: remindRepeat,
+      remindTimeDate1: remindTimeDate1,
+      remindTimeDate2: remindTimeDate2,
+      remindTimeDate3: remindTimeDate3
     )
     return newCategoryId
   }
   
-  private func fetchEventIfNeededAndCategory() async {
+  private func fetchDefaultData() {
+    if case .create = store.categoryEventViewType {
+      fetchDefaultEventDataAndUpdate()
+    }
+  }
+  
+  private func fetchNecessaryData() async {
     var eventId: Identifier?
     var categoryId: Identifier?
     
@@ -199,6 +243,18 @@ public final class CategoryEventInteractor {
       }
       return
     }
+  }
+  
+  private func fetchDefaultEventDataAndUpdate() {
+    let data = fetchDefaultEventDataWhenEventCreatingUseCase.execute()
+    presenter.presentDefaultEventData(eventTitle: data.eventTitle,
+      eventDate: data.eventDate,
+      eventComment: data.eventComment,
+      eventRemindRepeat: data.eventRemindRepeat,
+      defaultRemindTimeDate: data.defaultRemindTimeDate,
+      remindTimeDate1: data.remindTimeDate1,
+      remindTimeDate2: data.remindTimeDate2,
+      remindTimeDate3: data.remindTimeDate3)
   }
   
   private func closeView() {

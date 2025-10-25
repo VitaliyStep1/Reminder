@@ -47,6 +47,9 @@ public final class CategoryEventPresenter {
     store.eventDate = event.date
     store.eventComment = event.comment
     store.eventRemindRepeat = event.remindRepeat
+    store.remindTimeDate1 = event.remindTimeDate1
+    store.remindTimeDate2 = event.remindTimeDate2
+    store.remindTimeDate3 = event.remindTimeDate3
   }
   
   public func presentCategory(_ category: ReminderDomainContracts.Category) {
@@ -92,6 +95,17 @@ public final class CategoryEventPresenter {
   public func presentAlert(message: String, completion: (() -> Void)? = nil) {
     store.alertInfo = AlertInfo(message: message, completion: completion)
     store.isAlertVisible = true
+  }
+  
+  public func presentDefaultEventData(eventTitle: String, eventDate: Date, eventComment: String, eventRemindRepeat: RemindRepeatEnum, defaultRemindTimeDate: Date, remindTimeDate1: Date, remindTimeDate2: Date?, remindTimeDate3: Date?) {
+    store.eventTitle = eventTitle
+    store.eventDate = eventDate
+    store.eventComment = eventComment
+    store.eventRemindRepeat = eventRemindRepeat
+    store.defaultRemindTimeDate = defaultRemindTimeDate
+    store.remindTimeDate1 = remindTimeDate1
+    store.remindTimeDate2 = remindTimeDate2
+    store.remindTimeDate3 = remindTimeDate3
   }
   
   private func configureView() {

@@ -36,6 +36,9 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
     let eventComment = eventData.comment
     let eventDate = Date()
     let remindRepeat = RemindRepeatEnum.everyYear.rawValue
+    let remindTimeDate1 = Date()
+    let remindTimeDate2: Date? = nil
+    let remindTimeDate3: Date? = nil
     
     if let categoryId = try? await dBCategoriesService.takeFirstCategoryIdentifier() {
       let isNecessaryToCreateEvent = try await !isEventsExist(categoryId: categoryId)
@@ -45,7 +48,10 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
           title: eventTitle,
           date: eventDate,
           comment: eventComment,
-          remindRepeat: remindRepeat
+          remindRepeat: remindRepeat,
+          remindTimeDate1: remindTimeDate1,
+          remindTimeDate2: remindTimeDate2,
+          remindTimeDate3: remindTimeDate3
         )
       }
     }

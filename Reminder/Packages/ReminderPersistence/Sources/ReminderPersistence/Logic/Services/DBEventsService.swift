@@ -23,7 +23,10 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
     title: String,
     date: Date,
     comment: String,
-    remindRepeat: Int
+    remindRepeat: Int,
+    remindTimeDate1: Date,
+    remindTimeDate2: Date?,
+    remindTimeDate3: Date?
   ) async throws {
     try await withCheckedThrowingContinuation { continuation in
       container.performBackgroundTask { [self] context in
@@ -38,6 +41,9 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
           event.date = date
           event.comment = comment
           event.remindRepeat = takeInt16RepeatValue(remindRepeat)
+          event.remindTimeDate1 = remindTimeDate1
+          event.remindTimeDate2 = remindTimeDate2
+          event.remindTimeDate3 = remindTimeDate3
           event.category = category
           try context.save()
 
@@ -55,6 +61,9 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
     date: Date,
     comment: String,
     remindRepeat: Int,
+    remindTimeDate1: Date,
+    remindTimeDate2: Date?,
+    remindTimeDate3: Date?,
     newCategoryId: ObjectId?
   ) async throws {
     try await withCheckedThrowingContinuation { continuation in
@@ -77,6 +86,9 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
           eventObject.date = date
           eventObject.comment = comment
           eventObject.remindRepeat = takeInt16RepeatValue(remindRepeat)
+          eventObject.remindTimeDate1 = remindTimeDate1
+          eventObject.remindTimeDate2 = remindTimeDate2
+          eventObject.remindTimeDate3 = remindTimeDate3
           if let newCategory {
             eventObject.category = newCategory
           }
@@ -131,7 +143,10 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
               date: eventObject.date ?? Date(),
               comment: eventObject.comment ?? "",
               categoryId: category.identifier,
-              remindRepeat: Int(eventObject.remindRepeat)
+              remindRepeat: Int(eventObject.remindRepeat),
+              remindTimeDate1: eventObject.remindTimeDate1,
+              remindTimeDate2: eventObject.remindTimeDate2,
+              remindTimeDate3: eventObject.remindTimeDate3
             )
           }
           continuation.resume(returning: events)
@@ -157,7 +172,10 @@ public final class DBEventsService: DBEventsServiceProtocol, @unchecked Sendable
             date: eventObject.date ?? Date(),
             comment: eventObject.comment ?? "",
             categoryId: eventObject.category?.identifier,
-            remindRepeat: Int(eventObject.remindRepeat)
+            remindRepeat: Int(eventObject.remindRepeat),
+            remindTimeDate1: eventObject.remindTimeDate1,
+            remindTimeDate2: eventObject.remindTimeDate2,
+            remindTimeDate3: eventObject.remindTimeDate3
           )
 
           continuation.resume(returning: event)

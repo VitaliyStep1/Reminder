@@ -17,6 +17,14 @@ public final class CategoryEventViewStore: ObservableObject {
   @Published public var eventDate: Date
   @Published public var eventComment: String
   @Published public var eventRemindRepeat: RemindRepeatEnum
+  @Published public var remindTimeDate1: Date
+  @Published public var remindTimeDate2: Date? { didSet { updateRemindTimeVisibility() } }
+  @Published public var remindTimeDate3: Date? { didSet { updateRemindTimeVisibility() } }
+  @Published public var defaultRemindTimeDate: Date
+
+  @Published public var isRemindTime2ViewVisible: Bool
+  @Published public var isRemindTime3ViewVisible: Bool
+  @Published public var isAddRemindTimeButtonVisible: Bool
   
   @Published public var isSaving: Bool
   @Published public var isDeleting: Bool
@@ -44,6 +52,13 @@ public final class CategoryEventViewStore: ObservableObject {
     self.eventDate = Date()
     self.eventComment = ""
     self.eventRemindRepeat = .everyYear
+    self.remindTimeDate1 = Date()
+    self.remindTimeDate2 = nil
+    self.remindTimeDate3 = nil
+    self.defaultRemindTimeDate = Date()
+    self.isRemindTime2ViewVisible = false
+    self.isRemindTime3ViewVisible = false
+    self.isAddRemindTimeButtonVisible = true
     self.isSaving = false
     self.isDeleting = false
     self.isViewBlocked = false
@@ -58,5 +73,13 @@ public final class CategoryEventViewStore: ObservableObject {
     self.deleteButtonTitle = "Delete"
     self.category = nil
     self.repeatRepresentationEnum = .text(text: "")
+
+    updateRemindTimeVisibility()
+  }
+
+  private func updateRemindTimeVisibility() {
+    isRemindTime2ViewVisible = remindTimeDate2 != nil
+    isRemindTime3ViewVisible = remindTimeDate3 != nil
+    isAddRemindTimeButtonVisible = !isRemindTime3ViewVisible
   }
 }

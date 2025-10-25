@@ -19,5 +19,8 @@ extension EventObject {
   @NSManaged public var date: Date?
   @NSManaged public var comment: String?
   @NSManaged public var remindRepeat: Int16
+  @NSManaged public var remindTimeDate1: Date
+  @NSManaged public var remindTimeDate2: Date?
+  @NSManaged public var remindTimeDate3: Date?
   @NSManaged public var category: CategoryObject?
 }
