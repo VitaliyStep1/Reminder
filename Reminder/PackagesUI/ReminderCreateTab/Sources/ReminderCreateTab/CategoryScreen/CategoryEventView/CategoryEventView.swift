@@ -23,10 +23,10 @@ public struct CategoryEventView: View {
       ScrollView {
         VStack(spacing: 16) {
           viewTitleView()
-          VStack(alignment: .leading, spacing: 8) {
+          VStack(alignment: .leading, spacing: 10) {
             eventTitleView()
-            eventDateView()
             eventCommentView()
+            eventDateView()
             remindRepeatView()
             remindTimeView()
           }
@@ -63,37 +63,31 @@ public struct CategoryEventView: View {
   }
   
   //MARK: - Views
-  func viewTitleView() -> some View {
+  private func viewTitleView() -> some View {
     Text(store.viewTitle)
       .font(.headline)
   }
   
   @ViewBuilder
-  func eventTitleView() -> some View {
+  private func eventTitleView() -> some View {
     Text("Title:")
     TextField("Title", text: $store.eventTitle)
       .textFieldStyle(RoundedBorderTextFieldStyle())
   }
   
-  func eventDateView() -> some View {
-    HStack {
-      Spacer()
-      DatePicker("", selection: $store.eventDate, displayedComponents: [.date])
-        .datePickerStyle(.wheel)
-        .labelsHidden()
-      Spacer()
-    }
+  private func eventDateView() -> some View {
+    return CategoryEventDateView(eventDate: $store.eventDate)
   }
   
   @ViewBuilder
-  func eventCommentView() -> some View {
+  private func eventCommentView() -> some View {
     Text("Comment:")
     TextField("Comment", text: $store.eventComment)
       .textFieldStyle(RoundedBorderTextFieldStyle())
   }
   
   @ViewBuilder
-  func remindRepeatView() -> some View {
+  private func remindRepeatView() -> some View {
     Text("Repeat:")
     switch store.repeatRepresentationEnum {
     case .picker(let values, let titles):
@@ -110,7 +104,7 @@ public struct CategoryEventView: View {
   }
   
   @ViewBuilder
-  func remindTimeView() -> some View {
+  private func remindTimeView() -> some View {
     Text("Remind time:")
     DatePicker(
       "Remind time 1",
@@ -139,7 +133,7 @@ public struct CategoryEventView: View {
     }
   }
   
-  func saveButtonView() -> some View {
+  private func saveButtonView() -> some View {
     Button(action: {
       interactor.saveButtonTapped()
     }) {
@@ -159,7 +153,7 @@ public struct CategoryEventView: View {
     .disabled(store.isSaving || store.isDeleting)
   }
   
-  func cancelButtonView() -> some View {
+  private func cancelButtonView() -> some View {
     Button(action: {
       interactor.cancelButtonTapped()
     }) {
@@ -173,7 +167,7 @@ public struct CategoryEventView: View {
   }
   
   @ViewBuilder
-  func deleteButtonView() -> some View {
+  private func deleteButtonView() -> some View {
     if store.isDeleteButtonVisible {
       Button(action: {
         interactor.deleteButtonTapped()
@@ -217,6 +211,7 @@ public struct CategoryEventView: View {
       .accessibilityLabel("Remove \(title)")
     }
   }
+  
   private func bindingForOptionalDate(_ optionalDate: Binding<Date?>) -> Binding<Date> {
     Binding(
       get: { optionalDate.wrappedValue ?? store.defaultRemindTimeDate },
