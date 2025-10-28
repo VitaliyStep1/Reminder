@@ -19,22 +19,23 @@ public class CategoryViewModel: ObservableObject {
   @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
   @Published var isAlertVisible: Bool = false
+  var router: CreateTabRouterProtocol
+  
   var alertInfo: AlertInfo = AlertInfo(message: "")
   
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
   
-  let eventViewSubject = PassthroughSubject<EventScreenViewType, Never>()
-  
   public init(
     categoryId: Identifier,
     fetchEventsUseCase: FetchEventsUseCaseProtocol,
-    fetchCategoryUseCase: FetchCategoryUseCaseProtocol
+    fetchCategoryUseCase: FetchCategoryUseCaseProtocol, router: CreateTabRouterProtocol
   ) {
     self.categoryId = categoryId
     self.fetchEventsUseCase = fetchEventsUseCase
     self.fetchCategoryUseCase = fetchCategoryUseCase
+    self.router = router
   }
   
   func viewAppeared() {
@@ -71,15 +72,12 @@ public class CategoryViewModel: ObservableObject {
   }
   
   func closeViewWasCalled() {
-    hideCreateEventView()
+    router.popScreen()
   }
   
   private func showCreateEventView() {
-    eventViewSubject.send(.create(categoryId: categoryId))
-  }
-  
-  private func hideCreateEventView() {
-    eventViewSubject.send(.notVisible)
+    let eventScreenViewType = EventScreenViewType.create(categoryId: categoryId)
+    router.pushScreen(.event(eventScreenViewType))
   }
   
   private func updateEventList() {
@@ -106,7 +104,8 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func showEditEventView(eventId: Identifier) {
-    eventViewSubject.send(.edit(eventId: eventId))
+    let eventScreenViewType = EventScreenViewType.edit(eventId: eventId)
+    router.pushScreen(.event(eventScreenViewType))
   }
   
   private func showEventsWereNotFetchedAlert() {

@@ -50,15 +50,18 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       resultView = SplashScreenView(isSplashScreenVisible: binding)
     case .categories:
       let fetchAllCategoriesUseCase = resolver.fetchAllCategoriesUseCaseProtocol
-      let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase)
+      let router = resolver.createTabRouterProtocol
+      let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase, router: router)
       resultView = CategoriesScreenView(viewModel: viewModel)
     case .category(let categoryId):
       let fetchEventsUseCase = resolver.fetchEventsUseCaseProtocol
       let fetchCategoryUseCase = resolver.fetchCategoryUseCaseProtocol
+      let router = resolver.createTabRouterProtocol
       let viewModel = CategoryViewModel(
         categoryId: categoryId,
         fetchEventsUseCase: fetchEventsUseCase,
-        fetchCategoryUseCase: fetchCategoryUseCase
+        fetchCategoryUseCase: fetchCategoryUseCase,
+        router: router
       )
       resultView = CategoryScreenView(viewModel: viewModel)
     case .closest:
@@ -70,30 +73,23 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       let updateDefaultRemindTimeDateUseCase = resolver.updateDefaultRemindTimeDateUseCaseProtocol
       let viewModel = SettingsViewModel(takeDefaultRemindTimeDateUseCase: takeDefaultRemindTimeDateUseCase, updateDefaultRemindTimeDateUseCase: updateDefaultRemindTimeDateUseCase)
       resultView = SettingsScreenView(viewModel: viewModel)
+    case .event(let eventScreenViewType):
+      let router = resolver.createTabRouterProtocol
+      let store = EventViewStore(eventScreenViewType: eventScreenViewType, router: router)
+      let presenter = EventPresenter(store: store)
+      let interactor = EventInteractor(
+        createEventUseCase: resolver.createEventUseCaseProtocol,
+        editEventUseCase: resolver.editEventUseCaseProtocol,
+        deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
+        fetchEventUseCase: resolver.fetchEventUseCaseProtocol,
+        fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
+        fetchDefaultRemindTimeDateUseCase: resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
+        presenter: presenter,
+        store: store
+      )
+      
+      resultView = EventScreenView(store: store, interactor: interactor)
     }
     return AnyView(resultView)
-  }
-  
-  @MainActor
-  public func makeEventScreenView(
-    eventScreenViewType: EventScreenViewType,
-    eventsWereChangedHandler: @escaping @Sendable (Identifier?) -> Void,
-    closeViewHandler: @escaping @Sendable () -> Void
-  ) -> AnyView {
-    let store = EventViewStore(eventScreenViewType: eventScreenViewType)
-    let presenter = EventPresenter(store: store)
-    let interactor = EventInteractor(
-      createEventUseCase: resolver.createEventUseCaseProtocol,
-      editEventUseCase: resolver.editEventUseCaseProtocol,
-      deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
-      fetchEventUseCase: resolver.fetchEventUseCaseProtocol,
-      fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
-      fetchDefaultRemindTimeDateUseCase: resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
-      presenter: presenter,
-      store: store,
-      eventsWereChangedHandler: eventsWereChangedHandler,
-      closeViewHandler: closeViewHandler
-    )
-    return AnyView(EventScreenView(store: store, interactor: interactor))
   }
 }

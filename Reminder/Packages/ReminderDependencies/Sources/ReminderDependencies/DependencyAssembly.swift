@@ -143,5 +143,10 @@ final class DependencyAssembly: Assembly {
       return DefaultRemindTimeService(appConfiguration: appConfiguration, userDefaultsService: userDefaultsService)
     }
     .inObjectScope(.container)
+    
+    container.register(CreateTabRouterProtocol.self) { _ in
+      return Router()
+    }
+    .inObjectScope(.container)
   }
 }

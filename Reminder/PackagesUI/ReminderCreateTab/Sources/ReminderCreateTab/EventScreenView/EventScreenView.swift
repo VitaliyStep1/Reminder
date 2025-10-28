@@ -12,7 +12,7 @@ public struct EventScreenView: View {
   let interactor: EventInteractor
 
   public init(store: EventViewStore, interactor: EventInteractor) {
-    self.store = store
+    _store = ObservedObject(wrappedValue: store)
     self.interactor = interactor
   }
   

@@ -8,20 +8,21 @@
 import SwiftUI
 import ReminderNavigationContracts
 
-@MainActor
-final class Router: ObservableObject {
-  @Published var path = NavigationPath()
+public final class Router: CreateTabRouterProtocol, ObservableObject {
+  @Published public var path = NavigationPath()
   
-  func pushScreen(_ route: Route) {
+  public init() { }
+  
+  public func pushScreen(_ route: Route) {
     path.append(route)
   }
   
-  func resetToScreen(_ route: Route) {
+  public func resetToScreen(_ route: Route) {
     path = NavigationPath()
     path.append(route)
   }
   
-  func popScreen() {
+  public func popScreen() {
     guard !path.isEmpty else {
       return
     }

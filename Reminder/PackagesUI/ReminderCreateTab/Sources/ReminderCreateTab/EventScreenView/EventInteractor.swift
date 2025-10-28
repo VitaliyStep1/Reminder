@@ -20,8 +20,6 @@ public final class EventInteractor {
   
   private let presenter: EventPresenter
   private let store: EventViewStore
-  private let eventsWereChangedHandler: (Identifier?) -> Void
-  private let closeViewHandler: () -> Void
 
   public init(
     createEventUseCase: CreateEventUseCaseProtocol,
@@ -31,9 +29,7 @@ public final class EventInteractor {
     fetchCategoryUseCase: FetchCategoryUseCaseProtocol,
     fetchDefaultRemindTimeDateUseCase: FetchDefaultRemindTimeDateUseCaseProtocol,
     presenter: EventPresenter,
-    store: EventViewStore,
-    eventsWereChangedHandler: @escaping (Identifier?) -> Void,
-    closeViewHandler: @escaping () -> Void
+    store: EventViewStore
   ) {
     self.createEventUseCase = createEventUseCase
     self.editEventUseCase = editEventUseCase
@@ -43,8 +39,6 @@ public final class EventInteractor {
     self.fetchDefaultRemindTimeDateUseCase = fetchDefaultRemindTimeDateUseCase
     self.presenter = presenter
     self.store = store
-    self.eventsWereChangedHandler = eventsWereChangedHandler
-    self.closeViewHandler = closeViewHandler
     
     fetchDefaultRemindTimeDateAndUpdate()
   }
@@ -61,7 +55,7 @@ public final class EventInteractor {
       presenter.presentSaving(true)
       do {
         let newCategoryId = try await self.saveEvent()
-        eventsWereChangedHandler(newCategoryId)
+//        eventsWereChangedHandler(newCategoryId)
         presenter.presentSaving(false)
         closeView()
       } catch {
@@ -108,7 +102,7 @@ public final class EventInteractor {
       presenter.presentDeleting(true)
       do {
         try await self.performDeleteEvent()
-        eventsWereChangedHandler(nil)
+//        eventsWereChangedHandler(nil)
         presenter.presentDeleting(false)
         closeView()
       } catch {
@@ -245,6 +239,6 @@ public final class EventInteractor {
   }
   
   private func closeView() {
-    closeViewHandler()
+    store.router.popScreen()
   }
 }

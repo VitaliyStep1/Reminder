@@ -97,4 +97,8 @@ extension Resolver {
   public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {
     resolve(DefaultRemindTimeServiceProtocol.self)!
   }
+  
+  public var createTabRouterProtocol: CreateTabRouterProtocol {
+    resolve(CreateTabRouterProtocol.self)!
+  }
 }
