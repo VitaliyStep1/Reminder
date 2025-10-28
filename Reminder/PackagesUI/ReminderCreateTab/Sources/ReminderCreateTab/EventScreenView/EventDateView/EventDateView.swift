@@ -1,5 +1,5 @@
 //
-//  CategoryEventDateView.swift
+//  EventDateView.swift
 //  ReminderCreateTab
 //
 //  Created by Vitaliy Stepanenko on 27.10.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryEventDateView: View {
+struct EventDateView: View {
   @State private var isDateDatePickerVisible = false
   @State private var temporaryEventDate = Date()
   @Binding var eventDate: Date

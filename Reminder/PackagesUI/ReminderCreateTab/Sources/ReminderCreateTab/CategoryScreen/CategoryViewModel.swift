@@ -25,7 +25,7 @@ public class CategoryViewModel: ObservableObject {
   var createEventViewDate = Date()
   var createEventViewComment = ""
   
-  let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
+  let eventViewSubject = PassthroughSubject<EventScreenViewType, Never>()
   
   public init(
     categoryId: Identifier,

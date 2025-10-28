@@ -1,5 +1,5 @@
 //
-//  CategoryEventInteractor.swift
+//  EventInteractor.swift
 //  ReminderCreateTab
 //
 //  Created by Vitaliy Stepanenko on 20.10.2025.
@@ -10,7 +10,7 @@ import ReminderNavigationContracts
 import ReminderDomainContracts
 
 @MainActor
-public final class CategoryEventInteractor {
+public final class EventInteractor {
   private let createEventUseCase: CreateEventUseCaseProtocol
   private let editEventUseCase: EditEventUseCaseProtocol
   private let deleteEventUseCase: DeleteEventUseCaseProtocol
@@ -18,8 +18,8 @@ public final class CategoryEventInteractor {
   private let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   private let fetchDefaultRemindTimeDateUseCase: FetchDefaultRemindTimeDateUseCaseProtocol
   
-  private let presenter: CategoryEventPresenter
-  private let store: CategoryEventViewStore
+  private let presenter: EventPresenter
+  private let store: EventViewStore
   private let eventsWereChangedHandler: (Identifier?) -> Void
   private let closeViewHandler: () -> Void
 
@@ -30,8 +30,8 @@ public final class CategoryEventInteractor {
     fetchEventUseCase: FetchEventUseCaseProtocol,
     fetchCategoryUseCase: FetchCategoryUseCaseProtocol,
     fetchDefaultRemindTimeDateUseCase: FetchDefaultRemindTimeDateUseCaseProtocol,
-    presenter: CategoryEventPresenter,
-    store: CategoryEventViewStore,
+    presenter: EventPresenter,
+    store: EventViewStore,
     eventsWereChangedHandler: @escaping (Identifier?) -> Void,
     closeViewHandler: @escaping () -> Void
   ) {
@@ -120,22 +120,22 @@ public final class CategoryEventInteractor {
   
   private func saveEvent() async throws -> Identifier? {
     var newCategoryId: Identifier?
-    switch store.categoryEventViewType {
+    switch store.eventScreenViewType {
     case .create(let categoryId):
       newCategoryId = try await createEvent(categoryId: categoryId)
     case .edit(let eventId):
       newCategoryId = try await editEvent(eventId: eventId)
-    default:
+    case .notVisible:
       break
     }
     return newCategoryId
   }
   
   private func performDeleteEvent() async throws {
-    switch store.categoryEventViewType {
+    switch store.eventScreenViewType {
     case .edit(let eventId):
       try await deleteEventUseCase.execute(eventId: eventId)
-    default:
+    case .create, .notVisible:
       break
     }
   }
@@ -149,7 +149,7 @@ public final class CategoryEventInteractor {
     let remindTimeDate2 = store.remindTimeDate2
     let remindTimeDate3 = store.remindTimeDate3
     guard !title.isEmpty else {
-      throw CategoryEventEntity.CreateEventError.titleShouldBeNotEmpty
+      throw EventEntity.CreateEventError.titleShouldBeNotEmpty
     }
     let newCategoryId = try await createEventUseCase.execute(
       categoryId: categoryId,
@@ -189,12 +189,12 @@ public final class CategoryEventInteractor {
     var eventId: Identifier?
     var categoryId: Identifier?
     
-    switch store.categoryEventViewType {
+    switch store.eventScreenViewType {
     case .create(let categoryId_):
       categoryId = categoryId_
     case .edit(let eventId_):
       eventId = eventId_
-    default:
+    case .notVisible:
       break
     }
     

@@ -75,14 +75,14 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
   }
   
   @MainActor
-  public func makeCategoryEventView(
-    categoryEventViewType: CategoryEventViewType,
+  public func makeEventScreenView(
+    eventScreenViewType: EventScreenViewType,
     eventsWereChangedHandler: @escaping @Sendable (Identifier?) -> Void,
     closeViewHandler: @escaping @Sendable () -> Void
   ) -> AnyView {
-    let store = CategoryEventViewStore(categoryEventViewType: categoryEventViewType)
-    let presenter = CategoryEventPresenter(store: store)
-    let interactor = CategoryEventInteractor(
+    let store = EventViewStore(eventScreenViewType: eventScreenViewType)
+    let presenter = EventPresenter(store: store)
+    let interactor = EventInteractor(
       createEventUseCase: resolver.createEventUseCaseProtocol,
       editEventUseCase: resolver.editEventUseCaseProtocol,
       deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
@@ -94,6 +94,6 @@ public class ViewFactory: @preconcurrency ViewFactoryProtocol {
       eventsWereChangedHandler: eventsWereChangedHandler,
       closeViewHandler: closeViewHandler
     )
-    return AnyView(CategoryEventView(store: store, interactor: interactor))
+    return AnyView(EventScreenView(store: store, interactor: interactor))
   }
 }

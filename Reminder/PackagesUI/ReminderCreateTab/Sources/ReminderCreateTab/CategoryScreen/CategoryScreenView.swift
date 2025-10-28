@@ -11,7 +11,7 @@ import ReminderNavigationContracts
 public struct CategoryScreenView: View {
   @StateObject var viewModel: CategoryViewModel
   
-  @State var eventViewType: CategoryEventViewType = .notVisible
+  @State var eventScreenViewType: EventScreenViewType = .notVisible
   
   @Environment(\.viewFactory) var viewFactory
   
@@ -48,10 +48,10 @@ public struct CategoryScreenView: View {
         .padding(.bottom, 10)
         
       }
-      if eventViewType != .notVisible {
+      if eventScreenViewType != .notVisible {
         if let viewFactory {
-          viewFactory.makeCategoryEventView(
-            categoryEventViewType: eventViewType,
+          viewFactory.makeEventScreenView(
+            eventScreenViewType: eventScreenViewType,
             eventsWereChangedHandler: { newCategoryId in
               Task { @MainActor in
                 viewModel.categoryEventWasUpdated(newCategoryId: newCategoryId)
@@ -76,10 +76,10 @@ public struct CategoryScreenView: View {
     }
     .onReceive(viewModel.eventViewSubject, perform: { type in
       withAnimation {
-        eventViewType = type
+        eventScreenViewType = type
       }
     })
-    .animation(.easeInOut, value: (eventViewType != .notVisible))
+    .animation(.easeInOut, value: (eventScreenViewType != .notVisible))
     .navigationTitle(viewModel.navigationTitle)
     .navigationBarTitleDisplayMode(.large)
     .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {

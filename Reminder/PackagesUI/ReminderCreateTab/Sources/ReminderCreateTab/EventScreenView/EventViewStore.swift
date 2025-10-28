@@ -1,5 +1,5 @@
 //
-//  CategoryEventViewStore.swift
+//  EventViewStore.swift
 //  ReminderCreateTab
 //
 //  Created by Vitaliy Stepanenko on 20.10.2025.
@@ -10,8 +10,8 @@ import ReminderDomainContracts
 import ReminderNavigationContracts
 
 @MainActor
-public final class CategoryEventViewStore: ObservableObject {
-  public let categoryEventViewType: CategoryEventViewType
+public final class EventViewStore: ObservableObject {
+  public let eventScreenViewType: EventScreenViewType
 
   @Published public var eventTitle: String
   @Published public var eventDate: Date
@@ -43,11 +43,11 @@ public final class CategoryEventViewStore: ObservableObject {
   public let deleteButtonTitle: String
 
   public var category: ReminderDomainContracts.Category?
-  
-  @Published var repeatRepresentationEnum: CategoryEventEntity.RepeatRepresentationEnum
 
-  public init(categoryEventViewType: CategoryEventViewType) {
-    self.categoryEventViewType = categoryEventViewType
+  @Published var repeatRepresentationEnum: EventEntity.RepeatRepresentationEnum
+
+  public init(eventScreenViewType: EventScreenViewType) {
+    self.eventScreenViewType = eventScreenViewType
     self.eventTitle = ""
     self.eventDate = Date()
     self.eventComment = ""

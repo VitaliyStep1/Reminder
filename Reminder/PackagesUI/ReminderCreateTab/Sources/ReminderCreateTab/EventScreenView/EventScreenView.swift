@@ -1,5 +1,5 @@
 //
-//  CategoryEventView.swift
+//  EventScreenView.swift
 //  Reminder
 //
 //  Created by Vitaliy Stepanenko on 13.09.2025.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-public struct CategoryEventView: View {
-  @ObservedObject var store: CategoryEventViewStore
-  let interactor: CategoryEventInteractor
+public struct EventScreenView: View {
+  @ObservedObject var store: EventViewStore
+  let interactor: EventInteractor
 
-  public init(store: CategoryEventViewStore, interactor: CategoryEventInteractor) {
+  public init(store: EventViewStore, interactor: EventInteractor) {
     self.store = store
     self.interactor = interactor
   }
@@ -76,7 +76,7 @@ public struct CategoryEventView: View {
   }
   
   private func eventDateView() -> some View {
-    return CategoryEventDateView(eventDate: $store.eventDate)
+    return EventDateView(eventDate: $store.eventDate)
   }
   
   @ViewBuilder
