@@ -90,8 +90,8 @@ extension Resolver {
     resolve(UserDefaultsServiceProtocol.self)!
   }
   
-  public var fetchDefaultEventDataWhenEventCreatingUseCaseProtocol: FetchDefaultEventDataWhenEventCreatingUseCaseProtocol {
-    resolve(FetchDefaultEventDataWhenEventCreatingUseCaseProtocol.self)!
+  public var fetchDefaultRemindTimeDateUseCaseProtocol: FetchDefaultRemindTimeDateUseCaseProtocol {
+    resolve(FetchDefaultRemindTimeDateUseCaseProtocol.self)!
   }
   
   public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {

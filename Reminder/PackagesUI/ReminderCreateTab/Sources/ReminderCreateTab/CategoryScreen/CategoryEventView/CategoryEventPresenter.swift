@@ -97,15 +97,9 @@ public final class CategoryEventPresenter {
     store.isAlertVisible = true
   }
   
-  public func presentDefaultEventData(eventTitle: String, eventDate: Date, eventComment: String, eventRemindRepeat: RemindRepeatEnum, defaultRemindTimeDate: Date, remindTimeDate1: Date, remindTimeDate2: Date?, remindTimeDate3: Date?) {
-    store.eventTitle = eventTitle
-    store.eventDate = eventDate
-    store.eventComment = eventComment
-    store.eventRemindRepeat = eventRemindRepeat
+  public func presentDefaultRemindTimeDate(defaultRemindTimeDate: Date) {
     store.defaultRemindTimeDate = defaultRemindTimeDate
-    store.remindTimeDate1 = remindTimeDate1
-    store.remindTimeDate2 = remindTimeDate2
-    store.remindTimeDate3 = remindTimeDate3
+    store.remindTimeDate1 = defaultRemindTimeDate
   }
   
   private func configureView() {

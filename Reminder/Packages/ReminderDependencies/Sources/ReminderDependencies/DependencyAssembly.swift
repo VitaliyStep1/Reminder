@@ -106,9 +106,9 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.transient)
     
-    container.register(FetchDefaultEventDataWhenEventCreatingUseCaseProtocol.self) { resolver in
+    container.register(FetchDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
       let defaultRemindTimeService = resolver.defaultRemindTimeServiceProtocol
-      return FetchDefaultEventDataWhenEventCreatingUseCase(defaultRemindTimeService: defaultRemindTimeService)
+      return FetchDefaultRemindTimeDateUseCase(defaultRemindTimeService: defaultRemindTimeService)
     }
     
     // PreviewDataServiceProtocol
