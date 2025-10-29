@@ -20,13 +20,13 @@ public struct MainTabView: View {
       if let viewFactory {
         viewFactory.make(.closest)
           .tabItem {
-            Image(systemName: "house")
+            Image(systemName: "calendar.badge.clock")
             Text("Closest events")
           }
           .tag(MainTabViewSelectionEnum.closest)
         viewFactory.make(.categories)
           .tabItem {
-            Image(systemName: "music.note")
+            Image(systemName: "plus.circle")
             Text("Create event")
           }
           .tag(MainTabViewSelectionEnum.create)

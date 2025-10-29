@@ -54,4 +54,15 @@ public class CategoriesViewModel: ObservableObject {
     get { router.path }
     set { router.path = newValue }
   }
+
+  var totalEventsCount: Int {
+    categoryEntities.reduce(0) { partialResult, entity in
+      partialResult + entity.eventsAmount
+    }
+  }
+
+  var totalEventsDescription: String {
+    let count = totalEventsCount
+    return "\(count) event\(count == 1 ? "" : "s")"
+  }
 }
