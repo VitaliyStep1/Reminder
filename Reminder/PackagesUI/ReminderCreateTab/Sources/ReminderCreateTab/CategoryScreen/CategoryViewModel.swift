@@ -15,17 +15,19 @@ public class CategoryViewModel: ObservableObject {
   let fetchEventsUseCase: FetchEventsUseCaseProtocol
   let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   var categoryId: Identifier
-  
+
   @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
   @Published var isAlertVisible: Bool = false
   var router: CreateTabRouterProtocol
-  
+
   var alertInfo: AlertInfo = AlertInfo(message: "")
-  
+
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
+
+  private var cancellables: Set<AnyCancellable> = []
   
   public init(
     categoryId: Identifier,
@@ -36,6 +38,8 @@ public class CategoryViewModel: ObservableObject {
     self.fetchEventsUseCase = fetchEventsUseCase
     self.fetchCategoryUseCase = fetchCategoryUseCase
     self.router = router
+
+    observeRouterUpdates()
   }
   
   func viewAppeared() {
@@ -54,21 +58,6 @@ public class CategoryViewModel: ObservableObject {
   
   func eventTapped(eventId: Identifier) {
     showEditEventView(eventId: eventId)
-  }
-  
-  func categoryEventWasUpdated(newCategoryId: Identifier?) {
-    if let newCategoryId {
-      updateCategoryId(newCategoryId: newCategoryId)
-    } else {
-      updateEventList()
-    }
-  }
-  
-  private func updateCategoryId(newCategoryId: Identifier) {
-    self.categoryId = newCategoryId
-    
-    updateEventList()
-    updateNavigationTitle()
   }
   
   func closeViewWasCalled() {
@@ -111,5 +100,38 @@ public class CategoryViewModel: ObservableObject {
   private func showEventsWereNotFetchedAlert() {
     alertInfo = AlertInfo(message: "Events were not fetched")
     isAlertVisible = true
+  }
+
+  private func observeRouterUpdates() {
+    router.objectWillChange
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        guard let self else { return }
+        self.handleRouterPathUpdate()
+      }
+      .store(in: &cancellables)
+  }
+
+  private func handleRouterPathUpdate() {
+    guard let categoryRoute = router.path.last(where: { route in
+      if case .category = route {
+        return true
+      }
+      return false
+    }) else {
+      return
+    }
+
+    guard case let .category(newCategoryId) = categoryRoute else {
+      return
+    }
+
+    guard newCategoryId != categoryId else {
+      return
+    }
+
+    categoryId = newCategoryId
+    updateEventList()
+    updateNavigationTitle()
   }
 }

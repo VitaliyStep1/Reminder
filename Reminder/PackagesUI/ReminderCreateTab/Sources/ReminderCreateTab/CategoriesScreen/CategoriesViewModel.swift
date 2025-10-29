@@ -50,7 +50,7 @@ public class CategoriesViewModel: ObservableObject {
     }
   }
 
-  var routerPath: NavigationPath {
+  var routerPath: [Route] {
     get { router.path }
     set { router.path = newValue }
   }

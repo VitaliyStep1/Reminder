@@ -56,7 +56,7 @@ public struct CategoriesScreenView: View {
 }
 
 private extension CategoriesScreenView {
-  var routerPathBinding: Binding<NavigationPath> {
+  var routerPathBinding: Binding<[Route]> {
     Binding(
       get: { viewModel.routerPath },
       set: { viewModel.routerPath = $0 }

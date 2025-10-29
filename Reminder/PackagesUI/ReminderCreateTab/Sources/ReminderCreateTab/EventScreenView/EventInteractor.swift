@@ -55,7 +55,7 @@ public final class EventInteractor {
       presenter.presentSaving(true)
       do {
         let newCategoryId = try await self.saveEvent()
-//        eventsWereChangedHandler(newCategoryId)
+        self.notifyCategoryEventWasUpdated(newCategoryId: newCategoryId)
         presenter.presentSaving(false)
         closeView()
       } catch {
@@ -102,7 +102,7 @@ public final class EventInteractor {
       presenter.presentDeleting(true)
       do {
         try await self.performDeleteEvent()
-//        eventsWereChangedHandler(nil)
+        self.notifyCategoryEventWasUpdated(newCategoryId: nil)
         presenter.presentDeleting(false)
         closeView()
       } catch {
@@ -237,7 +237,11 @@ public final class EventInteractor {
     let defaultRemindTimeDate = fetchDefaultRemindTimeDateUseCase.execute()
     presenter.presentDefaultRemindTimeDate(defaultRemindTimeDate: defaultRemindTimeDate)
   }
-  
+
+  private func notifyCategoryEventWasUpdated(newCategoryId: Identifier?) {
+    store.router.categoryEventWasUpdated(newCategoryId: newCategoryId)
+  }
+
   private func closeView() {
     store.router.popScreen()
   }
