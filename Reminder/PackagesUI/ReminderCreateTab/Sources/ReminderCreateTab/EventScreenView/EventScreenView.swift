@@ -80,7 +80,6 @@ public struct EventScreenView: View {
   
   //MARK: - Views
   private func viewTitleView() -> some View {
-    VStack(alignment: .leading, spacing: 8) {
       Label {
         Text(store.viewTitle)
           .font(.largeTitle.bold())
@@ -101,10 +100,6 @@ public struct EventScreenView: View {
           )
           .shadow(color: Color.accentColor.opacity(0.3), radius: 10, x: 0, y: 6)
       }
-      Text("Keep track of your important reminders with customized alerts.")
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
-    }
     .frame(maxWidth: .infinity, alignment: .leading)
   }
 

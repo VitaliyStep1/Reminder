@@ -110,10 +110,6 @@ private extension CategoryScreenView {
         .foregroundStyle(Color.blue)
       Text("No events yet")
         .font(.headline)
-      Text("Start by adding your first reminder to keep track of upcoming events.")
-        .font(.subheadline)
-        .multilineTextAlignment(.center)
-        .foregroundStyle(.secondary)
     }
     .frame(maxWidth: .infinity)
     .padding(32)

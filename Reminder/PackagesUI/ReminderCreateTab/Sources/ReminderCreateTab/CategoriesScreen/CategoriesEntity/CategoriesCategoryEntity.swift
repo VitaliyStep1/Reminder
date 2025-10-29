@@ -10,11 +10,11 @@ import ReminderDomainContracts
 struct CategoriesCategoryEntity: Identifiable, Hashable {
   let id: Identifier
   let title: String
-  let eventsAmount: String
-  
+  let eventsAmount: Int
+
   init(category: ReminderDomainContracts.Category) {
     self.id = category.id
     self.title = category.title
-    self.eventsAmount = String(category.eventsAmount)
+    self.eventsAmount = category.eventsAmount
   }
 }
