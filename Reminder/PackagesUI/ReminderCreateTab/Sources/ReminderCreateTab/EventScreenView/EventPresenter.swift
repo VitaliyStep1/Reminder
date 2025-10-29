@@ -1,5 +1,5 @@
 //
-//  CategoryEventPresenter.swift
+//  EventPresenter.swift
 //  ReminderCreateTab
 //
 //  Created by Vitaliy Stepanenko on 20.10.2025.
@@ -11,11 +11,11 @@ import ReminderNavigationContracts
 import ReminderDomainContracts
 
 @MainActor
-public final class CategoryEventPresenter {
-  private let store: CategoryEventViewStore
+public final class EventPresenter {
+  private let store: EventViewStore
   private var cancellables = Set<AnyCancellable>()
 
-  public init(store: CategoryEventViewStore) {
+  public init(store: EventViewStore) {
     self.store = store
     configureBindings()
     configureView()
@@ -47,6 +47,9 @@ public final class CategoryEventPresenter {
     store.eventDate = event.date
     store.eventComment = event.comment
     store.eventRemindRepeat = event.remindRepeat
+    store.remindTimeDate1 = event.remindTimeDate1
+    store.remindTimeDate2 = event.remindTimeDate2
+    store.remindTimeDate3 = event.remindTimeDate3
   }
   
   public func presentCategory(_ category: ReminderDomainContracts.Category) {
@@ -62,7 +65,7 @@ public final class CategoryEventPresenter {
       store.repeatRepresentationEnum = .picker(values: remindRepeatValues, titles: remindRepeatTitles)
     }
     
-    if case .create = store.categoryEventViewType {
+    if case .create = store.eventScreenViewType {
       store.eventRemindRepeat = category.categoryRepeat.defaultRemindRepeat
     }
 
@@ -94,8 +97,13 @@ public final class CategoryEventPresenter {
     store.isAlertVisible = true
   }
   
+  public func presentDefaultRemindTimeDate(defaultRemindTimeDate: Date) {
+    store.defaultRemindTimeDate = defaultRemindTimeDate
+    store.remindTimeDate1 = defaultRemindTimeDate
+  }
+  
   private func configureView() {
-    switch store.categoryEventViewType {
+    switch store.eventScreenViewType {
     case .create:
       store.viewTitle = "Create Event"
       store.isDeleteButtonVisible = false
@@ -104,7 +112,7 @@ public final class CategoryEventPresenter {
       store.viewTitle = "Edit Event"
       store.isDeleteButtonVisible = true
       store.saveButtonTitle = "Save"
-    default:
+    case .notVisible:
       store.viewTitle = ""
       store.isDeleteButtonVisible = false
       store.saveButtonTitle = ""

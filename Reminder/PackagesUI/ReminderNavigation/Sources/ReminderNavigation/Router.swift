@@ -7,24 +7,49 @@
 
 import SwiftUI
 import ReminderNavigationContracts
+import ReminderDomainContracts
 
-@MainActor
-final class Router: ObservableObject {
-  @Published var path = NavigationPath()
-  
-  func pushScreen(_ route: Route) {
-    path.append(route)
+public final class Router: CreateTabRouterProtocol, ObservableObject {
+  @Published public var path: [Route] = []
+
+  public init() { }
+
+  public func pushScreen(_ route: Route) {
+    var updatedPath = path
+    updatedPath.append(route)
+    path = updatedPath
   }
-  
-  func resetToScreen(_ route: Route) {
-    path = NavigationPath()
-    path.append(route)
+
+  public func resetToScreen(_ route: Route) {
+    path = [route]
   }
-  
-  func popScreen() {
+
+  public func popScreen() {
     guard !path.isEmpty else {
       return
     }
-    path.removeLast()
+    var updatedPath = path
+    updatedPath.removeLast()
+    path = updatedPath
+  }
+
+  @MainActor
+  public func categoryEventWasUpdated(newCategoryId: Identifier?) {
+    guard let newCategoryId else {
+      return
+    }
+
+    guard let categoryIndex = path.lastIndex(where: { route in
+      if case .category = route {
+        return true
+      }
+      return false
+    }) else {
+      return
+    }
+
+    var updatedPath = path
+    updatedPath[categoryIndex] = .category(newCategoryId)
+    path = updatedPath
   }
 }

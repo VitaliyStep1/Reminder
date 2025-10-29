@@ -89,4 +89,16 @@ extension Resolver {
   public var userDefaultsServiceProtocol: UserDefaultsServiceProtocol {
     resolve(UserDefaultsServiceProtocol.self)!
   }
+  
+  public var fetchDefaultRemindTimeDateUseCaseProtocol: FetchDefaultRemindTimeDateUseCaseProtocol {
+    resolve(FetchDefaultRemindTimeDateUseCaseProtocol.self)!
+  }
+  
+  public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {
+    resolve(DefaultRemindTimeServiceProtocol.self)!
+  }
+  
+  public var createTabRouterProtocol: CreateTabRouterProtocol {
+    resolve(CreateTabRouterProtocol.self)!
+  }
 }

@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+import Combine
 import ReminderDomainContracts
+import ReminderNavigationContracts
 
 @MainActor
 public class CategoriesViewModel: ObservableObject {
@@ -14,10 +16,19 @@ public class CategoriesViewModel: ObservableObject {
   
   @Published var categoryEntities: [CategoriesCategoryEntity] = []
   @Published var navigationTitle: String = "Categories"
-  @Published var path: [CategoriesCategoryEntity] = []
-  
-  public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol) {
+  let router: any CreateTabRouterProtocol
+  private var cancellables: Set<AnyCancellable> = []
+
+  public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol, router: any CreateTabRouterProtocol) {
     self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
+    self.router = router
+
+    router.objectWillChange
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        self?.objectWillChange.send()
+      }
+      .store(in: &cancellables)
   }
   
   func taskWasCalled() {
@@ -26,7 +37,7 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   func categoryButtonClicked(_ categoryEntity: CategoriesCategoryEntity) {
-    path.append(categoryEntity)
+    router.pushScreen(.category(categoryEntity.id))
   }
   
   func loadCategories() {
@@ -37,5 +48,10 @@ public class CategoriesViewModel: ObservableObject {
         self.categoryEntities = categoryEntities
       }
     }
+  }
+
+  var routerPath: [Route] {
+    get { router.path }
+    set { router.path = newValue }
   }
 }

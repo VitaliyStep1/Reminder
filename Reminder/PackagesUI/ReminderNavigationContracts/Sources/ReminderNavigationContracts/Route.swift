@@ -14,6 +14,7 @@ public enum Route: Hashable {
   case splash
   case categories
   case category(Identifier)
+  case event(EventScreenViewType)
   case closest
   case settings
 }

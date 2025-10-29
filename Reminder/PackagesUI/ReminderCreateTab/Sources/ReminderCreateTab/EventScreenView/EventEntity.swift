@@ -1,5 +1,5 @@
 //
-//  CategoryEventEntity.swift
+//  EventEntity.swift
 //  Reminder
 //
 //  Created by Vitaliy Stepanenko on 02.10.2025.
@@ -7,7 +7,7 @@
 
 import ReminderDomainContracts
 
-enum CategoryEventEntity {
+enum EventEntity {
   enum CreateEventError: Error {
     case titleShouldBeNotEmpty
   }

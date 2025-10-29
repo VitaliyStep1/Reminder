@@ -28,6 +28,9 @@ public class ResolverCheckService {
       resolver.splashScreenState,
       resolver.mainTabViewSelectionState,
       resolver.userDefaultsServiceProtocol,
+      resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
+      resolver.defaultRemindTimeServiceProtocol,
+      resolver.createTabRouterProtocol,
     ]
     
     return dependencies

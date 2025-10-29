@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class UserDefaultsService: UserDefaultsServiceProtocol {
+public final class UserDefaultsService: UserDefaultsServiceProtocol {
   public init() {}
   
   private func object(_ key: UserDefaultsKeyEnum) -> Any? {

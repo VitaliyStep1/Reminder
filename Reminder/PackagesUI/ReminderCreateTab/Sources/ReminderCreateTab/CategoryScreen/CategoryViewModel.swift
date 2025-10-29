@@ -15,26 +15,31 @@ public class CategoryViewModel: ObservableObject {
   let fetchEventsUseCase: FetchEventsUseCaseProtocol
   let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   var categoryId: Identifier
-  
+
   @Published var entityEvents: [CategoryEntity.Event] = []
   @Published var navigationTitle: String = ""
   @Published var isAlertVisible: Bool = false
+  var router: CreateTabRouterProtocol
+
   var alertInfo: AlertInfo = AlertInfo(message: "")
-  
+
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
-  
-  let eventViewSubject = PassthroughSubject<CategoryEventViewType, Never>()
+
+  private var cancellables: Set<AnyCancellable> = []
   
   public init(
     categoryId: Identifier,
     fetchEventsUseCase: FetchEventsUseCaseProtocol,
-    fetchCategoryUseCase: FetchCategoryUseCaseProtocol
+    fetchCategoryUseCase: FetchCategoryUseCaseProtocol, router: CreateTabRouterProtocol
   ) {
     self.categoryId = categoryId
     self.fetchEventsUseCase = fetchEventsUseCase
     self.fetchCategoryUseCase = fetchCategoryUseCase
+    self.router = router
+
+    observeRouterUpdates()
   }
   
   func viewAppeared() {
@@ -55,31 +60,13 @@ public class CategoryViewModel: ObservableObject {
     showEditEventView(eventId: eventId)
   }
   
-  func categoryEventWasUpdated(newCategoryId: Identifier?) {
-    if let newCategoryId {
-      updateCategoryId(newCategoryId: newCategoryId)
-    } else {
-      updateEventList()
-    }
-  }
-  
-  private func updateCategoryId(newCategoryId: Identifier) {
-    self.categoryId = newCategoryId
-    
-    updateEventList()
-    updateNavigationTitle()
-  }
-  
   func closeViewWasCalled() {
-    hideCreateEventView()
+    router.popScreen()
   }
   
   private func showCreateEventView() {
-    eventViewSubject.send(.create(categoryId: categoryId))
-  }
-  
-  private func hideCreateEventView() {
-    eventViewSubject.send(.notVisible)
+    let eventScreenViewType = EventScreenViewType.create(categoryId: categoryId)
+    router.pushScreen(.event(eventScreenViewType))
   }
   
   private func updateEventList() {
@@ -106,11 +93,45 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func showEditEventView(eventId: Identifier) {
-    eventViewSubject.send(.edit(eventId: eventId))
+    let eventScreenViewType = EventScreenViewType.edit(eventId: eventId)
+    router.pushScreen(.event(eventScreenViewType))
   }
   
   private func showEventsWereNotFetchedAlert() {
     alertInfo = AlertInfo(message: "Events were not fetched")
     isAlertVisible = true
+  }
+
+  private func observeRouterUpdates() {
+    router.objectWillChange
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        guard let self else { return }
+        self.handleRouterPathUpdate()
+      }
+      .store(in: &cancellables)
+  }
+
+  private func handleRouterPathUpdate() {
+    guard let categoryRoute = router.path.last(where: { route in
+      if case .category = route {
+        return true
+      }
+      return false
+    }) else {
+      return
+    }
+
+    guard case let .category(newCategoryId) = categoryRoute else {
+      return
+    }
+
+    guard newCategoryId != categoryId else {
+      return
+    }
+
+    categoryId = newCategoryId
+    updateEventList()
+    updateNavigationTitle()
   }
 }

@@ -25,7 +25,10 @@ public struct FetchEventsUseCase: FetchEventsUseCaseProtocol {
         date: event.date,
         comment: event.comment,
         categoryId: event.categoryId,
-        remindRepeat: RemindRepeatEnum(fromRawValue: event.remindRepeat)
+        remindRepeat: RemindRepeatEnum(fromRawValue: event.remindRepeat),
+        remindTimeDate1: event.remindTimeDate1,
+        remindTimeDate2: event.remindTimeDate2,
+        remindTimeDate3: event.remindTimeDate3
       )
     }
   }
