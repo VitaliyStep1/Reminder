@@ -18,27 +18,43 @@ public struct EventScreenView: View {
   
   public var body: some View {
     ZStack {
-      Color(.systemBackground)
-        .ignoresSafeArea()
-      ScrollView {
-        VStack(spacing: 16) {
+      LinearGradient(
+        colors: [
+          Color(.systemGroupedBackground),
+          Color(.secondarySystemBackground)
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+      )
+      .ignoresSafeArea()
+      ScrollView(showsIndicators: false) {
+        VStack(spacing: 24) {
           viewTitleView()
-          VStack(alignment: .leading, spacing: 10) {
+          sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
             eventTitleView()
+            Divider()
+              .padding(.horizontal, -8)
             eventCommentView()
+            Divider()
+              .padding(.horizontal, -8)
             eventDateView()
+          }
+          sectionContainer(title: "Alerts", systemImage: "bell.badge") {
             remindRepeatView()
+            Divider()
+              .padding(.horizontal, -8)
             remindTimeView()
           }
-          saveButtonView()
-          cancelButtonView()
-          deleteButtonView()
+          VStack(spacing: 12) {
+            saveButtonView()
+            cancelButtonView()
+            deleteButtonView()
+          }
         }
-        .padding()
-        .frame(maxWidth: 400)
-        .background(Color(UIColor.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(radius: 10)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 32)
+        .frame(maxWidth: 640)
+        .frame(maxWidth: .infinity)
       }
     }
     .disabled(store.isViewBlocked)
@@ -64,159 +80,296 @@ public struct EventScreenView: View {
   
   //MARK: - Views
   private func viewTitleView() -> some View {
-    Text(store.viewTitle)
-      .font(.headline)
+    VStack(alignment: .leading, spacing: 8) {
+      Label {
+        Text(store.viewTitle)
+          .font(.largeTitle.bold())
+      } icon: {
+        Image(systemName: "calendar.badge.plus")
+          .font(.title3.weight(.semibold))
+          .foregroundStyle(.white)
+          .padding(12)
+          .background(
+            Circle()
+              .fill(
+                LinearGradient(
+                  colors: [Color.accentColor, Color.accentColor.opacity(0.7)],
+                  startPoint: .topLeading,
+                  endPoint: .bottomTrailing
+                )
+              )
+          )
+          .shadow(color: Color.accentColor.opacity(0.3), radius: 10, x: 0, y: 6)
+      }
+      Text("Keep track of your important reminders with customized alerts.")
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
   }
-  
+
   @ViewBuilder
   private func eventTitleView() -> some View {
-    Text("Title:")
-    TextField("Title", text: $store.eventTitle)
-      .textFieldStyle(RoundedBorderTextFieldStyle())
+    VStack(alignment: .leading, spacing: 8) {
+      Text("Title")
+        .font(.subheadline.weight(.semibold))
+        .foregroundStyle(.secondary)
+      TextField("Title", text: $store.eventTitle)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(fieldBackground)
+        .overlay(
+          RoundedRectangle(cornerRadius: 14, style: .continuous)
+            .stroke(Color.accentColor.opacity(store.eventTitle.isEmpty ? 0 : 0.4), lineWidth: 1)
+        )
+    }
   }
-  
+
   private func eventDateView() -> some View {
-    return EventDateView(eventDate: $store.eventDate)
+    VStack(alignment: .leading, spacing: 8) {
+      Text("Date")
+        .font(.subheadline.weight(.semibold))
+        .foregroundStyle(.secondary)
+      EventDateView(eventDate: $store.eventDate)
+        .padding(.horizontal, 4)
+    }
   }
-  
+
   @ViewBuilder
   private func eventCommentView() -> some View {
-    Text("Comment:")
-    TextField("Comment", text: $store.eventComment)
-      .textFieldStyle(RoundedBorderTextFieldStyle())
+    VStack(alignment: .leading, spacing: 8) {
+      Text("Comment")
+        .font(.subheadline.weight(.semibold))
+        .foregroundStyle(.secondary)
+      TextField("Comment", text: $store.eventComment)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(fieldBackground)
+        .overlay(
+          RoundedRectangle(cornerRadius: 14, style: .continuous)
+            .stroke(Color.accentColor.opacity(store.eventComment.isEmpty ? 0 : 0.4), lineWidth: 1)
+        )
+    }
   }
-  
+
   @ViewBuilder
   private func remindRepeatView() -> some View {
-    Text("Repeat:")
-    switch store.repeatRepresentationEnum {
-    case .picker(let values, let titles):
-      Picker("Repeat", selection: $store.eventRemindRepeat) {
-        ForEach(values, id: \.self) { option in
-          Text(titles[option] ?? "")
-            .tag(option)
+    VStack(alignment: .leading, spacing: 12) {
+      Text("Repeat")
+        .font(.subheadline.weight(.semibold))
+        .foregroundStyle(.secondary)
+      switch store.repeatRepresentationEnum {
+      case .picker(let values, let titles):
+        Picker("Repeat", selection: $store.eventRemindRepeat) {
+          ForEach(values, id: \.self) { option in
+            Text(titles[option] ?? "")
+              .tag(option)
+          }
         }
+        .pickerStyle(.segmented)
+      case .text(let text):
+        Text(text)
+          .font(.body.weight(.medium))
+          .padding(.horizontal, 14)
+          .padding(.vertical, 12)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .background(fieldBackground)
       }
-      .pickerStyle(.segmented)
-    case .text(let text):
-      Text(text)
     }
   }
-  
+
   @ViewBuilder
   private func remindTimeView() -> some View {
-    Text("Remind time:")
-    DatePicker(
-      "Remind time 1",
-      selection: $store.remindTimeDate1,
-      displayedComponents: .hourAndMinute
-    )
-    .datePickerStyle(.compact)
-    if store.isRemindTime2ViewVisible {
-      remindTimeView(
-        title: "Remind time 2",
-        selection: bindingForOptionalDate($store.remindTimeDate2),
-        removeAction: interactor.removeRemindTimeDate2ButtonTapped
+    VStack(alignment: .leading, spacing: 12) {
+      remindTimeRow(
+        title: "Remind time 1",
+        selection: $store.remindTimeDate1
       )
-    }
-    if store.isRemindTime3ViewVisible {
-      remindTimeView(
-        title: "Remind time 3",
-        selection: bindingForOptionalDate($store.remindTimeDate3),
-        removeAction: interactor.removeRemindTimeDate3ButtonTapped
-      )
-    }
-    if store.isAddRemindTimeButtonVisible {
-      Button("Add remind time") {
-        interactor.addRemindTimeButtonTapped()
+      if store.isRemindTime2ViewVisible {
+        remindTimeRow(
+          title: "Remind time 2",
+          selection: bindingForOptionalDate($store.remindTimeDate2),
+          removeAction: interactor.removeRemindTimeDate2ButtonTapped
+        )
+      }
+      if store.isRemindTime3ViewVisible {
+        remindTimeRow(
+          title: "Remind time 3",
+          selection: bindingForOptionalDate($store.remindTimeDate3),
+          removeAction: interactor.removeRemindTimeDate3ButtonTapped
+        )
+      }
+      if store.isAddRemindTimeButtonVisible {
+        Button(action: interactor.addRemindTimeButtonTapped) {
+          Label("Add remind time", systemImage: "plus.circle.fill")
+            .font(.body.weight(.semibold))
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(Color.accentColor)
       }
     }
   }
-  
+
   private func saveButtonView() -> some View {
     Button(action: {
       interactor.saveButtonTapped()
     }) {
-      Group {
+      HStack(spacing: 10) {
         if store.isSaving {
           ProgressView()
             .tint(.white)
+          Text(store.saveButtonTitle)
         } else {
+          Image(systemName: "checkmark.circle.fill")
           Text(store.saveButtonTitle)
         }
       }
-      .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-      .background(Color.blue)
+      .font(.headline)
+      .frame(maxWidth: .infinity, minHeight: 50)
+      .padding(.horizontal, 4)
+      .background(
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+          .fill(
+            LinearGradient(
+              colors: [Color.accentColor, Color.accentColor.opacity(0.8)],
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            )
+          )
+      )
       .foregroundStyle(.white)
-      .clipShape(RoundedRectangle(cornerRadius: 10))
+      .shadow(color: Color.accentColor.opacity(0.25), radius: 10, x: 0, y: 6)
     }
     .disabled(store.isSaving || store.isDeleting)
   }
-  
+
   private func cancelButtonView() -> some View {
     Button(action: {
       interactor.cancelButtonTapped()
     }) {
       Text(store.cancelButtonTitle)
-        .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-        .background(Color.gray)
-        .foregroundStyle(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .font(.headline)
+        .frame(maxWidth: .infinity, minHeight: 50)
+        .padding(.horizontal, 4)
+        .background(
+          RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(.ultraThinMaterial)
+        )
+        .overlay(
+          RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .stroke(Color.secondary.opacity(0.2), lineWidth: 1)
+        )
     }
     .disabled(store.isSaving || store.isDeleting)
   }
-  
+
   @ViewBuilder
   private func deleteButtonView() -> some View {
     if store.isDeleteButtonVisible {
       Button(action: {
         interactor.deleteButtonTapped()
       }) {
-        Group {
+        HStack(spacing: 10) {
           if store.isDeleting {
             ProgressView()
               .tint(.white)
+            Text(store.deleteButtonTitle)
           } else {
+            Image(systemName: "trash.fill")
             Text(store.deleteButtonTitle)
           }
         }
-        .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44)
-        .background(Color.red)
+        .font(.headline)
+        .frame(maxWidth: .infinity, minHeight: 50)
+        .padding(.horizontal, 4)
+        .background(
+          RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(
+              LinearGradient(
+                colors: [Color.red, Color.red.opacity(0.85)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+              )
+            )
+        )
         .foregroundStyle(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .shadow(color: Color.red.opacity(0.2), radius: 10, x: 0, y: 6)
       }
       .disabled(store.isSaving || store.isDeleting)
     }
   }
 
   @ViewBuilder
-  private func remindTimeView(
+  private func remindTimeRow(
     title: String,
     selection: Binding<Date>,
-    removeAction: @escaping () -> Void
+    removeAction: (() -> Void)? = nil
   ) -> some View {
-    HStack {
-      DatePicker(
-        title,
-        selection: selection,
-        displayedComponents: .hourAndMinute
-      )
-      .datePickerStyle(.compact)
-      Button(action: removeAction) {
-        Text("-")
-          .font(.title2)
-          .padding(.horizontal, 8)
+    HStack(spacing: 12) {
+      VStack(alignment: .leading, spacing: 6) {
+        Text(title)
+          .font(.subheadline.weight(.semibold))
+          .foregroundStyle(.secondary)
+        DatePicker(
+          "",
+          selection: selection,
+          displayedComponents: .hourAndMinute
+        )
+        .labelsHidden()
+        .datePickerStyle(.compact)
       }
-      .buttonStyle(.plain)
-      .accessibilityLabel("Remove \(title)")
+      .frame(maxWidth: .infinity, alignment: .leading)
+      if let removeAction {
+        Button(action: removeAction) {
+          Image(systemName: "minus.circle.fill")
+            .font(.title2)
+            .foregroundStyle(.red)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Remove \(title)")
+      }
     }
+    .padding(.horizontal, 14)
+    .padding(.vertical, 12)
+    .background(fieldBackground)
+    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
   }
-  
+
   private func bindingForOptionalDate(_ optionalDate: Binding<Date?>) -> Binding<Date> {
     Binding(
       get: { optionalDate.wrappedValue ?? store.defaultRemindTimeDate },
       set: { optionalDate.wrappedValue = $0 }
     )
+  }
+
+  private var fieldBackground: some View {
+    RoundedRectangle(cornerRadius: 14, style: .continuous)
+      .fill(Color(.systemBackground).opacity(0.9))
+      .shadow(color: Color.black.opacity(0.05), radius: 6, x: 0, y: 3)
+  }
+
+  private func sectionContainer<Content: View>(
+    title: String,
+    systemImage: String,
+    @ViewBuilder content: () -> Content
+  ) -> some View {
+    VStack(alignment: .leading, spacing: 16) {
+      Label(title, systemImage: systemImage)
+        .font(.title3.weight(.semibold))
+        .foregroundStyle(.primary)
+      content()
+    }
+    .padding(20)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(
+      RoundedRectangle(cornerRadius: 24, style: .continuous)
+        .fill(.ultraThinMaterial)
+    )
+    .overlay(
+      RoundedRectangle(cornerRadius: 24, style: .continuous)
+        .stroke(Color.primary.opacity(0.08))
+    )
+    .shadow(color: Color.black.opacity(0.08), radius: 18, x: 0, y: 10)
   }
 }
 
