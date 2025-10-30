@@ -11,19 +11,19 @@ import ReminderNavigationContracts
 public struct CategoriesScreenView: View {
   @StateObject var viewModel: CategoriesViewModel
   @Environment(\.viewFactory) var viewFactory
-
+  
   public init(viewModel: CategoriesViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
   }
-
+  
   public var body: some View {
     NavigationStack(path: routerPathBinding) {
       ZStack {
         backgroundView
         contentView
-        .padding(.horizontal, 16)
-        .padding(.bottom, 24)
-        .padding(.top, 8)
+          .padding(.horizontal, 16)
+          .padding(.bottom, 24)
+          .padding(.top, 8)
       }
       .task {
         viewModel.taskWasCalled()
@@ -43,7 +43,7 @@ private extension CategoriesScreenView {
       set: { viewModel.routerPath = $0 }
     )
   }
-
+  
   var backgroundView: some View {
     LinearGradient(
       gradient: Gradient(colors: [Color(.systemGroupedBackground), Color(.secondarySystemBackground)]),
@@ -52,7 +52,7 @@ private extension CategoriesScreenView {
     )
     .ignoresSafeArea()
   }
-
+  
   @ViewBuilder
   var contentView: some View {
     switch viewModel.screenStateEnum {
@@ -62,7 +62,7 @@ private extension CategoriesScreenView {
       categoriesView(categories: categories)
     }
   }
-
+  
   private func categoriesView(categories: [CategoriesEntity.Category]) -> some View {
     ScrollView {
       LazyVStack(spacing: 14) {
@@ -71,7 +71,7 @@ private extension CategoriesScreenView {
             title: category.title,
             eventsAmountText: category.eventsAmountText,
             tapAction: {
-              viewModel.categoryButtonClicked(category)
+              viewModel.categoryRowWasClicked(category)
             })
         }
       }
@@ -96,7 +96,7 @@ private extension CategoriesScreenView {
     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 6)
   }
-
+  
   @ViewBuilder
   func destinationView(for route: Route) -> some View {
     if let viewFactory {

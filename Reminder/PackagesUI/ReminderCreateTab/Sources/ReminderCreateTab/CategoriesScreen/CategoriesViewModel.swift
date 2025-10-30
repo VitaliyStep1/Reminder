@@ -20,13 +20,13 @@ public class CategoriesViewModel: ObservableObject {
   private var cancellables: Set<AnyCancellable> = []
   
   private let noCategoriesText = "No categories was found"
-
+  
   public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol, router: any CreateTabRouterProtocol) {
     self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
     self.router = router
     
     screenStateEnum = .empty(title: noCategoriesText)
-
+    
     router.objectWillChange
       .receive(on: DispatchQueue.main)
       .sink { [weak self] _ in
@@ -36,11 +36,10 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   func taskWasCalled() {
-    
     loadCategories()
   }
   
-  func categoryButtonClicked(_ category: CategoriesEntity.Category) {
+  func categoryRowWasClicked(_ category: CategoriesEntity.Category) {
     router.pushScreen(.category(category.id))
   }
   
@@ -66,7 +65,7 @@ public class CategoriesViewModel: ObservableObject {
     let title = eventsAmount == 1 ? "Event" : "Events"
     return "\(eventsAmount) \(title)"
   }
-
+  
   var routerPath: [Route] {
     get { router.path }
     set { router.path = newValue }

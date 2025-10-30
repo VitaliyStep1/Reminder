@@ -12,6 +12,10 @@ enum CategoryEntity {
     let id: Identifier
     let title: String
     let date: String
-    let comment: String?
+  }
+  
+  enum ScreenStateEnum {
+    case empty(title: String)
+    case withEvents(events: [CategoryEntity.Event])
   }
 }
