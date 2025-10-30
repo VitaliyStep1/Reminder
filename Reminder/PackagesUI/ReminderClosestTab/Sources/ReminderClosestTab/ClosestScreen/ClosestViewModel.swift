@@ -10,20 +10,15 @@ import ReminderMainTabViewContracts
 
 public class ClosestViewModel: ObservableObject {
   let mainTabViewSelectionState: MainTabViewSelectionState
-  @Published var noEventsText: String?
-  @Published var closestMonthEntities: [ClosestMonthEntity] = [] {
-    didSet {
-      updateNoEventsText()
-    }
-  }
+
+  @Published var screenStateEnum: ClosestEntity.ScreenStateEnum
+  
+  private let noEventsText = "There are no events yet.\nPlease add one!"
   
   public init(mainTabViewSelectionState: MainTabViewSelectionState) {
     self.mainTabViewSelectionState = mainTabViewSelectionState
-    updateNoEventsText()
-  }
-  
-  func update() {
-    self.closestMonthEntities = takeClosestMonthEntities()
+    
+    screenStateEnum = .empty(title: noEventsText)
   }
   
   func createEventClicked() {
@@ -32,13 +27,5 @@ public class ClosestViewModel: ObservableObject {
   
   private func showCategoriesTab() {
     mainTabViewSelectionState.selection = .create
-  }
-  
-  private func updateNoEventsText() {
-    noEventsText = closestMonthEntities.count == 0 ? "There are no events yet.\nPlease add one!" : nil
-  }
-  
-  private func takeClosestMonthEntities() -> [ClosestMonthEntity] {
-    return []
   }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderSharedUI
 
 public struct EventScreenView: View {
   @ObservedObject var store: EventViewStore
@@ -18,44 +19,8 @@ public struct EventScreenView: View {
   
   public var body: some View {
     ZStack {
-      LinearGradient(
-        colors: [
-          Color(.systemGroupedBackground),
-          Color(.secondarySystemBackground)
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-      )
-      .ignoresSafeArea()
-      ScrollView(showsIndicators: false) {
-        VStack(spacing: 24) {
-          viewTitleView()
-          sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
-            eventTitleView()
-            Divider()
-              .padding(.horizontal, -8)
-            eventCommentView()
-            Divider()
-              .padding(.horizontal, -8)
-            eventDateView()
-          }
-          sectionContainer(title: "Alerts", systemImage: "bell.badge") {
-            remindRepeatView()
-            Divider()
-              .padding(.horizontal, -8)
-            remindTimeView()
-          }
-          VStack(spacing: 12) {
-            saveButtonView()
-            cancelButtonView()
-            deleteButtonView()
-          }
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 32)
-        .frame(maxWidth: 640)
-        .frame(maxWidth: .infinity)
-      }
+      BackgroundSharedView()
+      contentView
     }
     .disabled(store.isViewBlocked)
     .alert(store.alertInfo.title, isPresented: $store.isAlertVisible) {
@@ -79,7 +44,40 @@ public struct EventScreenView: View {
   }
   
   //MARK: - Views
-  private func viewTitleView() -> some View {
+  
+  var contentView: some View {
+    ScrollView(showsIndicators: false) {
+      VStack(spacing: 24) {
+        viewTitleView
+        sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
+          eventTitleView
+          Divider()
+            .padding(.horizontal, -8)
+          eventCommentView
+          Divider()
+            .padding(.horizontal, -8)
+          eventDateView
+        }
+        sectionContainer(title: "Alerts", systemImage: "bell.badge") {
+          remindRepeatView
+          Divider()
+            .padding(.horizontal, -8)
+          remindTimeView()
+        }
+        VStack(spacing: 12) {
+          saveButtonView()
+          cancelButtonView()
+          deleteButtonView()
+        }
+      }
+      .padding(.horizontal, 24)
+      .padding(.vertical, 32)
+      .frame(maxWidth: 640)
+      .frame(maxWidth: .infinity)
+    }
+  }
+  
+  private var viewTitleView: some View {
       Label {
         Text(store.viewTitle)
           .font(.largeTitle.bold())
@@ -104,7 +102,7 @@ public struct EventScreenView: View {
   }
 
   @ViewBuilder
-  private func eventTitleView() -> some View {
+  private var eventTitleView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text("Title")
         .font(.subheadline.weight(.semibold))
@@ -120,7 +118,7 @@ public struct EventScreenView: View {
     }
   }
 
-  private func eventDateView() -> some View {
+  private var eventDateView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text("Date")
         .font(.subheadline.weight(.semibold))
@@ -131,7 +129,7 @@ public struct EventScreenView: View {
   }
 
   @ViewBuilder
-  private func eventCommentView() -> some View {
+  private var eventCommentView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text("Comment")
         .font(.subheadline.weight(.semibold))
@@ -148,7 +146,7 @@ public struct EventScreenView: View {
   }
 
   @ViewBuilder
-  private func remindRepeatView() -> some View {
+  private var remindRepeatView: some View {
     VStack(alignment: .leading, spacing: 12) {
       Text("Repeat")
         .font(.subheadline.weight(.semibold))

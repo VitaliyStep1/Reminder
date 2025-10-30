@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import ReminderSharedUI
 
 public struct ClosestScreenView: View {
   @StateObject var viewModel: ClosestViewModel
@@ -18,13 +19,12 @@ public struct ClosestScreenView: View {
   public var body: some View {
     NavigationStack {
       ZStack {
-        Color(.systemGroupedBackground)
-          .ignoresSafeArea()
+        BackgroundSharedView()
 
-        if viewModel.closestMonthEntities.isEmpty,
-           let noEventsText = viewModel.noEventsText {
-          emptyStateView(noEventsText: noEventsText)
-        } else {
+        switch viewModel.screenStateEnum {
+        case .empty(let title):
+          emptyStateView(noEventsText: title)
+        case .withData:
           EmptyView()
         }
       }

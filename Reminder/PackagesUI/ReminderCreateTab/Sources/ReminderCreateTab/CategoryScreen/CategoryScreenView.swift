@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ReminderNavigationContracts
+import ReminderSharedUI
 
 public struct CategoryScreenView: View {
   @StateObject var viewModel: CategoryViewModel
@@ -19,7 +20,7 @@ public struct CategoryScreenView: View {
   
   public var body: some View {
     ZStack {
-      backgroundView
+      BackgroundSharedView()
       VStack(spacing: 20) {
         headerView
         contentView
@@ -46,15 +47,6 @@ public struct CategoryScreenView: View {
 }
 
 private extension CategoryScreenView {
-  var backgroundView: some View {
-    LinearGradient(
-      gradient: Gradient(colors: [Color(.systemGroupedBackground), Color(.secondarySystemBackground)]),
-      startPoint: .top,
-      endPoint: .bottom
-    )
-    .ignoresSafeArea()
-  }
-  
   var headerView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text(viewModel.headerTitle)

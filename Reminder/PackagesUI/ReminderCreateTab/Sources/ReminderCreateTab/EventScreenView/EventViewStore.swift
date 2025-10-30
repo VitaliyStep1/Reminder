@@ -45,9 +45,9 @@ public final class EventViewStore: ObservableObject {
   public var category: ReminderDomainContracts.Category?
 
   @Published var repeatRepresentationEnum: EventEntity.RepeatRepresentationEnum
-  let router: CreateTabRouterProtocol
+  let router: any CreateTabRouterProtocol
 
-  public init(eventScreenViewType: EventScreenViewType, router: CreateTabRouterProtocol) {
+  public init(eventScreenViewType: EventScreenViewType, router: any CreateTabRouterProtocol) {
     self.eventScreenViewType = eventScreenViewType
     self.eventTitle = ""
     self.eventDate = Date()
