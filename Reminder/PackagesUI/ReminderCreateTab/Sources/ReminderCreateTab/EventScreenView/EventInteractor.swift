@@ -58,6 +58,9 @@ public final class EventInteractor {
         self.notifyCategoryEventWasUpdated(newCategoryId: newCategoryId)
         presenter.presentSaving(false)
         closeView()
+      } catch EventEntity.SaveEventError.titleShouldBeNotEmpty {
+        presenter.presentSaving(false)
+        presenter.presentEventTitleShouldBeNotEmptyAlert()
       } catch {
         presenter.presentSaving(false)
         presenter.presentEventWasNotSavedAlert()
@@ -76,24 +79,24 @@ public final class EventInteractor {
   }
 
   public func addRemindTimeButtonTapped() {
-    if store.remindTimeDate2 == nil {
-      store.remindTimeDate2 = store.defaultRemindTimeDate
-    } else if store.remindTimeDate3 == nil {
-      store.remindTimeDate3 = store.defaultRemindTimeDate
+    if store.eventData.remindTimeDate2 == nil {
+      store.eventData.remindTimeDate2 = store.defaultRemindTimeDate
+    } else if store.eventData.remindTimeDate3 == nil {
+      store.eventData.remindTimeDate3 = store.defaultRemindTimeDate
     }
   }
 
   public func removeRemindTimeDate2ButtonTapped() {
-    if let remindTimeDate3 = store.remindTimeDate3 {
-      store.remindTimeDate2 = remindTimeDate3
-      store.remindTimeDate3 = nil
+    if let remindTimeDate3 = store.eventData.remindTimeDate3 {
+      store.eventData.remindTimeDate2 = remindTimeDate3
+      store.eventData.remindTimeDate3 = nil
     } else {
-      store.remindTimeDate2 = nil
+      store.eventData.remindTimeDate2 = nil
     }
   }
 
   public func removeRemindTimeDate3ButtonTapped() {
-    store.remindTimeDate3 = nil
+    store.eventData.remindTimeDate3 = nil
   }
   
   private func deletingEventConfirmed() {
@@ -113,12 +116,15 @@ public final class EventInteractor {
   }
   
   private func saveEvent() async throws -> Identifier? {
+    let eventData: EventData = store.eventData
+    try checkEventBeforeSaving(eventData: eventData)
+    
     var newCategoryId: Identifier?
     switch store.eventScreenViewType {
     case .create(let categoryId):
-      newCategoryId = try await createEvent(categoryId: categoryId)
+      newCategoryId = try await createEvent(categoryId: categoryId, eventData: eventData)
     case .edit(let eventId):
-      newCategoryId = try await editEvent(eventId: eventId)
+      newCategoryId = try await editEvent(eventId: eventId, eventData: eventData)
     case .notVisible:
       break
     }
@@ -134,17 +140,14 @@ public final class EventInteractor {
     }
   }
   
-  private func createEvent(categoryId: Identifier) async throws -> Identifier? {
-    let title = store.eventTitle
-    let comment = store.eventComment
-    let date = store.eventDate
-    let remindRepeat = store.eventRemindRepeat
-    let remindTimeDate1 = store.remindTimeDate1
-    let remindTimeDate2 = store.remindTimeDate2
-    let remindTimeDate3 = store.remindTimeDate3
-    guard !title.isEmpty else {
-      throw EventEntity.CreateEventError.titleShouldBeNotEmpty
-    }
+  private func createEvent(categoryId: Identifier, eventData: EventData) async throws -> Identifier? {
+    let title = eventData.title
+    let comment = eventData.comment
+    let date = eventData.date
+    let remindRepeat = eventData.remindRepeat
+    let remindTimeDate1 = eventData.remindTimeDate1
+    let remindTimeDate2 = eventData.remindTimeDate2
+    let remindTimeDate3 = eventData.remindTimeDate3
     let newCategoryId = try await createEventUseCase.execute(
       categoryId: categoryId,
       title: title,
@@ -158,14 +161,14 @@ public final class EventInteractor {
     return newCategoryId
   }
   
-  private func editEvent(eventId: Identifier) async throws -> Identifier? {
-    let title = store.eventTitle
-    let comment = store.eventComment
-    let date = store.eventDate
-    let remindRepeat = store.eventRemindRepeat
-    let remindTimeDate1 = store.remindTimeDate1
-    let remindTimeDate2 = store.remindTimeDate2
-    let remindTimeDate3 = store.remindTimeDate3
+  private func editEvent(eventId: Identifier, eventData: EventData) async throws -> Identifier? {
+    let title = eventData.title
+    let comment = eventData.comment
+    let date = eventData.date
+    let remindRepeat = eventData.remindRepeat
+    let remindTimeDate1 = eventData.remindTimeDate1
+    let remindTimeDate2 = eventData.remindTimeDate2
+    let remindTimeDate3 = eventData.remindTimeDate3
     let newCategoryId = try await editEventUseCase.execute(
       eventId: eventId,
       title: title,
@@ -244,5 +247,12 @@ public final class EventInteractor {
 
   private func closeView() {
     store.router.popScreen()
+  }
+  
+  func checkEventBeforeSaving(eventData: EventData) throws {
+    let eventTitle = eventData.title
+    guard !eventTitle.isEmpty else {
+      throw EventEntity.SaveEventError.titleShouldBeNotEmpty
+    }
   }
 }

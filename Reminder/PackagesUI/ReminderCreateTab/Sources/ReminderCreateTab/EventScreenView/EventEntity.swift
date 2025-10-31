@@ -8,7 +8,7 @@
 import ReminderDomainContracts
 
 enum EventEntity {
-  enum CreateEventError: Error {
+  enum SaveEventError: Error {
     case titleShouldBeNotEmpty
   }
   

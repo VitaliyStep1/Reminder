@@ -15,30 +15,50 @@ public class CategoryViewModel: ObservableObject {
   let fetchEventsUseCase: FetchEventsUseCaseProtocol
   let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   var categoryId: Identifier
-
-  @Published var entityEvents: [CategoryEntity.Event] = []
-  @Published var navigationTitle: String = ""
+  
+  @Published var screenStateEnum: CategoryEntity.ScreenStateEnum
+  
+  private var events: [CategoryEntity.Event] = [] {
+    didSet {
+      let eventsTitle = events.count == 1 ? "event" : "events"
+      headerSubTitle = "\(events.count) added \(eventsTitle)"
+      if events.isEmpty {
+        screenStateEnum = .empty(title: noEventsText)
+      } else {
+        screenStateEnum = .withEvents(events: events)
+      }
+    }
+  }
+  @Published var navigationTitle: String = "" {
+    didSet {
+      headerTitle = navigationTitle
+    }
+  }
   @Published var isAlertVisible: Bool = false
-  var router: CreateTabRouterProtocol
-
+  @Published var headerTitle: String = ""
+  @Published var headerSubTitle: String = ""
+  var router: any CreateTabRouterProtocol
+  
   var alertInfo: AlertInfo = AlertInfo(message: "")
-
+  
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
-
+  private let noEventsText = "No events yet"
+  
   private var cancellables: Set<AnyCancellable> = []
   
   public init(
     categoryId: Identifier,
     fetchEventsUseCase: FetchEventsUseCaseProtocol,
-    fetchCategoryUseCase: FetchCategoryUseCaseProtocol, router: CreateTabRouterProtocol
+    fetchCategoryUseCase: FetchCategoryUseCaseProtocol, router: any CreateTabRouterProtocol
   ) {
     self.categoryId = categoryId
     self.fetchEventsUseCase = fetchEventsUseCase
     self.fetchCategoryUseCase = fetchCategoryUseCase
     self.router = router
-
+    self.screenStateEnum = .empty(title: noEventsText)
+    
     observeRouterUpdates()
   }
   
@@ -70,19 +90,19 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func updateEventList() {
-      Task {
-        do {
-          let events = try await fetchEventsUseCase.execute(categoryId: categoryId)
-          let entityEvents: [CategoryEntity.Event] = events.map { event in
-            let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
-            return CategoryEntity.Event(id: event.id, title: event.title, date: date, comment: event.comment)
-          }
-
-          self.entityEvents = entityEvents
-        } catch {
-          showEventsWereNotFetchedAlert()
+    Task {
+      do {
+        let events = try await fetchEventsUseCase.execute(categoryId: categoryId)
+        let entityEvents: [CategoryEntity.Event] = events.map { event in
+          let date = event.date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.defaultDigits))
+          return CategoryEntity.Event(id: event.id, title: event.title, date: date)
         }
+        
+        self.events = entityEvents
+      } catch {
+        showEventsWereNotFetchedAlert()
       }
+    }
   }
   
   private func updateNavigationTitle() {
@@ -101,7 +121,7 @@ public class CategoryViewModel: ObservableObject {
     alertInfo = AlertInfo(message: "Events were not fetched")
     isAlertVisible = true
   }
-
+  
   private func observeRouterUpdates() {
     router.objectWillChange
       .receive(on: DispatchQueue.main)
@@ -111,7 +131,7 @@ public class CategoryViewModel: ObservableObject {
       }
       .store(in: &cancellables)
   }
-
+  
   private func handleRouterPathUpdate() {
     guard let categoryRoute = router.path.last(where: { route in
       if case .category = route {
@@ -121,15 +141,15 @@ public class CategoryViewModel: ObservableObject {
     }) else {
       return
     }
-
+    
     guard case let .category(newCategoryId) = categoryRoute else {
       return
     }
-
+    
     guard newCategoryId != categoryId else {
       return
     }
-
+    
     categoryId = newCategoryId
     updateEventList()
     updateNavigationTitle()

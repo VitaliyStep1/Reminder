@@ -43,13 +43,13 @@ public final class EventPresenter {
   }
   
   public func presentEvent(_ event: Event) {
-    store.eventTitle = event.title
-    store.eventDate = event.date
-    store.eventComment = event.comment
-    store.eventRemindRepeat = event.remindRepeat
-    store.remindTimeDate1 = event.remindTimeDate1
-    store.remindTimeDate2 = event.remindTimeDate2
-    store.remindTimeDate3 = event.remindTimeDate3
+    store.eventData.title = event.title
+    store.eventData.date = event.date
+    store.eventData.comment = event.comment
+    store.eventData.remindRepeat = event.remindRepeat
+    store.eventData.remindTimeDate1 = event.remindTimeDate1
+    store.eventData.remindTimeDate2 = event.remindTimeDate2
+    store.eventData.remindTimeDate3 = event.remindTimeDate3
   }
   
   public func presentCategory(_ category: ReminderDomainContracts.Category) {
@@ -57,21 +57,25 @@ public final class EventPresenter {
     
     let options = category.categoryRepeat.chooseOptions
     if options.isEmpty {
-      let remindRepeatText = remindRepeatTitle(for: store.eventRemindRepeat)
+      let remindRepeatText = remindRepeatTitle(for: store.eventData.remindRepeat)
       store.repeatRepresentationEnum = .text(text: remindRepeatText)
     } else {
       let remindRepeatValues = options
       let remindRepeatTitles = Dictionary(uniqueKeysWithValues: remindRepeatValues.map { ($0, remindRepeatTitle(for: $0)) })
       store.repeatRepresentationEnum = .picker(values: remindRepeatValues, titles: remindRepeatTitles)
     }
-    
+
     if case .create = store.eventScreenViewType {
-      store.eventRemindRepeat = category.categoryRepeat.defaultRemindRepeat
+      store.eventData.remindRepeat = category.categoryRepeat.defaultRemindRepeat
     }
 
-    if let firstOption = options.first, !options.contains(store.eventRemindRepeat) {
-      store.eventRemindRepeat = firstOption
+    if let firstOption = options.first, !options.contains(store.eventData.remindRepeat) {
+      store.eventData.remindRepeat = firstOption
     }
+  }
+  
+  public func presentEventTitleShouldBeNotEmptyAlert() {
+    presentAlert(message: "Event title should not be empty")
   }
   
   public func presentEventWasNotSavedAlert() {
@@ -96,10 +100,10 @@ public final class EventPresenter {
     store.alertInfo = AlertInfo(message: message, completion: completion)
     store.isAlertVisible = true
   }
-  
+
   public func presentDefaultRemindTimeDate(defaultRemindTimeDate: Date) {
     store.defaultRemindTimeDate = defaultRemindTimeDate
-    store.remindTimeDate1 = defaultRemindTimeDate
+    store.eventData.remindTimeDate1 = defaultRemindTimeDate
   }
   
   private func configureView() {
@@ -120,7 +124,7 @@ public final class EventPresenter {
   }
 
   private func configureBindings() {
-    store.$eventRemindRepeat
+    store.eventData.$remindRepeat
       .receive(on: RunLoop.main)
       .sink { [weak self] remindRepeat in
         self?.updateRepeatRepresentationIfNeeded(for: remindRepeat)
@@ -136,11 +140,11 @@ public final class EventPresenter {
   private func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
     switch remindRepeat {
     case .everyYear:
-      return "Every Year"
+      return "Year"
     case .everyMonth:
-      return "Every Month"
+      return "Month"
     case .everyDay:
-      return "Every Day"
+      return "Day"
     case .notRepeat:
       return "Not Repeat"
     }

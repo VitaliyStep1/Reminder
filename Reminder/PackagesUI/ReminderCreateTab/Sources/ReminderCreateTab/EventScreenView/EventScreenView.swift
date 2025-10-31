@@ -6,56 +6,23 @@
 //
 
 import SwiftUI
+import ReminderSharedUI
 
 public struct EventScreenView: View {
   @ObservedObject var store: EventViewStore
+  @ObservedObject var eventData: EventData
   let interactor: EventInteractor
 
   public init(store: EventViewStore, interactor: EventInteractor) {
     _store = ObservedObject(wrappedValue: store)
+    _eventData = ObservedObject(wrappedValue: store.eventData)
     self.interactor = interactor
   }
   
   public var body: some View {
     ZStack {
-      LinearGradient(
-        colors: [
-          Color(.systemGroupedBackground),
-          Color(.secondarySystemBackground)
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-      )
-      .ignoresSafeArea()
-      ScrollView(showsIndicators: false) {
-        VStack(spacing: 24) {
-          viewTitleView()
-          sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
-            eventTitleView()
-            Divider()
-              .padding(.horizontal, -8)
-            eventCommentView()
-            Divider()
-              .padding(.horizontal, -8)
-            eventDateView()
-          }
-          sectionContainer(title: "Alerts", systemImage: "bell.badge") {
-            remindRepeatView()
-            Divider()
-              .padding(.horizontal, -8)
-            remindTimeView()
-          }
-          VStack(spacing: 12) {
-            saveButtonView()
-            cancelButtonView()
-            deleteButtonView()
-          }
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 32)
-        .frame(maxWidth: 640)
-        .frame(maxWidth: .infinity)
-      }
+      BackgroundSharedView()
+      contentView
     }
     .disabled(store.isViewBlocked)
     .alert(store.alertInfo.title, isPresented: $store.isAlertVisible) {
@@ -79,7 +46,40 @@ public struct EventScreenView: View {
   }
   
   //MARK: - Views
-  private func viewTitleView() -> some View {
+  
+  var contentView: some View {
+    ScrollView(showsIndicators: false) {
+      VStack(spacing: 24) {
+        viewTitleView
+        sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
+          eventTitleView
+          Divider()
+            .padding(.horizontal, -8)
+          eventCommentView
+          Divider()
+            .padding(.horizontal, -8)
+          eventDateView
+        }
+        sectionContainer(title: "Alerts", systemImage: "bell.badge") {
+          remindRepeatView
+          Divider()
+            .padding(.horizontal, -8)
+          remindTimeView()
+        }
+        VStack(spacing: 12) {
+          saveButtonView()
+          cancelButtonView()
+          deleteButtonView()
+        }
+      }
+      .padding(.horizontal, 24)
+      .padding(.vertical, 32)
+      .frame(maxWidth: 640)
+      .frame(maxWidth: .infinity)
+    }
+  }
+  
+  private var viewTitleView: some View {
       Label {
         Text(store.viewTitle)
           .font(.largeTitle.bold())
@@ -104,58 +104,58 @@ public struct EventScreenView: View {
   }
 
   @ViewBuilder
-  private func eventTitleView() -> some View {
+  private var eventTitleView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text("Title")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
-      TextField("Title", text: $store.eventTitle)
+      TextField("Title", text: $eventData.title)
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
         .background(fieldBackground)
         .overlay(
           RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(Color.accentColor.opacity(store.eventTitle.isEmpty ? 0 : 0.4), lineWidth: 1)
+            .stroke(Color.accentColor.opacity(eventData.title.isEmpty ? 0 : 0.4), lineWidth: 1)
         )
     }
   }
 
-  private func eventDateView() -> some View {
+  private var eventDateView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text("Date")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
-      EventDateView(eventDate: $store.eventDate)
+      EventDateView(eventDate: $eventData.date)
         .padding(.horizontal, 4)
     }
   }
 
   @ViewBuilder
-  private func eventCommentView() -> some View {
+  private var eventCommentView: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text("Comment")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
-      TextField("Comment", text: $store.eventComment)
+      TextField("Comment", text: $eventData.comment)
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
         .background(fieldBackground)
         .overlay(
           RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(Color.accentColor.opacity(store.eventComment.isEmpty ? 0 : 0.4), lineWidth: 1)
+            .stroke(Color.accentColor.opacity(eventData.comment.isEmpty ? 0 : 0.4), lineWidth: 1)
         )
     }
   }
 
   @ViewBuilder
-  private func remindRepeatView() -> some View {
+  private var remindRepeatView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Repeat")
+      Text("Repeat every")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
       switch store.repeatRepresentationEnum {
       case .picker(let values, let titles):
-        Picker("Repeat", selection: $store.eventRemindRepeat) {
+        Picker("Repeat every", selection: $eventData.remindRepeat) {
           ForEach(values, id: \.self) { option in
             Text(titles[option] ?? "")
               .tag(option)
@@ -178,19 +178,19 @@ public struct EventScreenView: View {
     VStack(alignment: .leading, spacing: 12) {
       remindTimeRow(
         title: "Remind time 1",
-        selection: $store.remindTimeDate1
+        selection: $eventData.remindTimeDate1
       )
       if store.isRemindTime2ViewVisible {
         remindTimeRow(
           title: "Remind time 2",
-          selection: bindingForOptionalDate($store.remindTimeDate2),
+          selection: bindingForOptionalDate($eventData.remindTimeDate2),
           removeAction: interactor.removeRemindTimeDate2ButtonTapped
         )
       }
       if store.isRemindTime3ViewVisible {
         remindTimeRow(
           title: "Remind time 3",
-          selection: bindingForOptionalDate($store.remindTimeDate3),
+          selection: bindingForOptionalDate($eventData.remindTimeDate3),
           removeAction: interactor.removeRemindTimeDate3ButtonTapped
         )
       }

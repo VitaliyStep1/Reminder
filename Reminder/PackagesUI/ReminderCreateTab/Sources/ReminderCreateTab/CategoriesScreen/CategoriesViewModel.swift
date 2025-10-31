@@ -14,15 +14,19 @@ import ReminderNavigationContracts
 public class CategoriesViewModel: ObservableObject {
   let fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol
   
-  @Published var categoryEntities: [CategoriesCategoryEntity] = []
+  @Published var screenStateEnum: CategoriesEntity.ScreenStateEnum
   @Published var navigationTitle: String = "Categories"
   let router: any CreateTabRouterProtocol
   private var cancellables: Set<AnyCancellable> = []
-
+  
+  private let noCategoriesText = "No categories was found"
+  
   public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol, router: any CreateTabRouterProtocol) {
     self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
     self.router = router
-
+    
+    screenStateEnum = .empty(title: noCategoriesText)
+    
     router.objectWillChange
       .receive(on: DispatchQueue.main)
       .sink { [weak self] _ in
@@ -32,37 +36,38 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   func taskWasCalled() {
-    
     loadCategories()
   }
   
-  func categoryButtonClicked(_ categoryEntity: CategoriesCategoryEntity) {
-    router.pushScreen(.category(categoryEntity.id))
+  func categoryRowWasClicked(_ category: CategoriesEntity.Category) {
+    router.pushScreen(.category(category.id))
   }
   
   func loadCategories() {
     Task {
       let allCategories = (try? await fetchAllCategoriesUseCase.execute()) ?? []
-      let categoryEntities = allCategories.map(CategoriesCategoryEntity.init(category:))
       await MainActor.run {
-        self.categoryEntities = categoryEntities
+        let categories = allCategories.map {
+          let eventsAmountText = self.takeEventsAmountText(eventsAmount: $0.eventsAmount)
+          return CategoriesEntity.Category(id: $0.id, title: $0.title, eventsAmountText: eventsAmountText)
+        }
+        
+        if categories.isEmpty {
+          self.screenStateEnum = .empty(title: self.noCategoriesText)
+        } else {
+          self.screenStateEnum = .withCategories(categories: categories)
+        }
       }
     }
   }
-
+  
+  private func takeEventsAmountText(eventsAmount: Int) -> String {
+    let title = eventsAmount == 1 ? "Event" : "Events"
+    return "\(eventsAmount) \(title)"
+  }
+  
   var routerPath: [Route] {
     get { router.path }
     set { router.path = newValue }
-  }
-
-  var totalEventsCount: Int {
-    categoryEntities.reduce(0) { partialResult, entity in
-      partialResult + entity.eventsAmount
-    }
-  }
-
-  var totalEventsDescription: String {
-    let count = totalEventsCount
-    return "\(count) event\(count == 1 ? "" : "s")"
   }
 }
