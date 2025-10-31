@@ -148,12 +148,12 @@ public struct EventScreenView: View {
   @ViewBuilder
   private var remindRepeatView: some View {
     VStack(alignment: .leading, spacing: 12) {
-      Text("Repeat")
+      Text("Repeat every")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
       switch store.repeatRepresentationEnum {
       case .picker(let values, let titles):
-        Picker("Repeat", selection: $store.eventRemindRepeat) {
+        Picker("Repeat every", selection: $store.eventRemindRepeat) {
           ForEach(values, id: \.self) { option in
             Text(titles[option] ?? "")
               .tag(option)

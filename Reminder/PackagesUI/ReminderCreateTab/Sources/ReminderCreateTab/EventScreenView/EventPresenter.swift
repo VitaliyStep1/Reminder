@@ -74,6 +74,10 @@ public final class EventPresenter {
     }
   }
   
+  public func presentEventTitleShouldBeNotEmptyAlert() {
+    presentAlert(message: "Event title should not be empty")
+  }
+  
   public func presentEventWasNotSavedAlert() {
     presentAlert(message: "Event was not saved")
   }
@@ -136,11 +140,11 @@ public final class EventPresenter {
   private func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
     switch remindRepeat {
     case .everyYear:
-      return "Every Year"
+      return "Year"
     case .everyMonth:
-      return "Every Month"
+      return "Month"
     case .everyDay:
-      return "Every Day"
+      return "Day"
     case .notRepeat:
       return "Not Repeat"
     }

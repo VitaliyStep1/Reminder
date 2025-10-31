@@ -58,6 +58,9 @@ public final class EventInteractor {
         self.notifyCategoryEventWasUpdated(newCategoryId: newCategoryId)
         presenter.presentSaving(false)
         closeView()
+      } catch EventEntity.SaveEventError.titleShouldBeNotEmpty {
+        presenter.presentSaving(false)
+        presenter.presentEventTitleShouldBeNotEmptyAlert()
       } catch {
         presenter.presentSaving(false)
         presenter.presentEventWasNotSavedAlert()
@@ -113,6 +116,8 @@ public final class EventInteractor {
   }
   
   private func saveEvent() async throws -> Identifier? {
+    try checkEventBeforeSaving(eventTitle: store.eventTitle)
+    
     var newCategoryId: Identifier?
     switch store.eventScreenViewType {
     case .create(let categoryId):
@@ -142,9 +147,6 @@ public final class EventInteractor {
     let remindTimeDate1 = store.remindTimeDate1
     let remindTimeDate2 = store.remindTimeDate2
     let remindTimeDate3 = store.remindTimeDate3
-    guard !title.isEmpty else {
-      throw EventEntity.CreateEventError.titleShouldBeNotEmpty
-    }
     let newCategoryId = try await createEventUseCase.execute(
       categoryId: categoryId,
       title: title,
@@ -244,5 +246,11 @@ public final class EventInteractor {
 
   private func closeView() {
     store.router.popScreen()
+  }
+  
+  func checkEventBeforeSaving(eventTitle: String) throws {
+    guard !eventTitle.isEmpty else {
+      throw EventEntity.SaveEventError.titleShouldBeNotEmpty
+    }
   }
 }
