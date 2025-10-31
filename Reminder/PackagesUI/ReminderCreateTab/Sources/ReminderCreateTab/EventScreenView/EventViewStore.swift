@@ -13,13 +13,7 @@ import ReminderNavigationContracts
 public final class EventViewStore: ObservableObject {
   public let eventScreenViewType: EventScreenViewType
 
-  @Published public var eventTitle: String
-  @Published public var eventDate: Date
-  @Published public var eventComment: String
-  @Published public var eventRemindRepeat: RemindRepeatEnum
-  @Published public var remindTimeDate1: Date
-  @Published public var remindTimeDate2: Date? { didSet { updateRemindTimeVisibility() } }
-  @Published public var remindTimeDate3: Date? { didSet { updateRemindTimeVisibility() } }
+  public let eventData: EventData
   @Published public var defaultRemindTimeDate: Date
 
   @Published public var isRemindTime2ViewVisible: Bool
@@ -49,13 +43,15 @@ public final class EventViewStore: ObservableObject {
 
   public init(eventScreenViewType: EventScreenViewType, router: any CreateTabRouterProtocol) {
     self.eventScreenViewType = eventScreenViewType
-    self.eventTitle = ""
-    self.eventDate = Date()
-    self.eventComment = ""
-    self.eventRemindRepeat = .everyYear
-    self.remindTimeDate1 = Date()
-    self.remindTimeDate2 = nil
-    self.remindTimeDate3 = nil
+    self.eventData = EventData(
+      title: "",
+      date: Date(),
+      comment: "",
+      remindRepeat: .everyYear,
+      remindTimeDate1: Date(),
+      remindTimeDate2: nil,
+      remindTimeDate3: nil
+    )
     self.defaultRemindTimeDate = Date()
     self.isRemindTime2ViewVisible = false
     self.isRemindTime3ViewVisible = false
@@ -76,12 +72,16 @@ public final class EventViewStore: ObservableObject {
     self.repeatRepresentationEnum = .text(text: "")
     self.router = router
     
+    eventData.onRemindTimeDatesChange = { [weak self] in
+      self?.updateRemindTimeVisibility()
+    }
+
     updateRemindTimeVisibility()
   }
 
   private func updateRemindTimeVisibility() {
-    isRemindTime2ViewVisible = remindTimeDate2 != nil
-    isRemindTime3ViewVisible = remindTimeDate3 != nil
+    isRemindTime2ViewVisible = eventData.remindTimeDate2 != nil
+    isRemindTime3ViewVisible = eventData.remindTimeDate3 != nil
     isAddRemindTimeButtonVisible = !isRemindTime3ViewVisible
   }
 }

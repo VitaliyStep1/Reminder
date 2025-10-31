@@ -10,10 +10,12 @@ import ReminderSharedUI
 
 public struct EventScreenView: View {
   @ObservedObject var store: EventViewStore
+  @ObservedObject var eventData: EventData
   let interactor: EventInteractor
 
   public init(store: EventViewStore, interactor: EventInteractor) {
     _store = ObservedObject(wrappedValue: store)
+    _eventData = ObservedObject(wrappedValue: store.eventData)
     self.interactor = interactor
   }
   
@@ -107,13 +109,13 @@ public struct EventScreenView: View {
       Text("Title")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
-      TextField("Title", text: $store.eventTitle)
+      TextField("Title", text: $eventData.title)
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
         .background(fieldBackground)
         .overlay(
           RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(Color.accentColor.opacity(store.eventTitle.isEmpty ? 0 : 0.4), lineWidth: 1)
+            .stroke(Color.accentColor.opacity(eventData.title.isEmpty ? 0 : 0.4), lineWidth: 1)
         )
     }
   }
@@ -123,7 +125,7 @@ public struct EventScreenView: View {
       Text("Date")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
-      EventDateView(eventDate: $store.eventDate)
+      EventDateView(eventDate: $eventData.date)
         .padding(.horizontal, 4)
     }
   }
@@ -134,13 +136,13 @@ public struct EventScreenView: View {
       Text("Comment")
         .font(.subheadline.weight(.semibold))
         .foregroundStyle(.secondary)
-      TextField("Comment", text: $store.eventComment)
+      TextField("Comment", text: $eventData.comment)
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
         .background(fieldBackground)
         .overlay(
           RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(Color.accentColor.opacity(store.eventComment.isEmpty ? 0 : 0.4), lineWidth: 1)
+            .stroke(Color.accentColor.opacity(eventData.comment.isEmpty ? 0 : 0.4), lineWidth: 1)
         )
     }
   }
@@ -153,7 +155,7 @@ public struct EventScreenView: View {
         .foregroundStyle(.secondary)
       switch store.repeatRepresentationEnum {
       case .picker(let values, let titles):
-        Picker("Repeat every", selection: $store.eventRemindRepeat) {
+        Picker("Repeat every", selection: $eventData.remindRepeat) {
           ForEach(values, id: \.self) { option in
             Text(titles[option] ?? "")
               .tag(option)
@@ -176,19 +178,19 @@ public struct EventScreenView: View {
     VStack(alignment: .leading, spacing: 12) {
       remindTimeRow(
         title: "Remind time 1",
-        selection: $store.remindTimeDate1
+        selection: $eventData.remindTimeDate1
       )
       if store.isRemindTime2ViewVisible {
         remindTimeRow(
           title: "Remind time 2",
-          selection: bindingForOptionalDate($store.remindTimeDate2),
+          selection: bindingForOptionalDate($eventData.remindTimeDate2),
           removeAction: interactor.removeRemindTimeDate2ButtonTapped
         )
       }
       if store.isRemindTime3ViewVisible {
         remindTimeRow(
           title: "Remind time 3",
-          selection: bindingForOptionalDate($store.remindTimeDate3),
+          selection: bindingForOptionalDate($eventData.remindTimeDate3),
           removeAction: interactor.removeRemindTimeDate3ButtonTapped
         )
       }
