@@ -75,7 +75,7 @@ private extension CategoriesScreenView {
     VStack(spacing: 12) {
       Image(systemName: "square.grid.2x2")
         .font(.system(size: 42, weight: .medium))
-        .foregroundStyle(Color.blue)
+        .foregroundStyle(ReminderColor.Category.icon)
       Text(title)
         .font(.headline)
     }
@@ -83,10 +83,10 @@ private extension CategoriesScreenView {
     .padding(32)
     .background {
       RoundedRectangle(cornerRadius: 16, style: .continuous)
-        .fill(Color(.secondarySystemGroupedBackground))
+        .fill(ReminderColor.Background.groupedSecondary)
     }
     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-    .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 6)
+    .shadow(color: ReminderColor.Shadow.extraLight, radius: 10, x: 0, y: 6)
   }
   
   @ViewBuilder

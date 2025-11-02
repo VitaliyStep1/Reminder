@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderSharedUI
 
 public struct SplashScreenView: View {
   @Binding var isSplashScreenVisible: Bool
@@ -16,7 +17,7 @@ public struct SplashScreenView: View {
   
   public var body: some View {
     ZStack {
-      Color.green.ignoresSafeArea(edges: .all)
+      ReminderColor.Accent.primary.ignoresSafeArea(edges: .all)
       Text("Splash screen")
     }.task {
       try? await Task.sleep(for: .seconds(2))

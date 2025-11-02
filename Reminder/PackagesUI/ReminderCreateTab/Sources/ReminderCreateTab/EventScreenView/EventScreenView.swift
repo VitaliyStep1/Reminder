@@ -86,19 +86,19 @@ public struct EventScreenView: View {
       } icon: {
         Image(systemName: "calendar.badge.plus")
           .font(.title3.weight(.semibold))
-          .foregroundStyle(.white)
+          .foregroundStyle(ReminderColor.Text.inverse)
           .padding(12)
           .background(
             Circle()
               .fill(
                 LinearGradient(
-                  colors: [Color.accentColor, Color.accentColor.opacity(0.7)],
+                  colors: [ReminderColor.Accent.gradientStart, ReminderColor.Accent.gradientEnd],
                   startPoint: .topLeading,
                   endPoint: .bottomTrailing
                 )
               )
           )
-          .shadow(color: Color.accentColor.opacity(0.3), radius: 10, x: 0, y: 6)
+          .shadow(color: ReminderColor.Accent.shadow, radius: 10, x: 0, y: 6)
       }
     .frame(maxWidth: .infinity, alignment: .leading)
   }
@@ -115,7 +115,7 @@ public struct EventScreenView: View {
         .background(fieldBackground)
         .overlay(
           RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(Color.accentColor.opacity(eventData.title.isEmpty ? 0 : 0.4), lineWidth: 1)
+            .stroke(ReminderColor.Accent.primary.opacity(eventData.title.isEmpty ? 0 : 0.4), lineWidth: 1)
         )
     }
   }
@@ -142,7 +142,7 @@ public struct EventScreenView: View {
         .background(fieldBackground)
         .overlay(
           RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(Color.accentColor.opacity(eventData.comment.isEmpty ? 0 : 0.4), lineWidth: 1)
+            .stroke(ReminderColor.Accent.primary.opacity(eventData.comment.isEmpty ? 0 : 0.4), lineWidth: 1)
         )
     }
   }
@@ -200,7 +200,7 @@ public struct EventScreenView: View {
             .font(.body.weight(.semibold))
         }
         .buttonStyle(.borderedProminent)
-        .tint(Color.accentColor)
+        .tint(ReminderColor.Accent.primary)
       }
     }
   }
@@ -212,7 +212,7 @@ public struct EventScreenView: View {
       HStack(spacing: 10) {
         if store.isSaving {
           ProgressView()
-            .tint(.white)
+            .tint(ReminderColor.Text.inverse)
           Text(store.saveButtonTitle)
         } else {
           Image(systemName: "checkmark.circle.fill")
@@ -226,14 +226,14 @@ public struct EventScreenView: View {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
           .fill(
             LinearGradient(
-              colors: [Color.accentColor, Color.accentColor.opacity(0.8)],
+              colors: [ReminderColor.Accent.gradientStart, ReminderColor.Accent.gradientStrong],
               startPoint: .topLeading,
               endPoint: .bottomTrailing
             )
           )
       )
-      .foregroundStyle(.white)
-      .shadow(color: Color.accentColor.opacity(0.25), radius: 10, x: 0, y: 6)
+      .foregroundStyle(ReminderColor.Text.inverse)
+      .shadow(color: ReminderColor.Accent.shadowSoft, radius: 10, x: 0, y: 6)
     }
     .disabled(store.isSaving || store.isDeleting)
   }
@@ -252,7 +252,7 @@ public struct EventScreenView: View {
         )
         .overlay(
           RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .stroke(Color.secondary.opacity(0.2), lineWidth: 1)
+            .stroke(ReminderColor.Text.secondary.opacity(0.2), lineWidth: 1)
         )
     }
     .disabled(store.isSaving || store.isDeleting)
@@ -267,7 +267,7 @@ public struct EventScreenView: View {
         HStack(spacing: 10) {
           if store.isDeleting {
             ProgressView()
-              .tint(.white)
+              .tint(ReminderColor.Text.inverse)
             Text(store.deleteButtonTitle)
           } else {
             Image(systemName: "trash.fill")
@@ -281,14 +281,14 @@ public struct EventScreenView: View {
           RoundedRectangle(cornerRadius: 16, style: .continuous)
             .fill(
               LinearGradient(
-                colors: [Color.red, Color.red.opacity(0.85)],
+                colors: [ReminderColor.Danger.gradientStart, ReminderColor.Danger.gradientEnd],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
               )
             )
         )
-        .foregroundStyle(.white)
-        .shadow(color: Color.red.opacity(0.2), radius: 10, x: 0, y: 6)
+        .foregroundStyle(ReminderColor.Text.inverse)
+        .shadow(color: ReminderColor.Danger.shadow, radius: 10, x: 0, y: 6)
       }
       .disabled(store.isSaving || store.isDeleting)
     }
@@ -318,7 +318,7 @@ public struct EventScreenView: View {
         Button(action: removeAction) {
           Image(systemName: "minus.circle.fill")
             .font(.title2)
-            .foregroundStyle(.red)
+            .foregroundStyle(ReminderColor.Danger.primary)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Remove \(title)")
@@ -339,8 +339,8 @@ public struct EventScreenView: View {
 
   private var fieldBackground: some View {
     RoundedRectangle(cornerRadius: 14, style: .continuous)
-      .fill(Color(.systemBackground).opacity(0.9))
-      .shadow(color: Color.black.opacity(0.05), radius: 6, x: 0, y: 3)
+      .fill(ReminderColor.Background.primary.opacity(0.9))
+      .shadow(color: ReminderColor.Shadow.extraLight, radius: 6, x: 0, y: 3)
   }
 
   private func sectionContainer<Content: View>(
@@ -362,9 +362,9 @@ public struct EventScreenView: View {
     )
     .overlay(
       RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .stroke(Color.primary.opacity(0.08))
+        .stroke(ReminderColor.Text.primary.opacity(0.08))
     )
-    .shadow(color: Color.black.opacity(0.08), radius: 18, x: 0, y: 10)
+    .shadow(color: ReminderColor.Shadow.medium, radius: 18, x: 0, y: 10)
   }
 }
 

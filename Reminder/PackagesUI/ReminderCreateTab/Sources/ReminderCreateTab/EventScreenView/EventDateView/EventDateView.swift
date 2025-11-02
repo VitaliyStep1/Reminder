@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderSharedUI
 
 struct EventDateView: View {
   @State private var isDateDatePickerVisible = false
@@ -43,17 +44,17 @@ struct EventDateView: View {
           .padding(10)
           .background(
             Circle()
-              .fill(Color.accentColor.opacity(0.12))
+              .fill(ReminderColor.Accent.highlight)
           )
-          .foregroundStyle(Color.accentColor)
+          .foregroundStyle(ReminderColor.Accent.primary)
       }
-      .foregroundStyle(.black)
+      .foregroundStyle(ReminderColor.Text.primary)
       .padding(.horizontal, 20)
       .padding(.vertical, 16)
       .background {
         RoundedRectangle(cornerRadius: 12)
-          .fill(Color(.systemBackground))
-          .shadow(color: Color.black.opacity(0.06), radius: 12, x: 0, y: 6)
+          .fill(ReminderColor.Background.primary)
+          .shadow(color: ReminderColor.Shadow.light, radius: 12, x: 0, y: 6)
       }
     }
     .sheet(isPresented: $isDateDatePickerVisible) {
@@ -81,7 +82,7 @@ struct EventDateView: View {
         .frame(maxWidth: .infinity)
         .background(
           RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(Color(.secondarySystemBackground))
+            .fill(ReminderColor.Background.secondary)
         )
         .padding(.horizontal)
 
@@ -96,7 +97,7 @@ struct EventDateView: View {
             .padding(.vertical, 12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(Color.secondary, lineWidth: 1)
+                .stroke(ReminderColor.Text.secondary, lineWidth: 1)
             )
         }
 
@@ -110,9 +111,9 @@ struct EventDateView: View {
             .padding(.vertical, 12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.accentColor)
+                .fill(ReminderColor.Accent.primary)
             )
-            .foregroundStyle(Color.white)
+            .foregroundStyle(ReminderColor.Text.inverse)
         }
       }
       .padding(.horizontal)
@@ -120,6 +121,6 @@ struct EventDateView: View {
     .padding(.horizontal, 8)
     .padding(.vertical, 8)
     .frame(maxWidth: .infinity)
-    .background(Color(.systemBackground))
+    .background(ReminderColor.Background.primary)
   }
 }
