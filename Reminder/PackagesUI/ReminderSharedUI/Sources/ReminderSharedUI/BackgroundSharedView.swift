@@ -8,12 +8,12 @@
 import SwiftUI
 
 public struct BackgroundSharedView: View {
-  
+
   public init() { }
-  
+
   public var body: some View {
     LinearGradient(
-      gradient: Gradient(colors: [Color(.systemGroupedBackground), Color(.secondarySystemBackground)]),
+      gradient: Gradient(colors: [ReminderColor.Background.grouped, ReminderColor.Background.secondary]),
       startPoint: .top,
       endPoint: .bottom
     )

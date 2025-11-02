@@ -76,7 +76,7 @@ private extension CategoryScreenView {
     VStack(spacing: 12) {
       Image(systemName: "calendar.badge.plus")
         .font(.system(size: 42, weight: .medium))
-        .foregroundStyle(Color.blue)
+        .foregroundStyle(ReminderColor.Category.icon)
       Text(title)
         .font(.headline)
     }
@@ -84,10 +84,10 @@ private extension CategoryScreenView {
     .padding(32)
     .background {
       RoundedRectangle(cornerRadius: 16, style: .continuous)
-        .fill(Color(.secondarySystemGroupedBackground))
+        .fill(ReminderColor.Background.groupedSecondary)
     }
     .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-    .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 6)
+    .shadow(color: ReminderColor.Shadow.extraLight, radius: 10, x: 0, y: 6)
     Spacer()
   }
   
@@ -114,14 +114,14 @@ private extension CategoryScreenView {
         .padding(.vertical, 14)
         .background(
           LinearGradient(
-            colors: [Color.blue, Color.indigo],
+            colors: [ReminderColor.Category.gradientStart, ReminderColor.Category.gradientEnd],
             startPoint: .leading,
             endPoint: .trailing
           )
         )
-        .foregroundStyle(.white)
+        .foregroundStyle(ReminderColor.Text.inverse)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .shadow(color: Color.blue.opacity(0.3), radius: 10, x: 0, y: 6)
+        .shadow(color: ReminderColor.Category.shadow, radius: 10, x: 0, y: 6)
     }
   }
 }

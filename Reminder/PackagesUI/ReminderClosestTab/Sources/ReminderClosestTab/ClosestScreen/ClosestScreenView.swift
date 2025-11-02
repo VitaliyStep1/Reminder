@@ -38,12 +38,12 @@ private extension ClosestScreenView {
     VStack(spacing: 24) {
       Image(systemName: "calendar.badge.plus")
         .font(.system(size: 56))
-        .foregroundColor(.accentColor)
+        .foregroundStyle(ReminderColor.Accent.primary)
 
       Text(noEventsText)
         .font(.body)
         .multilineTextAlignment(.center)
-        .foregroundColor(.secondary)
+        .foregroundStyle(ReminderColor.Text.secondary)
 
       Button {
         viewModel.createEventClicked()
@@ -58,7 +58,7 @@ private extension ClosestScreenView {
     .frame(maxWidth: 320)
     .background(
       RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .fill(Color(.secondarySystemBackground))
+        .fill(ReminderColor.Background.secondary)
     )
     .padding(.horizontal, 32)
   }

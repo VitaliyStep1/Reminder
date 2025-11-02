@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderSharedUI
 
 struct CategoriesCategoryRowView: View {
   let title: String
@@ -29,11 +30,11 @@ struct CategoriesCategoryRowView: View {
       .padding(16)
       .background {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(Color(.secondarySystemGroupedBackground))
+          .fill(ReminderColor.Background.groupedSecondary)
       }
       .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
     .buttonStyle(.plain)
-    .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 3)
+    .shadow(color: ReminderColor.Shadow.heavy, radius: 4, x: 0, y: 3)
   }
 }

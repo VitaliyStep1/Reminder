@@ -18,6 +18,7 @@ let package = Package(
       .package(path: "../ReminderNavigationContracts"),
       .package(path: "../ReminderDomain"),
       .package(path: "../ReminderDomainContracts"),
+      .package(path: "../ReminderSharedUI"),
     ],
     targets: [
         .target(
@@ -27,6 +28,7 @@ let package = Package(
               "ReminderNavigationContracts",
               "ReminderDomain",
               "ReminderDomainContracts",
+              "ReminderSharedUI",
             ]
         ),
 
