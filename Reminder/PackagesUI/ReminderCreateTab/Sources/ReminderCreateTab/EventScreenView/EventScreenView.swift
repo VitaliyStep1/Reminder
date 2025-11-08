@@ -49,18 +49,25 @@ public struct EventScreenView: View {
         viewTitleView
         sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
           eventTitleView
-          Divider()
-            .padding(.horizontal, -8)
+          sectionDivider
           eventCommentView
-          Divider()
-            .padding(.horizontal, -8)
+          sectionDivider
           eventDateView
         }
         sectionContainer(title: "Alerts", systemImage: "bell.badge") {
           remindRepeatView
-          Divider()
-            .padding(.horizontal, -8)
+          sectionDivider
           remindTimeView()
+        }
+        sectionContainer(title: "Planned Reminds", systemImage: "square.and.pencil") {
+          switch store.plannedRemindsRepresentationEnum {
+          case .noRemindPermission:
+            noRemindPermissionView
+          case .noPlannedReminds:
+            noPlannedRemindsView
+          case .plannedReminds(let plannedReminds):
+            plannedRemindsView(plannedReminds: plannedReminds)
+          }
         }
         VStack(spacing: 12) {
           saveButtonView()
@@ -73,6 +80,29 @@ public struct EventScreenView: View {
       .frame(maxWidth: 640)
       .frame(maxWidth: .infinity)
     }
+  }
+  
+  @ViewBuilder
+  private var noRemindPermissionView: some View {
+    Text("You have not allowed to send notifications yet.")
+    Button {
+      
+    } label: {
+      Text("Allow notifications")
+    }
+  }
+  
+  private var noPlannedRemindsView: some View {
+    Text("There are no planned reminds yet.")
+  }
+  
+  private func plannedRemindsView(plannedReminds: [EventEntity.PlannedRemind]) -> some View {
+    Text("Planned Reminds")
+  }
+  
+  private var sectionDivider: some View {
+    Divider()
+      .padding(.horizontal, -8)
   }
   
   private var viewTitleView: some View {

@@ -39,6 +39,8 @@ public final class EventViewStore: ObservableObject {
   public var category: ReminderDomainContracts.Category?
 
   @Published var repeatRepresentationEnum: EventEntity.RepeatRepresentationEnum
+  @Published var plannedRemindsRepresentationEnum: EventEntity.PlannedRemindsRepresentationEnum
+  
   let router: any CreateTabRouterProtocol
 
   public init(eventScreenViewType: EventScreenViewType, router: any CreateTabRouterProtocol) {
@@ -70,6 +72,7 @@ public final class EventViewStore: ObservableObject {
     self.deleteButtonTitle = "Delete"
     self.category = nil
     self.repeatRepresentationEnum = .text(text: "")
+    self.plannedRemindsRepresentationEnum = .noRemindPermission
     self.router = router
     
     eventData.onRemindTimeDatesChange = { [weak self] in
