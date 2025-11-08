@@ -34,7 +34,7 @@ public final class EventPresenter {
   }
   
   public func presentDeleteConfirmation(deleteHandler: @escaping () -> Void) {
-    store.confirmationDialogInfo = ConfirmationDialogInfo(
+    store.confirmationDialogInfo = DeleteConfirmationDialogInfo(
       title: "Delete this event?",
       message: "This action cannot be undone.",
       deleteButtonHandler: deleteHandler

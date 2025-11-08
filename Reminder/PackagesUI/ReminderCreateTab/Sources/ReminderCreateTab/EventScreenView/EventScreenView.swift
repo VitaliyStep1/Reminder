@@ -30,14 +30,12 @@ public struct EventScreenView: View {
       message: store.alertInfo.message,
       completion: store.alertInfo.completion
     )
-    .confirmationDialog(store.confirmationDialogInfo.title, isPresented: $store.isConfirmationDialogVisible, titleVisibility: .visible) {
-      Button(store.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
-        store.confirmationDialogInfo.deleteButtonHandler?()
-      }
-      Button(store.confirmationDialogInfo.cancelButtonTitle, role: .cancel) { }
-    } message: {
-      Text(store.confirmationDialogInfo.message)
-    }
+    .sharedDeleteConfirmationDialog(
+      isPresented: $store.isConfirmationDialogVisible,
+      title: store.confirmationDialogInfo.title,
+      deleteAction: store.confirmationDialogInfo.deleteButtonHandler,
+      message: store.confirmationDialogInfo.message
+    )
     .onAppear {
       interactor.onAppear()
     }

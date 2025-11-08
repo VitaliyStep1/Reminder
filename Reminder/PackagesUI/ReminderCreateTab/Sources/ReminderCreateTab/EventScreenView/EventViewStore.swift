@@ -28,7 +28,7 @@ public final class EventViewStore: ObservableObject {
   public var alertInfo: ErrorAlertInfo
   
   @Published public var isConfirmationDialogVisible: Bool
-  public var confirmationDialogInfo: ConfirmationDialogInfo
+  public var confirmationDialogInfo: DeleteConfirmationDialogInfo
   
   @Published public var viewTitle: String
   @Published public var isDeleteButtonVisible: Bool
@@ -62,7 +62,7 @@ public final class EventViewStore: ObservableObject {
     self.isAlertVisible = false
     self.alertInfo = ErrorAlertInfo(message: "")
     self.isConfirmationDialogVisible = false
-    self.confirmationDialogInfo = ConfirmationDialogInfo(title: "", message: "")
+    self.confirmationDialogInfo = DeleteConfirmationDialogInfo(title: "", message: "", deleteButtonHandler: {})
     self.viewTitle = ""
     self.isDeleteButtonVisible = false
     self.saveButtonTitle = ""
