@@ -25,13 +25,11 @@ public struct EventScreenView: View {
       contentView
     }
     .disabled(store.isViewBlocked)
-    .alert(store.alertInfo.title, isPresented: $store.isAlertVisible) {
-      Button(store.alertInfo.buttonTitle, role: .cancel) {
-        store.alertInfo.completion?()
-      }
-    } message: {
-      Text(store.alertInfo.message)
-    }
+    .sharedErrorAlert(
+      isPresented: $store.isAlertVisible,
+      message: store.alertInfo.message,
+      completion: store.alertInfo.completion
+    )
     .confirmationDialog(store.confirmationDialogInfo.title, isPresented: $store.isConfirmationDialogVisible, titleVisibility: .visible) {
       Button(store.confirmationDialogInfo.deleteButtonTitle, role: .destructive) {
         store.confirmationDialogInfo.deleteButtonHandler?()
