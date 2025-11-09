@@ -46,20 +46,20 @@ public struct EventScreenView: View {
   var contentView: some View {
     ScrollView(showsIndicators: false) {
       VStack(spacing: 24) {
-        viewTitleView
-        sectionContainer(title: "Event details", systemImage: "square.and.pencil") {
-          eventTitleView
+        EventScreenTitleView(title: store.viewTitle)
+        EventSectionContainer(title: "Event details", systemImageName: "square.and.pencil") {
+          titleSubSectionView
           sectionDivider
-          eventCommentView
+          commentSubSectionView
           sectionDivider
-          eventDateView
+          dateSubSectionView
         }
-        sectionContainer(title: "Alerts", systemImage: "bell.badge") {
-          remindRepeatView
+        EventSectionContainer(title: "Alerts", systemImageName: "bell.badge") {
+          repeatSubSectionView
           sectionDivider
           remindTimeView()
         }
-        sectionContainer(title: "Planned Reminds", systemImage: "square.and.pencil") {
+        EventSectionContainer(title: "Planned Reminds", systemImageName: "square.and.pencil") {
           switch store.plannedRemindsRepresentationEnum {
           case .noRemindPermission:
             noRemindPermissionView
@@ -104,81 +104,28 @@ public struct EventScreenView: View {
     Divider()
       .padding(.horizontal, -8)
   }
-  
-  private var viewTitleView: some View {
-      Label {
-        Text(store.viewTitle)
-          .font(.largeTitle.bold())
-      } icon: {
-        Image(systemName: "calendar.badge.plus")
-          .font(.title3.weight(.semibold))
-          .foregroundStyle(ReminderColor.Text.inverse)
-          .padding(12)
-          .background(
-            Circle()
-              .fill(
-                LinearGradient(
-                  colors: [ReminderColor.Accent.gradientStart, ReminderColor.Accent.gradientEnd],
-                  startPoint: .topLeading,
-                  endPoint: .bottomTrailing
-                )
-              )
-          )
-          .shadow(color: ReminderColor.Accent.shadow, radius: 10, x: 0, y: 6)
-      }
-    .frame(maxWidth: .infinity, alignment: .leading)
-  }
 
-  @ViewBuilder
-  private var eventTitleView: some View {
-    VStack(alignment: .leading, spacing: 8) {
-      Text("Title")
-        .font(.subheadline.weight(.semibold))
-        .foregroundStyle(.secondary)
-      TextField("Title", text: $eventData.title)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
-        .background(fieldBackground)
-        .overlay(
-          RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(ReminderColor.Accent.primary.opacity(eventData.title.isEmpty ? 0 : 0.4), lineWidth: 1)
-        )
+  private var titleSubSectionView: some View {
+    EventSubSectionView(title: "Title") {
+      EventTextFieldView(placeholder: "Title", text: $eventData.title)
     }
   }
-
-  private var eventDateView: some View {
-    VStack(alignment: .leading, spacing: 8) {
-      Text("Date")
-        .font(.subheadline.weight(.semibold))
-        .foregroundStyle(.secondary)
+  
+  private var commentSubSectionView: some View {
+    EventSubSectionView(title: "Comment") {
+      EventTextFieldView(placeholder: "Comment", text: $eventData.comment)
+    }
+  }
+  
+  private var dateSubSectionView: some View {
+    EventSubSectionView(title: "Date") {
       EventDateView(eventDate: $eventData.date)
         .padding(.horizontal, 4)
     }
   }
-
-  @ViewBuilder
-  private var eventCommentView: some View {
-    VStack(alignment: .leading, spacing: 8) {
-      Text("Comment")
-        .font(.subheadline.weight(.semibold))
-        .foregroundStyle(.secondary)
-      TextField("Comment", text: $eventData.comment)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
-        .background(fieldBackground)
-        .overlay(
-          RoundedRectangle(cornerRadius: 14, style: .continuous)
-            .stroke(ReminderColor.Accent.primary.opacity(eventData.comment.isEmpty ? 0 : 0.4), lineWidth: 1)
-        )
-    }
-  }
-
-  @ViewBuilder
-  private var remindRepeatView: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      Text("Repeat every")
-        .font(.subheadline.weight(.semibold))
-        .foregroundStyle(.secondary)
+  
+  private var repeatSubSectionView: some View {
+    EventSubSectionView(title: "Repeat every") {
       switch store.repeatRepresentationEnum {
       case .picker(let values, let titles):
         Picker("Repeat every", selection: $eventData.remindRepeat) {
@@ -368,29 +315,4 @@ public struct EventScreenView: View {
       .fill(ReminderColor.Background.primary.opacity(0.9))
       .shadow(color: ReminderColor.Shadow.extraLight, radius: 6, x: 0, y: 3)
   }
-
-  private func sectionContainer<Content: View>(
-    title: String,
-    systemImage: String,
-    @ViewBuilder content: () -> Content
-  ) -> some View {
-    VStack(alignment: .leading, spacing: 16) {
-      Label(title, systemImage: systemImage)
-        .font(.title3.weight(.semibold))
-        .foregroundStyle(.primary)
-      content()
-    }
-    .padding(20)
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .background(
-      RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .fill(.ultraThinMaterial)
-    )
-    .overlay(
-      RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .stroke(ReminderColor.Text.primary.opacity(0.08))
-    )
-    .shadow(color: ReminderColor.Shadow.medium, radius: 18, x: 0, y: 10)
-  }
 }
-
