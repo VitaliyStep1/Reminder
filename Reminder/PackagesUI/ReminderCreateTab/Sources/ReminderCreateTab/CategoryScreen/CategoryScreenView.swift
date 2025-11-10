@@ -38,11 +38,11 @@ public struct CategoryScreenView: View {
     }
     .navigationTitle(viewModel.navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
-    .alert(viewModel.alertInfo.title, isPresented: $viewModel.isAlertVisible) {
-      Button(viewModel.alertInfo.buttonTitle, role: .cancel) {}
-    } message: {
-      Text(viewModel.alertInfo.message)
-    }
+    .sharedErrorAlert(
+      isPresented: $viewModel.isAlertVisible,
+      message: viewModel.alertInfo.message,
+      completion: viewModel.alertInfo.completion
+    )
   }
 }
 

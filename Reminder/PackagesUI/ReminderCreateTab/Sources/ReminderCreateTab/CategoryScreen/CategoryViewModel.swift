@@ -39,7 +39,7 @@ public class CategoryViewModel: ObservableObject {
   @Published var headerSubTitle: String = ""
   var router: any CreateTabRouterProtocol
   
-  var alertInfo: AlertInfo = AlertInfo(message: "")
+  var alertInfo: ErrorAlertInfo = ErrorAlertInfo(message: "")
   
   var createEventViewTitle = ""
   var createEventViewDate = Date()
@@ -118,7 +118,7 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func showEventsWereNotFetchedAlert() {
-    alertInfo = AlertInfo(message: "Events were not fetched")
+    alertInfo = ErrorAlertInfo(message: "Events were not fetched")
     isAlertVisible = true
   }
   

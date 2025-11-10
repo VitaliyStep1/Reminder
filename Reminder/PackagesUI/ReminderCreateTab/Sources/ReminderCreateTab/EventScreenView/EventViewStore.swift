@@ -25,10 +25,10 @@ public final class EventViewStore: ObservableObject {
   @Published public var isViewBlocked: Bool
   
   @Published public var isAlertVisible: Bool
-  public var alertInfo: AlertInfo
+  public var alertInfo: ErrorAlertInfo
   
   @Published public var isConfirmationDialogVisible: Bool
-  public var confirmationDialogInfo: ConfirmationDialogInfo
+  public var confirmationDialogInfo: DeleteConfirmationDialogInfo
   
   @Published public var viewTitle: String
   @Published public var isDeleteButtonVisible: Bool
@@ -39,6 +39,8 @@ public final class EventViewStore: ObservableObject {
   public var category: ReminderDomainContracts.Category?
 
   @Published var repeatRepresentationEnum: EventEntity.RepeatRepresentationEnum
+  @Published var plannedRemindsRepresentationEnum: EventEntity.PlannedRemindsRepresentationEnum
+  
   let router: any CreateTabRouterProtocol
 
   public init(eventScreenViewType: EventScreenViewType, router: any CreateTabRouterProtocol) {
@@ -60,9 +62,9 @@ public final class EventViewStore: ObservableObject {
     self.isDeleting = false
     self.isViewBlocked = false
     self.isAlertVisible = false
-    self.alertInfo = AlertInfo(message: "")
+    self.alertInfo = ErrorAlertInfo(message: "")
     self.isConfirmationDialogVisible = false
-    self.confirmationDialogInfo = ConfirmationDialogInfo(title: "", message: "")
+    self.confirmationDialogInfo = DeleteConfirmationDialogInfo(title: "", message: "", deleteButtonHandler: {})
     self.viewTitle = ""
     self.isDeleteButtonVisible = false
     self.saveButtonTitle = ""
@@ -70,6 +72,7 @@ public final class EventViewStore: ObservableObject {
     self.deleteButtonTitle = "Delete"
     self.category = nil
     self.repeatRepresentationEnum = .text(text: "")
+    self.plannedRemindsRepresentationEnum = .noRemindPermission
     self.router = router
     
     eventData.onRemindTimeDatesChange = { [weak self] in

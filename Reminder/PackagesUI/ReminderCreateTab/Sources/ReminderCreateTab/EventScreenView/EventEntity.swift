@@ -16,4 +16,15 @@ enum EventEntity {
     case picker(values: [RemindRepeatEnum], titles: [RemindRepeatEnum: String])
     case text(text: String)
   }
+  
+  enum PlannedRemindsRepresentationEnum {
+    case noRemindPermission
+    case noPlannedReminds
+    case plannedReminds([PlannedRemind])
+  }
+  
+  struct PlannedRemind {
+    let title: String
+    let timeText: String
+  }
 }

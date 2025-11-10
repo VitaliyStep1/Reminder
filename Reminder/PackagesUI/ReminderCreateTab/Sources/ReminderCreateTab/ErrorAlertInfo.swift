@@ -5,10 +5,8 @@
 //  Created by Vitaliy Stepanenko on 03.10.2025.
 //
 
-public struct AlertInfo {
-  var title: String = "Error"
+public struct ErrorAlertInfo {
   let message: String
-  var buttonTitle: String = "OK"
   var completion: (() -> Void)?
   
   public init(message: String) {
