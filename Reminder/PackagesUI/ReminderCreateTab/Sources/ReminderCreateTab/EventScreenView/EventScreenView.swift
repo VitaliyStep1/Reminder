@@ -70,9 +70,9 @@ public struct EventScreenView: View {
           }
         }
         VStack(spacing: 12) {
-          saveButtonView()
-          cancelButtonView()
-          deleteButtonView()
+          saveButtonView
+          cancelButtonView
+          deleteButtonView
         }
       }
       .padding(.horizontal, 24)
@@ -106,26 +106,26 @@ public struct EventScreenView: View {
   }
 
   private var titleSubSectionView: some View {
-    EventSubSectionView(title: "Title") {
-      EventTextFieldView(placeholder: "Title", text: $eventData.title)
+    EventSubSectionContainer(title: "Title") {
+      EventTextField(placeholder: "Title", text: $eventData.title)
     }
   }
   
   private var commentSubSectionView: some View {
-    EventSubSectionView(title: "Comment") {
-      EventTextFieldView(placeholder: "Comment", text: $eventData.comment)
+    EventSubSectionContainer(title: "Comment") {
+      EventTextField(placeholder: "Comment", text: $eventData.comment)
     }
   }
   
   private var dateSubSectionView: some View {
-    EventSubSectionView(title: "Date") {
+    EventSubSectionContainer(title: "Date") {
       EventDateView(eventDate: $eventData.date)
         .padding(.horizontal, 4)
     }
   }
   
   private var repeatSubSectionView: some View {
-    EventSubSectionView(title: "Repeat every") {
+    EventSubSectionContainer(title: "Repeat every") {
       switch store.repeatRepresentationEnum {
       case .picker(let values, let titles):
         Picker("Repeat every", selection: $eventData.remindRepeat) {
@@ -149,158 +149,57 @@ public struct EventScreenView: View {
   @ViewBuilder
   private func remindTimeView() -> some View {
     VStack(alignment: .leading, spacing: 12) {
-      remindTimeRow(
+      EventRemindTimeRow(
         title: "Remind time 1",
         selection: $eventData.remindTimeDate1
       )
       if store.isRemindTime2ViewVisible {
-        remindTimeRow(
+        EventRemindTimeRow(
           title: "Remind time 2",
           selection: bindingForOptionalDate($eventData.remindTimeDate2),
           removeAction: interactor.removeRemindTimeDate2ButtonTapped
         )
       }
       if store.isRemindTime3ViewVisible {
-        remindTimeRow(
+        EventRemindTimeRow(
           title: "Remind time 3",
           selection: bindingForOptionalDate($eventData.remindTimeDate3),
           removeAction: interactor.removeRemindTimeDate3ButtonTapped
         )
       }
       if store.isAddRemindTimeButtonVisible {
-        Button(action: interactor.addRemindTimeButtonTapped) {
-          Label("Add remind time", systemImage: "plus.circle.fill")
-            .font(.body.weight(.semibold))
-        }
-        .buttonStyle(.borderedProminent)
-        .tint(ReminderColor.Accent.primary)
+        EventSecondaryButton(action: interactor.addRemindTimeButtonTapped, title: "Add remind time", imageName: "plus.circle.fill")
       }
     }
   }
 
-  private func saveButtonView() -> some View {
-    Button(action: {
-      interactor.saveButtonTapped()
-    }) {
-      HStack(spacing: 10) {
-        if store.isSaving {
-          ProgressView()
-            .tint(ReminderColor.Text.inverse)
-          Text(store.saveButtonTitle)
-        } else {
-          Image(systemName: "checkmark.circle.fill")
-          Text(store.saveButtonTitle)
-        }
-      }
-      .font(.headline)
-      .frame(maxWidth: .infinity, minHeight: 50)
-      .padding(.horizontal, 4)
-      .background(
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(
-            LinearGradient(
-              colors: [ReminderColor.Accent.gradientStart, ReminderColor.Accent.gradientStrong],
-              startPoint: .topLeading,
-              endPoint: .bottomTrailing
-            )
-          )
-      )
-      .foregroundStyle(ReminderColor.Text.inverse)
-      .shadow(color: ReminderColor.Accent.shadowSoft, radius: 10, x: 0, y: 6)
-    }
+  private var saveButtonView: some View {
+    EventSaveButton(
+      buttonTappedAction: interactor.saveButtonTapped,
+      title: store.saveButtonTitle,
+      isProgressViewVisible: store.isSaving
+    )
     .disabled(store.isSaving || store.isDeleting)
   }
 
-  private func cancelButtonView() -> some View {
-    Button(action: {
-      interactor.cancelButtonTapped()
-    }) {
-      Text(store.cancelButtonTitle)
-        .font(.headline)
-        .frame(maxWidth: .infinity, minHeight: 50)
-        .padding(.horizontal, 4)
-        .background(
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(.ultraThinMaterial)
-        )
-        .overlay(
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .stroke(ReminderColor.Text.secondary.opacity(0.2), lineWidth: 1)
-        )
-    }
-    .disabled(store.isSaving || store.isDeleting)
+  private var cancelButtonView: some View {
+    EventCancelButton(
+      buttonTappedAction: interactor.cancelButtonTapped,
+      title: store.cancelButtonTitle
+    )
+      .disabled(store.isSaving || store.isDeleting)
   }
 
   @ViewBuilder
-  private func deleteButtonView() -> some View {
+  private var deleteButtonView: some View {
     if store.isDeleteButtonVisible {
-      Button(action: {
-        interactor.deleteButtonTapped()
-      }) {
-        HStack(spacing: 10) {
-          if store.isDeleting {
-            ProgressView()
-              .tint(ReminderColor.Text.inverse)
-            Text(store.deleteButtonTitle)
-          } else {
-            Image(systemName: "trash.fill")
-            Text(store.deleteButtonTitle)
-          }
-        }
-        .font(.headline)
-        .frame(maxWidth: .infinity, minHeight: 50)
-        .padding(.horizontal, 4)
-        .background(
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(
-              LinearGradient(
-                colors: [ReminderColor.Danger.gradientStart, ReminderColor.Danger.gradientEnd],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-              )
-            )
-        )
-        .foregroundStyle(ReminderColor.Text.inverse)
-        .shadow(color: ReminderColor.Danger.shadow, radius: 10, x: 0, y: 6)
-      }
+      EventDeleteButton(
+        buttonTappedAction: interactor.deleteButtonTapped,
+        title: store.deleteButtonTitle,
+        isProgressViewVisible: store.isDeleting
+      )
       .disabled(store.isSaving || store.isDeleting)
     }
-  }
-
-  @ViewBuilder
-  private func remindTimeRow(
-    title: String,
-    selection: Binding<Date>,
-    removeAction: (() -> Void)? = nil
-  ) -> some View {
-    HStack(spacing: 12) {
-      VStack(alignment: .leading, spacing: 6) {
-        Text(title)
-          .font(.subheadline.weight(.semibold))
-          .foregroundStyle(.secondary)
-        DatePicker(
-          "",
-          selection: selection,
-          displayedComponents: .hourAndMinute
-        )
-        .labelsHidden()
-        .datePickerStyle(.compact)
-      }
-      .frame(maxWidth: .infinity, alignment: .leading)
-      if let removeAction {
-        Button(action: removeAction) {
-          Image(systemName: "minus.circle.fill")
-            .font(.title2)
-            .foregroundStyle(ReminderColor.Danger.primary)
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("Remove \(title)")
-      }
-    }
-    .padding(.horizontal, 14)
-    .padding(.vertical, 12)
-    .background(fieldBackground)
-    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
   }
 
   private func bindingForOptionalDate(_ optionalDate: Binding<Date?>) -> Binding<Date> {

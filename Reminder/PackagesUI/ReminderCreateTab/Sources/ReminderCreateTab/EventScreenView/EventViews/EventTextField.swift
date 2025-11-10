@@ -1,5 +1,5 @@
 //
-//  EventTextFieldView.swift
+//  EventTextField.swift
 //  ReminderCreateTab
 //
 //  Created by Vitaliy Stepanenko on 09.11.2025.
@@ -8,7 +8,7 @@
 import SwiftUI
 import ReminderSharedUI
 
-struct EventTextFieldView: View {
+struct EventTextField: View {
   let placeholder: String
   @Binding var text: String
   

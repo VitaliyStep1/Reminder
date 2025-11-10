@@ -1,5 +1,5 @@
 //
-//  EventSubSectionView.swift
+//  EventSubSectionContainer.swift
 //  ReminderCreateTab
 //
 //  Created by Vitaliy Stepanenko on 09.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EventSubSectionView<Content: View>: View {
+struct EventSubSectionContainer<Content: View>: View {
   let title: String
   let contentBuilder: () -> Content
   
