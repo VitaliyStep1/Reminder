@@ -45,7 +45,7 @@ public struct EventScreenView: View {
   
   var contentView: some View {
     ScrollView(showsIndicators: false) {
-      VStack(spacing: 24) {
+      LazyVStack(spacing: 24) {
         EventScreenTitleView(title: store.viewTitle)
         EventSectionContainer(title: "Event details", systemImageName: "square.and.pencil") {
           titleSubSectionView
