@@ -13,15 +13,12 @@ import ReminderNavigationContracts
 public final class EventViewStore: ObservableObject {
   public let eventScreenViewType: EventScreenViewType
 
-  public let eventData: EventData
-  @Published public var defaultRemindTimeDate: Date
-
-  @Published public var isRemindTime2ViewVisible: Bool
-  @Published public var isRemindTime3ViewVisible: Bool
-  @Published public var isAddRemindTimeButtonVisible: Bool
+  let screenTitleData: EventScreenTitleData
+  let detailsSectionData: EventDetailsSectionData
+  let alertsSectionData: EventAlertsSectionData
+  let plannedSectionData: EventPlannedSectionData
+  let buttonsData: EventButtonsData
   
-  @Published public var isSaving: Bool
-  @Published public var isDeleting: Bool
   @Published public var isViewBlocked: Bool
   
   @Published public var isAlertVisible: Bool
@@ -29,62 +26,52 @@ public final class EventViewStore: ObservableObject {
   
   @Published public var isConfirmationDialogVisible: Bool
   public var confirmationDialogInfo: DeleteConfirmationDialogInfo
-  
-  @Published public var viewTitle: String
-  @Published public var isDeleteButtonVisible: Bool
-  @Published public var saveButtonTitle: String
-  public let cancelButtonTitle: String
-  public let deleteButtonTitle: String
 
   public var category: ReminderDomainContracts.Category?
-
-  @Published var repeatRepresentationEnum: EventEntity.RepeatRepresentationEnum
-  @Published var plannedRemindsRepresentationEnum: EventEntity.PlannedRemindsRepresentationEnum
   
   let router: any CreateTabRouterProtocol
 
   public init(eventScreenViewType: EventScreenViewType, router: any CreateTabRouterProtocol) {
     self.eventScreenViewType = eventScreenViewType
-    self.eventData = EventData(
-      title: "",
-      date: Date(),
-      comment: "",
+    
+    self.screenTitleData = EventScreenTitleData(screenTitle: "")
+    self.detailsSectionData = EventDetailsSectionData(
+      eventTitle: "",
+      eventComment: "",
+      eventDate: Date()
+    )
+    
+    self.alertsSectionData = EventAlertsSectionData(
+      repeatRepresentationEnum: .text(text: ""),
       remindRepeat: .everyYear,
+      isRemindTime2ViewVisible: false,
+      isRemindTime3ViewVisible: false,
+      isAddRemindTimeButtonVisible: true,
+      defaultRemindTimeDate: Date(),
       remindTimeDate1: Date(),
       remindTimeDate2: nil,
       remindTimeDate3: nil
     )
-    self.defaultRemindTimeDate = Date()
-    self.isRemindTime2ViewVisible = false
-    self.isRemindTime3ViewVisible = false
-    self.isAddRemindTimeButtonVisible = true
-    self.isSaving = false
-    self.isDeleting = false
+    
+    self.plannedSectionData = EventPlannedSectionData(
+      plannedRemindsRepresentationEnum: .noRemindPermission
+    )
+    
+    self.buttonsData = EventButtonsData(
+      isSaving: false,
+      isDeleting: false,
+      isDeleteButtonVisible: false,
+      saveButtonTitle: "",
+      cancelButtonTitle: "Cancel",
+      deleteButtonTitle: "Delete"
+    )
+    
     self.isViewBlocked = false
     self.isAlertVisible = false
     self.alertInfo = ErrorAlertInfo(message: "")
     self.isConfirmationDialogVisible = false
     self.confirmationDialogInfo = DeleteConfirmationDialogInfo(title: "", message: "", deleteButtonHandler: {})
-    self.viewTitle = ""
-    self.isDeleteButtonVisible = false
-    self.saveButtonTitle = ""
-    self.cancelButtonTitle = "Cancel"
-    self.deleteButtonTitle = "Delete"
     self.category = nil
-    self.repeatRepresentationEnum = .text(text: "")
-    self.plannedRemindsRepresentationEnum = .noRemindPermission
     self.router = router
-    
-    eventData.onRemindTimeDatesChange = { [weak self] in
-      self?.updateRemindTimeVisibility()
-    }
-
-    updateRemindTimeVisibility()
-  }
-
-  private func updateRemindTimeVisibility() {
-    isRemindTime2ViewVisible = eventData.remindTimeDate2 != nil
-    isRemindTime3ViewVisible = eventData.remindTimeDate3 != nil
-    isAddRemindTimeButtonVisible = !isRemindTime3ViewVisible
   }
 }
