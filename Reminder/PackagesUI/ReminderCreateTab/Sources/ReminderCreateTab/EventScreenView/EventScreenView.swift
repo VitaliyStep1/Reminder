@@ -12,11 +12,23 @@ public struct EventScreenView: View {
   @ObservedObject var store: EventViewStore
   @ObservedObject var eventData: EventData
   let interactor: EventInteractor
+  private let remindTimeDate2Binding: Binding<Date>
+  private let remindTimeDate3Binding: Binding<Date>
 
   public init(store: EventViewStore, interactor: EventInteractor) {
     _store = ObservedObject(wrappedValue: store)
     _eventData = ObservedObject(wrappedValue: store.eventData)
     self.interactor = interactor
+    remindTimeDate2Binding = Self.optionalDateBinding(
+      store: store,
+      eventData: store.eventData,
+      keyPath: \.remindTimeDate2
+    )
+    remindTimeDate3Binding = Self.optionalDateBinding(
+      store: store,
+      eventData: store.eventData,
+      keyPath: \.remindTimeDate3
+    )
   }
   
   public var body: some View {
@@ -156,14 +168,14 @@ public struct EventScreenView: View {
       if store.isRemindTime2ViewVisible {
         EventRemindTimeRow(
           title: "Remind time 2",
-          selection: bindingForOptionalDate($eventData.remindTimeDate2),
+          selection: remindTimeDate2Binding,
           removeAction: interactor.removeRemindTimeDate2ButtonTapped
         )
       }
       if store.isRemindTime3ViewVisible {
         EventRemindTimeRow(
           title: "Remind time 3",
-          selection: bindingForOptionalDate($eventData.remindTimeDate3),
+          selection: remindTimeDate3Binding,
           removeAction: interactor.removeRemindTimeDate3ButtonTapped
         )
       }
@@ -202,10 +214,18 @@ public struct EventScreenView: View {
     }
   }
 
-  private func bindingForOptionalDate(_ optionalDate: Binding<Date?>) -> Binding<Date> {
+  private static func optionalDateBinding(
+    store: EventViewStore,
+    eventData: EventData,
+    keyPath: ReferenceWritableKeyPath<EventData, Date?>
+  ) -> Binding<Date> {
     Binding(
-      get: { optionalDate.wrappedValue ?? store.defaultRemindTimeDate },
-      set: { optionalDate.wrappedValue = $0 }
+      get: {
+        eventData[keyPath: keyPath] ?? store.defaultRemindTimeDate
+      },
+      set: { newValue in
+        eventData[keyPath: keyPath] = newValue
+      }
     )
   }
 
