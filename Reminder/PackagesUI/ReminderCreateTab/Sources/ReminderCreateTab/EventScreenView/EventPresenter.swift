@@ -22,11 +22,11 @@ public final class EventPresenter {
   }
   
   public func presentSaving(_ isSaving: Bool) {
-    store.isSaving = isSaving
+    store.buttonsData.isSaving = isSaving
   }
   
   public func presentDeleting(_ isDeleting: Bool) {
-    store.isDeleting = isDeleting
+    store.buttonsData.isDeleting = isDeleting
   }
   
   public func presentViewBlocked(_ isBlocked: Bool) {
@@ -43,13 +43,13 @@ public final class EventPresenter {
   }
   
   public func presentEvent(_ event: Event) {
-    store.eventData.title = event.title
-    store.eventData.date = event.date
-    store.eventData.comment = event.comment
-    store.eventData.remindRepeat = event.remindRepeat
-    store.eventData.remindTimeDate1 = event.remindTimeDate1
-    store.eventData.remindTimeDate2 = event.remindTimeDate2
-    store.eventData.remindTimeDate3 = event.remindTimeDate3
+    store.detailsSectionData.eventTitle = event.title
+    store.detailsSectionData.eventDate = event.date
+    store.detailsSectionData.eventComment = event.comment
+    store.alertsSectionData.remindRepeat = event.remindRepeat
+    store.alertsSectionData.remindTimeDate1 = event.remindTimeDate1
+    store.alertsSectionData.remindTimeDate2 = event.remindTimeDate2
+    store.alertsSectionData.remindTimeDate3 = event.remindTimeDate3
   }
   
   public func presentCategory(_ category: ReminderDomainContracts.Category) {
@@ -57,20 +57,20 @@ public final class EventPresenter {
     
     let options = category.categoryRepeat.chooseOptions
     if options.isEmpty {
-      let remindRepeatText = remindRepeatTitle(for: store.eventData.remindRepeat)
-      store.repeatRepresentationEnum = .text(text: remindRepeatText)
+      let remindRepeatText = remindRepeatTitle(for: store.alertsSectionData.remindRepeat)
+      store.alertsSectionData.repeatRepresentationEnum = .text(text: remindRepeatText)
     } else {
       let remindRepeatValues = options
       let remindRepeatTitles = Dictionary(uniqueKeysWithValues: remindRepeatValues.map { ($0, remindRepeatTitle(for: $0)) })
-      store.repeatRepresentationEnum = .picker(values: remindRepeatValues, titles: remindRepeatTitles)
+      store.alertsSectionData.repeatRepresentationEnum = .picker(values: remindRepeatValues, titles: remindRepeatTitles)
     }
 
     if case .create = store.eventScreenViewType {
-      store.eventData.remindRepeat = category.categoryRepeat.defaultRemindRepeat
+      store.alertsSectionData.remindRepeat = category.categoryRepeat.defaultRemindRepeat
     }
 
-    if let firstOption = options.first, !options.contains(store.eventData.remindRepeat) {
-      store.eventData.remindRepeat = firstOption
+    if let firstOption = options.first, !options.contains(store.alertsSectionData.remindRepeat) {
+      store.alertsSectionData.remindRepeat = firstOption
     }
   }
   
@@ -102,29 +102,29 @@ public final class EventPresenter {
   }
 
   public func presentDefaultRemindTimeDate(defaultRemindTimeDate: Date) {
-    store.defaultRemindTimeDate = defaultRemindTimeDate
-    store.eventData.remindTimeDate1 = defaultRemindTimeDate
+    store.alertsSectionData.defaultRemindTimeDate = defaultRemindTimeDate
+    store.alertsSectionData.remindTimeDate1 = defaultRemindTimeDate
   }
   
   private func configureView() {
     switch store.eventScreenViewType {
     case .create:
-      store.viewTitle = "Create Event"
-      store.isDeleteButtonVisible = false
-      store.saveButtonTitle = "Create"
+      store.screenTitleData.screenTitle = "Create Event"
+      store.buttonsData.isDeleteButtonVisible = false
+      store.buttonsData.saveButtonTitle = "Create"
     case .edit:
-      store.viewTitle = "Edit Event"
-      store.isDeleteButtonVisible = true
-      store.saveButtonTitle = "Save"
+      store.screenTitleData.screenTitle = "Edit Event"
+      store.buttonsData.isDeleteButtonVisible = true
+      store.buttonsData.saveButtonTitle = "Save"
     case .notVisible:
-      store.viewTitle = ""
-      store.isDeleteButtonVisible = false
-      store.saveButtonTitle = ""
+      store.screenTitleData.screenTitle = ""
+      store.buttonsData.isDeleteButtonVisible = false
+      store.buttonsData.saveButtonTitle = ""
     }
   }
 
   private func configureBindings() {
-    store.eventData.$remindRepeat
+    store.alertsSectionData.$remindRepeat
       .receive(on: RunLoop.main)
       .sink { [weak self] remindRepeat in
         self?.updateRepeatRepresentationIfNeeded(for: remindRepeat)
@@ -133,8 +133,8 @@ public final class EventPresenter {
   }
 
   private func updateRepeatRepresentationIfNeeded(for remindRepeat: RemindRepeatEnum) {
-    guard case .text = store.repeatRepresentationEnum else { return }
-    store.repeatRepresentationEnum = .text(text: remindRepeatTitle(for: remindRepeat))
+    guard case .text = store.alertsSectionData.repeatRepresentationEnum else { return }
+    store.alertsSectionData.repeatRepresentationEnum = .text(text: remindRepeatTitle(for: remindRepeat))
   }
   
   private func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {

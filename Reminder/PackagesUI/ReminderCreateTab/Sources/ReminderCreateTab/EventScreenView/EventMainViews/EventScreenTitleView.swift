@@ -9,11 +9,15 @@ import SwiftUI
 import ReminderSharedUI
 
 struct EventScreenTitleView: View {
-  let title: String
+  @ObservedObject private var screenTitleData: EventScreenTitleData
+  
+  init(screenTitleData: EventScreenTitleData) {
+    self.screenTitleData = screenTitleData
+  }
   
   var body: some View {
     Label {
-      Text(title)
+      Text(screenTitleData.screenTitle)
         .font(.largeTitle.bold())
     } icon: {
       Image(systemName: "calendar.badge.plus")
