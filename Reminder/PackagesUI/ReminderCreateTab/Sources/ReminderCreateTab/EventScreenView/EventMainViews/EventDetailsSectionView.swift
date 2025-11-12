@@ -12,7 +12,7 @@ struct EventDetailsSectionView: View {
   @ObservedObject private var detailsSectionData: EventDetailsSectionData
   
   init(detailsSectionData: EventDetailsSectionData) {
-    _detailsSectionData = ObservedObject(wrappedValue: detailsSectionData)
+    self.detailsSectionData = detailsSectionData
   }
   
   var body: some View {

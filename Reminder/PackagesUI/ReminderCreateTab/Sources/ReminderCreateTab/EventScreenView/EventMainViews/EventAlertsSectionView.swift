@@ -13,7 +13,7 @@ struct EventAlertsSectionView: View {
   let interactor: EventInteractor
   
   init(alertsSectionData: EventAlertsSectionData, interactor: EventInteractor) {
-    _alertsSectionData = ObservedObject(wrappedValue: alertsSectionData)
+    self.alertsSectionData = alertsSectionData
     self.interactor = interactor
   }
   

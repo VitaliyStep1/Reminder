@@ -13,7 +13,7 @@ struct EventButtonsView: View {
   let interactor: EventInteractor
   
   init(buttonsData: EventButtonsData, interactor: EventInteractor) {
-    _buttonsData = ObservedObject(wrappedValue: buttonsData)
+    self.buttonsData = buttonsData
     self.interactor = interactor
   }
   

@@ -12,7 +12,7 @@ struct EventPlannedSectionView: View {
   @ObservedObject private var plannedSectionData: EventPlannedSectionData
   
   init(plannedSectionData: EventPlannedSectionData) {
-    _plannedSectionData = ObservedObject(wrappedValue: plannedSectionData)
+    self.plannedSectionData = plannedSectionData
   }
   
   var body: some View {

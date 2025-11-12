@@ -12,7 +12,7 @@ struct EventScreenTitleView: View {
   @ObservedObject private var screenTitleData: EventScreenTitleData
   
   init(screenTitleData: EventScreenTitleData) {
-    _screenTitleData = ObservedObject(wrappedValue: screenTitleData)
+    self.screenTitleData = screenTitleData
   }
   
   var body: some View {
