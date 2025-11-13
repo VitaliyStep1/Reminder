@@ -44,7 +44,7 @@ public class CategoryViewModel: ObservableObject {
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
-  private let noEventsText = "No events yet"
+  private let noEventsText = "There are no events in this category yet.\nPlease add one!"
   
   private var cancellables: Set<AnyCancellable> = []
   

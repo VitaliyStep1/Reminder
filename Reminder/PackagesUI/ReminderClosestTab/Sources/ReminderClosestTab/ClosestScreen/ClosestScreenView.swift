@@ -36,28 +36,12 @@ public struct ClosestScreenView: View {
   }
   
   func emptyStateView(noEventsText: String) -> some View {
-    VStack(spacing: 24) {
+    VStack {
       Spacer()
-      
-      Image(systemName: "calendar.badge.plus")
-        .font(.system(size: 56))
-        .foregroundStyle(ReminderColor.Accent.primary)
-      
-      Text(noEventsText)
-        .font(.body)
-        .multilineTextAlignment(.center)
-        .foregroundStyle(ReminderColor.Text.secondary)
-      
+      SharedNoDataView(systemImageName: "calendar.badge.plus", title: noEventsText)
       Spacer()
       createEventButton
     }
-    //    .padding(24)
-    //    .frame(maxWidth: 320)
-    .background(
-      RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .fill(ReminderColor.Background.secondary)
-    )
-    //    .padding(.horizontal, 32)
   }
   
   var createEventButton: some View {

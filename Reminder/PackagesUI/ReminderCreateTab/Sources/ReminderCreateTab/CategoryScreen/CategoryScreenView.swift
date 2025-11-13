@@ -69,21 +69,7 @@ private extension CategoryScreenView {
   @ViewBuilder
   func emptyStateView(title: String) -> some View {
     Spacer()
-    VStack(spacing: 12) {
-      Image(systemName: "calendar.badge.plus")
-        .font(.system(size: 42, weight: .medium))
-        .foregroundStyle(ReminderColor.Category.icon)
-      Text(title)
-        .font(.headline)
-    }
-    .frame(maxWidth: .infinity)
-    .padding(32)
-    .background {
-      RoundedRectangle(cornerRadius: 16, style: .continuous)
-        .fill(ReminderColor.Background.groupedSecondary)
-    }
-    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-    .shadow(color: ReminderColor.Shadow.extraLight, radius: 10, x: 0, y: 6)
+    SharedNoDataView(systemImageName: "calendar.badge.plus", title: title)
     Spacer()
   }
   

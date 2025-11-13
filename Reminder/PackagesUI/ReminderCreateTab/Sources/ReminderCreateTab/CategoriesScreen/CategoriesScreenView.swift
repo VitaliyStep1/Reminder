@@ -20,6 +20,7 @@ public struct CategoriesScreenView: View {
   public var body: some View {
     NavigationStack(path: routerPathBinding) {
       contentView
+        .frame(maxWidth: .infinity)
         .sharedScreenPadding()
         .sharedScreenBackground()
         .task {
@@ -68,21 +69,11 @@ private extension CategoriesScreenView {
   }
   
   private func emptyStateView(title: String) -> some View {
-    VStack(spacing: 12) {
-      Image(systemName: "square.grid.2x2")
-        .font(.system(size: 42, weight: .medium))
-        .foregroundStyle(ReminderColor.Category.icon)
-      Text(title)
-        .font(.headline)
+    VStack {
+      Spacer()
+      SharedNoDataView(systemImageName: "square.grid.2x2", title: title)
+      Spacer()
     }
-    .frame(maxWidth: .infinity)
-    .padding(32)
-    .background {
-      RoundedRectangle(cornerRadius: 16, style: .continuous)
-        .fill(ReminderColor.Background.groupedSecondary)
-    }
-    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-    .shadow(color: ReminderColor.Shadow.extraLight, radius: 10, x: 0, y: 6)
   }
   
   @ViewBuilder
