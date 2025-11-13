@@ -19,20 +19,16 @@ public struct CategoriesScreenView: View {
   
   public var body: some View {
     NavigationStack(path: routerPathBinding) {
-      ZStack {
-        BackgroundSharedView()
-        contentView
-          .padding(.horizontal, 16)
-          .padding(.bottom, 24)
-          .padding(.top, 8)
-      }
-      .task {
-        viewModel.taskWasCalled()
-      }
-      .navigationTitle(viewModel.navigationTitle)
-      .navigationDestination(for: Route.self) { route in
-        destinationView(for: route)
-      }
+      contentView
+        .sharedScreenPadding()
+        .sharedScreenBackground()
+        .task {
+          viewModel.taskWasCalled()
+        }
+        .navigationTitle(viewModel.navigationTitle)
+        .navigationDestination(for: Route.self) { route in
+          destinationView(for: route)
+        }
     }
   }
 }

@@ -41,5 +41,6 @@ struct EventButtonsView: View {
         .disabled(buttonsData.isSaving || buttonsData.isDeleting)
       }
     }
+    .padding(.bottom, 8)
   }
 }

@@ -19,17 +19,13 @@ public struct CategoryScreenView: View {
   }
   
   public var body: some View {
-    ZStack {
-      BackgroundSharedView()
-      VStack(spacing: 20) {
-        headerView
-        contentView
-        addButton
-      }
-      .padding(.horizontal, 16)
-      .padding(.bottom, 24)
-      .padding(.top, 8)
+    VStack(spacing: 20) {
+      headerView
+      contentView
+      addButton
     }
+    .sharedScreenPadding()
+    .sharedScreenBackground()
     .onAppear {
       viewModel.viewAppeared()
     }

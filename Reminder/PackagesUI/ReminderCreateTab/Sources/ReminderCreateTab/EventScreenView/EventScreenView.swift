@@ -11,32 +11,33 @@ import ReminderSharedUI
 public struct EventScreenView: View {
   @ObservedObject private var store: EventViewStore
   private let interactor: EventInteractor
-
+  
   public init(store: EventViewStore, interactor: EventInteractor) {
     self.store = store
     self.interactor = interactor
   }
   
   public var body: some View {
-    ZStack {
-      BackgroundSharedView()
-      contentView
-    }
-    .disabled(store.isViewBlocked)
-    .sharedErrorAlert(
-      isPresented: $store.isAlertVisible,
-      message: store.alertInfo.message,
-      completion: store.alertInfo.completion
-    )
-    .sharedDeleteConfirmationDialog(
-      isPresented: $store.isConfirmationDialogVisible,
-      title: store.confirmationDialogInfo.title,
-      deleteAction: store.confirmationDialogInfo.deleteButtonHandler,
-      message: store.confirmationDialogInfo.message
-    )
-    .onAppear {
-      interactor.onAppear()
-    }
+    contentView
+      .padding(.top, Styles.Padding.ScreenPadding.top)
+      .padding(.bottom, Styles.Padding.ScreenPadding.bottom)
+//      .sharedScreenPadding()
+      .sharedScreenBackground()
+      .disabled(store.isViewBlocked)
+      .sharedErrorAlert(
+        isPresented: $store.isAlertVisible,
+        message: store.alertInfo.message,
+        completion: store.alertInfo.completion
+      )
+      .sharedDeleteConfirmationDialog(
+        isPresented: $store.isConfirmationDialogVisible,
+        title: store.confirmationDialogInfo.title,
+        deleteAction: store.confirmationDialogInfo.deleteButtonHandler,
+        message: store.confirmationDialogInfo.message
+      )
+      .onAppear {
+        interactor.onAppear()
+      }
   }
   
   //MARK: - Views
@@ -50,10 +51,10 @@ public struct EventScreenView: View {
         EventPlannedSectionView(plannedSectionData: store.plannedSectionData)
         EventButtonsView(buttonsData: store.buttonsData, interactor: interactor)
       }
-      .padding(.horizontal, 24)
-      .padding(.vertical, 32)
-      .frame(maxWidth: 640)
-      .frame(maxWidth: .infinity)
+      .padding(.horizontal, Styles.Padding.ScreenPadding.horizontal)
+      
+      //      .frame(maxWidth: 640)
+      //      .frame(maxWidth: .infinity)
     }
   }
 }
