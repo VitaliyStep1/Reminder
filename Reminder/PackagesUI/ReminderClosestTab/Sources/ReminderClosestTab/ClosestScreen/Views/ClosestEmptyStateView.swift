@@ -1,0 +1,28 @@
+//
+//  ClosestEmptyStateView.swift
+//  ReminderClosestTab
+//
+//  Created by Vitaliy Stepanenko on 14.11.2025.
+//
+
+import SwiftUI
+import ReminderSharedUI
+
+struct ClosestEmptyStateView: View {
+  let noEventsText: String
+  let createEventButtonAction: () -> Void
+  
+  init(noEventsText: String, createEventButtonAction: @escaping () -> Void) {
+    self.noEventsText = noEventsText
+    self.createEventButtonAction = createEventButtonAction
+  }
+  
+  var body: some View {
+    VStack {
+      Spacer()
+      SharedNoDataView(systemImageName: "calendar.badge.plus", title: noEventsText)
+      Spacer()
+      ClosestCreateEventButton(systemImageName: "plus.circle.fill", title: "Create event", action: createEventButtonAction)
+    }
+  }
+}

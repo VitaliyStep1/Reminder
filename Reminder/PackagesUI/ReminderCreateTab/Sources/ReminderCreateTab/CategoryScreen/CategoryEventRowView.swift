@@ -28,17 +28,10 @@ public struct CategoryEventRowView: View {
             .foregroundStyle(.secondary)
         }
       }
-      .contentShape(Rectangle())
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(16)
-      .background {
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(ReminderColor.Background.groupedSecondary)
-      }
-      .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+      .sharedCellBackground()
     }
     .buttonStyle(.plain)
-    .shadow(color: ReminderColor.Shadow.heavy, radius: 4, x: 0, y: 3)
+    .sharedShadow()
   }
 }
 

@@ -33,21 +33,7 @@ struct EventDeleteButton: View {
           Text(title)
         }
       }
-      .font(.headline)
-      .frame(maxWidth: .infinity, minHeight: 50)
-      .padding(.horizontal, 4)
-      .background(
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(
-            LinearGradient(
-              colors: [ReminderColor.Danger.gradientStart, ReminderColor.Danger.gradientEnd],
-              startPoint: .topLeading,
-              endPoint: .bottomTrailing
-            )
-          )
-      )
-      .foregroundStyle(ReminderColor.Text.inverse)
-      .shadow(color: ReminderColor.Danger.shadow, radius: 10, x: 0, y: 6)
     }
+    .buttonStyle(SharedDeleteButtonStyle())
   }
 }

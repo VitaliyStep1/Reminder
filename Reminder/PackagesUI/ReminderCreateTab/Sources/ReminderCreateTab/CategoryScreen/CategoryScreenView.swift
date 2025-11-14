@@ -19,11 +19,7 @@ public struct CategoryScreenView: View {
   }
   
   public var body: some View {
-    VStack(spacing: 20) {
-      headerView
-      contentView
-      addButton
-    }
+    contentView
     .sharedScreenPadding()
     .sharedScreenBackground()
     .onAppear {
@@ -43,26 +39,19 @@ public struct CategoryScreenView: View {
 }
 
 private extension CategoryScreenView {
-  var headerView: some View {
-    VStack(alignment: .leading, spacing: 8) {
-      Text(viewModel.headerTitle)
-        .font(.largeTitle.weight(.semibold))
-        .foregroundStyle(.primary)
-      
-      Text(viewModel.headerSubTitle)
-        .font(.callout)
-        .foregroundStyle(.secondary)
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-  }
-  
   @ViewBuilder
   var contentView: some View {
-    switch viewModel.screenStateEnum {
-    case .empty(let title):
-      emptyStateView(title: title)
-    case .withEvents(let events):
-      withEventsView(events: events)
+    VStack(spacing: 20) {
+      CategoryHeaderView(title: viewModel.headerTitle, subtitle: viewModel.headerSubTitle)
+      
+      switch viewModel.screenStateEnum {
+      case .empty(let title):
+        emptyStateView(title: title)
+      case .withEvents(let events):
+        withEventsView(events: events)
+      }
+      
+      CategoryAddButton(systemImageName: "plus.circle.fill", title: "Add new event", action: viewModel.addButtonTapped)
     }
   }
   
@@ -83,27 +72,6 @@ private extension CategoryScreenView {
         }
       }
       .padding(.vertical, 4)
-    }
-  }
-  
-  var addButton: some View {
-    Button(action: {
-      viewModel.addButtonTapped()
-    }) {
-      Label("Add new event", systemImage: "plus.circle.fill")
-        .font(.headline)
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .background(
-          LinearGradient(
-            colors: [ReminderColor.Category.gradientStart, ReminderColor.Category.gradientEnd],
-            startPoint: .leading,
-            endPoint: .trailing
-          )
-        )
-        .foregroundStyle(ReminderColor.Text.inverse)
-        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .shadow(color: ReminderColor.Category.shadow, radius: 10, x: 0, y: 6)
     }
   }
 }

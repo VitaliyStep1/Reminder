@@ -54,7 +54,7 @@ struct EventDateView: View {
       .background {
         RoundedRectangle(cornerRadius: 12)
           .fill(ReminderColor.Background.primary)
-          .shadow(color: ReminderColor.Shadow.light, radius: 12, x: 0, y: 6)
+          .sharedShadow()
       }
     }
     .sheet(isPresented: $isDateDatePickerVisible) {

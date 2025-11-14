@@ -26,5 +26,6 @@ struct EventSecondaryButton: View {
     }
     .buttonStyle(.borderedProminent)
     .tint(ReminderColor.Accent.primary)
+    .sharedShadow()
   }
 }

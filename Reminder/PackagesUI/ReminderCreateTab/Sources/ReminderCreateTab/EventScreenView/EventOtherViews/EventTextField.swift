@@ -31,6 +31,6 @@ struct EventTextField: View {
   private var fieldBackground: some View {
     RoundedRectangle(cornerRadius: 14, style: .continuous)
       .fill(ReminderColor.Background.primary.opacity(0.9))
-      .shadow(color: ReminderColor.Shadow.extraLight, radius: 6, x: 0, y: 3)
+      .sharedShadow()
   }
 }

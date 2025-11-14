@@ -20,8 +20,8 @@ public enum ReminderColor {
 
   public enum Danger {
     public static let primary = Color.red
-    public static let gradientStart = Color.red
-    public static let gradientEnd = Color.red.opacity(0.85)
+    public static let gradientStart = Color.red.opacity(0.85)
+    public static let gradientEnd = Color.red
     public static let shadow = Color.red.opacity(0.2)
   }
 
@@ -43,5 +43,6 @@ public enum ReminderColor {
     public static let primary = Color.primary
     public static let secondary = Color.secondary
     public static let inverse = Color.white
+    public static let blue = Color.blue
   }
 }

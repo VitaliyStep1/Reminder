@@ -22,17 +22,7 @@ struct EventCancelButton: View {
       buttonTappedAction()
     }) {
       Text(title)
-        .font(.headline)
-        .frame(maxWidth: .infinity, minHeight: 50)
-        .padding(.horizontal, 4)
-        .background(
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(.ultraThinMaterial)
-        )
-        .overlay(
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .stroke(ReminderColor.Text.secondary.opacity(0.2), lineWidth: 1)
-        )
     }
+    .buttonStyle(SharedCancelButtonStyle())
   }
 }

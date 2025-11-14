@@ -34,7 +34,7 @@ struct EventScreenTitleView: View {
               )
             )
         )
-        .shadow(color: ReminderColor.Accent.shadow, radius: 10, x: 0, y: 6)
+        .sharedShadow()
     }
     .frame(maxWidth: .infinity, alignment: .leading)
   }

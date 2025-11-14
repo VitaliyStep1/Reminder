@@ -36,6 +36,6 @@ struct EventSectionContainer<Content: View>: View {
       RoundedRectangle(cornerRadius: 24, style: .continuous)
         .stroke(ReminderColor.Text.primary.opacity(0.08))
     )
-    .shadow(color: ReminderColor.Shadow.medium, radius: 18, x: 0, y: 10)
+    .sharedShadow()
   }
 }
