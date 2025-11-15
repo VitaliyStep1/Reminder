@@ -17,7 +17,7 @@ public struct SharedSecondaryButtonStyle: ButtonStyle {
       .padding(.vertical, 10)
       .background(
         RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .fill(SharedColor.Background.primary) // or .clear if "secondary" is outlined
+          .fill(SharedColor.Background.primary)
       )
       .overlay(
         RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -25,7 +25,6 @@ public struct SharedSecondaryButtonStyle: ButtonStyle {
       )
       .foregroundStyle(SharedColor.Accent.primary)
       .sharedShadow()
-    // pressed state
       .opacity(configuration.isPressed ? 0.8 : 1)
       .scaleEffect(configuration.isPressed ? 0.97 : 1)
   }

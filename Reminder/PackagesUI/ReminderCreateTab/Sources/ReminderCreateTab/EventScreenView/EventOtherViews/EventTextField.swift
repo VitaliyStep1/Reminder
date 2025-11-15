@@ -21,10 +21,4 @@ struct EventTextField: View {
     TextField(placeholder, text: $text)
       .textFieldStyle(SharedMainTextFieldStyle(isTextNotEmpty: !text.isEmpty))
   }
-  
-  private var fieldBackground: some View {
-    RoundedRectangle(cornerRadius: 14, style: .continuous)
-      .fill(SharedColor.Background.primary.opacity(0.9))
-      .sharedShadowLight()
-  }
 }
