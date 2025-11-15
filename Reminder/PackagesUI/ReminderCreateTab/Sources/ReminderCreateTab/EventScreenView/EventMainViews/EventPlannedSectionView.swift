@@ -36,6 +36,7 @@ struct EventPlannedSectionView: View {
     } label: {
       Text("Allow notifications")
     }
+    .buttonStyle(SharedSecondaryButtonStyle())
   }
   
   private func plannedRemindsView(plannedReminds: [EventEntity.PlannedRemind]) -> some View {

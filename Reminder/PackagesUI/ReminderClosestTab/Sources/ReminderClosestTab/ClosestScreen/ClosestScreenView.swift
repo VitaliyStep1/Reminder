@@ -15,51 +15,23 @@ public struct ClosestScreenView: View {
   public init(viewModel: ClosestViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
   }
-
+  
   public var body: some View {
     NavigationStack {
-      ZStack {
-        BackgroundSharedView()
-
-        switch viewModel.screenStateEnum {
-        case .empty(let title):
-          emptyStateView(noEventsText: title)
-        case .withData:
-          EmptyView()
-        }
-      }
-      .navigationTitle("Closest events")
+      contentView
+        .sharedScreenPadding()
+        .sharedScreenBackground()
+        .navigationTitle("Closest events")
     }
   }
-}
-
-private extension ClosestScreenView {
-  func emptyStateView(noEventsText: String) -> some View {
-    VStack(spacing: 24) {
-      Image(systemName: "calendar.badge.plus")
-        .font(.system(size: 56))
-        .foregroundStyle(ReminderColor.Accent.primary)
-
-      Text(noEventsText)
-        .font(.body)
-        .multilineTextAlignment(.center)
-        .foregroundStyle(ReminderColor.Text.secondary)
-
-      Button {
-        viewModel.createEventClicked()
-      } label: {
-        Text("Create event")
-          .fontWeight(.semibold)
-          .frame(maxWidth: .infinity)
-      }
-      .buttonStyle(.borderedProminent)
+  
+  @ViewBuilder
+  var contentView: some View {
+    switch viewModel.screenStateEnum {
+    case .empty(let title):
+      ClosestEmptyStateView(noEventsText: title, createEventButtonAction: viewModel.createEventClicked)
+    case .withData:
+      EmptyView()
     }
-    .padding(24)
-    .frame(maxWidth: 320)
-    .background(
-      RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .fill(ReminderColor.Background.secondary)
-    )
-    .padding(.horizontal, 32)
   }
 }

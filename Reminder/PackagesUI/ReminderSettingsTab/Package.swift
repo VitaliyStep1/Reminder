@@ -15,12 +15,14 @@ let package = Package(
     ],
     dependencies: [
       .package(path: "ReminderDomainContracts"),
+      .package(path: "ReminderSharedUI"),
     ],
     targets: [
         .target(
           name: "ReminderSettingsTab",
           dependencies: [
             "ReminderDomainContracts",
+            "ReminderSharedUI",
           ]
         ),
 
