@@ -7,26 +7,30 @@
 
 import SwiftUI
 import ReminderNavigationContracts
-
 public struct StartScreenView: View {
+  public typealias ViewBuilder = @MainActor () -> AnyView
+
   @StateObject var viewModel: StartScreenViewModel
   @EnvironmentObject var splashState: SplashScreenState
-  @Environment(\.viewFactory) private var viewFactory
-  
-  public init(viewModel: StartScreenViewModel) {
+  private let splashViewBuilder: ViewBuilder
+  private let mainViewBuilder: ViewBuilder
+
+  public init(
+    viewModel: StartScreenViewModel,
+    splashViewBuilder: @escaping ViewBuilder,
+    mainViewBuilder: @escaping ViewBuilder
+  ) {
     _viewModel = StateObject(wrappedValue: viewModel)
+    self.splashViewBuilder = splashViewBuilder
+    self.mainViewBuilder = mainViewBuilder
   }
-  
+
   public var body: some View {
     Group {
-      if let viewFactory {
-        if splashState.isVisible {
-          viewFactory.make(.splash)
-        } else {
-          viewFactory.make(.mainTabView)
-        }
+      if splashState.isVisible {
+        splashViewBuilder()
       } else {
-        EmptyView()
+        mainViewBuilder()
       }
     }
     .task {

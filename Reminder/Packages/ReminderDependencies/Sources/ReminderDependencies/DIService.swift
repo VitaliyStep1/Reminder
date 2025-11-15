@@ -10,7 +10,6 @@ import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
 import ReminderNavigation
-import ReminderStartUI
 import ReminderConfigurations
 import ReminderNavigationContracts
 import ReminderResolver

@@ -11,7 +11,6 @@ import ReminderPersistence
 import ReminderDomainContracts
 import ReminderDomain
 import ReminderNavigation
-import ReminderStartUI
 import ReminderConfigurations
 import ReminderNavigationContracts
 import ReminderResolver
@@ -21,9 +20,9 @@ import ReminderUserDefaultsStorage
 final class DependencyAssembly: Assembly {
   
   func assemble(container: Container) {
-    // ViewFactory
-    container.register(ViewFactoryProtocol.self) { r in
-      ViewFactory(resolver: r)
+    // Coordinators
+    container.register(StartCoordinatorProtocol.self) { r in
+      StartCoordinator(resolver: r)
     }
     .inObjectScope(.container)
     

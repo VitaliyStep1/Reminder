@@ -13,6 +13,11 @@ public protocol MainCoordinatorProtocol: AnyObject {
 }
 
 @MainActor
+public protocol StartCoordinatorProtocol: AnyObject {
+  func start() -> AnyView
+}
+
+@MainActor
 public protocol ClosestCoordinatorProtocol: AnyObject {
   func start() -> AnyView
 }
