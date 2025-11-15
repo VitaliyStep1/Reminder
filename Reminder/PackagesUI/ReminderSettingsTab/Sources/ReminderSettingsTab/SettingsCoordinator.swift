@@ -1,6 +1,6 @@
 //
 //  SettingsCoordinator.swift
-//  ReminderNavigation
+//  ReminderSettingsTab
 //
 //  Created by OpenAI's ChatGPT.
 //
@@ -8,7 +8,6 @@
 import SwiftUI
 import Swinject
 import ReminderNavigationContracts
-import ReminderSettingsTab
 import ReminderResolver
 
 @MainActor

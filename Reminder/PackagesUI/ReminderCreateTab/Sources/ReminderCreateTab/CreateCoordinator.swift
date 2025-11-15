@@ -1,6 +1,6 @@
 //
 //  CreateCoordinator.swift
-//  ReminderNavigation
+//  ReminderCreateTab
 //
 //  Created by OpenAI's ChatGPT.
 //
@@ -8,7 +8,6 @@
 import SwiftUI
 import Swinject
 import ReminderNavigationContracts
-import ReminderCreateTab
 import ReminderResolver
 
 @MainActor

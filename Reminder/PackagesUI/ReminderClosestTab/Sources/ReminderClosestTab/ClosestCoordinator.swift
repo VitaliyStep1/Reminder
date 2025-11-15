@@ -1,6 +1,6 @@
 //
 //  ClosestCoordinator.swift
-//  ReminderNavigation
+//  ReminderClosestTab
 //
 //  Created by OpenAI's ChatGPT.
 //
@@ -8,7 +8,6 @@
 import SwiftUI
 import Swinject
 import ReminderNavigationContracts
-import ReminderClosestTab
 import ReminderResolver
 
 @MainActor

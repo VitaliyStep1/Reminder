@@ -8,6 +8,10 @@
 import SwiftUI
 import Swinject
 import ReminderNavigationContracts
+import ReminderClosestTab
+import ReminderCreateTab
+import ReminderMainTabView
+import ReminderSettingsTab
 import ReminderStartUI
 import ReminderResolver
 

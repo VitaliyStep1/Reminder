@@ -1,6 +1,6 @@
 //
 //  MainCoordinator.swift
-//  ReminderNavigation
+//  ReminderMainTabView
 //
 //  Created by OpenAI's ChatGPT.
 //
@@ -8,21 +8,20 @@
 import SwiftUI
 import Swinject
 import ReminderNavigationContracts
-import ReminderMainTabView
 import ReminderResolver
 
 @MainActor
 public final class MainCoordinator: MainCoordinatorProtocol {
   private let resolver: Resolver
-  private let closestCoordinator: ClosestCoordinator
-  private let createCoordinator: CreateCoordinator
-  private let settingsCoordinator: SettingsCoordinator
+  private let closestCoordinator: any ClosestCoordinatorProtocol
+  private let createCoordinator: any CreateCoordinatorProtocol
+  private let settingsCoordinator: any SettingsCoordinatorProtocol
 
   public init(
     resolver: Resolver,
-    closestCoordinator: ClosestCoordinator,
-    createCoordinator: CreateCoordinator,
-    settingsCoordinator: SettingsCoordinator
+    closestCoordinator: any ClosestCoordinatorProtocol,
+    createCoordinator: any CreateCoordinatorProtocol,
+    settingsCoordinator: any SettingsCoordinatorProtocol
   ) {
     self.resolver = resolver
     self.closestCoordinator = closestCoordinator
