@@ -1,6 +1,6 @@
 import SwiftUI
 
-public enum ReminderColor {
+public enum SharedColor {
   public enum Accent {
     public static let primary = Color.accentColor
     public static let gradientStart = Color.accentColor

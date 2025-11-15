@@ -44,17 +44,17 @@ struct EventDateView: View {
           .padding(10)
           .background(
             Circle()
-              .fill(ReminderColor.Accent.highlight)
+              .fill(SharedColor.Accent.highlight)
           )
-          .foregroundStyle(ReminderColor.Accent.primary)
+          .foregroundStyle(SharedColor.Accent.primary)
       }
-      .foregroundStyle(ReminderColor.Text.primary)
+      .foregroundStyle(SharedColor.Text.primary)
       .padding(.horizontal, 20)
       .padding(.vertical, 16)
       .background {
         RoundedRectangle(cornerRadius: 12)
-          .fill(ReminderColor.Background.primary)
-          .sharedShadow()
+          .fill(SharedColor.Background.primary)
+          .sharedShadowLight()
       }
     }
     .sheet(isPresented: $isDateDatePickerVisible) {
@@ -82,7 +82,7 @@ struct EventDateView: View {
         .frame(maxWidth: .infinity)
         .background(
           RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(ReminderColor.Background.secondary)
+            .fill(SharedColor.Background.secondary)
         )
         .padding(.horizontal)
 
@@ -97,7 +97,7 @@ struct EventDateView: View {
             .padding(.vertical, 12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(ReminderColor.Text.secondary, lineWidth: 1)
+                .stroke(SharedColor.Text.secondary, lineWidth: 1)
             )
         }
 
@@ -111,16 +111,17 @@ struct EventDateView: View {
             .padding(.vertical, 12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(ReminderColor.Accent.primary)
+                .fill(SharedColor.Accent.primary)
             )
-            .foregroundStyle(ReminderColor.Text.inverse)
+            .foregroundStyle(SharedColor.Text.inverse)
         }
+        
       }
       .padding(.horizontal)
     }
     .padding(.horizontal, 8)
     .padding(.vertical, 8)
     .frame(maxWidth: .infinity)
-    .background(ReminderColor.Background.primary)
+    .background(SharedColor.Background.primary)
   }
 }

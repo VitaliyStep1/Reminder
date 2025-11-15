@@ -16,7 +16,7 @@ public struct SharedCellBackgroundModifier: ViewModifier {
       .padding(16)
       .background {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(ReminderColor.Background.groupedSecondary)
+          .fill(SharedColor.Background.groupedSecondary)
       }
       .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
   }

@@ -20,12 +20,12 @@ public struct SharedNoDataView: View {
     VStack(spacing: 24) {
       Image(systemName: systemImageName)
         .font(.system(size: 56))
-        .foregroundStyle(ReminderColor.Accent.primary)
+        .foregroundStyle(SharedColor.Accent.primary)
       
       Text(title)
         .font(.body)
         .multilineTextAlignment(.center)
-        .foregroundStyle(ReminderColor.Text.secondary)
+        .foregroundStyle(SharedColor.Text.secondary)
     }
   }
 }

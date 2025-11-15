@@ -8,10 +8,6 @@
 import SwiftUI
 
 public class Styles {
-  public static let shared = Styles()
-  private init() {}
-  
-  let mainButtonStyles = MainButtonStyles()
   
   public enum Padding {
     public struct ScreenPadding: Hashable {
@@ -19,10 +15,5 @@ public class Styles {
       public static let top: CGFloat = 8
       public static let bottom: CGFloat = 24
     }
-  }
-  
-  public struct MainButtonStyles {
-    public let font: Font = .headline
-    public let frameMaxWidth: CGFloat = .infinity
   }
 }

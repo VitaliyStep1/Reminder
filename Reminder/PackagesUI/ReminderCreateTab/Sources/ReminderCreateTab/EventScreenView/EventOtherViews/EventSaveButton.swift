@@ -26,7 +26,7 @@ struct EventSaveButton: View {
       HStack(spacing: 10) {
         if isProgressViewVisible {
           ProgressView()
-            .tint(ReminderColor.Text.inverse)
+            .tint(SharedColor.Text.inverse)
           Text(title)
         } else {
           Image(systemName: "checkmark.circle.fill")

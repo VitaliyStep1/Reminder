@@ -19,10 +19,10 @@ public struct SharedCancelButtonStyle: ButtonStyle {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
           .fill(.ultraThinMaterial)
       )
-      .foregroundStyle(ReminderColor.Text.blue)
+      .foregroundStyle(SharedColor.Text.blue)
       .overlay(
         RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .stroke(ReminderColor.Text.secondary.opacity(0.2), lineWidth: 1)
+          .stroke(SharedColor.Text.secondary.opacity(0.2), lineWidth: 1)
       )
   }
 }

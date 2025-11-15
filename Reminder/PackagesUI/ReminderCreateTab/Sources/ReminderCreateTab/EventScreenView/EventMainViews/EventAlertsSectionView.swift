@@ -95,7 +95,7 @@ struct EventAlertsSectionView: View {
   
   private var fieldBackground: some View {
     RoundedRectangle(cornerRadius: 14, style: .continuous)
-      .fill(ReminderColor.Background.primary.opacity(0.9))
-      .sharedShadow()
+      .fill(SharedColor.Background.primary.opacity(0.9))
+      .sharedShadowLight()
   }
 }

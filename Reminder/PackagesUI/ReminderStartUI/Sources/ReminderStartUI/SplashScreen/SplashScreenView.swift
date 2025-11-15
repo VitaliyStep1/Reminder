@@ -17,7 +17,7 @@ public struct SplashScreenView: View {
   
   public var body: some View {
     ZStack {
-      ReminderColor.Accent.primary.ignoresSafeArea(edges: .all)
+      SharedColor.Accent.primary.ignoresSafeArea(edges: .all)
       Text("Splash screen")
     }.task {
       try? await Task.sleep(for: .seconds(2))

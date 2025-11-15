@@ -13,7 +13,7 @@ public struct SharedScreenBackgroundModifier: ViewModifier {
     content
       .background {
         LinearGradient(
-          gradient: Gradient(colors: [ReminderColor.Background.grouped, ReminderColor.Background.secondary]),
+          gradient: Gradient(colors: [SharedColor.Background.grouped, SharedColor.Background.secondary]),
           startPoint: .top,
           endPoint: .bottom
         )

@@ -11,7 +11,7 @@ public struct SharedShadowModifier: ViewModifier {
   
   public func body(content: Content) -> some View {
     content
-      .shadow(color: ReminderColor.Shadow.heavy, radius: 4, x: 0, y: 3)
+      .shadow(color: SharedColor.Shadow.heavy, radius: 4, x: 0, y: 3)
   }
 }
 

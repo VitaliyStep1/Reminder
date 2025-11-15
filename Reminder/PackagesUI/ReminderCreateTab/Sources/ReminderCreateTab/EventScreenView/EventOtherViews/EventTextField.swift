@@ -19,18 +19,12 @@ struct EventTextField: View {
   
   var body: some View {
     TextField(placeholder, text: $text)
-      .padding(.horizontal, 14)
-      .padding(.vertical, 12)
-      .background(fieldBackground)
-      .overlay(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .stroke(ReminderColor.Accent.primary.opacity(text.isEmpty ? 0 : 0.4), lineWidth: 1)
-      )
+      .textFieldStyle(SharedMainTextFieldStyle(isTextNotEmpty: !text.isEmpty))
   }
   
   private var fieldBackground: some View {
     RoundedRectangle(cornerRadius: 14, style: .continuous)
-      .fill(ReminderColor.Background.primary.opacity(0.9))
-      .sharedShadow()
+      .fill(SharedColor.Background.primary.opacity(0.9))
+      .sharedShadowLight()
   }
 }

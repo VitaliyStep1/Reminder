@@ -22,10 +22,7 @@ struct EventSecondaryButton: View {
   var body: some View {
     Button(action: action) {
       Label(title, systemImage: imageName)
-        .font(.body.weight(.semibold))
     }
-    .buttonStyle(.borderedProminent)
-    .tint(ReminderColor.Accent.primary)
-    .sharedShadow()
+    .buttonStyle(SharedSecondaryButtonStyle())
   }
 }

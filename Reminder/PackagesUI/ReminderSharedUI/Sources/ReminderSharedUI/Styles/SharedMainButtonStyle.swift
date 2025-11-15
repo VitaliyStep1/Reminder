@@ -17,13 +17,13 @@ public struct SharedMainButtonStyle: ButtonStyle {
       .padding(.vertical, 14)
       .background(
         LinearGradient(
-          colors: [ReminderColor.Category.gradientStart, ReminderColor.Category.gradientEnd],
+          colors: [SharedColor.Category.gradientStart, SharedColor.Category.gradientEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(ReminderColor.Text.inverse)
+      .foregroundStyle(SharedColor.Text.inverse)
       .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-      .shadow(color: ReminderColor.Category.shadow, radius: 10, x: 0, y: 6)
+      .shadow(color: SharedColor.Category.shadow, radius: 10, x: 0, y: 6)
   }
 }

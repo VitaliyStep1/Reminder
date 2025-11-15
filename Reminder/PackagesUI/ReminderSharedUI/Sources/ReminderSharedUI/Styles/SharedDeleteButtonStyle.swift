@@ -17,13 +17,13 @@ public struct SharedDeleteButtonStyle: ButtonStyle {
       .padding(.vertical, 14)
       .background(
         LinearGradient(
-          colors: [ReminderColor.Danger.gradientStart, ReminderColor.Danger.gradientEnd],
+          colors: [SharedColor.Danger.gradientStart, SharedColor.Danger.gradientEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(ReminderColor.Text.inverse)
+      .foregroundStyle(SharedColor.Text.inverse)
       .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-      .shadow(color: ReminderColor.Danger.shadow, radius: 10, x: 0, y: 6)
+      .shadow(color: SharedColor.Danger.shadow, radius: 10, x: 0, y: 6)
   }
 }
