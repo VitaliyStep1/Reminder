@@ -11,10 +11,11 @@ import ReminderSharedUI
 
 public struct CategoriesScreenView: View {
   @StateObject var viewModel: CategoriesViewModel
-  @Environment(\.viewFactory) var viewFactory
-  
-  public init(viewModel: CategoriesViewModel) {
+  private let coordinator: any CreateCoordinatorProtocol
+
+  public init(viewModel: CategoriesViewModel, coordinator: any CreateCoordinatorProtocol) {
     _viewModel = StateObject(wrappedValue: viewModel)
+    self.coordinator = coordinator
   }
   
   public var body: some View {
@@ -78,16 +79,7 @@ private extension CategoriesScreenView {
   
   @ViewBuilder
   func destinationView(for route: Route) -> some View {
-    if let viewFactory {
-      switch route {
-      case .category, .event:
-        viewFactory.make(route)
-      default:
-        EmptyView()
-      }
-    } else {
-      EmptyView()
-    }
+    coordinator.destination(for: route)
   }
 }
 
