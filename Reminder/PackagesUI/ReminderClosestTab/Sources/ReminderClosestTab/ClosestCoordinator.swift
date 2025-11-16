@@ -11,7 +11,7 @@ import ReminderNavigationContracts
 import ReminderResolver
 
 @MainActor
-public final class ClosestCoordinator: ClosestCoordinatorProtocol {
+public final class ClosestCoordinator: CoordinatorProtocol {
   private let resolver: Resolver
 
   public init(resolver: Resolver) {

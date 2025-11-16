@@ -9,18 +9,18 @@ import SwiftUI
 import ReminderNavigationContracts
 import ReminderDomainContracts
 
-public final class Router: CreateTabRouterProtocol, ObservableObject {
-  @Published public var path: [Route] = []
+public final class CreateRouter: CreateRouterProtocol, ObservableObject {
+  @Published public var path: [CreateRoute] = []
 
   public init() { }
 
-  public func pushScreen(_ route: Route) {
+  public func pushScreen(_ route: CreateRoute) {
     var updatedPath = path
     updatedPath.append(route)
     path = updatedPath
   }
 
-  public func resetToScreen(_ route: Route) {
+  public func resetToScreen(_ route: CreateRoute) {
     path = [route]
   }
 

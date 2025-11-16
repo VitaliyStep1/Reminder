@@ -9,25 +9,26 @@ import SwiftUI
 import Swinject
 import ReminderNavigationContracts
 import ReminderResolver
+import ReminderDomainContracts
 
 @MainActor
 public final class CreateCoordinator: CreateCoordinatorProtocol {
   private let resolver: Resolver
-  private let router: any CreateTabRouterProtocol
+  public let router: any CreateRouterProtocol
 
   public init(resolver: Resolver) {
     self.resolver = resolver
-    self.router = resolver.createTabRouterProtocol
+    self.router = CreateRouter()
   }
 
   public func start() -> AnyView {
     let fetchAllCategoriesUseCase = resolver.fetchAllCategoriesUseCaseProtocol
-    let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase, router: router)
-    let view = CategoriesScreenView(viewModel: viewModel, coordinator: self)
+    let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase, coordinator: self)
+    let view = CategoriesScreenView(viewModel: viewModel)
     return AnyView(view)
   }
 
-  public func destination(for route: Route) -> AnyView {
+  public func destination(for route: CreateRoute) -> AnyView {
     switch route {
     case .category(let categoryId):
       let viewModel = CategoryViewModel(
@@ -56,5 +57,9 @@ public final class CreateCoordinator: CreateCoordinatorProtocol {
     default:
       return AnyView(EmptyView())
     }
+  }
+  
+  public func categoriesScreenCategoryWasClicked(categoryId: Identifier) {
+    router.pushScreen(.category(categoryId))
   }
 }

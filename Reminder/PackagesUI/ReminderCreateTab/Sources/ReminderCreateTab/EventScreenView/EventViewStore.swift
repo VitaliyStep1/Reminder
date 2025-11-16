@@ -29,9 +29,9 @@ public final class EventViewStore: ObservableObject {
 
   public var category: ReminderDomainContracts.Category?
   
-  let router: any CreateTabRouterProtocol
+  let router: any CreateRouterProtocol
 
-  public init(eventScreenViewType: EventScreenViewType, router: any CreateTabRouterProtocol) {
+  public init(eventScreenViewType: EventScreenViewType, router: any CreateRouterProtocol) {
     self.eventScreenViewType = eventScreenViewType
     
     self.screenTitleData = EventScreenTitleData(screenTitle: "")

@@ -10,15 +10,15 @@ import ReminderNavigationContracts
 import ReminderMainTabViewContracts
 
 public struct MainTabView: View {
-  private let closestCoordinator: any ClosestCoordinatorProtocol
-  private let createCoordinator: any CreateCoordinatorProtocol
-  private let settingsCoordinator: any SettingsCoordinatorProtocol
+  private let closestCoordinator: any CoordinatorProtocol
+  private let createCoordinator: any CoordinatorProtocol
+  private let settingsCoordinator: any CoordinatorProtocol
   @EnvironmentObject var mainTabViewSelectionState: MainTabViewSelectionState
 
   public init(
-    closestCoordinator: any ClosestCoordinatorProtocol,
-    createCoordinator: any CreateCoordinatorProtocol,
-    settingsCoordinator: any SettingsCoordinatorProtocol
+    closestCoordinator: any CoordinatorProtocol,
+    createCoordinator: any CoordinatorProtocol,
+    settingsCoordinator: any CoordinatorProtocol
   ) {
     self.closestCoordinator = closestCoordinator
     self.createCoordinator = createCoordinator

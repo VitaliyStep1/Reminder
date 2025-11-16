@@ -8,7 +8,7 @@
 import SwiftUI
 import ReminderDomainContracts
 
-public enum Route: Hashable {
+public enum CreateRoute: Hashable {
   case category(Identifier)
   case event(EventScreenViewType)
 }

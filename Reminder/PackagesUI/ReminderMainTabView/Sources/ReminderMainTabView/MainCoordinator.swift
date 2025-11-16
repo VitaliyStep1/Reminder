@@ -9,19 +9,20 @@ import SwiftUI
 import Swinject
 import ReminderNavigationContracts
 import ReminderResolver
+import ReminderCreateTab
 
 @MainActor
-public final class MainCoordinator: MainCoordinatorProtocol {
+public final class MainCoordinator: CoordinatorProtocol {
   private let resolver: Resolver
-  private let closestCoordinator: any ClosestCoordinatorProtocol
+  private let closestCoordinator: any CoordinatorProtocol
   private let createCoordinator: any CreateCoordinatorProtocol
-  private let settingsCoordinator: any SettingsCoordinatorProtocol
+  private let settingsCoordinator: any CoordinatorProtocol
 
   public init(
     resolver: Resolver,
-    closestCoordinator: any ClosestCoordinatorProtocol,
+    closestCoordinator: any CoordinatorProtocol,
     createCoordinator: any CreateCoordinatorProtocol,
-    settingsCoordinator: any SettingsCoordinatorProtocol
+    settingsCoordinator: any CoordinatorProtocol
   ) {
     self.resolver = resolver
     self.closestCoordinator = closestCoordinator

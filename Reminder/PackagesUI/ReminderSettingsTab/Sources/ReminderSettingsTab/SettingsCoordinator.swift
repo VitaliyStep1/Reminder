@@ -11,7 +11,7 @@ import ReminderNavigationContracts
 import ReminderResolver
 
 @MainActor
-public final class SettingsCoordinator: SettingsCoordinatorProtocol {
+public final class SettingsCoordinator: CoordinatorProtocol {
   private let resolver: Resolver
 
   public init(resolver: Resolver) {

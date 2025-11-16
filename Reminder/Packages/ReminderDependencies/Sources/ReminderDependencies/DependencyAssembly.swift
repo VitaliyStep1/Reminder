@@ -10,12 +10,12 @@ import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
 import ReminderDomain
-import ReminderNavigation
 import ReminderConfigurations
 import ReminderNavigationContracts
 import ReminderResolver
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
+import ReminderStartUI
 
 final class DependencyAssembly: Assembly {
   
@@ -143,9 +143,9 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.container)
     
-    container.register(CreateTabRouterProtocol.self) { _ in
-      return Router()
-    }
-    .inObjectScope(.container)
+//    container.register(CreateRouterProtocol.self) { _ in
+//      return CreateRouter()
+//    }
+//    .inObjectScope(.container)
   }
 }

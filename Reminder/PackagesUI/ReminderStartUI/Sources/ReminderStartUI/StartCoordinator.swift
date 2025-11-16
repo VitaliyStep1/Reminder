@@ -1,6 +1,6 @@
 //
 //  StartCoordinator.swift
-//  ReminderNavigation
+//  ReminderStartUI
 //
 //  Created by OpenAI's ChatGPT.
 //

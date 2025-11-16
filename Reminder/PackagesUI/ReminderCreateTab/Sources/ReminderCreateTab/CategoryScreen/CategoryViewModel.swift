@@ -37,7 +37,7 @@ public class CategoryViewModel: ObservableObject {
   @Published var isAlertVisible: Bool = false
   @Published var headerTitle: String = ""
   @Published var headerSubTitle: String = ""
-  var router: any CreateTabRouterProtocol
+  var router: any CreateRouterProtocol
   
   var alertInfo: ErrorAlertInfo = ErrorAlertInfo(message: "")
   
@@ -51,7 +51,7 @@ public class CategoryViewModel: ObservableObject {
   public init(
     categoryId: Identifier,
     fetchEventsUseCase: FetchEventsUseCaseProtocol,
-    fetchCategoryUseCase: FetchCategoryUseCaseProtocol, router: any CreateTabRouterProtocol
+    fetchCategoryUseCase: FetchCategoryUseCaseProtocol, router: any CreateRouterProtocol
   ) {
     self.categoryId = categoryId
     self.fetchEventsUseCase = fetchEventsUseCase

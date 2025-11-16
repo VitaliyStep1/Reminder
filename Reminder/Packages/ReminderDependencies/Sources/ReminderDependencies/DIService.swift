@@ -9,7 +9,6 @@ import Swinject
 import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
-import ReminderNavigation
 import ReminderConfigurations
 import ReminderNavigationContracts
 import ReminderResolver
