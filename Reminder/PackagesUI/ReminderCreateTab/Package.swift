@@ -29,6 +29,9 @@ let package = Package(
               "ReminderDomainContracts",
               "ReminderSharedUI",
               "ReminderResolver",
+            ],
+            resources: [
+              .process("Resources")
             ]
         ),
 

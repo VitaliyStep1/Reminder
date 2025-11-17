@@ -18,8 +18,8 @@ struct EventAlertsSectionView: View {
   }
   
   var body: some View {
-    EventSectionContainer(title: "Alerts", systemImageName: "bell.badge") {
-      EventSubSectionContainer(title: "Repeat every") {
+    EventSectionContainer(title: TextEnum.alertsSectionTitle.localized, systemImageName: "bell.badge") {
+      EventSubSectionContainer(title: TextEnum.repeatEveryTitle.localized) {
         repeatContent
       }
       sectionDivider
@@ -31,7 +31,7 @@ struct EventAlertsSectionView: View {
   private var repeatContent: some View {
     switch alertsSectionData.repeatRepresentationEnum {
     case .picker(let values, let titles):
-      Picker("Repeat every", selection: $alertsSectionData.remindRepeat) {
+      Picker(TextEnum.repeatEveryTitle.localized, selection: $alertsSectionData.remindRepeat) {
         ForEach(values, id: \.self) { option in
           Text(titles[option] ?? "")
             .tag(option)
@@ -52,25 +52,25 @@ struct EventAlertsSectionView: View {
   private var remindTimeView: some View {
     VStack(alignment: .leading, spacing: 12) {
       EventRemindTimeRow(
-        title: "Remind time 1",
+        title: TextEnum.remindTime1Title.localized,
         selection: $alertsSectionData.remindTimeDate1
       )
       if alertsSectionData.isRemindTime2ViewVisible {
         EventRemindTimeRow(
-          title: "Remind time 2",
+          title: TextEnum.remindTime2Title.localized,
           selection: optionalDateBinding(keyPath: \.remindTimeDate2),
           removeAction: interactor.removeRemindTimeDate2ButtonTapped
         )
       }
       if alertsSectionData.isRemindTime3ViewVisible {
         EventRemindTimeRow(
-          title: "Remind time 3",
+          title: TextEnum.remindTime3Title.localized,
           selection: optionalDateBinding(keyPath: \.remindTimeDate3),
           removeAction: interactor.removeRemindTimeDate3ButtonTapped
         )
       }
       if alertsSectionData.isAddRemindTimeButtonVisible {
-        EventSecondaryButton(action: interactor.addRemindTimeButtonTapped, title: "Add remind time", imageName: "plus.circle.fill")
+        EventSecondaryButton(action: interactor.addRemindTimeButtonTapped, title: TextEnum.addRemindTimeButtonTitle.localized, imageName: "plus.circle.fill")
       }
     }
   }

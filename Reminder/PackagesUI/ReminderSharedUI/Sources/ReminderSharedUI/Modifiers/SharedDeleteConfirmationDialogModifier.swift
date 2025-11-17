@@ -22,9 +22,9 @@ public struct SharedDeleteConfirmationDialogModifier: ViewModifier {
   
   public func body(content: Content) -> some View {
     content.confirmationDialog(title, isPresented: $isPresented, titleVisibility: .visible) {
-      let deleteTitle = "Delete"
+      let deleteTitle = TextEnum.delete.localized
       Button(deleteTitle, role: .destructive, action: deleteAction)
-      let cancelTitle = "Cancel"
+      let cancelTitle = TextEnum.cancel.localized
       Button(cancelTitle, role: .cancel, action: {})
     } message: {
       Text(message)

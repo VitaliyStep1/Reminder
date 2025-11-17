@@ -30,19 +30,19 @@ public struct MainTabView: View {
       closestCoordinator.start()
         .tabItem {
           Image(systemName: "calendar.badge.clock")
-          Text("Closest events")
+          Text(TextEnum.closestTabTitle.localized)
         }
         .tag(MainTabViewSelectionEnum.closest)
       createCoordinator.start()
         .tabItem {
           Image(systemName: "plus.circle")
-          Text("Create event")
+          Text(TextEnum.createTabTitle.localized)
         }
         .tag(MainTabViewSelectionEnum.create)
       settingsCoordinator.start()
         .tabItem {
           Image(systemName: "gearshape")
-          Text("Settings")
+          Text(TextEnum.settingsTabTitle.localized)
         }
         .tag(MainTabViewSelectionEnum.settings)
     }

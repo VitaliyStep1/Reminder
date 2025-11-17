@@ -16,12 +16,12 @@ struct EventPlannedSectionView: View {
   }
   
   var body: some View {
-    EventSectionContainer(title: "Planned Reminds", systemImageName: "square.and.pencil") {
+    EventSectionContainer(title: TextEnum.plannedRemindsSectionTitle.localized, systemImageName: "square.and.pencil") {
       switch plannedSectionData.plannedRemindsRepresentationEnum {
       case .noRemindPermission:
         noRemindPermissionView
       case .noPlannedReminds:
-        Text("There are no planned reminds yet.")
+        Text(TextEnum.noPlannedRemindsText.localized)
       case .plannedReminds(let plannedReminds):
         plannedRemindsView(plannedReminds: plannedReminds)
       }
@@ -30,16 +30,16 @@ struct EventPlannedSectionView: View {
   
   @ViewBuilder
   private var noRemindPermissionView: some View {
-    Text("You have not allowed to send notifications yet.")
+    Text(TextEnum.notificationsNotAllowedText.localized)
     Button {
-      
+
     } label: {
-      Text("Allow notifications")
+      Text(TextEnum.allowNotificationsButton.localized)
     }
     .buttonStyle(SharedSecondaryButtonStyle())
   }
-  
+
   private func plannedRemindsView(plannedReminds: [EventEntity.PlannedRemind]) -> some View {
-    Text("Planned Reminds")
+    Text(TextEnum.plannedRemindsSectionTitle.localized)
   }
 }

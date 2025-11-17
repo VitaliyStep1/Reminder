@@ -20,7 +20,7 @@ public struct SettingsScreenView: View {
       contentView
         .sharedScreenPadding()
         .sharedScreenBackground()
-        .navigationTitle("Settings")
+        .navigationTitle(TextEnum.settingsTitle.localized)
     }
   }
   
@@ -29,7 +29,7 @@ public struct SettingsScreenView: View {
       VStack {
         VStack {
           DatePicker(
-            "Default remind time:",
+            TextEnum.defaultRemindTimeLabel.localized,
             selection: $viewModel.defaultRemindTimeDate,
             displayedComponents: .hourAndMinute
           )
@@ -37,7 +37,7 @@ public struct SettingsScreenView: View {
           .sharedCellBackground()
           .sharedShadow()
           HStack {
-            Text("Choose a default reminder time for events.")
+            Text(TextEnum.defaultRemindTimeDescription.localized)
               .padding(.horizontal, 16)
             Spacer()
           }

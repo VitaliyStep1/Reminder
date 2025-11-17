@@ -1,0 +1,50 @@
+"deleteEventTitle" = "Delete this event?";
+"deleteEventMessage" = "This action cannot be undone.";
+"eventTitleEmptyAlert" = "Event title should not be empty";
+"eventNotSavedAlert" = "Event was not saved";
+"eventDeleteFailedAlert" = "Deleting event failed";
+"eventNotFoundAlert" = "Event was not found";
+"categoryNotFoundAlert" = "Category was not found";
+"eventsNotFetchedAlert" = "Events were not fetched";
+
+"createEventScreenTitle" = "Create Event";
+"createEventButtonTitle" = "Create";
+"editEventScreenTitle" = "Edit Event";
+"saveEventButtonTitle" = "Save";
+
+"yearTitle" = "Year";
+"monthTitle" = "Month";
+"dayTitle" = "Day";
+"notRepeatTitle" = "Not Repeat";
+
+"plannedRemindsSectionTitle" = "Planned Reminds";
+"noPlannedRemindsText" = "There are no planned reminds yet.";
+"notificationsNotAllowedText" = "You have not allowed to send notifications yet.";
+"allowNotificationsButton" = "Allow notifications";
+
+"eventDetailsSectionTitle" = "Event details";
+"eventTitleTitle" = "Title";
+"eventTitlePlaceholder" = "Title";
+"eventCommentTitle" = "Comment";
+"eventCommentPlaceholder" = "Comment";
+"eventDateTitle" = "Date";
+"eventDateLabel" = "Event date:";
+"selectEventDateTitle" = "Select Event Date";
+"cancelTitle" = "Cancel";
+"deleteButtonTitle" = "Delete";
+"doneTitle" = "Done";
+
+"alertsSectionTitle" = "Alerts";
+"repeatEveryTitle" = "Repeat every";
+"addRemindTimeButtonTitle" = "Add remind time";
+"remindTime1Title" = "Remind time 1";
+"remindTime2Title" = "Remind time 2";
+"remindTime3Title" = "Remind time 3";
+
+"categoriesNavigationTitle" = "Categories";
+"noCategoriesText" = "No categories was found";
+"eventSingular" = "Event";
+"eventsPlural" = "Events";
+"addNewEventButtonTitle" = "Add new event";
+"categoryNoEventsText" = "There are no events in this category yet.\nPlease add one!";
+"addedEventsFormat" = "%d added %@";

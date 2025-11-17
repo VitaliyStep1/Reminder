@@ -15,7 +15,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ReminderSharedUI"),
+            name: "ReminderSharedUI",
+            resources: [
+              .process("Resources")
+            ]),
 
     ]
 )
