@@ -1,0 +1,17 @@
+/*
+  Localizable.strings
+  ReminderDomain
+
+  Created by OpenAI's assistant.
+
+*/
+"categoryBirthdaysTitle" = "Дні народження";
+"categorySubscriptionsTitle" = "Підписки";
+"categoryUtilitiesTitle" = "Комунальні послуги";
+"categoryAniversariesTitle" = "Річниці";
+"categoryOtherEveryYearTitle" = "Інше - щороку";
+"categoryOtherEveryMonthTitle" = "Інше - щомісяця";
+"categoryOtherEveryDayTitle" = "Інше - щодня";
+"categoryOtherOneTimeTitle" = "Інше - разово";
+"previewEventTitle" = "Подія 1";
+"previewEventComment" = "Коментар 1";

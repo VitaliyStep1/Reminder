@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "ReminderDomain",
+    defaultLocalization: "en",
     platforms: [
       .iOS(.v16)
     ],
@@ -29,6 +30,9 @@ let package = Package(
               "ReminderPersistenceContracts",
               "ReminderConfigurations",
               "ReminderUserDefaultsStorage",
+            ],
+            resources: [
+              .process("Resources")
             ]
         ),
     ]
