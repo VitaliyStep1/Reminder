@@ -12,9 +12,12 @@ import ReminderPersistenceContracts
 public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Sendable {
   private var dBCategoriesService: DBCategoriesServiceProtocol
   private var dBEventsService: DBEventsServiceProtocol
-  
+
   private var eventForPreviewData: (title: String, comment: String) {
-    (title: "Event 1", comment: "Comment 1")
+    (
+      title: TextEnum.previewEventTitle.localized,
+      comment: TextEnum.previewEventComment.localized
+    )
   }
   
   public required init(dBCategoriesService: DBCategoriesServiceProtocol, dBEventsService: DBEventsServiceProtocol) {

@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  ReminderClosestTab
+
+  Created by Vitaliy Stepanenko on 17.11.2025.
+  
+*/
+"closestScreenTitle" = "Найближчі події";
+"closestCreateEventButtonTitle" = "Створити подію";
+"closestNoEventsText" = "Подій ще немає.\nБудь ласка, створіть першу.";

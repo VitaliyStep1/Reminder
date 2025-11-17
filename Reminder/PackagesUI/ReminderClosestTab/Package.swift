@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "ReminderClosestTab",
+    defaultLocalization: "en",
     platforms: [
       .iOS(.v16)
     ],
@@ -29,6 +30,9 @@ let package = Package(
               "ReminderNavigationContracts",
               "ReminderSharedUI",
               "ReminderResolver",
+            ],
+            resources: [
+              .process("Resources")
             ]
         ),
     ]

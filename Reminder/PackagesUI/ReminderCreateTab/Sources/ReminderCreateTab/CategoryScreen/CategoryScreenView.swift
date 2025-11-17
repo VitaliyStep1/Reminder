@@ -48,7 +48,7 @@ private extension CategoryScreenView {
         withEventsView(events: events)
       }
       
-      CategoryAddButton(systemImageName: "plus.circle.fill", title: "Add new event", action: viewModel.addButtonTapped)
+      CategoryAddButton(systemImageName: "plus.circle.fill", title: TextEnum.addNewEventButtonTitle.localized, action: viewModel.addButtonTapped)
     }
   }
   

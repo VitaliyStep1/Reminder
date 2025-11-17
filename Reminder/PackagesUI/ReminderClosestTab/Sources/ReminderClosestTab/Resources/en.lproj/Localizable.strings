@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  ReminderClosestTab
+
+  Created by Vitaliy Stepanenko on 17.11.2025.
+  
+*/
+"closestScreenTitle" = "Closest events";
+"closestCreateEventButtonTitle" = "Create event";
+"closestNoEventsText" = "There are no events yet.\nPlease create one.";

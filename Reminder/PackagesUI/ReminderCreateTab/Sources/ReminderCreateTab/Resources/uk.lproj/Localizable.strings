@@ -1,0 +1,50 @@
+"deleteEventTitle" = "Видалити цю подію?";
+"deleteEventMessage" = "Цю дію не можна скасувати.";
+"eventTitleEmptyAlert" = "Назва події не повинна бути порожньою";
+"eventNotSavedAlert" = "Подію не збережено";
+"eventDeleteFailedAlert" = "Не вдалося видалити подію";
+"eventNotFoundAlert" = "Подію не знайдено";
+"categoryNotFoundAlert" = "Категорію не знайдено";
+"eventsNotFetchedAlert" = "Події не були завантажені";
+
+"createEventScreenTitle" = "Створити подію";
+"createEventButtonTitle" = "Створити";
+"editEventScreenTitle" = "Редагувати подію";
+"saveEventButtonTitle" = "Зберегти";
+
+"yearTitle" = "Рік";
+"monthTitle" = "Місяць";
+"dayTitle" = "День";
+"notRepeatTitle" = "Не повторювати";
+
+"plannedRemindsSectionTitle" = "Заплановані нагадування";
+"noPlannedRemindsText" = "Запланованих нагадувань ще немає.";
+"notificationsNotAllowedText" = "Ви не дозволили надсилати сповіщення.";
+"allowNotificationsButton" = "Дозволити сповіщення";
+
+"eventDetailsSectionTitle" = "Деталі події";
+"eventTitleTitle" = "Назва";
+"eventTitlePlaceholder" = "Назва";
+"eventCommentTitle" = "Коментар";
+"eventCommentPlaceholder" = "Коментар";
+"eventDateTitle" = "Дата";
+"eventDateLabel" = "Дата події:";
+"selectEventDateTitle" = "Виберіть дату події";
+"cancelTitle" = "Скасувати";
+"deleteButtonTitle" = "Видалити";
+"doneTitle" = "Готово";
+
+"alertsSectionTitle" = "Сповіщення";
+"repeatEveryTitle" = "Повторювати кожні";
+"addRemindTimeButtonTitle" = "Додати час нагадування";
+"remindTime1Title" = "Час нагадування 1";
+"remindTime2Title" = "Час нагадування 2";
+"remindTime3Title" = "Час нагадування 3";
+
+"categoriesNavigationTitle" = "Категорії";
+"noCategoriesText" = "Категорії не знайдено";
+"eventSingular" = "Подія";
+"eventsPlural" = "Події";
+"addNewEventButtonTitle" = "Додати нову подію";
+"categoryNoEventsText" = "У цій категорії ще немає подій.\nБудь ласка, додайте одну!";
+"addedEventsFormat" = "%d додано %@";

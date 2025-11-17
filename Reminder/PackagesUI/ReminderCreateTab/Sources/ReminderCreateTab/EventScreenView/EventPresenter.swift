@@ -35,8 +35,8 @@ public final class EventPresenter {
   
   public func presentDeleteConfirmation(deleteHandler: @escaping () -> Void) {
     store.confirmationDialogInfo = DeleteConfirmationDialogInfo(
-      title: "Delete this event?",
-      message: "This action cannot be undone.",
+      title: TextEnum.deleteEventTitle.localized,
+      message: TextEnum.deleteEventMessage.localized,
       deleteButtonHandler: deleteHandler
     )
     store.isConfirmationDialogVisible = true
@@ -75,25 +75,25 @@ public final class EventPresenter {
   }
   
   public func presentEventTitleShouldBeNotEmptyAlert() {
-    presentAlert(message: "Event title should not be empty")
+    presentAlert(message: TextEnum.eventTitleEmptyAlert.localized)
   }
-  
+
   public func presentEventWasNotSavedAlert() {
-    presentAlert(message: "Event was not saved")
+    presentAlert(message: TextEnum.eventNotSavedAlert.localized)
   }
-  
+
   public func presentDeleteErrorAlert() {
-    presentAlert(message: "Deleting event failed")
+    presentAlert(message: TextEnum.eventDeleteFailedAlert.localized)
   }
-  
+
   public func presentEventWasNotFoundAlert(completion: @escaping (() -> Void)) {
     presentViewBlocked(true)
-    presentAlert(message: "Event was not found", completion: completion)
+    presentAlert(message: TextEnum.eventNotFoundAlert.localized, completion: completion)
   }
-  
+
   public func presentCategoryWasNotFoundAlert(completion: @escaping (() -> Void)) {
     presentViewBlocked(true)
-    presentAlert(message: "Category was not found", completion: completion)
+    presentAlert(message: TextEnum.categoryNotFoundAlert.localized, completion: completion)
   }
   
   public func presentAlert(message: String, completion: (() -> Void)? = nil) {
@@ -109,13 +109,13 @@ public final class EventPresenter {
   private func configureView() {
     switch store.eventScreenViewType {
     case .create:
-      store.screenTitleData.screenTitle = "Create Event"
+      store.screenTitleData.screenTitle = TextEnum.createEventScreenTitle.localized
       store.buttonsData.isDeleteButtonVisible = false
-      store.buttonsData.saveButtonTitle = "Create"
+      store.buttonsData.saveButtonTitle = TextEnum.createEventButtonTitle.localized
     case .edit:
-      store.screenTitleData.screenTitle = "Edit Event"
+      store.screenTitleData.screenTitle = TextEnum.editEventScreenTitle.localized
       store.buttonsData.isDeleteButtonVisible = true
-      store.buttonsData.saveButtonTitle = "Save"
+      store.buttonsData.saveButtonTitle = TextEnum.saveEventButtonTitle.localized
     case .notVisible:
       store.screenTitleData.screenTitle = ""
       store.buttonsData.isDeleteButtonVisible = false
@@ -140,13 +140,13 @@ public final class EventPresenter {
   private func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
     switch remindRepeat {
     case .everyYear:
-      return "Year"
+      return TextEnum.yearTitle.localized
     case .everyMonth:
-      return "Month"
+      return TextEnum.monthTitle.localized
     case .everyDay:
-      return "Day"
+      return TextEnum.dayTitle.localized
     case .notRepeat:
-      return "Not Repeat"
+      return TextEnum.notRepeatTitle.localized
     }
   }
 }

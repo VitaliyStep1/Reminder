@@ -63,8 +63,8 @@ public extension View {
     message: String,
     completion: (() -> Void)?
   ) -> some View {
-    let title = "Error"
-    let buttonTitle = "Ok"
+    let title = TextEnum.error.localized
+    let buttonTitle = TextEnum.ok.localized
     return sharedAlert(isPresented: isPresented, title: title, message: message, buttonTitle: buttonTitle, completion: completion)
   }
 }

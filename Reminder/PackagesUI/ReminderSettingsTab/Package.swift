@@ -29,6 +29,9 @@ let package = Package(
             "ReminderNavigationContracts",
             "ReminderSharedUI",
             "ReminderResolver",
+          ],
+          resources: [
+            .process("Resources")
           ]
         ),
 

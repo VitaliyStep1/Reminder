@@ -20,8 +20,8 @@ public class CategoryViewModel: ObservableObject {
   
   private var events: [CategoryEntity.Event] = [] {
     didSet {
-      let eventsTitle = events.count == 1 ? "event" : "events"
-      headerSubTitle = "\(events.count) added \(eventsTitle)"
+      let eventsTitle = events.count == 1 ? TextEnum.eventSingular.localized : TextEnum.eventsPlural.localized
+      headerSubTitle = String(format: TextEnum.addedEventsFormat.localized, events.count, eventsTitle)
       if events.isEmpty {
         screenStateEnum = .empty(title: noEventsText)
       } else {
@@ -40,11 +40,11 @@ public class CategoryViewModel: ObservableObject {
   var router: any CreateRouterProtocol
   
   var alertInfo: ErrorAlertInfo = ErrorAlertInfo(message: "")
-  
+
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
-  private let noEventsText = "There are no events in this category yet.\nPlease add one!"
+  private let noEventsText = TextEnum.categoryNoEventsText.localized
   
   private var cancellables: Set<AnyCancellable> = []
   
@@ -118,7 +118,7 @@ public class CategoryViewModel: ObservableObject {
   }
   
   private func showEventsWereNotFetchedAlert() {
-    alertInfo = ErrorAlertInfo(message: "Events were not fetched")
+    alertInfo = ErrorAlertInfo(message: TextEnum.eventsNotFetchedAlert.localized)
     isAlertVisible = true
   }
   

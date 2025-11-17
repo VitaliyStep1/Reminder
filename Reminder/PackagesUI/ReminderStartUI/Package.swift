@@ -39,6 +39,9 @@ let package = Package(
               "ReminderMainTabView",
               "ReminderSettingsTab",
               "ReminderResolver",
+            ],
+            resources: [
+              .process("Resources")
             ]
         ),
 
