@@ -9,11 +9,11 @@ import SwiftUI
 import Combine
 import ReminderDomainContracts
 
-public protocol CreateTabRouterProtocol: ObservableObject where ObjectWillChangePublisher == ObservableObjectPublisher {
-  var path: [Route] { get set }
+public protocol CreateRouterProtocol: ObservableObject where ObjectWillChangePublisher == ObservableObjectPublisher {
+  var path: [CreateRoute] { get set }
 
-  func pushScreen(_: Route)
-  func resetToScreen(_: Route)
+  func pushScreen(_: CreateRoute)
+  func resetToScreen(_: CreateRoute)
   func popScreen()
   @MainActor
   func categoryEventWasUpdated(newCategoryId: Identifier?)

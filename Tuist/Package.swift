@@ -17,7 +17,6 @@ let package = Package(
     .package(path: "../Reminder/Packages/ReminderUserDefaultsStorage"),
     .package(path: "../Reminder/PackagesUI/ReminderSharedUI"),
     .package(path: "../Reminder/PackagesUI/ReminderNavigationContracts"),
-    .package(path: "../Reminder/PackagesUI/ReminderNavigation"),
     .package(path: "../Reminder/PackagesUI/ReminderMainTabViewContracts"),
     .package(path: "../Reminder/PackagesUI/ReminderMainTabView"),
     .package(path: "../Reminder/PackagesUI/ReminderCreateTab"),

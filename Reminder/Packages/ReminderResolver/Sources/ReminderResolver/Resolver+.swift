@@ -66,10 +66,6 @@ extension Resolver {
     resolve(UpdateDefaultRemindTimeDateUseCaseProtocol.self)!
   }
 
-  public var viewFactoryProtocol: ViewFactoryProtocol {
-    resolve(ViewFactoryProtocol.self)!
-  }
-  
   public var defaultCategoriesDataServiceProtocol: DefaultCategoriesDataServiceProtocol {
     resolve(DefaultCategoriesDataServiceProtocol.self)!
   }
@@ -97,8 +93,8 @@ extension Resolver {
   public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {
     resolve(DefaultRemindTimeServiceProtocol.self)!
   }
-  
-  public var createTabRouterProtocol: CreateTabRouterProtocol {
-    resolve(CreateTabRouterProtocol.self)!
+
+  public var startCoordinatorProtocol: StartCoordinatorProtocol {
+    resolve(StartCoordinatorProtocol.self)!
   }
 }

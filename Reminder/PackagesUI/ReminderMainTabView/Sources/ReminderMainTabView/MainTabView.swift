@@ -10,33 +10,41 @@ import ReminderNavigationContracts
 import ReminderMainTabViewContracts
 
 public struct MainTabView: View {
-  @Environment(\.viewFactory) private var viewFactory
+  private let closestCoordinator: any CoordinatorProtocol
+  private let createCoordinator: any CoordinatorProtocol
+  private let settingsCoordinator: any CoordinatorProtocol
   @EnvironmentObject var mainTabViewSelectionState: MainTabViewSelectionState
-  
-  public init() { }
-  
+
+  public init(
+    closestCoordinator: any CoordinatorProtocol,
+    createCoordinator: any CoordinatorProtocol,
+    settingsCoordinator: any CoordinatorProtocol
+  ) {
+    self.closestCoordinator = closestCoordinator
+    self.createCoordinator = createCoordinator
+    self.settingsCoordinator = settingsCoordinator
+  }
+
   public var body: some View {
     TabView(selection: $mainTabViewSelectionState.selection) {
-      if let viewFactory {
-        viewFactory.make(.closest)
-          .tabItem {
-            Image(systemName: "calendar.badge.clock")
-            Text("Closest events")
-          }
-          .tag(MainTabViewSelectionEnum.closest)
-        viewFactory.make(.categories)
-          .tabItem {
-            Image(systemName: "plus.circle")
-            Text("Create event")
-          }
-          .tag(MainTabViewSelectionEnum.create)
-        viewFactory.make(.settings)
-          .tabItem {
-            Image(systemName: "gearshape")
-            Text("Settings")
-          }
-          .tag(MainTabViewSelectionEnum.settings)
-      }
+      closestCoordinator.start()
+        .tabItem {
+          Image(systemName: "calendar.badge.clock")
+          Text("Closest events")
+        }
+        .tag(MainTabViewSelectionEnum.closest)
+      createCoordinator.start()
+        .tabItem {
+          Image(systemName: "plus.circle")
+          Text("Create event")
+        }
+        .tag(MainTabViewSelectionEnum.create)
+      settingsCoordinator.start()
+        .tabItem {
+          Image(systemName: "gearshape")
+          Text("Settings")
+        }
+        .tag(MainTabViewSelectionEnum.settings)
     }
   }
 }

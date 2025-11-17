@@ -1,0 +1,65 @@
+//
+//  CreateCoordinator.swift
+//  ReminderCreateTab
+//
+//  Created by OpenAI's ChatGPT.
+//
+
+import SwiftUI
+import Swinject
+import ReminderNavigationContracts
+import ReminderResolver
+import ReminderDomainContracts
+
+@MainActor
+public final class CreateCoordinator: CreateCoordinatorProtocol {
+  private let resolver: Resolver
+  public let router: any CreateRouterProtocol
+
+  public init(resolver: Resolver) {
+    self.resolver = resolver
+    self.router = CreateRouter()
+  }
+
+  public func start() -> AnyView {
+    let fetchAllCategoriesUseCase = resolver.fetchAllCategoriesUseCaseProtocol
+    let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase, coordinator: self)
+    let view = CategoriesScreenView(viewModel: viewModel)
+    return AnyView(view)
+  }
+
+  public func destination(for route: CreateRoute) -> AnyView {
+    switch route {
+    case .category(let categoryId):
+      let viewModel = CategoryViewModel(
+        categoryId: categoryId,
+        fetchEventsUseCase: resolver.fetchEventsUseCaseProtocol,
+        fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
+        router: router
+      )
+      let view = CategoryScreenView(viewModel: viewModel)
+      return AnyView(view)
+    case .event(let eventScreenViewType):
+      let store = EventViewStore(eventScreenViewType: eventScreenViewType, router: router)
+      let presenter = EventPresenter(store: store)
+      let interactor = EventInteractor(
+        createEventUseCase: resolver.createEventUseCaseProtocol,
+        editEventUseCase: resolver.editEventUseCaseProtocol,
+        deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
+        fetchEventUseCase: resolver.fetchEventUseCaseProtocol,
+        fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
+        fetchDefaultRemindTimeDateUseCase: resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
+        presenter: presenter,
+        store: store
+      )
+      let view = EventScreenView(store: store, interactor: interactor)
+      return AnyView(view)
+    default:
+      return AnyView(EmptyView())
+    }
+  }
+  
+  public func categoriesScreenCategoryWasClicked(categoryId: Identifier) {
+    router.pushScreen(.category(categoryId))
+  }
+}

@@ -6,25 +6,22 @@
 //
 
 import SwiftUI
-import ReminderNavigationContracts
 import ReminderDependencies
+import ReminderNavigationContracts
 
 @main
 struct ReminderApp: App {
-  private let viewFactory: any ViewFactoryProtocol
-  
+  private let startCoordinator: any StartCoordinatorProtocol
+
   init() {
     let di = DIService()
-    let viewFactory = di.resolver.viewFactoryProtocol
-    self.viewFactory = viewFactory
+    let startCoordinator = di.resolver.startCoordinatorProtocol
+    self.startCoordinator = startCoordinator
   }
-  
+
   var body: some Scene {
     WindowGroup {
-      Group {
-        viewFactory.make(.start)
-          .environment(\.viewFactory, viewFactory)
-      }
+      startCoordinator.start()
     }
   }
 }

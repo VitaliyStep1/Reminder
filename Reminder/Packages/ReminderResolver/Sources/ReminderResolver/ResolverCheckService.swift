@@ -22,7 +22,6 @@ public class ResolverCheckService {
       resolver.deleteEventUseCaseProtocol,
       resolver.takeDefaultRemindTimeDateUseCaseProtocol,
       resolver.updateDefaultRemindTimeDateUseCaseProtocol,
-      resolver.viewFactoryProtocol,
       resolver.defaultCategoriesDataServiceProtocol,
       resolver.appConfigurationProtocol,
       resolver.splashScreenState,
@@ -30,7 +29,7 @@ public class ResolverCheckService {
       resolver.userDefaultsServiceProtocol,
       resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
       resolver.defaultRemindTimeServiceProtocol,
-      resolver.createTabRouterProtocol,
+      resolver.startCoordinatorProtocol,
     ]
     
     return dependencies

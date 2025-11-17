@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import ReminderNavigationContracts
 import ReminderSharedUI
 
 public struct CategoryScreenView: View {
   @StateObject var viewModel: CategoryViewModel
-  
-  @Environment(\.viewFactory) var viewFactory
-  
+
   public init(viewModel: CategoryViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
   }

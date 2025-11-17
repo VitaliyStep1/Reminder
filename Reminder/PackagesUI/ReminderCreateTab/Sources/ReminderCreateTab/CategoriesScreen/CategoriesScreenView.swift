@@ -11,8 +11,7 @@ import ReminderSharedUI
 
 public struct CategoriesScreenView: View {
   @StateObject var viewModel: CategoriesViewModel
-  @Environment(\.viewFactory) var viewFactory
-  
+
   public init(viewModel: CategoriesViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
   }
@@ -27,7 +26,7 @@ public struct CategoriesScreenView: View {
           viewModel.taskWasCalled()
         }
         .navigationTitle(viewModel.navigationTitle)
-        .navigationDestination(for: Route.self) { route in
+        .navigationDestination(for: CreateRoute.self) { route in
           destinationView(for: route)
         }
     }
@@ -35,7 +34,7 @@ public struct CategoriesScreenView: View {
 }
 
 private extension CategoriesScreenView {
-  var routerPathBinding: Binding<[Route]> {
+  var routerPathBinding: Binding<[CreateRoute]> {
     Binding(
       get: { viewModel.routerPath },
       set: { viewModel.routerPath = $0 }
@@ -77,17 +76,8 @@ private extension CategoriesScreenView {
   }
   
   @ViewBuilder
-  func destinationView(for route: Route) -> some View {
-    if let viewFactory {
-      switch route {
-      case .category, .event:
-        viewFactory.make(route)
-      default:
-        EmptyView()
-      }
-    } else {
-      EmptyView()
-    }
+  func destinationView(for route: CreateRoute) -> some View {
+    viewModel.coordinator.destination(for: route)
   }
 }
 

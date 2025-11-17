@@ -10,20 +10,19 @@ import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
 import ReminderDomain
-import ReminderNavigation
-import ReminderStartUI
 import ReminderConfigurations
 import ReminderNavigationContracts
 import ReminderResolver
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
+import ReminderStartUI
 
 final class DependencyAssembly: Assembly {
   
   func assemble(container: Container) {
-    // ViewFactory
-    container.register(ViewFactoryProtocol.self) { r in
-      ViewFactory(resolver: r)
+    // Coordinators
+    container.register(StartCoordinatorProtocol.self) { r in
+      StartCoordinator(resolver: r)
     }
     .inObjectScope(.container)
     
@@ -144,9 +143,9 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.container)
     
-    container.register(CreateTabRouterProtocol.self) { _ in
-      return Router()
-    }
-    .inObjectScope(.container)
+//    container.register(CreateRouterProtocol.self) { _ in
+//      return CreateRouter()
+//    }
+//    .inObjectScope(.container)
   }
 }

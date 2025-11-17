@@ -16,18 +16,20 @@ public class CategoriesViewModel: ObservableObject {
   
   @Published var screenStateEnum: CategoriesEntity.ScreenStateEnum
   @Published var navigationTitle: String = "Categories"
-  let router: any CreateTabRouterProtocol
+  
+  let coordinator: any CreateCoordinatorProtocol
   private var cancellables: Set<AnyCancellable> = []
   
   private let noCategoriesText = "No categories was found"
   
-  public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol, router: any CreateTabRouterProtocol) {
+  public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol,
+              coordinator: any CreateCoordinatorProtocol) {
     self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
-    self.router = router
+    self.coordinator = coordinator
     
     screenStateEnum = .empty(title: noCategoriesText)
     
-    router.objectWillChange
+    coordinator.router.objectWillChange
       .receive(on: DispatchQueue.main)
       .sink { [weak self] _ in
         self?.objectWillChange.send()
@@ -40,7 +42,7 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   func categoryRowWasClicked(_ category: CategoriesEntity.Category) {
-    router.pushScreen(.category(category.id))
+    coordinator.categoriesScreenCategoryWasClicked(categoryId: category.id)
   }
   
   func loadCategories() {
@@ -66,8 +68,8 @@ public class CategoriesViewModel: ObservableObject {
     return "\(eventsAmount) \(title)"
   }
   
-  var routerPath: [Route] {
-    get { router.path }
-    set { router.path = newValue }
+  var routerPath: [CreateRoute] {
+    get { coordinator.router.path }
+    set { coordinator.router.path = newValue }
   }
 }
