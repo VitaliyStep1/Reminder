@@ -28,7 +28,8 @@ let appSettings: Settings = .settings(
     "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone": "UIInterfaceOrientationPortrait",
     "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
     "SWIFT_EMIT_LOC_STRINGS": "YES",
-    "TARGETED_DEVICE_FAMILY": "1,2"
+    "TARGETED_DEVICE_FAMILY": "1,2",
+    "DEVELOPMENT_LANGUAGE": "en",
   ]
 )
 
@@ -41,15 +42,20 @@ let project = Project(
       destinations: .iOS,
       product: .app,
       bundleId: "com.ojexsoft.Reminder",
-      infoPlist: .default,
-//      infoPlist: .extendingDefault(
-//        with: [
-//          "UILaunchScreen": [
-//            "UIColorName": "",
-//            "UIImageName": "",
-//          ],
-//        ]
-//      ),
+//      infoPlist: .default,
+      infoPlist: .extendingDefault(
+        with: [
+          "UILaunchScreen": [
+            "UIColorName": "",
+            "UIImageName": "",
+          ],
+          "CFBundleDevelopmentRegion": "en",
+          "CFBundleLocalizations": [
+            "en",
+            "uk"
+          ],
+        ]
+      ),
       buildableFolders: [
         "Reminder/Sources",
         "Reminder/Resources",

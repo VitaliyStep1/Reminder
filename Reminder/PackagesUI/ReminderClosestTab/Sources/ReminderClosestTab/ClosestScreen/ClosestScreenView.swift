@@ -21,7 +21,7 @@ public struct ClosestScreenView: View {
       contentView
         .sharedScreenPadding()
         .sharedScreenBackground()
-        .navigationTitle("Closest events")
+        .navigationTitle(TextEnum.closestScreenTitle.localized)
     }
   }
   
