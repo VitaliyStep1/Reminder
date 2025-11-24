@@ -1,6 +1,6 @@
 //
 //  SharedScreenBackgroundModifier.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 13.11.2025.
 //

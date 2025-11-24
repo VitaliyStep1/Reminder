@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 struct CategoryAddButton: View {
   let systemImageName: String

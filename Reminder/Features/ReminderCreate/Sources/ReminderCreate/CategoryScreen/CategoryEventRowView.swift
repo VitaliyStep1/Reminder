@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 public struct CategoryEventRowView: View {
   var title: String

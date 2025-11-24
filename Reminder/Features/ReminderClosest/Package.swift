@@ -18,7 +18,7 @@ let package = Package(
       .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
       .package(path: "ReminderMainTabViewContracts"),
       .package(path: "ReminderNavigationContracts"),
-      .package(path: "ReminderSharedUI"),
+      .package(path: "ReminderDesignSystem"),
       .package(path: "ReminderResolver")
     ],
     targets: [
@@ -28,7 +28,7 @@ let package = Package(
               .product(name: "Swinject", package: "Swinject"),
               "ReminderMainTabViewContracts",
               "ReminderNavigationContracts",
-              "ReminderSharedUI",
+              "ReminderDesignSystem",
               "ReminderResolver",
             ],
             resources: [

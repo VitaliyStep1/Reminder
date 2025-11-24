@@ -1,6 +1,6 @@
 //
 //  SharedDeleteConfirmationDialogModifier.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 08.11.2025.
 //

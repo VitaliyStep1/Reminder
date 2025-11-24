@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 struct EventRemindTimeRow: View {
   let title: String

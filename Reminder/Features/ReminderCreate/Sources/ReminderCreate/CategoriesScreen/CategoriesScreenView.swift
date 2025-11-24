@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ReminderNavigationContracts
-import ReminderSharedUI
+import ReminderDesignSystem
 
 public struct CategoriesScreenView: View {
   @StateObject var viewModel: CategoriesViewModel

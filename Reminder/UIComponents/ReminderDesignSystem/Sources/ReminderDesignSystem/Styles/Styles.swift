@@ -1,6 +1,6 @@
 //
 //  Styles.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 12.11.2025.
 //

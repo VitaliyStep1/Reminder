@@ -4,18 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReminderSharedUI",
+    name: "ReminderDesignSystem",
     platforms: [
       .iOS(.v16)
     ],
     products: [
         .library(
-            name: "ReminderSharedUI",
-            targets: ["ReminderSharedUI"]),
+            name: "ReminderDesignSystem",
+            targets: ["ReminderDesignSystem"]),
     ],
     targets: [
         .target(
-            name: "ReminderSharedUI",
+            name: "ReminderDesignSystem",
             resources: [
               .process("Resources")
             ]),

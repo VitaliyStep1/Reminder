@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 struct EventSectionContainer<Content: View>: View {
   let title: String

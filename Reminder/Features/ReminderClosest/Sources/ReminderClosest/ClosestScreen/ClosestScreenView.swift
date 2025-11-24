@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 public struct ClosestScreenView: View {
   @StateObject var viewModel: ClosestViewModel

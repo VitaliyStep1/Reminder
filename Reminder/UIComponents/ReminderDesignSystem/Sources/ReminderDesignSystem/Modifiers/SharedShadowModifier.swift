@@ -1,6 +1,6 @@
 //
 //  SharedShadowModifier.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 14.11.2025.
 //

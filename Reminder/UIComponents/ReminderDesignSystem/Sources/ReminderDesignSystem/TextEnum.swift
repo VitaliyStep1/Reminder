@@ -1,6 +1,6 @@
 //
 //  TextEnum.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by OpenAI Assistant on 18.11.2025.
 //

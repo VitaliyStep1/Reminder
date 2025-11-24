@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 struct EventSaveButton: View {
   let buttonTappedAction: () -> Void

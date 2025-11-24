@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 public struct EventScreenView: View {
   @ObservedObject private var store: EventViewStore

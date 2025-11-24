@@ -1,6 +1,6 @@
 //
 //  SharedMainTextFieldStyle.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 15.11.2025.
 //

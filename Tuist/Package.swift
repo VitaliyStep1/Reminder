@@ -16,7 +16,7 @@ let package = Package(
     .package(path: "../Reminder/Foundation/ReminderDependencies"),
     .package(path: "../Reminder/Foundation/ReminderUserDefaultsStorage"),
     
-    .package(path: "../Reminder/UIComponents/ReminderSharedUI"),
+    .package(path: "../Reminder/UIComponents/ReminderDesignSystem"),
     .package(path: "../Reminder/UIComponents/ReminderNavigationContracts"),
     .package(path: "../Reminder/UIComponents/ReminderMainTabViewContracts"),
     .package(path: "../Reminder/UIComponents/ReminderMainTabView"),

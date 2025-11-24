@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 struct EventPlannedSectionView: View {
   @ObservedObject private var plannedSectionData: EventPlannedSectionData

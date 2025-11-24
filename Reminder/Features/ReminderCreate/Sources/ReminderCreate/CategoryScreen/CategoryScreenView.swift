@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderSharedUI
+import ReminderDesignSystem
 
 public struct CategoryScreenView: View {
   @StateObject var viewModel: CategoryViewModel

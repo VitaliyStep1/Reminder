@@ -1,6 +1,6 @@
 //
 //  SharedAlertModifier.swift
-//  ReminderSharedUI
+//  ReminderDesignSystem
 //
 //  Created by OpenAI ChatGPT.
 //
