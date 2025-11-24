@@ -14,15 +14,17 @@ import ReminderMainTabView
 import ReminderSettingsTab
 import ReminderStartUI
 import ReminderResolver
+import ReminderMainTabViewContracts
 
 @MainActor
-public final class StartCoordinator: StartCoordinatorProtocol {
+public final class StartCoordinator: CoordinatorProtocol {
   private let resolver: Resolver
-  private lazy var closestCoordinator = ClosestCoordinator(resolver: resolver)
+  let mainTabViewSelectionState = MainTabViewSelectionState(selection: .closest)
+  private lazy var closestCoordinator = ClosestCoordinator(mainTabViewSelectionState: mainTabViewSelectionState)
   private lazy var createCoordinator = CreateCoordinator(resolver: resolver)
   private lazy var settingsCoordinator = SettingsCoordinator(resolver: resolver)
   private lazy var mainCoordinator = MainCoordinator(
-    resolver: resolver,
+    mainTabViewSelectionState: mainTabViewSelectionState,
     closestCoordinator: closestCoordinator,
     createCoordinator: createCoordinator,
     settingsCoordinator: settingsCoordinator
@@ -40,7 +42,7 @@ public final class StartCoordinator: StartCoordinatorProtocol {
       setupInitialDataUseCase: setupInitialDataUseCase
     )
 
-    let splashState = resolver.splashScreenState
+    let splashState = SplashScreenState()
 
     let splashViewBuilder: StartScreenView.ViewBuilder = {
       let binding = Binding(

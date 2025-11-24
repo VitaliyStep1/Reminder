@@ -11,7 +11,6 @@ import ReminderPersistence
 import ReminderDomainContracts
 import ReminderDomain
 import ReminderConfigurations
-import ReminderNavigationContracts
 import ReminderResolver
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
@@ -20,11 +19,6 @@ import ReminderStartUI
 final class DependencyAssembly: Assembly {
   
   func assemble(container: Container) {
-    // Coordinators
-    container.register(StartCoordinatorProtocol.self) { r in
-      StartCoordinator(resolver: r)
-    }
-    .inObjectScope(.container)
     
     // AppConfigurationProtocol
     container.register(AppConfigurationProtocol.self) { _ in
@@ -117,18 +111,6 @@ final class DependencyAssembly: Assembly {
       return PreviewDataService(dBCategoriesService: dBCategoriesService, dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
-    
-    // SplashScreenState
-    container.register(SplashScreenState.self) { _ in
-      SplashScreenState()
-    }
-    .inObjectScope(.container)
-    
-    // SplashScreenState
-    container.register(MainTabViewSelectionState.self) { _ in
-      MainTabViewSelectionState(selection: .closest)
-    }
-    .inObjectScope(.container)
     
     container.register(UserDefaultsServiceProtocol.self) { _ in
       UserDefaultsService()

@@ -8,7 +8,6 @@
 import Swinject
 import ReminderPersistenceContracts
 import ReminderDomainContracts
-import ReminderNavigationContracts
 import ReminderConfigurations
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
@@ -74,14 +73,6 @@ extension Resolver {
     resolve(AppConfigurationProtocol.self)!
   }
   
-  public var splashScreenState: SplashScreenState {
-    resolve(SplashScreenState.self)!
-  }
-  
-  public var mainTabViewSelectionState: MainTabViewSelectionState {
-    resolve(MainTabViewSelectionState.self)!
-  }
-  
   public var userDefaultsServiceProtocol: UserDefaultsServiceProtocol {
     resolve(UserDefaultsServiceProtocol.self)!
   }
@@ -92,9 +83,5 @@ extension Resolver {
   
   public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {
     resolve(DefaultRemindTimeServiceProtocol.self)!
-  }
-
-  public var startCoordinatorProtocol: StartCoordinatorProtocol {
-    resolve(StartCoordinatorProtocol.self)!
   }
 }

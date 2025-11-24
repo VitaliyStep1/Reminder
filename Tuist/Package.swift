@@ -15,13 +15,15 @@ let package = Package(
     .package(path: "../Reminder/Packages/ReminderResolver"),
     .package(path: "../Reminder/Packages/ReminderDependencies"),
     .package(path: "../Reminder/Packages/ReminderUserDefaultsStorage"),
+    
     .package(path: "../Reminder/PackagesUI/ReminderSharedUI"),
     .package(path: "../Reminder/PackagesUI/ReminderNavigationContracts"),
     .package(path: "../Reminder/PackagesUI/ReminderMainTabViewContracts"),
     .package(path: "../Reminder/PackagesUI/ReminderMainTabView"),
-    .package(path: "../Reminder/PackagesUI/ReminderCreateTab"),
-    .package(path: "../Reminder/PackagesUI/ReminderClosestTab"),
-    .package(path: "../Reminder/PackagesUI/ReminderSettingsTab"),
-    .package(path: "../Reminder/PackagesUI/ReminderStartUI")
+    
+    .package(path: "../Reminder/PackagesUIFeatures/ReminderCreateTab"),
+    .package(path: "../Reminder/PackagesUIFeatures/ReminderClosestTab"),
+    .package(path: "../Reminder/PackagesUIFeatures/ReminderSettingsTab"),
+    .package(path: "../Reminder/PackagesUIFeatures/ReminderStartUI"),
   ]
 )

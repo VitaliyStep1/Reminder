@@ -17,9 +17,7 @@ let package = Package(
       .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
       .package(path: "../ReminderPersistenceContracts"),
       .package(path: "../ReminderDomainContracts"),
-      .package(path: "../ReminderNavigationContracts"),
       .package(path: "../ReminderConfigurations"),
-      .package(path: "../ReminderMainTabViewContracts"),
       .package(path: "../ReminderUserDefaultsStorage"),
     ],
     targets: [
@@ -29,9 +27,7 @@ let package = Package(
               .product(name: "Swinject", package: "Swinject"),
               "ReminderPersistenceContracts",
               "ReminderDomainContracts",
-              "ReminderNavigationContracts",
               "ReminderConfigurations",
-              "ReminderMainTabViewContracts",
               "ReminderUserDefaultsStorage",
             ]),
 
