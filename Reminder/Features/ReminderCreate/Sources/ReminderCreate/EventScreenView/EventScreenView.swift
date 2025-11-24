@@ -21,15 +21,15 @@ public struct EventScreenView: View {
     contentView
       .padding(.top, Styles.Padding.ScreenPadding.top)
       .padding(.bottom, Styles.Padding.ScreenPadding.bottom)
-//      .sharedScreenPadding()
-      .sharedScreenBackground()
+//      .dsScreenPadding()
+      .dsScreenBackground()
       .disabled(store.isViewBlocked)
-      .sharedErrorAlert(
+      .dsErrorAlert(
         isPresented: $store.isAlertVisible,
         message: store.alertInfo.message,
         completion: store.alertInfo.completion
       )
-      .sharedDeleteConfirmationDialog(
+      .dsDeleteConfirmationDialog(
         isPresented: $store.isConfirmationDialogVisible,
         title: store.confirmationDialogInfo.title,
         deleteAction: store.confirmationDialogInfo.deleteButtonHandler,

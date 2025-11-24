@@ -1,5 +1,5 @@
 //
-//  SharedDeleteConfirmationDialogModifier.swift
+//  DSDeleteConfirmationDialogModifier.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 08.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedDeleteConfirmationDialogModifier: ViewModifier {
+public struct DSDeleteConfirmationDialogModifier: ViewModifier {
   @Binding private var isPresented: Bool
   private var title: String
   private var deleteAction: () -> Void
@@ -33,9 +33,9 @@ public struct SharedDeleteConfirmationDialogModifier: ViewModifier {
 }
 
 public extension View {
-  public func sharedDeleteConfirmationDialog(isPresented: Binding<Bool>, title: String, deleteAction: @escaping () -> Void, message: String) -> some View {
+  public func dsDeleteConfirmationDialog(isPresented: Binding<Bool>, title: String, deleteAction: @escaping () -> Void, message: String) -> some View {
     modifier(
-      SharedDeleteConfirmationDialogModifier(isPresented: isPresented, title: title, deleteAction: deleteAction, message: message)
+      DSDeleteConfirmationDialogModifier(isPresented: isPresented, title: title, deleteAction: deleteAction, message: message)
     )
   }
 }

@@ -1,5 +1,5 @@
 //
-//  SharedDeleteButtonStyle.swift
+//  DSMainButtonStyle.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 14.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedDeleteButtonStyle: ButtonStyle {
+public struct DSMainButtonStyle: ButtonStyle {
   public init() {}
   
   public func makeBody(configuration: Configuration) -> some View {
@@ -17,13 +17,13 @@ public struct SharedDeleteButtonStyle: ButtonStyle {
       .padding(.vertical, 14)
       .background(
         LinearGradient(
-          colors: [SharedColor.Danger.gradientStart, SharedColor.Danger.gradientEnd],
+          colors: [DSColor.Category.gradientStart, DSColor.Category.gradientEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(SharedColor.Text.inverse)
+      .foregroundStyle(DSColor.Text.inverse)
       .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-      .shadow(color: SharedColor.Danger.shadow, radius: 10, x: 0, y: 6)
+      .shadow(color: DSColor.Category.shadow, radius: 10, x: 0, y: 6)
   }
 }

@@ -36,7 +36,7 @@ struct EventPlannedSectionView: View {
     } label: {
       Text(TextEnum.allowNotificationsButton.localized)
     }
-    .buttonStyle(SharedSecondaryButtonStyle())
+    .buttonStyle(DSSecondaryButtonStyle())
   }
 
   private func plannedRemindsView(plannedReminds: [EventEntity.PlannedRemind]) -> some View {

@@ -1,5 +1,5 @@
 //
-//  SharedCancelButtonStyle.swift
+//  DSCancelButtonStyle.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 14.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedCancelButtonStyle: ButtonStyle {
+public struct DSCancelButtonStyle: ButtonStyle {
   public init() {}
   
   public func makeBody(configuration: Configuration) -> some View {
@@ -19,10 +19,10 @@ public struct SharedCancelButtonStyle: ButtonStyle {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
           .fill(.ultraThinMaterial)
       )
-      .foregroundStyle(SharedColor.Text.blue)
+      .foregroundStyle(DSColor.Text.blue)
       .overlay(
         RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .stroke(SharedColor.Text.secondary.opacity(0.2), lineWidth: 1)
+          .stroke(DSColor.Text.secondary.opacity(0.2), lineWidth: 1)
       )
   }
 }

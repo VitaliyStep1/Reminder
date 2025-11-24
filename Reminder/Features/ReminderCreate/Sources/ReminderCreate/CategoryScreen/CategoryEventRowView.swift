@@ -28,10 +28,10 @@ public struct CategoryEventRowView: View {
             .foregroundStyle(.secondary)
         }
       }
-      .sharedCellBackground()
+      .dsCellBackground()
     }
     .buttonStyle(.plain)
-    .sharedShadow()
+    .dsShadow()
   }
 }
 

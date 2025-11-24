@@ -20,8 +20,8 @@ public struct CategoriesScreenView: View {
     NavigationStack(path: routerPathBinding) {
       contentView
         .frame(maxWidth: .infinity)
-        .sharedScreenPadding()
-        .sharedScreenBackground()
+        .dsScreenPadding()
+        .dsScreenBackground()
         .task {
           viewModel.taskWasCalled()
         }
@@ -70,7 +70,7 @@ private extension CategoriesScreenView {
   private func emptyStateView(title: String) -> some View {
     VStack {
       Spacer()
-      SharedNoDataView(systemImageName: "square.grid.2x2", title: title)
+      DSNoDataView(systemImageName: "square.grid.2x2", title: title)
       Spacer()
     }
   }

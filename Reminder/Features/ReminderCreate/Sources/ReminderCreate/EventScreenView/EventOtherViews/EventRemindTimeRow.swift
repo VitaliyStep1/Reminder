@@ -38,7 +38,7 @@ struct EventRemindTimeRow: View {
         Button(action: removeAction) {
           Image(systemName: "minus.circle.fill")
             .font(.title2)
-            .foregroundStyle(SharedColor.Danger.primary)
+            .foregroundStyle(DSColor.Danger.primary)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Remove \(title)")
@@ -52,7 +52,7 @@ struct EventRemindTimeRow: View {
   
   private var fieldBackground: some View {
     RoundedRectangle(cornerRadius: 14, style: .continuous)
-      .fill(SharedColor.Background.primary.opacity(0.9))
-      .sharedShadow()
+      .fill(DSColor.Background.primary.opacity(0.9))
+      .dsShadow()
   }
 }

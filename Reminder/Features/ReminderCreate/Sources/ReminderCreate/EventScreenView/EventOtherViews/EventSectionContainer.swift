@@ -34,8 +34,8 @@ struct EventSectionContainer<Content: View>: View {
     )
     .overlay(
       RoundedRectangle(cornerRadius: 24, style: .continuous)
-        .stroke(SharedColor.Text.primary.opacity(0.08))
+        .stroke(DSColor.Text.primary.opacity(0.08))
     )
-    .sharedShadow()
+    .dsShadow()
   }
 }

@@ -19,8 +19,8 @@ public struct ClosestScreenView: View {
   public var body: some View {
     NavigationStack {
       contentView
-        .sharedScreenPadding()
-        .sharedScreenBackground()
+        .dsScreenPadding()
+        .dsScreenBackground()
         .navigationTitle(TextEnum.closestScreenTitle.localized)
     }
   }

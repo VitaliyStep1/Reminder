@@ -25,6 +25,6 @@ struct ClosestCreateEventButton: View {
     } label: {
       Label(title, systemImage: systemImageName)
     }
-    .buttonStyle(SharedMainButtonStyle())
+    .buttonStyle(DSMainButtonStyle())
   }
 }

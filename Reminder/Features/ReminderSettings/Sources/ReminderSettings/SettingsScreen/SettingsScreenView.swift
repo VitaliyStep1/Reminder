@@ -18,8 +18,8 @@ public struct SettingsScreenView: View {
   public var body: some View {
     NavigationStack {
       contentView
-        .sharedScreenPadding()
-        .sharedScreenBackground()
+        .dsScreenPadding()
+        .dsScreenBackground()
         .navigationTitle(TextEnum.settingsTitle.localized)
     }
   }
@@ -34,8 +34,8 @@ public struct SettingsScreenView: View {
             displayedComponents: .hourAndMinute
           )
           .datePickerStyle(.compact)
-          .sharedCellBackground()
-          .sharedShadow()
+          .dsCellBackground()
+          .dsShadow()
           HStack {
             Text(TextEnum.defaultRemindTimeDescription.localized)
               .padding(.horizontal, 16)

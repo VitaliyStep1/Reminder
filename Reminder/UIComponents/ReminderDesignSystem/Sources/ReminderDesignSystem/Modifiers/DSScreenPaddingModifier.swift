@@ -1,5 +1,5 @@
 //
-//  SharedScreenPaddingModifier.swift
+//  DSScreenPaddingModifier.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 13.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedScreenPaddingModifier: ViewModifier {
+public struct DSScreenPaddingModifier: ViewModifier {
   
   public func body(content: Content) -> some View {
     content
@@ -18,7 +18,7 @@ public struct SharedScreenPaddingModifier: ViewModifier {
 }
 
 extension View {
-  public func sharedScreenPadding() -> some View {
-    modifier(SharedScreenPaddingModifier())
+  public func dsScreenPadding() -> some View {
+    modifier(DSScreenPaddingModifier())
   }
 }

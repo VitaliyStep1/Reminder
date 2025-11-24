@@ -20,7 +20,7 @@ struct ClosestEmptyStateView: View {
   var body: some View {
     VStack {
       Spacer()
-      SharedNoDataView(systemImageName: "calendar.badge.plus", title: noEventsText)
+      DSNoDataView(systemImageName: "calendar.badge.plus", title: noEventsText)
       Spacer()
       ClosestCreateEventButton(systemImageName: "plus.circle.fill", title: TextEnum.closestCreateEventButtonTitle.localized, action: createEventButtonAction)
     }

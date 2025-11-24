@@ -17,7 +17,7 @@ public struct SplashScreenView: View {
   
   public var body: some View {
     ZStack {
-      SharedColor.Accent.primary.ignoresSafeArea(edges: .all)
+      DSColor.Accent.primary.ignoresSafeArea(edges: .all)
       Text(TextEnum.splashTitle.localized)
     }.task {
       try? await Task.sleep(for: .seconds(2))

@@ -25,6 +25,6 @@ struct CategoryAddButton: View {
     }) {
       Label(title, systemImage: systemImageName)
     }
-    .buttonStyle(SharedMainButtonStyle())
+    .buttonStyle(DSMainButtonStyle())
   }
 }

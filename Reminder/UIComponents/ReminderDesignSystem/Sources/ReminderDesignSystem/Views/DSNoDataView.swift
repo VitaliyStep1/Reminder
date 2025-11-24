@@ -1,5 +1,5 @@
 //
-//  SharedNoDataView.swift
+//  DSNoDataView.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 13.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedNoDataView: View {
+public struct DSNoDataView: View {
   let systemImageName: String
   let title: String
   
@@ -20,12 +20,12 @@ public struct SharedNoDataView: View {
     VStack(spacing: 24) {
       Image(systemName: systemImageName)
         .font(.system(size: 56))
-        .foregroundStyle(SharedColor.Accent.primary)
+        .foregroundStyle(DSColor.Accent.primary)
       
       Text(title)
         .font(.body)
         .multilineTextAlignment(.center)
-        .foregroundStyle(SharedColor.Text.secondary)
+        .foregroundStyle(DSColor.Text.secondary)
     }
   }
 }

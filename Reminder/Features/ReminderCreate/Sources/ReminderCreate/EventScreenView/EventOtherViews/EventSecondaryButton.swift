@@ -23,6 +23,6 @@ struct EventSecondaryButton: View {
     Button(action: action) {
       Label(title, systemImage: imageName)
     }
-    .buttonStyle(SharedSecondaryButtonStyle())
+    .buttonStyle(DSSecondaryButtonStyle())
   }
 }

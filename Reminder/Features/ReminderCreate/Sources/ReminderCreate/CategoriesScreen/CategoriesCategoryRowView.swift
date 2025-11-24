@@ -26,9 +26,9 @@ struct CategoriesCategoryRowView: View {
           .font(.subheadline)
           .foregroundStyle(.secondary)
       }
-      .sharedCellBackground()
+      .dsCellBackground()
     }
     .buttonStyle(.plain)
-    .sharedShadow()
+    .dsShadow()
   }
 }

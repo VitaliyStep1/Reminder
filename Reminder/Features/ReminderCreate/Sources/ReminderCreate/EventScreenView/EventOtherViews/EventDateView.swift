@@ -44,17 +44,17 @@ struct EventDateView: View {
           .padding(10)
           .background(
             Circle()
-              .fill(SharedColor.Accent.highlight)
+              .fill(DSColor.Accent.highlight)
           )
-          .foregroundStyle(SharedColor.Accent.primary)
+          .foregroundStyle(DSColor.Accent.primary)
       }
-      .foregroundStyle(SharedColor.Text.primary)
+      .foregroundStyle(DSColor.Text.primary)
       .padding(.horizontal, 20)
       .padding(.vertical, 16)
       .background {
         RoundedRectangle(cornerRadius: 12)
-          .fill(SharedColor.Background.primary)
-          .sharedShadowLight()
+          .fill(DSColor.Background.primary)
+          .dsShadowLight()
       }
     }
     .sheet(isPresented: $isDateDatePickerVisible) {
@@ -82,7 +82,7 @@ struct EventDateView: View {
         .frame(maxWidth: .infinity)
         .background(
           RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(SharedColor.Background.secondary)
+            .fill(DSColor.Background.secondary)
         )
         .padding(.horizontal)
 
@@ -97,7 +97,7 @@ struct EventDateView: View {
             .padding(.vertical, 12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(SharedColor.Text.secondary, lineWidth: 1)
+                .stroke(DSColor.Text.secondary, lineWidth: 1)
             )
         }
 
@@ -111,9 +111,9 @@ struct EventDateView: View {
             .padding(.vertical, 12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(SharedColor.Accent.primary)
+                .fill(DSColor.Accent.primary)
             )
-            .foregroundStyle(SharedColor.Text.inverse)
+            .foregroundStyle(DSColor.Text.inverse)
         }
         
       }
@@ -122,6 +122,6 @@ struct EventDateView: View {
     .padding(.horizontal, 8)
     .padding(.vertical, 8)
     .frame(maxWidth: .infinity)
-    .background(SharedColor.Background.primary)
+    .background(DSColor.Background.primary)
   }
 }

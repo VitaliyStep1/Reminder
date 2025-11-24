@@ -23,6 +23,6 @@ struct EventCancelButton: View {
     }) {
       Text(title)
     }
-    .buttonStyle(SharedCancelButtonStyle())
+    .buttonStyle(DSCancelButtonStyle())
   }
 }

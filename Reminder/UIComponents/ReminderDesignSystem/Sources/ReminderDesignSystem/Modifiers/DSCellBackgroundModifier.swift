@@ -1,5 +1,5 @@
 //
-//  SharedCellBackgroundModifier.swift
+//  DSCellBackgroundModifier.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 14.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedCellBackgroundModifier: ViewModifier {
+public struct DSCellBackgroundModifier: ViewModifier {
   public init() {}
   
   public func body(content: Content) -> some View {
@@ -16,14 +16,14 @@ public struct SharedCellBackgroundModifier: ViewModifier {
       .padding(16)
       .background {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(SharedColor.Background.groupedSecondary)
+          .fill(DSColor.Background.groupedSecondary)
       }
       .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
   }
 }
 
 extension View {
-  public func sharedCellBackground() -> some View {
-    modifier(SharedCellBackgroundModifier())
+  public func dsCellBackground() -> some View {
+    modifier(DSCellBackgroundModifier())
   }
 }

@@ -1,5 +1,5 @@
 //
-//  SharedSecondaryButtonStyle.swift
+//  DSSecondaryButtonStyle.swift
 //  ReminderDesignSystem
 //
 //  Created by Vitaliy Stepanenko on 15.11.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedSecondaryButtonStyle: ButtonStyle {
+public struct DSSecondaryButtonStyle: ButtonStyle {
   public init() {}
   
   public func makeBody(configuration: Configuration) -> some View {
@@ -17,14 +17,14 @@ public struct SharedSecondaryButtonStyle: ButtonStyle {
       .padding(.vertical, 10)
       .background(
         RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .fill(SharedColor.Background.primary)
+          .fill(DSColor.Background.primary)
       )
       .overlay(
         RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .stroke(SharedColor.Accent.primary, lineWidth: 1)
+          .stroke(DSColor.Accent.primary, lineWidth: 1)
       )
-      .foregroundStyle(SharedColor.Accent.primary)
-      .sharedShadow()
+      .foregroundStyle(DSColor.Accent.primary)
+      .dsShadow()
       .opacity(configuration.isPressed ? 0.8 : 1)
       .scaleEffect(configuration.isPressed ? 0.97 : 1)
   }

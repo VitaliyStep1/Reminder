@@ -26,7 +26,7 @@ struct EventDeleteButton: View {
       HStack(spacing: 10) {
         if isProgressViewVisible {
           ProgressView()
-            .tint(SharedColor.Text.inverse)
+            .tint(DSColor.Text.inverse)
           Text(title)
         } else {
           Image(systemName: "trash.fill")
@@ -34,6 +34,6 @@ struct EventDeleteButton: View {
         }
       }
     }
-    .buttonStyle(SharedDeleteButtonStyle())
+    .buttonStyle(DSDeleteButtonStyle())
   }
 }

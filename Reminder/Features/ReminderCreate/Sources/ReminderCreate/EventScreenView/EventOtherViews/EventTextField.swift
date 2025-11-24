@@ -19,6 +19,6 @@ struct EventTextField: View {
   
   var body: some View {
     TextField(placeholder, text: $text)
-      .textFieldStyle(SharedMainTextFieldStyle(isTextNotEmpty: !text.isEmpty))
+      .textFieldStyle(DSMainTextFieldStyle(isTextNotEmpty: !text.isEmpty))
   }
 }

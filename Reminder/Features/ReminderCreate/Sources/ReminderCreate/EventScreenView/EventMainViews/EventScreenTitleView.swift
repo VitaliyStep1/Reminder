@@ -22,19 +22,19 @@ struct EventScreenTitleView: View {
     } icon: {
       Image(systemName: "calendar.badge.plus")
         .font(.title3.weight(.semibold))
-        .foregroundStyle(SharedColor.Text.inverse)
+        .foregroundStyle(DSColor.Text.inverse)
         .padding(12)
         .background(
           Circle()
             .fill(
               LinearGradient(
-                colors: [SharedColor.Accent.gradientStart, SharedColor.Accent.gradientEnd],
+                colors: [DSColor.Accent.gradientStart, DSColor.Accent.gradientEnd],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
               )
             )
         )
-        .sharedShadow()
+        .dsShadow()
     }
     .frame(maxWidth: .infinity, alignment: .leading)
   }

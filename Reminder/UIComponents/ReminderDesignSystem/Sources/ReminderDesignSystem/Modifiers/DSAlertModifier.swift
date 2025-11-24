@@ -1,5 +1,5 @@
 //
-//  SharedAlertModifier.swift
+//  DSAlertModifier.swift
 //  ReminderDesignSystem
 //
 //  Created by OpenAI ChatGPT.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SharedAlertModifier: ViewModifier {
+public struct DSAlertModifier: ViewModifier {
   @Binding private var isPresented: Bool
   private let title: String
   private let message: String
@@ -40,7 +40,7 @@ public struct SharedAlertModifier: ViewModifier {
 }
 
 public extension View {
-  func sharedAlert(
+  func dsAlert(
     isPresented: Binding<Bool>,
     title: String,
     message: String,
@@ -48,7 +48,7 @@ public extension View {
     completion: (() -> Void)?
   ) -> some View {
     modifier(
-      SharedAlertModifier(
+      DSAlertModifier(
         isPresented: isPresented,
         title: title,
         message: message,
@@ -58,13 +58,13 @@ public extension View {
     )
   }
   
-  func sharedErrorAlert(
+  func dsErrorAlert(
     isPresented: Binding<Bool>,
     message: String,
     completion: (() -> Void)?
   ) -> some View {
     let title = TextEnum.error.localized
     let buttonTitle = TextEnum.ok.localized
-    return sharedAlert(isPresented: isPresented, title: title, message: message, buttonTitle: buttonTitle, completion: completion)
+    return dsAlert(isPresented: isPresented, title: title, message: message, buttonTitle: buttonTitle, completion: completion)
   }
 }

@@ -17,8 +17,8 @@ public struct CategoryScreenView: View {
   
   public var body: some View {
     contentView
-    .sharedScreenPadding()
-    .sharedScreenBackground()
+    .dsScreenPadding()
+    .dsScreenBackground()
     .onAppear {
       viewModel.viewAppeared()
     }
@@ -27,7 +27,7 @@ public struct CategoryScreenView: View {
     }
     .navigationTitle(viewModel.navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
-    .sharedErrorAlert(
+    .dsErrorAlert(
       isPresented: $viewModel.isAlertVisible,
       message: viewModel.alertInfo.message,
       completion: viewModel.alertInfo.completion
@@ -55,7 +55,7 @@ private extension CategoryScreenView {
   @ViewBuilder
   func emptyStateView(title: String) -> some View {
     Spacer()
-    SharedNoDataView(systemImageName: "calendar.badge.plus", title: title)
+    DSNoDataView(systemImageName: "calendar.badge.plus", title: title)
     Spacer()
   }
   
