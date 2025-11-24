@@ -12,7 +12,8 @@ public struct DSMainButtonStyle: ButtonStyle {
   
   public func makeBody(configuration: Configuration) -> some View {
     configuration.label
-      .font(.headline)
+//      .font(.headline)
+      .font(DSFont.headline())
       .frame(maxWidth: .infinity)
       .padding(.vertical, 14)
       .background(
