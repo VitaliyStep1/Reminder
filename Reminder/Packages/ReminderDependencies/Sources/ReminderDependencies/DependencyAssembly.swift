@@ -11,7 +11,6 @@ import ReminderPersistence
 import ReminderDomainContracts
 import ReminderDomain
 import ReminderConfigurations
-import ReminderNavigationContracts
 import ReminderResolver
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
@@ -113,13 +112,7 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.transient)
     
-    // SplashScreenState
-    container.register(SplashScreenState.self) { _ in
-      SplashScreenState()
-    }
-    .inObjectScope(.container)
-    
-    // SplashScreenState
+    // MainTabViewSelectionState
     container.register(MainTabViewSelectionState.self) { _ in
       MainTabViewSelectionState(selection: .closest)
     }

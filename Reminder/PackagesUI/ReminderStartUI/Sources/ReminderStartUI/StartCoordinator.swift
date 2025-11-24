@@ -40,7 +40,7 @@ public final class StartCoordinator: CoordinatorProtocol {
       setupInitialDataUseCase: setupInitialDataUseCase
     )
 
-    let splashState = resolver.splashScreenState
+    let splashState = SplashScreenState()
 
     let splashViewBuilder: StartScreenView.ViewBuilder = {
       let binding = Binding(

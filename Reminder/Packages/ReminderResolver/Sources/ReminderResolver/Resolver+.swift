@@ -8,7 +8,6 @@
 import Swinject
 import ReminderPersistenceContracts
 import ReminderDomainContracts
-import ReminderNavigationContracts
 import ReminderConfigurations
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
@@ -72,10 +71,6 @@ extension Resolver {
   
   public var appConfigurationProtocol: AppConfigurationProtocol {
     resolve(AppConfigurationProtocol.self)!
-  }
-  
-  public var splashScreenState: SplashScreenState {
-    resolve(SplashScreenState.self)!
   }
   
   public var mainTabViewSelectionState: MainTabViewSelectionState {

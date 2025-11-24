@@ -10,7 +10,6 @@ import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
 import ReminderConfigurations
-import ReminderNavigationContracts
 import ReminderResolver
 
 public final class DIService {

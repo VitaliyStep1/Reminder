@@ -24,7 +24,6 @@ public class ResolverCheckService {
       resolver.updateDefaultRemindTimeDateUseCaseProtocol,
       resolver.defaultCategoriesDataServiceProtocol,
       resolver.appConfigurationProtocol,
-      resolver.splashScreenState,
       resolver.mainTabViewSelectionState,
       resolver.userDefaultsServiceProtocol,
       resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
