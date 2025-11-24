@@ -16,7 +16,7 @@ import ReminderStartUI
 import ReminderResolver
 
 @MainActor
-public final class StartCoordinator: StartCoordinatorProtocol {
+public final class StartCoordinator: CoordinatorProtocol {
   private let resolver: Resolver
   private lazy var closestCoordinator = ClosestCoordinator(resolver: resolver)
   private lazy var createCoordinator = CreateCoordinator(resolver: resolver)

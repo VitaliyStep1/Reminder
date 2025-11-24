@@ -8,14 +8,15 @@
 import SwiftUI
 import ReminderDependencies
 import ReminderNavigationContracts
+import ReminderStartUI
 
 @main
 struct ReminderApp: App {
-  private let startCoordinator: any StartCoordinatorProtocol
+  private let startCoordinator: any CoordinatorProtocol
 
   init() {
     let di = DIService()
-    let startCoordinator = di.resolver.startCoordinatorProtocol
+    let startCoordinator = StartCoordinator(resolver: di.resolver)
     self.startCoordinator = startCoordinator
   }
 

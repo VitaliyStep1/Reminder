@@ -93,8 +93,4 @@ extension Resolver {
   public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {
     resolve(DefaultRemindTimeServiceProtocol.self)!
   }
-
-  public var startCoordinatorProtocol: StartCoordinatorProtocol {
-    resolve(StartCoordinatorProtocol.self)!
-  }
 }

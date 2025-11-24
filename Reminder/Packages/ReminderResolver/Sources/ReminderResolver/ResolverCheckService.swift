@@ -29,7 +29,6 @@ public class ResolverCheckService {
       resolver.userDefaultsServiceProtocol,
       resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
       resolver.defaultRemindTimeServiceProtocol,
-      resolver.startCoordinatorProtocol,
     ]
     
     return dependencies

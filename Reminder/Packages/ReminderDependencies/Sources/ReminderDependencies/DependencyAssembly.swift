@@ -20,11 +20,6 @@ import ReminderStartUI
 final class DependencyAssembly: Assembly {
   
   func assemble(container: Container) {
-    // Coordinators
-    container.register(StartCoordinatorProtocol.self) { r in
-      StartCoordinator(resolver: r)
-    }
-    .inObjectScope(.container)
     
     // AppConfigurationProtocol
     container.register(AppConfigurationProtocol.self) { _ in
