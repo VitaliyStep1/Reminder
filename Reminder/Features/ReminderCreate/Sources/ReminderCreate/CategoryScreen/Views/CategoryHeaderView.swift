@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderDesignSystem
 
 struct CategoryHeaderView: View {
   let title: String
@@ -14,11 +15,11 @@ struct CategoryHeaderView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text(title)
-        .font(.largeTitle.weight(.semibold))
+        .font(DSFont.titleLarge())
         .foregroundStyle(.primary)
-      
+
       Text(subtitle)
-        .font(.callout)
+        .font(DSFont.callout())
         .foregroundStyle(.secondary)
     }
     .frame(maxWidth: .infinity, alignment: .leading)

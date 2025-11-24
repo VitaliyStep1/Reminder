@@ -12,7 +12,7 @@ public struct DSSecondaryButtonStyle: ButtonStyle {
   
   public func makeBody(configuration: Configuration) -> some View {
     configuration.label
-      .font(.body.weight(.semibold))
+      .font(DSFont.bodySemibold())
       .padding(.horizontal, 16)
       .padding(.vertical, 10)
       .background(

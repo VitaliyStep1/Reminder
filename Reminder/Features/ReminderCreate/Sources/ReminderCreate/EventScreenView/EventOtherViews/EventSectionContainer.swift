@@ -22,7 +22,7 @@ struct EventSectionContainer<Content: View>: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 16) {
       Label(title, systemImage: systemImageName)
-        .font(.title3.weight(.semibold))
+        .font(DSFont.title3Semibold())
         .foregroundStyle(.primary)
       contentBuilder()
     }
