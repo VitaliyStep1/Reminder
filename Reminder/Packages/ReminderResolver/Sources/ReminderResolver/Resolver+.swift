@@ -73,10 +73,6 @@ extension Resolver {
     resolve(AppConfigurationProtocol.self)!
   }
   
-  public var mainTabViewSelectionState: MainTabViewSelectionState {
-    resolve(MainTabViewSelectionState.self)!
-  }
-  
   public var userDefaultsServiceProtocol: UserDefaultsServiceProtocol {
     resolve(UserDefaultsServiceProtocol.self)!
   }

@@ -112,12 +112,6 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.transient)
     
-    // MainTabViewSelectionState
-    container.register(MainTabViewSelectionState.self) { _ in
-      MainTabViewSelectionState(selection: .closest)
-    }
-    .inObjectScope(.container)
-    
     container.register(UserDefaultsServiceProtocol.self) { _ in
       UserDefaultsService()
     }

@@ -10,21 +10,23 @@ import Swinject
 import ReminderNavigationContracts
 import ReminderResolver
 import ReminderCreateTab
+import ReminderMainTabViewContracts
 
 @MainActor
 public final class MainCoordinator: CoordinatorProtocol {
-  private let resolver: Resolver
   private let closestCoordinator: any CoordinatorProtocol
   private let createCoordinator: any CreateCoordinatorProtocol
   private let settingsCoordinator: any CoordinatorProtocol
+  
+  let mainTabViewSelectionState: MainTabViewSelectionState
 
   public init(
-    resolver: Resolver,
+    mainTabViewSelectionState: MainTabViewSelectionState,
     closestCoordinator: any CoordinatorProtocol,
     createCoordinator: any CreateCoordinatorProtocol,
     settingsCoordinator: any CoordinatorProtocol
   ) {
-    self.resolver = resolver
+    self.mainTabViewSelectionState = mainTabViewSelectionState
     self.closestCoordinator = closestCoordinator
     self.createCoordinator = createCoordinator
     self.settingsCoordinator = settingsCoordinator
@@ -36,7 +38,7 @@ public final class MainCoordinator: CoordinatorProtocol {
       createCoordinator: createCoordinator,
       settingsCoordinator: settingsCoordinator
     )
-    .environmentObject(resolver.mainTabViewSelectionState)
+    .environmentObject(mainTabViewSelectionState)
 
     return AnyView(view)
   }
