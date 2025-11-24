@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReminderSettingsTab",
+    name: "ReminderSettings",
     platforms: [
       .iOS(.v16)
     ],
     products: [
         .library(
-            name: "ReminderSettingsTab",
-            targets: ["ReminderSettingsTab"]),
+            name: "ReminderSettings",
+            targets: ["ReminderSettings"]),
     ],
     dependencies: [
       .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
@@ -22,7 +22,7 @@ let package = Package(
     ],
     targets: [
         .target(
-          name: "ReminderSettingsTab",
+          name: "ReminderSettings",
           dependencies: [
             .product(name: "Swinject", package: "Swinject"),
             "ReminderDomainContracts",

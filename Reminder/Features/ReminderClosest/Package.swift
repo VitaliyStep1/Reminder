@@ -4,29 +4,30 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReminderCreateTab",
+    name: "ReminderClosest",
+    defaultLocalization: "en",
     platforms: [
       .iOS(.v16)
     ],
     products: [
         .library(
-            name: "ReminderCreateTab",
-            targets: ["ReminderCreateTab"]),
+            name: "ReminderClosest",
+            targets: ["ReminderClosest"]),
     ],
     dependencies: [
       .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
+      .package(path: "ReminderMainTabViewContracts"),
       .package(path: "ReminderNavigationContracts"),
-      .package(path: "ReminderDomainContracts"),
       .package(path: "ReminderSharedUI"),
-      .package(path: "/ReminderResolver")
+      .package(path: "ReminderResolver")
     ],
     targets: [
         .target(
-            name: "ReminderCreateTab",
+            name: "ReminderClosest",
             dependencies: [
               .product(name: "Swinject", package: "Swinject"),
+              "ReminderMainTabViewContracts",
               "ReminderNavigationContracts",
-              "ReminderDomainContracts",
               "ReminderSharedUI",
               "ReminderResolver",
             ],
@@ -34,6 +35,5 @@ let package = Package(
               .process("Resources")
             ]
         ),
-
     ]
 )

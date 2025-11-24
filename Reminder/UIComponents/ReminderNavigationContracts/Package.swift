@@ -13,17 +13,9 @@ let package = Package(
             name: "ReminderNavigationContracts",
             targets: ["ReminderNavigationContracts"]),
     ],
-    dependencies: [
-      .package(path: "../ReminderDomain"),
-      .package(path: "../ReminderDomainContracts"),
-    ],
     targets: [
         .target(
             name: "ReminderNavigationContracts",
-            dependencies: [
-              "ReminderDomain",
-              "ReminderDomainContracts",
-            ]
         ),
 
     ]

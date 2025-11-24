@@ -21,9 +21,9 @@ let package = Package(
     .package(path: "../Reminder/UIComponents/ReminderMainTabViewContracts"),
     .package(path: "../Reminder/UIComponents/ReminderMainTabView"),
     
-    .package(path: "../Reminder/Features/ReminderCreateTab"),
-    .package(path: "../Reminder/Features/ReminderClosestTab"),
-    .package(path: "../Reminder/Features/ReminderSettingsTab"),
-    .package(path: "../Reminder/Features/ReminderStartUI"),
+    .package(path: "../Reminder/Features/ReminderCreate"),
+    .package(path: "../Reminder/Features/ReminderClosest"),
+    .package(path: "../Reminder/Features/ReminderSettings"),
+    .package(path: "../Reminder/Features/ReminderStart"),
   ]
 )

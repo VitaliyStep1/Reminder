@@ -11,9 +11,9 @@ import Foundation
 // MARK: - Swift Bundle Accessor - for SPM
 private class BundleFinder {}
 extension Foundation.Bundle {
-/// Since ReminderSettingsTab is a static framework, the bundle containing the resources is copied into the final product.
+/// Since ReminderClosest is a static framework, the bundle containing the resources is copied into the final product.
     static let module: Bundle = {
-        let bundleName = "ReminderSettingsTab_ReminderSettingsTab"
+        let bundleName = "ReminderClosest_ReminderClosest"
         let bundleFinderResourceURL = Bundle(for: BundleFinder.self).resourceURL
         var candidates = [
             Bundle.main.resourceURL,
@@ -50,7 +50,7 @@ extension Foundation.Bundle {
                 return bundle
             }
         }
-        fatalError("unable to find bundle named ReminderSettingsTab_ReminderSettingsTab")
+        fatalError("unable to find bundle named ReminderClosest_ReminderClosest")
     }()
 }
 

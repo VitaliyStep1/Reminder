@@ -11,9 +11,9 @@ import Foundation
 // MARK: - Swift Bundle Accessor - for SPM
 private class BundleFinder {}
 extension Foundation.Bundle {
-/// Since ReminderStartUI is a static framework, the bundle containing the resources is copied into the final product.
+/// Since ReminderCreate is a static framework, the bundle containing the resources is copied into the final product.
     static let module: Bundle = {
-        let bundleName = "ReminderStartUI_ReminderStartUI"
+        let bundleName = "ReminderCreate_ReminderCreate"
         let bundleFinderResourceURL = Bundle(for: BundleFinder.self).resourceURL
         var candidates = [
             Bundle.main.resourceURL,
@@ -50,7 +50,7 @@ extension Foundation.Bundle {
                 return bundle
             }
         }
-        fatalError("unable to find bundle named ReminderStartUI_ReminderStartUI")
+        fatalError("unable to find bundle named ReminderCreate_ReminderCreate")
     }()
 }
 

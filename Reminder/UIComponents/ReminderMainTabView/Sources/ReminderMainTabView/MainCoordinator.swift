@@ -9,7 +9,7 @@ import SwiftUI
 import Swinject
 import ReminderNavigationContracts
 import ReminderResolver
-import ReminderCreateTab
+import ReminderCreate
 import ReminderMainTabViewContracts
 
 @MainActor

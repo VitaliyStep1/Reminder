@@ -14,7 +14,6 @@ import ReminderConfigurations
 import ReminderResolver
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
-import ReminderStartUI
 
 final class DependencyAssembly: Assembly {
   

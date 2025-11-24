@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReminderStartUI",
+    name: "ReminderStart",
     platforms: [
       .iOS(.v16)
     ],
     products: [
         .library(
-            name: "ReminderStartUI",
-            targets: ["ReminderStartUI"]),
+            name: "ReminderStart",
+            targets: ["ReminderStart"]),
     ],
     dependencies: [
       .package(path: "../ReminderConfigurations"),
@@ -19,25 +19,25 @@ let package = Package(
       .package(path: "../ReminderDomain"),
       .package(path: "../ReminderDomainContracts"),
       .package(path: "../ReminderSharedUI"),
-      .package(path: "../ReminderClosestTab"),
-      .package(path: "../ReminderCreateTab"),
+      .package(path: "../ReminderClosest"),
+      .package(path: "../ReminderCreate"),
       .package(path: "../ReminderMainTabView"),
-      .package(path: "../ReminderSettingsTab"),
+      .package(path: "../ReminderSettings"),
       .package(path: "../ReminderResolver"),
     ],
     targets: [
         .target(
-            name: "ReminderStartUI",
+            name: "ReminderStart",
             dependencies: [
               "ReminderConfigurations",
               "ReminderNavigationContracts",
               "ReminderDomain",
               "ReminderDomainContracts",
               "ReminderSharedUI",
-              "ReminderClosestTab",
-              "ReminderCreateTab",
+              "ReminderClosest",
+              "ReminderCreate",
               "ReminderMainTabView",
-              "ReminderSettingsTab",
+              "ReminderSettings",
               "ReminderResolver",
             ],
             resources: [

@@ -69,14 +69,14 @@ let project = Project(
         .external(name: "ReminderPersistenceContracts"),
         .external(name: "ReminderResolver"),
         .external(name: "ReminderUserDefaultsStorage"),
-        .external(name: "ReminderClosestTab"),
-        .external(name: "ReminderCreateTab"),
         .external(name: "ReminderMainTabView"),
         .external(name: "ReminderMainTabViewContracts"),
         .external(name: "ReminderNavigationContracts"),
-        .external(name: "ReminderSettingsTab"),
         .external(name: "ReminderSharedUI"),
-        .external(name: "ReminderStartUI")
+        .external(name: "ReminderStart"),
+        .external(name: "ReminderClosest"),
+        .external(name: "ReminderCreate"),
+        .external(name: "ReminderSettings"),
       ],
       settings: appSettings
     ),
