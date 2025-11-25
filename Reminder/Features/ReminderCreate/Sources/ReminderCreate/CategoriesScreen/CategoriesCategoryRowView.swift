@@ -19,11 +19,11 @@ struct CategoriesCategoryRowView: View {
     } label: {
       HStack(spacing: 8) {
         Text(title)
-          .font(DSFont.headline())
+          .font(.dsHeadline)
           .foregroundStyle(.primary)
         Spacer()
         Text(eventsAmountText)
-          .font(DSFont.subheadline())
+          .font(.dsSubheadline)
           .foregroundStyle(.secondary)
       }
       .dsCellBackground()

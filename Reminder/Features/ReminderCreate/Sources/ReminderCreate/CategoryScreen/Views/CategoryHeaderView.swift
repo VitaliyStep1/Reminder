@@ -15,11 +15,11 @@ struct CategoryHeaderView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text(title)
-        .font(DSFont.titleLarge())
+        .font(.dsTitleLarge)
         .foregroundStyle(.primary)
 
       Text(subtitle)
-        .font(DSFont.callout())
+        .font(.dsCallout)
         .foregroundStyle(.secondary)
     }
     .frame(maxWidth: .infinity, alignment: .leading)

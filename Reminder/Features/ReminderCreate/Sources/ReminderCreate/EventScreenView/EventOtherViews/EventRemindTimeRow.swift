@@ -23,7 +23,7 @@ struct EventRemindTimeRow: View {
     HStack(spacing: 12) {
       VStack(alignment: .leading, spacing: 6) {
         Text(title)
-          .font(DSFont.subheadlineSemibold())
+          .font(.dsSubheadlineSemibold)
           .foregroundStyle(.secondary)
         DatePicker(
           "",
@@ -37,7 +37,7 @@ struct EventRemindTimeRow: View {
       if let removeAction {
         Button(action: removeAction) {
           Image(systemName: "minus.circle.fill")
-            .font(DSFont.title2())
+            .font(.dsTitle2)
             .foregroundStyle(DSColor.Danger.primary)
         }
         .buttonStyle(.plain)

@@ -40,7 +40,7 @@ struct EventAlertsSectionView: View {
       .pickerStyle(.segmented)
     case .text(let text):
       Text(text)
-        .font(DSFont.bodyMedium())
+        .font(.dsBodyMedium)
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)

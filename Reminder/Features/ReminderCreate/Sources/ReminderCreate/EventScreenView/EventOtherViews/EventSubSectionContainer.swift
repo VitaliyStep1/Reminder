@@ -20,7 +20,7 @@ struct EventSubSectionContainer<Content: View>: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text(title)
-        .font(DSFont.subheadlineSemibold())
+        .font(.dsSubheadlineSemibold)
         .foregroundStyle(.secondary)
       contentBuilder()
     }

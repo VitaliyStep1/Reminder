@@ -19,11 +19,11 @@ public struct DSNoDataView: View {
   public var body: some View {
     VStack(spacing: 24) {
       Image(systemName: systemImageName)
-        .font(DSFont.iconXLarge())
+        .font(.dsIconXLarge)
         .foregroundStyle(DSColor.Accent.primary)
-      
+
       Text(title)
-        .font(DSFont.body())
+        .font(.dsBody)
         .multilineTextAlignment(.center)
         .foregroundStyle(DSColor.Text.secondary)
     }

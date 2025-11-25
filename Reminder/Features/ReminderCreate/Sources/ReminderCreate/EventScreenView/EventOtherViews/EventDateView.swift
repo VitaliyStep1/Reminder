@@ -32,15 +32,15 @@ struct EventDateView: View {
       HStack(spacing: 8) {
         VStack(alignment: .leading, spacing: 4) {
           Text(TextEnum.eventDateLabel.localized)
-            .font(DSFont.headline())
+            .font(.dsHeadline)
             .foregroundStyle(.primary)
           Text(eventDateFormatter.string(from: eventDate))
-            .font(DSFont.subheadline())
+            .font(.dsSubheadline)
             .foregroundStyle(.secondary)
         }
         Spacer()
         Image(systemName: "calendar")
-          .font(DSFont.title3())
+          .font(.dsTitle3)
           .padding(10)
           .background(
             Circle()
@@ -69,7 +69,7 @@ struct EventDateView: View {
       HStack {
         Spacer()
         Text(TextEnum.selectEventDateTitle.localized)
-          .font(DSFont.title3Semibold())
+          .font(.dsTitle3Semibold)
           .foregroundStyle(.primary)
         Spacer()
       }
@@ -90,7 +90,7 @@ struct EventDateView: View {
           isDateDatePickerVisible = false
         } label: {
           Text(TextEnum.cancelTitle.localized)
-            .font(DSFont.headline())
+            .font(.dsHeadline)
             .foregroundStyle(.primary)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
@@ -105,7 +105,7 @@ struct EventDateView: View {
           isDateDatePickerVisible = false
         } label: {
           Text(TextEnum.doneTitle.localized)
-            .font(DSFont.headline())
+            .font(.dsHeadline)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
             .background(

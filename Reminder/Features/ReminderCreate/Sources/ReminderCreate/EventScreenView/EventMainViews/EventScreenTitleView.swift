@@ -18,10 +18,10 @@ struct EventScreenTitleView: View {
   var body: some View {
     Label {
       Text(screenTitleData.screenTitle)
-        .font(DSFont.titleLarge())
+        .font(.dsTitleLarge)
     } icon: {
       Image(systemName: "calendar.badge.plus")
-        .font(DSFont.title3Semibold())
+        .font(.dsTitle3Semibold)
         .foregroundStyle(DSColor.Text.inverse)
         .padding(12)
         .background(
