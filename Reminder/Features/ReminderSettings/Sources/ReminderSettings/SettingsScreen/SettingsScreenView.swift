@@ -35,7 +35,7 @@ public struct SettingsScreenView: View {
           )
           .datePickerStyle(.compact)
           .dsCellBackground()
-          .dsShadow()
+          .dsShadow(.r6Light)
           HStack {
             Text(TextEnum.defaultRemindTimeDescription.localized)
               .padding(.horizontal, DSSpacing.s16)

@@ -24,6 +24,6 @@ public struct DSDeleteButtonStyle: ButtonStyle {
       )
       .foregroundStyle(DSColor.Text.inverse)
       .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
-      .shadow(color: DSColor.Danger.shadow, radius: 10, x: 0, y: 6)
+      .dsShadow(.r10Danger)
   }
 }

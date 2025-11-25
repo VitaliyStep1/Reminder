@@ -24,6 +24,6 @@ public struct DSMainButtonStyle: ButtonStyle {
       )
       .foregroundStyle(DSColor.Text.inverse)
       .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
-      .shadow(color: DSColor.Category.shadow, radius: 10, x: 0, y: 6)
+      .dsShadow(.r12Category)
   }
 }

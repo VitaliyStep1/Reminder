@@ -29,6 +29,6 @@ struct CategoriesCategoryRowView: View {
       .dsCellBackground()
     }
     .buttonStyle(.plain)
-    .dsShadow()
+    .dsShadow(.r8Medium)
   }
 }

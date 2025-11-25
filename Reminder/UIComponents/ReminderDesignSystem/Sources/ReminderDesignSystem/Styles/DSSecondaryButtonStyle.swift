@@ -24,7 +24,7 @@ public struct DSSecondaryButtonStyle: ButtonStyle {
           .stroke(DSColor.Accent.primary, lineWidth: 1)
       )
       .foregroundStyle(DSColor.Accent.primary)
-      .dsShadow()
+      .dsShadow(.r4Heavy)
       .opacity(configuration.isPressed ? 0.8 : 1)
       .scaleEffect(configuration.isPressed ? 0.97 : 1)
   }

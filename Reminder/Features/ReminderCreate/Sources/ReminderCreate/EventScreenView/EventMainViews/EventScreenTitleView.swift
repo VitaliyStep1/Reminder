@@ -34,7 +34,7 @@ struct EventScreenTitleView: View {
               )
             )
         )
-        .dsShadow()
+        .dsShadow(.r14AccentStrong)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
   }

@@ -28,6 +28,6 @@ public struct DSMainTextFieldStyle: TextFieldStyle {
   private var fieldBackground: some View {
     RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
       .fill(DSColor.Background.primary.opacity(0.9))
-      .dsShadowLight()
+      .dsShadow(.r4Light)
   }
 }

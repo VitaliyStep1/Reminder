@@ -31,7 +31,7 @@ public struct CategoryEventRowView: View {
       .dsCellBackground()
     }
     .buttonStyle(.plain)
-    .dsShadow()
+    .dsShadow(.r8Medium)
   }
 }
 

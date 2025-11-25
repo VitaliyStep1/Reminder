@@ -47,6 +47,7 @@ struct EventDateView: View {
               .fill(DSColor.Accent.highlight)
           )
           .foregroundStyle(DSColor.Accent.primary)
+          .dsShadow(.r10AccentSoft)
       }
       .foregroundStyle(DSColor.Text.primary)
       .padding(.horizontal, DSSpacing.s20)
@@ -54,7 +55,7 @@ struct EventDateView: View {
       .background {
         RoundedRectangle(cornerRadius: DSRadius.r12)
           .fill(DSColor.Background.primary)
-          .dsShadowLight()
+          .dsShadow(.r6Light)
       }
     }
     .sheet(isPresented: $isDateDatePickerVisible) {
