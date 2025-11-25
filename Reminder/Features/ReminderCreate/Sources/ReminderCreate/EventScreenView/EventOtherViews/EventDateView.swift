@@ -52,7 +52,7 @@ struct EventDateView: View {
       .padding(.horizontal, DSSpacing.s20)
       .padding(.vertical, DSSpacing.s16)
       .background {
-        RoundedRectangle(cornerRadius: 12)
+        RoundedRectangle(cornerRadius: DSRadius.r12)
           .fill(DSColor.Background.primary)
           .dsShadowLight()
       }
@@ -80,7 +80,7 @@ struct EventDateView: View {
         .padding(.vertical, DSSpacing.s8)
         .frame(maxWidth: .infinity)
         .background(
-          RoundedRectangle(cornerRadius: 16, style: .continuous)
+          RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous)
             .fill(DSColor.Background.secondary)
         )
         .padding(.horizontal)
@@ -95,7 +95,7 @@ struct EventDateView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, DSSpacing.s12)
             .background(
-              RoundedRectangle(cornerRadius: 12, style: .continuous)
+              RoundedRectangle(cornerRadius: DSRadius.r12, style: .continuous)
                 .stroke(DSColor.Text.secondary, lineWidth: 1)
             )
         }
@@ -109,7 +109,7 @@ struct EventDateView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, DSSpacing.s12)
             .background(
-              RoundedRectangle(cornerRadius: 12, style: .continuous)
+              RoundedRectangle(cornerRadius: DSRadius.r12, style: .continuous)
                 .fill(DSColor.Accent.primary)
             )
             .foregroundStyle(DSColor.Text.inverse)

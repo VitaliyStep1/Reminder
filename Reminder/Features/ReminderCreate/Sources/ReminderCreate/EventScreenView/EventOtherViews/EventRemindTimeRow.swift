@@ -47,11 +47,11 @@ struct EventRemindTimeRow: View {
     .padding(.horizontal, DSSpacing.s14)
     .padding(.vertical, DSSpacing.s12)
     .background(fieldBackground)
-    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+    .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
   }
-  
+
   private var fieldBackground: some View {
-    RoundedRectangle(cornerRadius: 14, style: .continuous)
+    RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
       .fill(DSColor.Background.primary.opacity(0.9))
       .dsShadow()
   }

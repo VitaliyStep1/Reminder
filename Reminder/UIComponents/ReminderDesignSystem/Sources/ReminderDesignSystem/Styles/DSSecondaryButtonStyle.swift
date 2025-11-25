@@ -16,11 +16,11 @@ public struct DSSecondaryButtonStyle: ButtonStyle {
       .padding(.horizontal, DSSpacing.s16)
       .padding(.vertical, DSSpacing.s10)
       .background(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
           .fill(DSColor.Background.primary)
       )
       .overlay(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
           .stroke(DSColor.Accent.primary, lineWidth: 1)
       )
       .foregroundStyle(DSColor.Accent.primary)

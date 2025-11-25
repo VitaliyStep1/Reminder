@@ -16,12 +16,12 @@ public struct DSCancelButtonStyle: ButtonStyle {
       .frame(maxWidth: .infinity)
       .padding(.vertical, DSSpacing.s14)
       .background(
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous)
           .fill(.ultraThinMaterial)
       )
       .foregroundStyle(DSColor.Text.blue)
       .overlay(
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous)
           .stroke(DSColor.Text.secondary.opacity(0.2), lineWidth: 1)
       )
   }

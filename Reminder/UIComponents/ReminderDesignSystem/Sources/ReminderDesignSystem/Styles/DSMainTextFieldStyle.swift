@@ -20,13 +20,13 @@ public struct DSMainTextFieldStyle: TextFieldStyle {
       .padding(.vertical, DSSpacing.s12)
       .background(fieldBackground)
       .overlay(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
           .stroke(DSColor.Accent.primary.opacity(isTextNotEmpty ? 0.4 : 0), lineWidth: 1)
       )
   }
-  
+
   private var fieldBackground: some View {
-    RoundedRectangle(cornerRadius: 14, style: .continuous)
+    RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
       .fill(DSColor.Background.primary.opacity(0.9))
       .dsShadowLight()
   }

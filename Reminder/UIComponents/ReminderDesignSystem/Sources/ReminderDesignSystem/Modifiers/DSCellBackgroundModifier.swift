@@ -15,10 +15,10 @@ public struct DSCellBackgroundModifier: ViewModifier {
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(DSSpacing.s16)
       .background {
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous)
           .fill(DSColor.Background.groupedSecondary)
       }
-      .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+      .clipShape(RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous))
   }
 }
 

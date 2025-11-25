@@ -29,11 +29,11 @@ struct EventSectionContainer<Content: View>: View {
     .padding(DSSpacing.s20)
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
-      RoundedRectangle(cornerRadius: 24, style: .continuous)
+      RoundedRectangle(cornerRadius: DSRadius.r24, style: .continuous)
         .fill(.ultraThinMaterial)
     )
     .overlay(
-      RoundedRectangle(cornerRadius: 24, style: .continuous)
+      RoundedRectangle(cornerRadius: DSRadius.r24, style: .continuous)
         .stroke(DSColor.Text.primary.opacity(0.08))
     )
     .dsShadow()
