@@ -14,7 +14,7 @@ public struct DSCancelButtonStyle: ButtonStyle {
     configuration.label
       .font(.dsHeadlineLarge)
       .frame(maxWidth: .infinity)
-      .padding(.vertical, 14)
+      .padding(.vertical, DSSpacing.s14)
       .background(
         RoundedRectangle(cornerRadius: 16, style: .continuous)
           .fill(.ultraThinMaterial)

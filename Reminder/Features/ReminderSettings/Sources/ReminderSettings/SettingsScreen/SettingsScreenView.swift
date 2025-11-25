@@ -38,7 +38,7 @@ public struct SettingsScreenView: View {
           .dsShadow()
           HStack {
             Text(TextEnum.defaultRemindTimeDescription.localized)
-              .padding(.horizontal, 16)
+              .padding(.horizontal, DSSpacing.s16)
             Spacer()
           }
         }

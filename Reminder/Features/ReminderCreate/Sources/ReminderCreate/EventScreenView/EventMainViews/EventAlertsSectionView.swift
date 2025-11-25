@@ -41,8 +41,8 @@ struct EventAlertsSectionView: View {
     case .text(let text):
       Text(text)
         .font(.dsBodyMedium)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
+        .padding(.horizontal, DSSpacing.s14)
+        .padding(.vertical, DSSpacing.s12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(fieldBackground)
     }
@@ -50,7 +50,7 @@ struct EventAlertsSectionView: View {
   
   @ViewBuilder
   private var remindTimeView: some View {
-    VStack(alignment: .leading, spacing: 12) {
+    VStack(alignment: .leading, spacing: DSSpacing.s12) {
       EventRemindTimeRow(
         title: TextEnum.remindTime1Title.localized,
         selection: $alertsSectionData.remindTimeDate1
@@ -90,7 +90,7 @@ struct EventAlertsSectionView: View {
   
   private var sectionDivider: some View {
     Divider()
-      .padding(.horizontal, -8)
+      .padding(.horizontal, DSSpacing.sMinus8)
   }
   
   private var fieldBackground: some View {

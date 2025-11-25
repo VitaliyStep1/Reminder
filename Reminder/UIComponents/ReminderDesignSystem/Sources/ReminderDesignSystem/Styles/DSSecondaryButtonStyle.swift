@@ -13,8 +13,8 @@ public struct DSSecondaryButtonStyle: ButtonStyle {
   public func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .font(.dsBodySemibold)
-      .padding(.horizontal, 16)
-      .padding(.vertical, 10)
+      .padding(.horizontal, DSSpacing.s16)
+      .padding(.vertical, DSSpacing.s10)
       .background(
         RoundedRectangle(cornerRadius: 14, style: .continuous)
           .fill(DSColor.Background.primary)

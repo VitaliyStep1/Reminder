@@ -13,7 +13,7 @@ public struct DSCellBackgroundModifier: ViewModifier {
   public func body(content: Content) -> some View {
     content
       .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(16)
+      .padding(DSSpacing.s16)
       .background {
         RoundedRectangle(cornerRadius: 16, style: .continuous)
           .fill(DSColor.Background.groupedSecondary)

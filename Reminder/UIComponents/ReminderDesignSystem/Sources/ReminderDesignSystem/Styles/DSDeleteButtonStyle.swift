@@ -14,7 +14,7 @@ public struct DSDeleteButtonStyle: ButtonStyle {
     configuration.label
       .font(.dsHeadlineLarge)
       .frame(maxWidth: .infinity)
-      .padding(.vertical, 14)
+      .padding(.vertical, DSSpacing.s14)
       .background(
         LinearGradient(
           colors: [DSColor.Danger.gradientStart, DSColor.Danger.gradientEnd],

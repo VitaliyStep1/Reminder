@@ -14,7 +14,7 @@ public struct DSMainButtonStyle: ButtonStyle {
     configuration.label
       .font(.dsHeadlineLarge)
       .frame(maxWidth: .infinity)
-      .padding(.vertical, 14)
+      .padding(.vertical, DSSpacing.s14)
       .background(
         LinearGradient(
           colors: [DSColor.Category.gradientStart, DSColor.Category.gradientEnd],

@@ -29,8 +29,8 @@ struct EventDateView: View {
       temporaryEventDate = eventDate
       isDateDatePickerVisible = true
     } label: {
-      HStack(spacing: 8) {
-        VStack(alignment: .leading, spacing: 4) {
+      HStack(spacing: DSSpacing.s8) {
+        VStack(alignment: .leading, spacing: DSSpacing.s4) {
           Text(TextEnum.eventDateLabel.localized)
             .font(.dsHeadline)
             .foregroundStyle(.primary)
@@ -41,7 +41,7 @@ struct EventDateView: View {
         Spacer()
         Image(systemName: "calendar")
           .font(.dsTitle3)
-          .padding(10)
+          .padding(DSSpacing.s10)
           .background(
             Circle()
               .fill(DSColor.Accent.highlight)
@@ -49,8 +49,8 @@ struct EventDateView: View {
           .foregroundStyle(DSColor.Accent.primary)
       }
       .foregroundStyle(DSColor.Text.primary)
-      .padding(.horizontal, 20)
-      .padding(.vertical, 16)
+      .padding(.horizontal, DSSpacing.s20)
+      .padding(.vertical, DSSpacing.s16)
       .background {
         RoundedRectangle(cornerRadius: 12)
           .fill(DSColor.Background.primary)
@@ -65,7 +65,7 @@ struct EventDateView: View {
   }
   
   private func datePickerSheetView() -> some View {
-    VStack(spacing: 24) {
+    VStack(spacing: DSSpacing.s24) {
       HStack {
         Spacer()
         Text(TextEnum.selectEventDateTitle.localized)
@@ -77,7 +77,7 @@ struct EventDateView: View {
       DatePicker("", selection: $temporaryEventDate, displayedComponents: [.date])
         .datePickerStyle(.wheel)
         .labelsHidden()
-        .padding(.vertical, 8)
+        .padding(.vertical, DSSpacing.s8)
         .frame(maxWidth: .infinity)
         .background(
           RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -85,7 +85,7 @@ struct EventDateView: View {
         )
         .padding(.horizontal)
 
-      HStack(spacing: 16) {
+      HStack(spacing: DSSpacing.s16) {
         Button {
           isDateDatePickerVisible = false
         } label: {
@@ -93,7 +93,7 @@ struct EventDateView: View {
             .font(.dsHeadline)
             .foregroundStyle(.primary)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
+            .padding(.vertical, DSSpacing.s12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .stroke(DSColor.Text.secondary, lineWidth: 1)
@@ -107,7 +107,7 @@ struct EventDateView: View {
           Text(TextEnum.doneTitle.localized)
             .font(.dsHeadline)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
+            .padding(.vertical, DSSpacing.s12)
             .background(
               RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(DSColor.Accent.primary)
@@ -118,8 +118,8 @@ struct EventDateView: View {
       }
       .padding(.horizontal)
     }
-    .padding(.horizontal, 8)
-    .padding(.vertical, 8)
+    .padding(.horizontal, DSSpacing.s8)
+    .padding(.vertical, DSSpacing.s8)
     .frame(maxWidth: .infinity)
     .background(DSColor.Background.primary)
   }

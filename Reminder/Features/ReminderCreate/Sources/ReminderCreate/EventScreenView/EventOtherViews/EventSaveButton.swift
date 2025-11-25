@@ -23,7 +23,7 @@ struct EventSaveButton: View {
     Button(action: {
       buttonTappedAction()
     }) {
-      HStack(spacing: 10) {
+    HStack(spacing: DSSpacing.s10) {
         if isProgressViewVisible {
           ProgressView()
             .tint(DSColor.Text.inverse)

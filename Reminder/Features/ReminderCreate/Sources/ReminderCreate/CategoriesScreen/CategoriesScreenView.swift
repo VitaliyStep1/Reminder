@@ -53,7 +53,7 @@ private extension CategoriesScreenView {
   
   private func categoriesView(categories: [CategoriesEntity.Category]) -> some View {
     ScrollView {
-      LazyVStack(spacing: 14) {
+      LazyVStack(spacing: DSSpacing.s14) {
         ForEach(categories) { category in
           CategoriesCategoryRowView(
             title: category.title,
@@ -63,7 +63,7 @@ private extension CategoriesScreenView {
             })
         }
       }
-      .padding(.vertical, 4)
+      .padding(.vertical, DSSpacing.s4)
     }
   }
   

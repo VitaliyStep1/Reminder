@@ -38,7 +38,7 @@ public struct CategoryScreenView: View {
 private extension CategoryScreenView {
   @ViewBuilder
   var contentView: some View {
-    VStack(spacing: 20) {
+    VStack(spacing: DSSpacing.s20) {
       CategoryHeaderView(title: viewModel.headerTitle, subtitle: viewModel.headerSubTitle)
       
       switch viewModel.screenStateEnum {
@@ -61,14 +61,14 @@ private extension CategoryScreenView {
   
   func withEventsView(events: [CategoryEntity.Event]) -> some View {
     ScrollView {
-      LazyVStack(spacing: 14) {
+      LazyVStack(spacing: DSSpacing.s14) {
         ForEach(events) { event in
           CategoryEventRowView(title: event.title, dateString: event.date, tapAction: {
             viewModel.eventTapped(eventId: event.id)
           })
         }
       }
-      .padding(.vertical, 4)
+      .padding(.vertical, DSSpacing.s4)
     }
   }
 }

@@ -11,9 +11,9 @@ public class Styles {
   
   public enum Padding {
     public struct ScreenPadding: Hashable {
-      public static let horizontal: CGFloat = 16
-      public static let top: CGFloat = 8
-      public static let bottom: CGFloat = 24
+      public static let horizontal: CGFloat = DSSpacing.Screen.horizontal
+      public static let top: CGFloat = DSSpacing.Screen.top
+      public static let bottom: CGFloat = DSSpacing.Screen.bottom
     }
   }
 }

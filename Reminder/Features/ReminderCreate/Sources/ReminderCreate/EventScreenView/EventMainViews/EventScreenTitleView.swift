@@ -23,7 +23,7 @@ struct EventScreenTitleView: View {
       Image(systemName: "calendar.badge.plus")
         .font(.dsTitle3Semibold)
         .foregroundStyle(DSColor.Text.inverse)
-        .padding(12)
+        .padding(DSSpacing.s12)
         .background(
           Circle()
             .fill(

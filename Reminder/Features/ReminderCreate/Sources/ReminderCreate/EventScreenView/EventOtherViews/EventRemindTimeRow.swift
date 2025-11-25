@@ -20,8 +20,8 @@ struct EventRemindTimeRow: View {
   }
   
   var body: some View {
-    HStack(spacing: 12) {
-      VStack(alignment: .leading, spacing: 6) {
+    HStack(spacing: DSSpacing.s12) {
+      VStack(alignment: .leading, spacing: DSSpacing.s6) {
         Text(title)
           .font(.dsSubheadlineSemibold)
           .foregroundStyle(.secondary)
@@ -44,8 +44,8 @@ struct EventRemindTimeRow: View {
         .accessibilityLabel("Remove \(title)")
       }
     }
-    .padding(.horizontal, 14)
-    .padding(.vertical, 12)
+    .padding(.horizontal, DSSpacing.s14)
+    .padding(.vertical, DSSpacing.s12)
     .background(fieldBackground)
     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
   }

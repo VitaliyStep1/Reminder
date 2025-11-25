@@ -20,13 +20,13 @@ struct EventSectionContainer<Content: View>: View {
   }
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 16) {
+    VStack(alignment: .leading, spacing: DSSpacing.s16) {
       Label(title, systemImage: systemImageName)
         .font(.dsTitle3Semibold)
         .foregroundStyle(.primary)
       contentBuilder()
     }
-    .padding(20)
+    .padding(DSSpacing.s20)
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       RoundedRectangle(cornerRadius: 24, style: .continuous)

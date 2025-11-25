@@ -27,13 +27,13 @@ struct EventDetailsSectionView: View {
       sectionDivider
       EventSubSectionContainer(title: TextEnum.eventDateTitle.localized) {
         EventDateView(eventDate: $detailsSectionData.eventDate)
-          .padding(.horizontal, 4)
+          .padding(.horizontal, DSSpacing.s4)
       }
     }
   }
   
   private var sectionDivider: some View {
     Divider()
-      .padding(.horizontal, -8)
+      .padding(.horizontal, DSSpacing.sMinus8)
   }
 }

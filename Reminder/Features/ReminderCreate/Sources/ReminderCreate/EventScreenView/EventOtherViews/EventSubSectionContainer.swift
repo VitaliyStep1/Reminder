@@ -16,9 +16,9 @@ struct EventSubSectionContainer<Content: View>: View {
     self.title = title
     self.contentBuilder = contentBuilder
   }
-  
+
   var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: DSSpacing.s8) {
       Text(title)
         .font(.dsSubheadlineSemibold)
         .foregroundStyle(.secondary)
