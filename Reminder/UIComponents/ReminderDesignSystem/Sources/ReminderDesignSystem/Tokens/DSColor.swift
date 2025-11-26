@@ -1,6 +1,38 @@
 import SwiftUI
 
 public enum DSColor {
+  public enum Palette {
+    public static let accent = Color.accentColor
+    public static let accentO_8 = Color.accentColor.opacity(0.8)
+    public static let accentO_7 = Color.accentColor.opacity(0.7)
+    public static let accentO_3 = Color.accentColor.opacity(0.3)
+    public static let accentO_25 = Color.accentColor.opacity(0.25)
+    public static let accentO_12 = Color.accentColor.opacity(0.12)
+    
+    public static let blue = Color.blue
+    public static let blueO_3 = Color.blue.opacity(0.3)
+    public static let indigo = Color.indigo
+    
+    public static let red = Color.red
+    public static let redO_85 = Color.red.opacity(0.85)
+    public static let redO_2 = Color.red.opacity(0.2)
+    
+    
+    public static let systemBackground = Color(.systemBackground)
+    public static let secondarySystemBackground = Color(.secondarySystemBackground)
+    public static let systemGroupedBackground = Color(.systemGroupedBackground)
+    public static let secondarySystemGroupedBackground = Color(.secondarySystemGroupedBackground)
+    
+    public static let blackO_1 = Color.black.opacity(0.1)
+    public static let blackO_08 = Color.black.opacity(0.08)
+    public static let blackO_06 = Color.black.opacity(0.06)
+    public static let blackO_05 = Color.black.opacity(0.05)
+    
+    public static let primary = Color.primary
+    public static let secondary = Color.secondary
+    public static let white = Color.white
+  }
+  
   public enum Accent {
     public static let primary = Color.accentColor
     public static let gradientStart = Color.accentColor
