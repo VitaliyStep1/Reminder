@@ -17,12 +17,12 @@ public struct DSMainButtonStyle: ButtonStyle {
       .padding(.vertical, DSSpacing.s14)
       .background(
         LinearGradient(
-          colors: [DSColor.Category.gradientStart, DSColor.Category.gradientEnd],
+          colors: [DSColor.Gradient.blueStart, DSColor.Gradient.blueEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(DSColor.Text.inverse)
+      .foregroundStyle(DSColor.Foreground.white)
       .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
       .dsShadow(.r12Category)
   }

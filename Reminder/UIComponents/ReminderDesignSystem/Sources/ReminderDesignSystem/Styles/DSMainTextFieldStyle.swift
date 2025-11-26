@@ -21,7 +21,7 @@ public struct DSMainTextFieldStyle: TextFieldStyle {
       .background(fieldBackground)
       .overlay(
         RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
-          .stroke(DSColor.Accent.primary.opacity(isTextNotEmpty ? 0.4 : 0), lineWidth: 1)
+          .stroke(DSColor.Stroke.accent.opacity(isTextNotEmpty ? 0.4 : 0), lineWidth: 1)
       )
   }
 

@@ -17,12 +17,12 @@ public struct DSDeleteButtonStyle: ButtonStyle {
       .padding(.vertical, DSSpacing.s14)
       .background(
         LinearGradient(
-          colors: [DSColor.Danger.gradientStart, DSColor.Danger.gradientEnd],
+          colors: [DSColor.Gradient.redStart, DSColor.Gradient.redEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(DSColor.Text.inverse)
+      .foregroundStyle(DSColor.Foreground.white)
       .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
       .dsShadow(.r10Danger)
   }

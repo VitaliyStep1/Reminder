@@ -33,10 +33,10 @@ struct EventDateView: View {
         VStack(alignment: .leading, spacing: DSSpacing.s4) {
           Text(TextEnum.eventDateLabel.localized)
             .font(.dsHeadline)
-            .foregroundStyle(.primary)
+            .foregroundStyle(DSColor.Text.primary)
           Text(eventDateFormatter.string(from: eventDate))
             .font(.dsSubheadline)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(DSColor.Text.secondary)
         }
         Spacer()
         Image(systemName: "calendar")
@@ -44,12 +44,11 @@ struct EventDateView: View {
           .padding(DSSpacing.s10)
           .background(
             Circle()
-              .fill(DSColor.Accent.highlight)
+              .fill(DSColor.Fill.accentO_12)
           )
-          .foregroundStyle(DSColor.Accent.primary)
+          .foregroundStyle(DSColor.Icon.accent)
           .dsShadow(.r10AccentSoft)
       }
-      .foregroundStyle(DSColor.Text.primary)
       .padding(.horizontal, DSSpacing.s20)
       .padding(.vertical, DSSpacing.s16)
       .background {
@@ -97,7 +96,7 @@ struct EventDateView: View {
             .padding(.vertical, DSSpacing.s12)
             .background(
               RoundedRectangle(cornerRadius: DSRadius.r12, style: .continuous)
-                .stroke(DSColor.Text.secondary, lineWidth: 1)
+                .stroke(DSColor.Stroke.secondary, lineWidth: 1)
             )
         }
 
@@ -111,9 +110,9 @@ struct EventDateView: View {
             .padding(.vertical, DSSpacing.s12)
             .background(
               RoundedRectangle(cornerRadius: DSRadius.r12, style: .continuous)
-                .fill(DSColor.Accent.primary)
+                .fill(DSColor.Fill.accent)
             )
-            .foregroundStyle(DSColor.Text.inverse)
+            .foregroundStyle(DSColor.Text.white)
         }
         
       }

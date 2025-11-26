@@ -19,10 +19,10 @@ public struct DSCancelButtonStyle: ButtonStyle {
         RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous)
           .fill(.ultraThinMaterial)
       )
-      .foregroundStyle(DSColor.Text.blue)
+      .foregroundStyle(DSColor.Foreground.blue)
       .overlay(
         RoundedRectangle(cornerRadius: DSRadius.r16, style: .continuous)
-          .stroke(DSColor.Text.secondary.opacity(0.2), lineWidth: 1)
+          .stroke(DSColor.Stroke.secondary.opacity(0.2), lineWidth: 1)
       )
   }
 }

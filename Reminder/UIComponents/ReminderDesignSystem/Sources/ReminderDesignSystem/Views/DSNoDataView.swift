@@ -20,7 +20,7 @@ public struct DSNoDataView: View {
     VStack(spacing: 24) {
       Image(systemName: systemImageName)
         .font(.dsIconXLarge)
-        .foregroundStyle(DSColor.Accent.primary)
+        .foregroundStyle(DSColor.Icon.accent)
 
       Text(title)
         .font(.dsBody)

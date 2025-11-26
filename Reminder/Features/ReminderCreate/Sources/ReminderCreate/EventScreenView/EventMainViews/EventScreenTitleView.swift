@@ -22,13 +22,13 @@ struct EventScreenTitleView: View {
     } icon: {
       Image(systemName: "calendar.badge.plus")
         .font(.dsTitle3Semibold)
-        .foregroundStyle(DSColor.Text.inverse)
+        .foregroundStyle(DSColor.Icon.white)
         .padding(DSSpacing.s12)
         .background(
           Circle()
             .fill(
               LinearGradient(
-                colors: [DSColor.Accent.gradientStart, DSColor.Accent.gradientEnd],
+                colors: [DSColor.Gradient.accentStart, DSColor.Gradient.accentEnd],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
               )

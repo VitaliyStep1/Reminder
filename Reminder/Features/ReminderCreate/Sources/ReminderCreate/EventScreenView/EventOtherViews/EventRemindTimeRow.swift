@@ -38,7 +38,7 @@ struct EventRemindTimeRow: View {
         Button(action: removeAction) {
           Image(systemName: "minus.circle.fill")
             .font(.dsTitle2)
-            .foregroundStyle(DSColor.Danger.primary)
+            .foregroundStyle(DSColor.Icon.red)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Remove \(title)")

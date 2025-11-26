@@ -34,7 +34,7 @@ struct EventSectionContainer<Content: View>: View {
     )
     .overlay(
       RoundedRectangle(cornerRadius: DSRadius.r24, style: .continuous)
-        .stroke(DSColor.Text.primary.opacity(0.08))
+        .stroke(DSColor.Stroke.primaryO_08)
     )
     .dsShadow(.r12Heavy)
   }

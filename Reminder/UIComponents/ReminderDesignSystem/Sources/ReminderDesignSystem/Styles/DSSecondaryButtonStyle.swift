@@ -21,9 +21,9 @@ public struct DSSecondaryButtonStyle: ButtonStyle {
       )
       .overlay(
         RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
-          .stroke(DSColor.Accent.primary, lineWidth: 1)
+          .stroke(DSColor.Stroke.accent, lineWidth: 1)
       )
-      .foregroundStyle(DSColor.Accent.primary)
+      .foregroundStyle(DSColor.Text.accent)
       .dsShadow(.r4Heavy)
       .opacity(configuration.isPressed ? 0.8 : 1)
       .scaleEffect(configuration.isPressed ? 0.97 : 1)
