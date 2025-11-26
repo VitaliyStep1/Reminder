@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ReminderDesignSystem
 
 struct EventSubSectionContainer<Content: View>: View {
   let title: String
@@ -19,7 +20,7 @@ struct EventSubSectionContainer<Content: View>: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
       Text(title)
-        .font(.subheadline.weight(.semibold))
+        .font(.dsSubheadlineSemibold)
         .foregroundStyle(.secondary)
       contentBuilder()
     }

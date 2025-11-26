@@ -20,10 +20,10 @@ public struct CategoryEventRowView: View {
       VStack(alignment: .leading, spacing: 4) {
         HStack {
           Text(title)
-            .font(.headline)
+            .font(.dsHeadline)
           Spacer()
           Text(dateString)
-            .font(.subheadline)
+            .font(.dsSubheadline)
             .monospacedDigit()
             .foregroundStyle(.secondary)
         }

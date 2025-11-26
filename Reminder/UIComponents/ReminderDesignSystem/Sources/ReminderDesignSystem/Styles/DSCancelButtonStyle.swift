@@ -12,7 +12,7 @@ public struct DSCancelButtonStyle: ButtonStyle {
   
   public func makeBody(configuration: Configuration) -> some View {
     configuration.label
-      .font(.headline)
+      .font(.dsHeadlineLarge)
       .frame(maxWidth: .infinity)
       .padding(.vertical, 14)
       .background(
