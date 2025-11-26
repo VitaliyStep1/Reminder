@@ -8,7 +8,7 @@
 import SwiftUI
 import ReminderDependencies
 import ReminderNavigationContracts
-import ReminderStartUI
+import ReminderStart
 
 @main
 struct ReminderApp: App {
