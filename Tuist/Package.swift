@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
   name: "ReminderTuistSupport",
   platforms: [
-    .iOS(.v16)
+    .iOS(.v17)
   ],
   dependencies: [
     .package(path: "../Reminder/Foundation/ReminderConfigurations"),

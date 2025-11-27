@@ -6,7 +6,7 @@ let projectSettings: Settings = .settings(
     "CURRENT_PROJECT_VERSION": "1",
     "MARKETING_VERSION": "1.0",
     "SWIFT_VERSION": "5.0",
-    "IPHONEOS_DEPLOYMENT_TARGET": "16.6"
+    "IPHONEOS_DEPLOYMENT_TARGET": "17.0"
   ],
   configurations: [
     .debug(name: "Debug"),
