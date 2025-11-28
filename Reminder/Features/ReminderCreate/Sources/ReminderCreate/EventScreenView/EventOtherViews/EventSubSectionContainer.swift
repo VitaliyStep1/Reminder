@@ -9,10 +9,10 @@ import SwiftUI
 import ReminderDesignSystem
 
 struct EventSubSectionContainer<Content: View>: View {
-  let title: String
+  let title: LocalizedStringResource
   let contentBuilder: () -> Content
-  
-  init(title: String, @ViewBuilder contentBuilder: @escaping () -> Content) {
+
+  init(title: LocalizedStringResource, @ViewBuilder contentBuilder: @escaping () -> Content) {
     self.title = title
     self.contentBuilder = contentBuilder
   }

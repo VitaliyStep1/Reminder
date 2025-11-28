@@ -21,7 +21,7 @@ public struct ClosestScreenView: View {
       contentView
         .dsScreenPadding()
         .dsScreenBackground()
-        .navigationTitle(TextEnum.closestScreenTitle.localized)
+        .navigationTitle(Text(Localize.closestScreenTitle))
     }
   }
   

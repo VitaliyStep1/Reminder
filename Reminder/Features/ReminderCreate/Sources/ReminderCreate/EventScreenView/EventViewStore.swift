@@ -62,8 +62,8 @@ public final class EventViewStore: ObservableObject {
       isDeleting: false,
       isDeleteButtonVisible: false,
       saveButtonTitle: "",
-      cancelButtonTitle: TextEnum.cancelTitle.localized,
-      deleteButtonTitle: TextEnum.deleteButtonTitle.localized
+      cancelButtonTitle: String(localized: Localize.cancelTitle),
+      deleteButtonTitle: String(localized: Localize.deleteButtonTitle)
     )
     
     self.isViewBlocked = false

@@ -20,8 +20,8 @@ public class CategoryViewModel: ObservableObject {
   
   private var events: [CategoryEntity.Event] = [] {
     didSet {
-      let eventsTitle = events.count == 1 ? TextEnum.eventSingular.localized : TextEnum.eventsPlural.localized
-      headerSubTitle = String(format: TextEnum.addedEventsFormat.localized, events.count, eventsTitle)
+      let eventsTitle = events.count == 1 ? String(localized: Localize.eventSingular) : String(localized: Localize.eventsPlural)
+      headerSubTitle = String(format: String(localized: Localize.addedEventsFormat), events.count, eventsTitle)
       if events.isEmpty {
         screenStateEnum = .empty(title: noEventsText)
       } else {
@@ -44,7 +44,7 @@ public class CategoryViewModel: ObservableObject {
   var createEventViewTitle = ""
   var createEventViewDate = Date()
   var createEventViewComment = ""
-  private let noEventsText = TextEnum.categoryNoEventsText.localized
+  private let noEventsText = Localize.categoryNoEventsText
   
   private var cancellables: Set<AnyCancellable> = []
   
@@ -116,9 +116,9 @@ public class CategoryViewModel: ObservableObject {
     let eventScreenViewType = EventScreenViewType.edit(eventId: eventId)
     router.pushScreen(.event(eventScreenViewType))
   }
-  
+
   private func showEventsWereNotFetchedAlert() {
-    alertInfo = ErrorAlertInfo(message: TextEnum.eventsNotFetchedAlert.localized)
+    alertInfo = ErrorAlertInfo(message: String(localized: Localize.eventsNotFetchedAlert))
     isAlertVisible = true
   }
   

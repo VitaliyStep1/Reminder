@@ -7,6 +7,7 @@
 
 import Foundation
 
-public protocol UserDefaultsServiceProtocol: Sendable {
+public protocol UserDefaultsServiceProtocol: AnyObject, Sendable {
   var defaultRemindTimeDate: Date? { get set }
+  var settingsLanguageId: String? { get set }
 }

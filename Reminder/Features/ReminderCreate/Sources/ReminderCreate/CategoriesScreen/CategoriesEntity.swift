@@ -5,6 +5,7 @@
 //  Created by Vitaliy Stepanenko on 23.08.2025.
 //
 
+import Foundation
 import ReminderDomainContracts
 
 enum CategoriesEntity {
@@ -21,7 +22,7 @@ enum CategoriesEntity {
   }
   
   enum ScreenStateEnum {
-    case empty(title: String)
+    case empty(title: LocalizedStringResource)
     case withCategories(categories: [CategoriesEntity.Category])
   }
 }

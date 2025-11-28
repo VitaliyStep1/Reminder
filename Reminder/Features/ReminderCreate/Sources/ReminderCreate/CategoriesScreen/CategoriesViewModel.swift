@@ -15,12 +15,12 @@ public class CategoriesViewModel: ObservableObject {
   let fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol
   
   @Published var screenStateEnum: CategoriesEntity.ScreenStateEnum
-  @Published var navigationTitle: String = TextEnum.categoriesNavigationTitle.localized
+  var navigationTitle: String = String(localized: Localize.categoriesNavigationTitle)
   
   let coordinator: any CreateCoordinatorProtocol
   private var cancellables: Set<AnyCancellable> = []
   
-  private let noCategoriesText = TextEnum.noCategoriesText.localized
+  private let noCategoriesText = Localize.noCategoriesText
   
   public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol,
               coordinator: any CreateCoordinatorProtocol) {
@@ -64,7 +64,7 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   private func takeEventsAmountText(eventsAmount: Int) -> String {
-    let title = eventsAmount == 1 ? TextEnum.eventSingular.localized : TextEnum.eventsPlural.localized
+    let title = eventsAmount == 1 ? String(localized: Localize.eventSingular) : String(localized: Localize.eventsPlural)
     return "\(eventsAmount) \(title)"
   }
   

@@ -16,16 +16,16 @@ struct EventDetailsSectionView: View {
   }
   
   var body: some View {
-    EventSectionContainer(title: TextEnum.eventDetailsSectionTitle.localized, systemImageName: "square.and.pencil") {
-      EventSubSectionContainer(title: TextEnum.eventTitleTitle.localized) {
-        EventTextField(placeholder: TextEnum.eventTitlePlaceholder.localized, text: $detailsSectionData.eventTitle)
+    EventSectionContainer(title: Localize.eventDetailsSectionTitle, systemImageName: "square.and.pencil") {
+      EventSubSectionContainer(title: Localize.eventTitleTitle) {
+        EventTextField(placeholder: Localize.eventTitlePlaceholder, text: $detailsSectionData.eventTitle)
       }
       sectionDivider
-      EventSubSectionContainer(title: TextEnum.eventCommentTitle.localized) {
-        EventTextField(placeholder: TextEnum.eventCommentPlaceholder.localized, text: $detailsSectionData.eventComment)
+      EventSubSectionContainer(title: Localize.eventCommentTitle) {
+        EventTextField(placeholder: Localize.eventCommentPlaceholder, text: $detailsSectionData.eventComment)
       }
       sectionDivider
-      EventSubSectionContainer(title: TextEnum.eventDateTitle.localized) {
+      EventSubSectionContainer(title: Localize.eventDateTitle) {
         EventDateView(eventDate: $detailsSectionData.eventDate)
           .padding(.horizontal, DSSpacing.s4)
       }

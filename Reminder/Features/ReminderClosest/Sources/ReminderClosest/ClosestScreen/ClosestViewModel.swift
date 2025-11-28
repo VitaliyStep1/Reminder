@@ -13,7 +13,7 @@ public class ClosestViewModel: ObservableObject {
 
   @Published var screenStateEnum: ClosestEntity.ScreenStateEnum
   
-  private let noEventsText = TextEnum.closestNoEventsText.localized
+  private let noEventsText = Localize.closestNoEventsText
   
   public init(mainTabViewSelectionState: MainTabViewSelectionState) {
     self.mainTabViewSelectionState = mainTabViewSelectionState

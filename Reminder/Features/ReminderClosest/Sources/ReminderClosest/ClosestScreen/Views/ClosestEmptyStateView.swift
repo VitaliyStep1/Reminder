@@ -9,10 +9,10 @@ import SwiftUI
 import ReminderDesignSystem
 
 struct ClosestEmptyStateView: View {
-  let noEventsText: String
+  let noEventsText: LocalizedStringResource
   let createEventButtonAction: () -> Void
   
-  init(noEventsText: String, createEventButtonAction: @escaping () -> Void) {
+  init(noEventsText: LocalizedStringResource, createEventButtonAction: @escaping () -> Void) {
     self.noEventsText = noEventsText
     self.createEventButtonAction = createEventButtonAction
   }
@@ -22,7 +22,7 @@ struct ClosestEmptyStateView: View {
       Spacer()
       DSNoDataView(systemImageName: "calendar.badge.plus", title: noEventsText)
       Spacer()
-      ClosestCreateEventButton(systemImageName: "plus.circle.fill", title: TextEnum.closestCreateEventButtonTitle.localized, action: createEventButtonAction)
+      ClosestCreateEventButton(systemImageName: "plus.circle.fill", title: Localize.closestCreateEventButtonTitle, action: createEventButtonAction)
     }
   }
 }

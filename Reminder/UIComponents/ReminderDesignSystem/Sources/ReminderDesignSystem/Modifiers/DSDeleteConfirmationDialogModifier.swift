@@ -19,12 +19,12 @@ public struct DSDeleteConfirmationDialogModifier: ViewModifier {
     self.deleteAction = deleteAction
     self.message = message
   }
-  
+
   public func body(content: Content) -> some View {
     content.confirmationDialog(title, isPresented: $isPresented, titleVisibility: .visible) {
-      let deleteTitle = TextEnum.delete.localized
+      let deleteTitle = String(localized: Localize.delete)
       Button(deleteTitle, role: .destructive, action: deleteAction)
-      let cancelTitle = TextEnum.cancel.localized
+      let cancelTitle = String(localized: Localize.cancel)
       Button(cancelTitle, role: .cancel, action: {})
     } message: {
       Text(message)

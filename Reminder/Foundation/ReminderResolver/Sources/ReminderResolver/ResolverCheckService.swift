@@ -22,11 +22,14 @@ public class ResolverCheckService {
       resolver.deleteEventUseCaseProtocol,
       resolver.takeDefaultRemindTimeDateUseCaseProtocol,
       resolver.updateDefaultRemindTimeDateUseCaseProtocol,
+      resolver.takeSettingsLanguageUseCaseProtocol,
+      resolver.updateSettingsLanguageUseCaseProtocol,
       resolver.defaultCategoriesDataServiceProtocol,
       resolver.appConfigurationProtocol,
       resolver.userDefaultsServiceProtocol,
       resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
       resolver.defaultRemindTimeServiceProtocol,
+      resolver.languageServiceProtocol,
     ]
     
     return dependencies

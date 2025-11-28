@@ -48,12 +48,12 @@ private extension CategoryScreenView {
         withEventsView(events: events)
       }
       
-      CategoryAddButton(systemImageName: "plus.circle.fill", title: TextEnum.addNewEventButtonTitle.localized, action: viewModel.addButtonTapped)
+      CategoryAddButton(systemImageName: "plus.circle.fill", title: Localize.addNewEventButtonTitle, action: viewModel.addButtonTapped)
     }
   }
   
   @ViewBuilder
-  func emptyStateView(title: String) -> some View {
+  func emptyStateView(title: LocalizedStringResource) -> some View {
     Spacer()
     DSNoDataView(systemImageName: "calendar.badge.plus", title: title)
     Spacer()

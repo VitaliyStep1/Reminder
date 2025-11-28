@@ -9,11 +9,11 @@ import SwiftUI
 import ReminderDesignSystem
 
 struct EventSectionContainer<Content: View>: View {
-  let title: String
+  let title: LocalizedStringResource
   let systemImageName: String
   let contentBuilder: () -> Content
-  
-  init(title: String, systemImageName: String, @ViewBuilder contentBuilder: @escaping () -> Content) {
+
+  init(title: LocalizedStringResource, systemImageName: String, @ViewBuilder contentBuilder: @escaping () -> Content) {
     self.title = title
     self.systemImageName = systemImageName
     self.contentBuilder = contentBuilder
@@ -21,7 +21,11 @@ struct EventSectionContainer<Content: View>: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: DSSpacing.s16) {
-      Label(title, systemImage: systemImageName)
+      Label(title: {
+        Text(title)
+      }, icon: {
+        Image(systemName: systemImageName)
+      })
         .font(.dsTitle3Semibold)
         .foregroundStyle(.primary)
       contentBuilder()

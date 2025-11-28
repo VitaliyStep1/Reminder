@@ -15,8 +15,8 @@ public final class PreviewDataService: PreviewDataServiceProtocol, @unchecked Se
 
   private var eventForPreviewData: (title: String, comment: String) {
     (
-      title: TextEnum.previewEventTitle.localized,
-      comment: TextEnum.previewEventComment.localized
+      title: String(localized: Localize.previewEventTitle),
+      comment: String(localized: Localize.previewEventComment)
     )
   }
   

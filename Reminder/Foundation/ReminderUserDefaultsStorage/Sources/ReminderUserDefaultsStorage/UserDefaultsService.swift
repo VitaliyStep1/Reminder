@@ -23,4 +23,9 @@ public final class UserDefaultsService: UserDefaultsServiceProtocol {
     get { object(.defaultRemindTimeDate) as? Date }
     set { set(newValue, key: .defaultRemindTimeDate) }
   }
+  
+  public var settingsLanguageId: String? {
+    get { object(.settingsLanguageId) as? String }
+    set { set(newValue, key: .settingsLanguageId) }
+  }
 }

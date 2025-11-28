@@ -31,7 +31,7 @@ struct EventDateView: View {
     } label: {
       HStack(spacing: DSSpacing.s8) {
         VStack(alignment: .leading, spacing: DSSpacing.s4) {
-          Text(TextEnum.eventDateLabel.localized)
+          Text(Localize.eventDateLabel)
             .font(.dsHeadline)
             .foregroundStyle(DSColor.Text.primary)
           Text(eventDateFormatter.string(from: eventDate))
@@ -68,7 +68,7 @@ struct EventDateView: View {
     VStack(spacing: DSSpacing.s24) {
       HStack {
         Spacer()
-        Text(TextEnum.selectEventDateTitle.localized)
+        Text(Localize.selectEventDateTitle)
           .font(.dsTitle3Semibold)
           .foregroundStyle(.primary)
         Spacer()
@@ -89,7 +89,7 @@ struct EventDateView: View {
         Button {
           isDateDatePickerVisible = false
         } label: {
-          Text(TextEnum.cancelTitle.localized)
+          Text(Localize.cancelTitle)
             .font(.dsHeadline)
             .foregroundStyle(.primary)
             .frame(maxWidth: .infinity)
@@ -104,7 +104,7 @@ struct EventDateView: View {
           eventDate = temporaryEventDate
           isDateDatePickerVisible = false
         } label: {
-          Text(TextEnum.doneTitle.localized)
+          Text(Localize.doneTitle)
             .font(.dsHeadline)
             .frame(maxWidth: .infinity)
             .padding(.vertical, DSSpacing.s12)
