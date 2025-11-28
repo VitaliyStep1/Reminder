@@ -28,7 +28,7 @@ public struct CategoriesScreenView: View {
           viewModel.taskWasCalled()
         }
         .navigationTitle(
-          Text(Localize.categoriesNavigationTitle)
+          String(localized: Localize.categoriesNavigationTitle.localed(locale))
         )
         .navigationDestination(for: CreateRoute.self) { route in
           destinationView(for: route)
@@ -60,8 +60,8 @@ private extension CategoriesScreenView {
       LazyVStack(spacing: DSSpacing.s14) {
         ForEach(categories) { category in
           CategoriesCategoryRowView(
-            title: category.title,
-            eventsAmountText: category.eventsAmountText,
+            title: viewModel.takeLocalizedCategoryTitle(categoryTitle: category.title, locale: locale),
+            eventsAmountText: viewModel.takeEventsAmountText(eventsAmount: category.eventsAmount, locale: locale),
             tapAction: {
               viewModel.categoryRowWasClicked(category)
             })

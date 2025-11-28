@@ -12,12 +12,12 @@ enum CategoriesEntity {
   struct Category: Identifiable, Hashable {
     let id: Identifier
     let title: String
-    let eventsAmountText: String
+    let eventsAmount: Int
     
-    init(id: Identifier, title: String, eventsAmountText: String) {
+    init(id: Identifier, title: String, eventsAmount: Int) {
       self.id = id
       self.title = title
-      self.eventsAmountText = eventsAmountText
+      self.eventsAmount = eventsAmount
     }
   }
   

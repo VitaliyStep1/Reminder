@@ -5,28 +5,24 @@
 //  Created by Vitaliy Stepanenko on 25.08.2025.
 //
 
-import Foundation
 import Combine
+import Foundation
 import ReminderNavigationContracts
 import ReminderDomainContracts
+import ReminderDomain
 
 @MainActor
 public class CategoryViewModel: ObservableObject {
   let fetchEventsUseCase: FetchEventsUseCaseProtocol
   let fetchCategoryUseCase: FetchCategoryUseCaseProtocol
   var categoryId: Identifier
+  private var locale: Locale = .current
   
   @Published var screenStateEnum: CategoryEntity.ScreenStateEnum
   
   private var events: [CategoryEntity.Event] = [] {
     didSet {
-      let eventsTitle = events.count == 1 ? String(localized: Localize.eventSingular) : String(localized: Localize.eventsPlural)
-      headerSubTitle = String(format: String(localized: Localize.addedEventsFormat), events.count, eventsTitle)
-      if events.isEmpty {
-        screenStateEnum = .empty(title: noEventsText)
-      } else {
-        screenStateEnum = .withEvents(events: events)
-      }
+      updateScreenState()
     }
   }
   @Published var navigationTitle: String = "" {
@@ -57,11 +53,16 @@ public class CategoryViewModel: ObservableObject {
     self.fetchEventsUseCase = fetchEventsUseCase
     self.fetchCategoryUseCase = fetchCategoryUseCase
     self.router = router
-    self.screenStateEnum = .empty(title: noEventsText)
+    self.screenStateEnum = .empty(title: noEventsText.localed(locale))
     
     observeRouterUpdates()
   }
   
+  func updateLocale(_ locale: Locale) {
+    self.locale = locale
+    updateScreenState()
+  }
+
   func viewAppeared() {
     updateEventList()
     updateNavigationTitle()
@@ -108,7 +109,9 @@ public class CategoryViewModel: ObservableObject {
   private func updateNavigationTitle() {
     Task {
       let category = try? await fetchCategoryUseCase.execute(categoryId: categoryId)
-      navigationTitle = category?.title ?? ""
+      let categoryTitle = category?.title ?? ""
+      
+      navigationTitle = CategoryLocalizationManager.shared.localize(categoryTitle: categoryTitle, locale: locale)
     }
   }
   
@@ -118,7 +121,7 @@ public class CategoryViewModel: ObservableObject {
   }
 
   private func showEventsWereNotFetchedAlert() {
-    alertInfo = ErrorAlertInfo(message: String(localized: Localize.eventsNotFetchedAlert))
+    alertInfo = ErrorAlertInfo(message: String(localized: Localize.eventsNotFetchedAlert.localed(locale)))
     isAlertVisible = true
   }
   
@@ -153,5 +156,16 @@ public class CategoryViewModel: ObservableObject {
     categoryId = newCategoryId
     updateEventList()
     updateNavigationTitle()
+  }
+
+  private func updateScreenState() {
+    let eventsTitle = events.count == 1 ? String(localized: Localize.eventSingular.localed(locale)) : String(localized: Localize.eventsPlural.localed(locale))
+    headerSubTitle = String(format: String(localized: Localize.addedEventsFormat.localed(locale)), events.count, eventsTitle)
+
+    if events.isEmpty {
+      screenStateEnum = .empty(title: noEventsText.localed(locale))
+    } else {
+      screenStateEnum = .withEvents(events: events)
+    }
   }
 }

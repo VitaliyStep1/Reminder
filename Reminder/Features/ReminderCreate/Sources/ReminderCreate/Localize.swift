@@ -63,3 +63,11 @@ enum Localize {
   static var categoryNoEventsText: LocalizedStringResource { localizedResource("categoryNoEventsText") }
   static var addedEventsFormat: LocalizedStringResource { localizedResource("addedEventsFormat") }
 }
+
+extension LocalizedStringResource {
+  func localed(_ locale: Locale) -> LocalizedStringResource {
+    var resource = self
+    resource.locale = locale
+    return resource
+  }
+}

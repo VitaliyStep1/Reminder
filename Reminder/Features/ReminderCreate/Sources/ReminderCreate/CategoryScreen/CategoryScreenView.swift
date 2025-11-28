@@ -10,6 +10,7 @@ import ReminderDesignSystem
 
 public struct CategoryScreenView: View {
   @StateObject var viewModel: CategoryViewModel
+  @Environment(\.locale) private var locale
 
   public init(viewModel: CategoryViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
@@ -20,10 +21,15 @@ public struct CategoryScreenView: View {
     .dsScreenPadding()
     .dsScreenBackground()
     .onAppear {
+      viewModel.updateLocale(locale)
       viewModel.viewAppeared()
     }
     .task {
+      viewModel.updateLocale(locale)
       viewModel.viewTaskCalled()
+    }
+    .onChange(of: locale) { newLocale in
+      viewModel.updateLocale(newLocale)
     }
     .navigationTitle(viewModel.navigationTitle)
     .navigationBarTitleDisplayMode(.inline)
@@ -40,15 +46,15 @@ private extension CategoryScreenView {
   var contentView: some View {
     VStack(spacing: DSSpacing.s20) {
       CategoryHeaderView(title: viewModel.headerTitle, subtitle: viewModel.headerSubTitle)
-      
+
       switch viewModel.screenStateEnum {
       case .empty(let title):
-        emptyStateView(title: title)
+        emptyStateView(title: title.localed(locale))
       case .withEvents(let events):
         withEventsView(events: events)
       }
-      
-      CategoryAddButton(systemImageName: "plus.circle.fill", title: Localize.addNewEventButtonTitle, action: viewModel.addButtonTapped)
+
+      CategoryAddButton(systemImageName: "plus.circle.fill", title: Localize.addNewEventButtonTitle.localed(locale), action: viewModel.addButtonTapped)
     }
   }
   
