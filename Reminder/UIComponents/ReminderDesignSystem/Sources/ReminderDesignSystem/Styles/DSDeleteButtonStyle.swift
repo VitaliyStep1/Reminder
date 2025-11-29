@@ -14,16 +14,16 @@ public struct DSDeleteButtonStyle: ButtonStyle {
     configuration.label
       .font(.dsHeadlineLarge)
       .frame(maxWidth: .infinity)
-      .padding(.vertical, 14)
+      .padding(.vertical, DSSpacing.s14)
       .background(
         LinearGradient(
-          colors: [DSColor.Danger.gradientStart, DSColor.Danger.gradientEnd],
+          colors: [DSColor.Gradient.redStart, DSColor.Gradient.redEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(DSColor.Text.inverse)
-      .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-      .shadow(color: DSColor.Danger.shadow, radius: 10, x: 0, y: 6)
+      .foregroundStyle(DSColor.Foreground.white)
+      .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
+      .dsShadow(.r10Danger)
   }
 }

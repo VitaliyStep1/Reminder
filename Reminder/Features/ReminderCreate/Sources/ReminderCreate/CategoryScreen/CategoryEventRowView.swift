@@ -17,7 +17,7 @@ public struct CategoryEventRowView: View {
     Button {
       tapAction()
     } label: {
-      VStack(alignment: .leading, spacing: 4) {
+      VStack(alignment: .leading, spacing: DSSpacing.s4) {
         HStack {
           Text(title)
             .font(.dsHeadline)
@@ -31,7 +31,7 @@ public struct CategoryEventRowView: View {
       .dsCellBackground()
     }
     .buttonStyle(.plain)
-    .dsShadow()
+    .dsShadow(.r8Medium)
   }
 }
 

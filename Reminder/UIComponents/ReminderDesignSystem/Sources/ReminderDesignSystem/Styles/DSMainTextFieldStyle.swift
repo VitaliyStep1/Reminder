@@ -16,18 +16,18 @@ public struct DSMainTextFieldStyle: TextFieldStyle {
   
   public func _body(configuration: TextField<Self._Label>) -> some View {
     configuration
-      .padding(.horizontal, 14)
-      .padding(.vertical, 12)
+      .padding(.horizontal, DSSpacing.s14)
+      .padding(.vertical, DSSpacing.s12)
       .background(fieldBackground)
       .overlay(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .stroke(DSColor.Accent.primary.opacity(isTextNotEmpty ? 0.4 : 0), lineWidth: 1)
+        RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
+          .stroke(DSColor.Stroke.accent.opacity(isTextNotEmpty ? 0.4 : 0), lineWidth: 1)
       )
   }
-  
+
   private var fieldBackground: some View {
-    RoundedRectangle(cornerRadius: 14, style: .continuous)
+    RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
       .fill(DSColor.Background.primary.opacity(0.9))
-      .dsShadowLight()
+      .dsShadow(.r4Light)
   }
 }

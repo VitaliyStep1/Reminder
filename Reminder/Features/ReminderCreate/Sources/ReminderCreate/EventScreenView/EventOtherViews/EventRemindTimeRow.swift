@@ -20,8 +20,8 @@ struct EventRemindTimeRow: View {
   }
   
   var body: some View {
-    HStack(spacing: 12) {
-      VStack(alignment: .leading, spacing: 6) {
+    HStack(spacing: DSSpacing.s12) {
+      VStack(alignment: .leading, spacing: DSSpacing.s6) {
         Text(title)
           .font(.dsSubheadlineSemibold)
           .foregroundStyle(.secondary)
@@ -38,21 +38,21 @@ struct EventRemindTimeRow: View {
         Button(action: removeAction) {
           Image(systemName: "minus.circle.fill")
             .font(.dsTitle2)
-            .foregroundStyle(DSColor.Danger.primary)
+            .foregroundStyle(DSColor.Icon.red)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Remove \(title)")
       }
     }
-    .padding(.horizontal, 14)
-    .padding(.vertical, 12)
+    .padding(.horizontal, DSSpacing.s14)
+    .padding(.vertical, DSSpacing.s12)
     .background(fieldBackground)
-    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+    .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
   }
-  
+
   private var fieldBackground: some View {
-    RoundedRectangle(cornerRadius: 14, style: .continuous)
+    RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
       .fill(DSColor.Background.primary.opacity(0.9))
-      .dsShadow()
+      .dsShadow(.r6Light)
   }
 }

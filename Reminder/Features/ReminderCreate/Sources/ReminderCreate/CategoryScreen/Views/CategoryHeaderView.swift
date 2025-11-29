@@ -11,9 +11,9 @@ import ReminderDesignSystem
 struct CategoryHeaderView: View {
   let title: String
   let subtitle: String
-  
+
   var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: DSSpacing.s8) {
       Text(title)
         .font(.dsTitleLarge)
         .foregroundStyle(.primary)

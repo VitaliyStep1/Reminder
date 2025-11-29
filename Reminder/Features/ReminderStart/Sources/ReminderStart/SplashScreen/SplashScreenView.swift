@@ -17,8 +17,11 @@ public struct SplashScreenView: View {
   
   public var body: some View {
     ZStack {
-      DSColor.Accent.primary.ignoresSafeArea(edges: .all)
+      DSColor.Background.accent.ignoresSafeArea(edges: .all)
       Text(TextEnum.splashTitle.localized)
+        .font(.dsTitleLarge)
+        .foregroundStyle(DSColor.Text.white)
+        .dsShadow(.r14AccentStrong)
     }.task {
       try? await Task.sleep(for: .seconds(2))
       self.isSplashScreenVisible = false

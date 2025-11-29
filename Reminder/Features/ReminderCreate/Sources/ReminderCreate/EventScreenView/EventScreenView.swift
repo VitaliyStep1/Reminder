@@ -41,10 +41,10 @@ public struct EventScreenView: View {
   }
   
   //MARK: - Views
-  
+
   var contentView: some View {
     ScrollView(showsIndicators: false) {
-      LazyVStack(spacing: 24) {
+      LazyVStack(spacing: DSSpacing.s24) {
         EventScreenTitleView(screenTitleData: store.screenTitleData)
         EventDetailsSectionView(detailsSectionData: store.detailsSectionData)
         EventAlertsSectionView(alertsSectionData: store.alertsSectionData, interactor: interactor)

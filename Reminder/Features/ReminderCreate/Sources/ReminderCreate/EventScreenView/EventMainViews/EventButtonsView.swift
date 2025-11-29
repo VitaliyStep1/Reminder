@@ -18,7 +18,7 @@ struct EventButtonsView: View {
   }
   
   var body: some View {
-    VStack(spacing: 12) {
+    VStack(spacing: DSSpacing.s12) {
       EventSaveButton(
         buttonTappedAction: interactor.saveButtonTapped,
         title: buttonsData.saveButtonTitle,
@@ -41,6 +41,6 @@ struct EventButtonsView: View {
         .disabled(buttonsData.isSaving || buttonsData.isDeleting)
       }
     }
-    .padding(.bottom, 8)
+    .padding(.bottom, DSSpacing.s8)
   }
 }

@@ -13,18 +13,18 @@ public struct DSSecondaryButtonStyle: ButtonStyle {
   public func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .font(.dsBodySemibold)
-      .padding(.horizontal, 16)
-      .padding(.vertical, 10)
+      .padding(.horizontal, DSSpacing.s16)
+      .padding(.vertical, DSSpacing.s10)
       .background(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
+        RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
           .fill(DSColor.Background.primary)
       )
       .overlay(
-        RoundedRectangle(cornerRadius: 14, style: .continuous)
-          .stroke(DSColor.Accent.primary, lineWidth: 1)
+        RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous)
+          .stroke(DSColor.Stroke.accent, lineWidth: 1)
       )
-      .foregroundStyle(DSColor.Accent.primary)
-      .dsShadow()
+      .foregroundStyle(DSColor.Text.accent)
+      .dsShadow(.r4Heavy)
       .opacity(configuration.isPressed ? 0.8 : 1)
       .scaleEffect(configuration.isPressed ? 0.97 : 1)
   }

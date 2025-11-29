@@ -14,16 +14,16 @@ public struct DSMainButtonStyle: ButtonStyle {
     configuration.label
       .font(.dsHeadlineLarge)
       .frame(maxWidth: .infinity)
-      .padding(.vertical, 14)
+      .padding(.vertical, DSSpacing.s14)
       .background(
         LinearGradient(
-          colors: [DSColor.Category.gradientStart, DSColor.Category.gradientEnd],
+          colors: [DSColor.Gradient.blueStart, DSColor.Gradient.blueEnd],
           startPoint: .leading,
           endPoint: .trailing
         )
       )
-      .foregroundStyle(DSColor.Text.inverse)
-      .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-      .shadow(color: DSColor.Category.shadow, radius: 10, x: 0, y: 6)
+      .foregroundStyle(DSColor.Foreground.white)
+      .clipShape(RoundedRectangle(cornerRadius: DSRadius.r14, style: .continuous))
+      .dsShadow(.r12Category)
   }
 }

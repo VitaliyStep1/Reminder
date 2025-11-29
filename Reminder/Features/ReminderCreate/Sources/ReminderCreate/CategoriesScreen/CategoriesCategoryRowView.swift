@@ -17,7 +17,7 @@ struct CategoriesCategoryRowView: View {
     Button {
       tapAction()
     } label: {
-      HStack(spacing: 8) {
+      HStack(spacing: DSSpacing.s8) {
         Text(title)
           .font(.dsHeadline)
           .foregroundStyle(.primary)
@@ -29,6 +29,6 @@ struct CategoriesCategoryRowView: View {
       .dsCellBackground()
     }
     .buttonStyle(.plain)
-    .dsShadow()
+    .dsShadow(.r8Medium)
   }
 }
