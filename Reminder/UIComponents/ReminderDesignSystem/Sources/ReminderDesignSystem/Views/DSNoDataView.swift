@@ -9,9 +9,9 @@ import SwiftUI
 
 public struct DSNoDataView: View {
   let systemImageName: String
-  let title: String
+  let title: LocalizedStringResource
   
-  public init(systemImageName: String, title: String) {
+  public init(systemImageName: String, title: LocalizedStringResource) {
     self.systemImageName = systemImageName
     self.title = title
   }

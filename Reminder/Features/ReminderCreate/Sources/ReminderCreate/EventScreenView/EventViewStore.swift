@@ -31,7 +31,7 @@ public final class EventViewStore: ObservableObject {
   
   let router: any CreateRouterProtocol
 
-  public init(eventScreenViewType: EventScreenViewType, router: any CreateRouterProtocol) {
+  public init(eventScreenViewType: EventScreenViewType, router: any CreateRouterProtocol, locale: Locale = .current) {
     self.eventScreenViewType = eventScreenViewType
     
     self.screenTitleData = EventScreenTitleData(screenTitle: "")
@@ -62,8 +62,8 @@ public final class EventViewStore: ObservableObject {
       isDeleting: false,
       isDeleteButtonVisible: false,
       saveButtonTitle: "",
-      cancelButtonTitle: TextEnum.cancelTitle.localized,
-      deleteButtonTitle: TextEnum.deleteButtonTitle.localized
+      cancelButtonTitle: String(localized: Localize.cancelTitle.localed(locale)),
+      deleteButtonTitle: String(localized: Localize.deleteButtonTitle.localed(locale))
     )
     
     self.isViewBlocked = false
@@ -73,5 +73,10 @@ public final class EventViewStore: ObservableObject {
     self.confirmationDialogInfo = DeleteConfirmationDialogInfo(title: "", message: "", deleteButtonHandler: {})
     self.category = nil
     self.router = router
+  }
+
+  func updateLocale(_ locale: Locale) {
+    buttonsData.cancelButtonTitle = String(localized: Localize.cancelTitle.localed(locale))
+    buttonsData.deleteButtonTitle = String(localized: Localize.deleteButtonTitle.localed(locale))
   }
 }

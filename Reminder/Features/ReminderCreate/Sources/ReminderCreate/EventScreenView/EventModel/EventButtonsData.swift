@@ -14,8 +14,8 @@ class EventButtonsData: ObservableObject {
   
   @Published public var isDeleteButtonVisible: Bool
   @Published public var saveButtonTitle: String
-  public let cancelButtonTitle: String
-  public let deleteButtonTitle: String
+  public var cancelButtonTitle: String
+  public var deleteButtonTitle: String
   
   init(isSaving: Bool, isDeleting: Bool, isDeleteButtonVisible: Bool, saveButtonTitle: String, cancelButtonTitle: String, deleteButtonTitle: String) {
     self.isSaving = isSaving

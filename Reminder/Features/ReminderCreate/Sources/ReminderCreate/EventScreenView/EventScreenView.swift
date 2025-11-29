@@ -11,6 +11,7 @@ import ReminderDesignSystem
 public struct EventScreenView: View {
   @ObservedObject private var store: EventViewStore
   private let interactor: EventInteractor
+  @Environment(\.locale) private var locale
   
   public init(store: EventViewStore, interactor: EventInteractor) {
     self.store = store
@@ -36,7 +37,11 @@ public struct EventScreenView: View {
         message: store.confirmationDialogInfo.message
       )
       .onAppear {
+        interactor.updateLocale(locale)
         interactor.onAppear()
+      }
+      .onChange(of: locale) { newLocale in
+        interactor.updateLocale(newLocale)
       }
   }
   

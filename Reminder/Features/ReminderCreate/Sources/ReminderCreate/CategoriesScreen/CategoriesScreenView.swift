@@ -8,10 +8,12 @@
 import SwiftUI
 import ReminderNavigationContracts
 import ReminderDesignSystem
+import ReminderDomain
 
 public struct CategoriesScreenView: View {
   @StateObject var viewModel: CategoriesViewModel
-
+  @Environment(\.locale) private var locale
+  
   public init(viewModel: CategoriesViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
   }
@@ -25,7 +27,9 @@ public struct CategoriesScreenView: View {
         .task {
           viewModel.taskWasCalled()
         }
-        .navigationTitle(viewModel.navigationTitle)
+        .navigationTitle(
+          String(localized: Localize.categoriesNavigationTitle.localed(locale))
+        )
         .navigationDestination(for: CreateRoute.self) { route in
           destinationView(for: route)
         }
@@ -56,8 +60,8 @@ private extension CategoriesScreenView {
       LazyVStack(spacing: DSSpacing.s14) {
         ForEach(categories) { category in
           CategoriesCategoryRowView(
-            title: category.title,
-            eventsAmountText: category.eventsAmountText,
+            title: viewModel.takeLocalizedCategoryTitle(categoryTitle: category.title, locale: locale),
+            eventsAmountText: viewModel.takeEventsAmountText(eventsAmount: category.eventsAmount, locale: locale),
             tapAction: {
               viewModel.categoryRowWasClicked(category)
             })
@@ -67,7 +71,7 @@ private extension CategoriesScreenView {
     }
   }
   
-  private func emptyStateView(title: String) -> some View {
+  private func emptyStateView(title: LocalizedStringResource) -> some View {
     VStack {
       Spacer()
       DSNoDataView(systemImageName: "square.grid.2x2", title: title)

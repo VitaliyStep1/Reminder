@@ -64,6 +64,14 @@ extension Resolver {
   public var updateDefaultRemindTimeDateUseCaseProtocol: UpdateDefaultRemindTimeDateUseCaseProtocol {
     resolve(UpdateDefaultRemindTimeDateUseCaseProtocol.self)!
   }
+  
+  public var takeSettingsLanguageUseCaseProtocol: TakeSettingsLanguageUseCaseProtocol {
+    resolve(TakeSettingsLanguageUseCaseProtocol.self)!
+  }
+  
+  public var updateSettingsLanguageUseCaseProtocol: UpdateSettingsLanguageUseCaseProtocol {
+    resolve(UpdateSettingsLanguageUseCaseProtocol.self)!
+  }
 
   public var defaultCategoriesDataServiceProtocol: DefaultCategoriesDataServiceProtocol {
     resolve(DefaultCategoriesDataServiceProtocol.self)!
@@ -83,5 +91,9 @@ extension Resolver {
   
   public var defaultRemindTimeServiceProtocol: DefaultRemindTimeServiceProtocol {
     resolve(DefaultRemindTimeServiceProtocol.self)!
+  }
+  
+  public var languageServiceProtocol: LanguageServiceProtocol {
+    resolve(LanguageServiceProtocol.self)!
   }
 }

@@ -29,6 +29,8 @@ public final class StartCoordinator: CoordinatorProtocol {
     createCoordinator: createCoordinator,
     settingsCoordinator: settingsCoordinator
   )
+  
+  let splashState = SplashScreenState()
 
   public nonisolated(unsafe) init(resolver: Resolver) {
     self.resolver = resolver
@@ -42,15 +44,15 @@ public final class StartCoordinator: CoordinatorProtocol {
       setupInitialDataUseCase: setupInitialDataUseCase
     )
 
-    let splashState = SplashScreenState()
-
     let splashViewBuilder: StartScreenView.ViewBuilder = {
       let binding = Binding(
-        get: { splashState.isVisible },
-        set: { splashState.isVisible = $0 }
+        get: { self.splashState.isVisible },
+        set: { self.splashState.isVisible = $0 }
       )
       return AnyView(SplashScreenView(isSplashScreenVisible: binding))
     }
+    
+    let languageService = resolver.languageServiceProtocol
 
     let startView = StartScreenView(
       viewModel: viewModel,
@@ -60,6 +62,7 @@ public final class StartCoordinator: CoordinatorProtocol {
       }
     )
     .environmentObject(splashState)
+    .environment(\.locale, languageService.locale)
 
     return AnyView(startView)
   }

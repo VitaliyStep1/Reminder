@@ -63,8 +63,8 @@ public extension View {
     message: String,
     completion: (() -> Void)?
   ) -> some View {
-    let title = TextEnum.error.localized
-    let buttonTitle = TextEnum.ok.localized
+    let title = String(localized: Localize.error)
+    let buttonTitle = String(localized: Localize.ok)
     return dsAlert(isPresented: isPresented, title: title, message: message, buttonTitle: buttonTitle, completion: completion)
   }
 }

@@ -33,10 +33,10 @@ public final class DBCategoriesService: DBCategoriesServiceProtocol, @unchecked 
           fetchRequest.predicate = NSPredicate(format: "defaultKey == %@", category.defaultKey)
           fetchRequest.fetchLimit = 1
           if let categoryObject = try context.fetch(fetchRequest).first {
-            categoryObject.title = category.title
-            categoryObject.order = Int32(category.order)
-            categoryObject.categoryRepeat = Int16(category.categoryRepeat)
-            categoryObject.categoryGroup = Int16(category.categoryGroup)
+//            categoryObject.title = category.title
+//            categoryObject.order = Int32(category.order)
+//            categoryObject.categoryRepeat = Int16(category.categoryRepeat)
+//            categoryObject.categoryGroup = Int16(category.categoryGroup)
           }
         } else {
           let categoryObject = CategoryObject(context: context)

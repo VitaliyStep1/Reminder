@@ -20,30 +20,56 @@ public struct SettingsScreenView: View {
       contentView
         .dsScreenPadding()
         .dsScreenBackground()
-        .navigationTitle(TextEnum.settingsTitle.localized)
+        .navigationTitle(Text(Localize.settingsTitle))
     }
   }
   
   var contentView: some View {
     ScrollView {
       VStack {
-        VStack {
-          DatePicker(
-            TextEnum.defaultRemindTimeLabel.localized,
-            selection: $viewModel.defaultRemindTimeDate,
-            displayedComponents: .hourAndMinute
-          )
-          .datePickerStyle(.compact)
-          .dsCellBackground()
-          .dsShadow(.r6Light)
-          HStack {
-            Text(TextEnum.defaultRemindTimeDescription.localized)
-              .padding(.horizontal, DSSpacing.s16)
-            Spacer()
-          }
-        }
+        dateOptionView
+        languageOptionView(languageOptionViewStore: viewModel.languageOptionViewStore)
         Spacer()
       }
     }
+  }
+  
+  var dateOptionView: some View {
+    VStack {
+      VStack {
+        DatePicker(
+          selection: $viewModel.defaultRemindTimeDate,
+          displayedComponents: .hourAndMinute
+        ) {
+          Text(Localize.defaultRemindTimeLabel)
+        }
+        .datePickerStyle(.compact)
+        .dsCellBackground()
+        .dsShadow(.r6Light)
+        HStack {
+          Text(Localize.defaultRemindTimeDescription)
+            .padding(.horizontal, DSSpacing.s16)
+          Spacer()
+        }
+      }
+      Spacer()
+    }
+  }
+  
+  func languageOptionView(@Bindable languageOptionViewStore: SettingsLanguageOptionViewStore) -> some View {
+    HStack {
+      Text(Localize.language_column)
+      Spacer()
+      Picker(selection: $languageOptionViewStore.selectedLanguage) {
+        ForEach(languageOptionViewStore.languages) { language in
+          Text(language.title).tag(language)
+        }
+      } label: {
+        Text(Localize.language)
+      }
+      .pickerStyle(.menu)
+    }
+    .dsCellBackground()
+    .dsShadow(.r4Heavy)
   }
 }

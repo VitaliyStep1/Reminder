@@ -10,10 +10,10 @@ import ReminderDesignSystem
 
 struct EventSecondaryButton: View {
   let action: () -> Void
-  let title: String
+  let title: LocalizedStringResource
   let imageName: String
-  
-  init(action: @escaping () -> Void, title: String, imageName: String) {
+
+  init(action: @escaping () -> Void, title: LocalizedStringResource, imageName: String) {
     self.action = action
     self.title = title
     self.imageName = imageName
@@ -21,7 +21,11 @@ struct EventSecondaryButton: View {
   
   var body: some View {
     Button(action: action) {
-      Label(title, systemImage: imageName)
+      Label(title: {
+        Text(title)
+      }, icon: {
+        Image(systemName: imageName)
+      })
     }
     .buttonStyle(DSSecondaryButtonStyle())
   }

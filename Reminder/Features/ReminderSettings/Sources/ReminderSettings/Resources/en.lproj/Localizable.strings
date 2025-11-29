@@ -1,3 +1,5 @@
 "settingsTitle" = "Settings";
 "defaultRemindTimeLabel" = "Default remind time:";
 "defaultRemindTimeDescription" = "Choose a default reminder time for events.";
+"language_column" = "Language:";
+"language" = "Language";

@@ -21,7 +21,9 @@ public final class SettingsCoordinator: CoordinatorProtocol {
   public func start() -> AnyView {
     let viewModel = SettingsViewModel(
       takeDefaultRemindTimeDateUseCase: resolver.takeDefaultRemindTimeDateUseCaseProtocol,
-      updateDefaultRemindTimeDateUseCase: resolver.updateDefaultRemindTimeDateUseCaseProtocol
+      updateDefaultRemindTimeDateUseCase: resolver.updateDefaultRemindTimeDateUseCaseProtocol,
+      takeSettingsLanguageUseCase: resolver.takeSettingsLanguageUseCaseProtocol,
+      updateSettingsLanguageUseCase: resolver.updateSettingsLanguageUseCaseProtocol
     )
     let view = SettingsScreenView(viewModel: viewModel)
     return AnyView(view)

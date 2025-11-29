@@ -7,4 +7,5 @@
 
 enum UserDefaultsKeyEnum: String {
   case defaultRemindTimeDate
+  case settingsLanguageId
 }

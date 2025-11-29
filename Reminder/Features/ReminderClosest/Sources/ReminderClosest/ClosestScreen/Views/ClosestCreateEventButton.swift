@@ -10,10 +10,10 @@ import ReminderDesignSystem
 
 struct ClosestCreateEventButton: View {
   let systemImageName: String
-  let title: String
+  let title: LocalizedStringResource
   let action: () -> Void
   
-  public init(systemImageName: String, title: String, action: @escaping () -> Void) {
+  public init(systemImageName: String, title: LocalizedStringResource, action: @escaping () -> Void) {
     self.systemImageName = systemImageName
     self.title = title
     self.action = action
@@ -23,7 +23,11 @@ struct ClosestCreateEventButton: View {
     Button {
       action()
     } label: {
-      Label(title, systemImage: systemImageName)
+      Label(title: {
+        Text(title)
+      }, icon: {
+        Image(systemName: systemImageName)
+      })
     }
     .buttonStyle(DSMainButtonStyle())
   }

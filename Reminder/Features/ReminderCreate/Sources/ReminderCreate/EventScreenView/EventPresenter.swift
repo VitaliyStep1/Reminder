@@ -13,12 +13,20 @@ import ReminderDomainContracts
 @MainActor
 public final class EventPresenter {
   private let store: EventViewStore
+  private var locale: Locale = .current
   private var cancellables = Set<AnyCancellable>()
 
   public init(store: EventViewStore) {
     self.store = store
     configureBindings()
     configureView()
+  }
+
+  public func updateLocale(_ locale: Locale) {
+    self.locale = locale
+    store.updateLocale(locale)
+    configureView()
+    updateRepeatRepresentationIfNeeded(for: store.alertsSectionData.remindRepeat)
   }
   
   public func presentSaving(_ isSaving: Bool) {
@@ -35,8 +43,8 @@ public final class EventPresenter {
   
   public func presentDeleteConfirmation(deleteHandler: @escaping () -> Void) {
     store.confirmationDialogInfo = DeleteConfirmationDialogInfo(
-      title: TextEnum.deleteEventTitle.localized,
-      message: TextEnum.deleteEventMessage.localized,
+      title: String(localized: Localize.deleteEventTitle.localed(locale)),
+      message: String(localized: Localize.deleteEventMessage.localed(locale)),
       deleteButtonHandler: deleteHandler
     )
     store.isConfirmationDialogVisible = true
@@ -75,25 +83,25 @@ public final class EventPresenter {
   }
   
   public func presentEventTitleShouldBeNotEmptyAlert() {
-    presentAlert(message: TextEnum.eventTitleEmptyAlert.localized)
+    presentAlert(message: String(localized: Localize.eventTitleEmptyAlert.localed(locale)))
   }
 
   public func presentEventWasNotSavedAlert() {
-    presentAlert(message: TextEnum.eventNotSavedAlert.localized)
+    presentAlert(message: String(localized: Localize.eventNotSavedAlert.localed(locale)))
   }
 
   public func presentDeleteErrorAlert() {
-    presentAlert(message: TextEnum.eventDeleteFailedAlert.localized)
+    presentAlert(message: String(localized: Localize.eventDeleteFailedAlert.localed(locale)))
   }
 
   public func presentEventWasNotFoundAlert(completion: @escaping (() -> Void)) {
     presentViewBlocked(true)
-    presentAlert(message: TextEnum.eventNotFoundAlert.localized, completion: completion)
+    presentAlert(message: String(localized: Localize.eventNotFoundAlert.localed(locale)), completion: completion)
   }
 
   public func presentCategoryWasNotFoundAlert(completion: @escaping (() -> Void)) {
     presentViewBlocked(true)
-    presentAlert(message: TextEnum.categoryNotFoundAlert.localized, completion: completion)
+    presentAlert(message: String(localized: Localize.categoryNotFoundAlert.localed(locale)), completion: completion)
   }
   
   public func presentAlert(message: String, completion: (() -> Void)? = nil) {
@@ -109,18 +117,21 @@ public final class EventPresenter {
   private func configureView() {
     switch store.eventScreenViewType {
     case .create:
-      store.screenTitleData.screenTitle = TextEnum.createEventScreenTitle.localized
+      store.screenTitleData.screenTitle = String(localized: Localize.createEventScreenTitle.localed(locale))
       store.buttonsData.isDeleteButtonVisible = false
-      store.buttonsData.saveButtonTitle = TextEnum.createEventButtonTitle.localized
+      store.buttonsData.saveButtonTitle = String(localized: Localize.createEventButtonTitle.localed(locale))
     case .edit:
-      store.screenTitleData.screenTitle = TextEnum.editEventScreenTitle.localized
+      store.screenTitleData.screenTitle = String(localized: Localize.editEventScreenTitle.localed(locale))
       store.buttonsData.isDeleteButtonVisible = true
-      store.buttonsData.saveButtonTitle = TextEnum.saveEventButtonTitle.localized
+      store.buttonsData.saveButtonTitle = String(localized: Localize.saveEventButtonTitle.localed(locale))
+      store.buttonsData.deleteButtonTitle = String(localized: Localize.deleteButtonTitle.localed(locale))
     case .notVisible:
       store.screenTitleData.screenTitle = ""
       store.buttonsData.isDeleteButtonVisible = false
       store.buttonsData.saveButtonTitle = ""
     }
+
+    store.buttonsData.cancelButtonTitle = String(localized: Localize.cancelTitle.localed(locale))
   }
 
   private func configureBindings() {
@@ -140,13 +151,13 @@ public final class EventPresenter {
   private func remindRepeatTitle(for remindRepeat: RemindRepeatEnum) -> String {
     switch remindRepeat {
     case .everyYear:
-      return TextEnum.yearTitle.localized
+      return String(localized: Localize.yearTitle.localed(locale))
     case .everyMonth:
-      return TextEnum.monthTitle.localized
+      return String(localized: Localize.monthTitle.localed(locale))
     case .everyDay:
-      return TextEnum.dayTitle.localized
+      return String(localized: Localize.dayTitle.localed(locale))
     case .notRepeat:
-      return TextEnum.notRepeatTitle.localized
+      return String(localized: Localize.notRepeatTitle.localed(locale))
     }
   }
 }

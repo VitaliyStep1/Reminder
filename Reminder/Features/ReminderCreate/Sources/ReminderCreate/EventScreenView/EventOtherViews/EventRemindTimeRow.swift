@@ -9,11 +9,11 @@ import SwiftUI
 import ReminderDesignSystem
 
 struct EventRemindTimeRow: View {
-  let title: String
+  let title: LocalizedStringResource
   @Binding var selection: Date
   let removeAction: (() -> Void)?
-  
-  init(title: String, selection: Binding<Date>, removeAction: (() -> Void)? = nil) {
+
+  init(title: LocalizedStringResource, selection: Binding<Date>, removeAction: (() -> Void)? = nil) {
     self.title = title
     _selection = selection
     self.removeAction = removeAction
@@ -41,7 +41,7 @@ struct EventRemindTimeRow: View {
             .foregroundStyle(DSColor.Icon.red)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Remove \(title)")
+        .accessibilityLabel(String(localized: title))
       }
     }
     .padding(.horizontal, DSSpacing.s14)

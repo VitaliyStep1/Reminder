@@ -18,7 +18,7 @@ public struct SplashScreenView: View {
   public var body: some View {
     ZStack {
       DSColor.Background.accent.ignoresSafeArea(edges: .all)
-      Text(TextEnum.splashTitle.localized)
+      Text(Localize.splashTitle)
         .font(.dsTitleLarge)
         .foregroundStyle(DSColor.Text.white)
         .dsShadow(.r14AccentStrong)

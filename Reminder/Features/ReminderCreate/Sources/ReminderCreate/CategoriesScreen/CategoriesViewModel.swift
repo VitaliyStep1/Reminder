@@ -9,18 +9,20 @@ import SwiftUI
 import Combine
 import ReminderDomainContracts
 import ReminderNavigationContracts
+import ReminderDomain
 
 @MainActor
 public class CategoriesViewModel: ObservableObject {
+  
   let fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol
   
   @Published var screenStateEnum: CategoriesEntity.ScreenStateEnum
-  @Published var navigationTitle: String = TextEnum.categoriesNavigationTitle.localized
+  var navigationTitle: String = String(localized: Localize.categoriesNavigationTitle)
   
   let coordinator: any CreateCoordinatorProtocol
   private var cancellables: Set<AnyCancellable> = []
   
-  private let noCategoriesText = TextEnum.noCategoriesText.localized
+  private let noCategoriesText = Localize.noCategoriesText
   
   public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol,
               coordinator: any CreateCoordinatorProtocol) {
@@ -50,8 +52,7 @@ public class CategoriesViewModel: ObservableObject {
       let allCategories = (try? await fetchAllCategoriesUseCase.execute()) ?? []
       await MainActor.run {
         let categories = allCategories.map {
-          let eventsAmountText = self.takeEventsAmountText(eventsAmount: $0.eventsAmount)
-          return CategoriesEntity.Category(id: $0.id, title: $0.title, eventsAmountText: eventsAmountText)
+          return CategoriesEntity.Category(id: $0.id, title: $0.title, eventsAmount: $0.eventsAmount)
         }
         
         if categories.isEmpty {
@@ -63,9 +64,13 @@ public class CategoriesViewModel: ObservableObject {
     }
   }
   
-  private func takeEventsAmountText(eventsAmount: Int) -> String {
-    let title = eventsAmount == 1 ? TextEnum.eventSingular.localized : TextEnum.eventsPlural.localized
+  func takeEventsAmountText(eventsAmount: Int, locale: Locale) -> String {
+    let title = eventsAmount == 1 ? String(localized: Localize.eventSingular.localed(locale)) : String(localized: Localize.eventsPlural.localed(locale))
     return "\(eventsAmount) \(title)"
+  }
+  
+  func takeLocalizedCategoryTitle(categoryTitle: String, locale: Locale) -> String {
+    CategoryLocalizationManager.shared.localize(categoryTitle: categoryTitle, locale: locale)
   }
   
   var routerPath: [CreateRoute] {

@@ -1,3 +1,5 @@
 "settingsTitle" = "Налаштування";
 "defaultRemindTimeLabel" = "Час нагадування за замовчуванням:";
 "defaultRemindTimeDescription" = "Виберіть час нагадування за замовчуванням для подій.";
+"language_column" = "Мова:";
+"language" = "Мова";

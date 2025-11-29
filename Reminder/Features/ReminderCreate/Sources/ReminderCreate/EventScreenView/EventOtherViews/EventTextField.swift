@@ -9,16 +9,17 @@ import SwiftUI
 import ReminderDesignSystem
 
 struct EventTextField: View {
-  let placeholder: String
+  let placeholder: LocalizedStringResource
   @Binding var text: String
-  
-  init(placeholder: String, text: Binding<String>) {
+
+  init(placeholder: LocalizedStringResource, text: Binding<String>) {
     self.placeholder = placeholder
     _text = text
   }
   
   var body: some View {
-    TextField(placeholder, text: $text)
+    let placeholderString = String(localized: placeholder)
+    TextField(placeholderString, text: $text)
       .textFieldStyle(DSMainTextFieldStyle(isTextNotEmpty: !text.isEmpty))
   }
 }

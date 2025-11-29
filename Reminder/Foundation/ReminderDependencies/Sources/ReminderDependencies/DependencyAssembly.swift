@@ -98,6 +98,19 @@ final class DependencyAssembly: Assembly {
     }
     .inObjectScope(.transient)
     
+    container.register(TakeSettingsLanguageUseCaseProtocol.self) { resolver in
+      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      return TakeSettingsLanguageUseCase(userDefaultsService: userDefaultsService)
+    }
+    .inObjectScope(.transient)
+    
+    container.register(UpdateSettingsLanguageUseCaseProtocol.self) { resolver in
+      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      let languageService = resolver.languageServiceProtocol
+      return UpdateSettingsLanguageUseCase(userDefaultsService: userDefaultsService, languageService: languageService)
+    }
+    .inObjectScope(.transient)
+    
     container.register(FetchDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
       let defaultRemindTimeService = resolver.defaultRemindTimeServiceProtocol
       return FetchDefaultRemindTimeDateUseCase(defaultRemindTimeService: defaultRemindTimeService)
@@ -121,6 +134,13 @@ final class DependencyAssembly: Assembly {
       let userDefaultsService = resolver.userDefaultsServiceProtocol
       
       return DefaultRemindTimeService(appConfiguration: appConfiguration, userDefaultsService: userDefaultsService)
+    }
+    .inObjectScope(.container)
+    
+    container.register(LanguageServiceProtocol.self) { resolver in
+      let takeSettingsLanguageUseCase = resolver.takeSettingsLanguageUseCaseProtocol
+      
+      return LanguageService(takeSettingsLanguageUseCase: takeSettingsLanguageUseCase)
     }
     .inObjectScope(.container)
     

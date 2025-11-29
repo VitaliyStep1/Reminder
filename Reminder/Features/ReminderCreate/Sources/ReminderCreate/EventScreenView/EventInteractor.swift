@@ -71,11 +71,15 @@ public final class EventInteractor {
   public func cancelButtonTapped() {
     closeView()
   }
-  
+
   public func deleteButtonTapped() {
     presenter.presentDeleteConfirmation { [weak self] in
       self?.deletingEventConfirmed()
     }
+  }
+
+  public func updateLocale(_ locale: Locale) {
+    presenter.updateLocale(locale)
   }
 
   public func addRemindTimeButtonTapped() {
