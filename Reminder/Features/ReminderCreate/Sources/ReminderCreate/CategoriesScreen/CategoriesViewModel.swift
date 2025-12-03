@@ -19,24 +19,23 @@ public class CategoriesViewModel: ObservableObject {
   @Published var screenStateEnum: CategoriesEntity.ScreenStateEnum
   var navigationTitle: String = String(localized: Localize.categoriesNavigationTitle)
   
-  let coordinator: any CreateCoordinatorProtocol
+  public weak var coordinator: (any CreateCoordinatorProtocol)? {
+    didSet {
+      subscribeToRouterChanges()
+    }
+  }
   private var cancellables: Set<AnyCancellable> = []
   
   private let noCategoriesText = Localize.noCategoriesText
-  
+
   public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol,
-              coordinator: any CreateCoordinatorProtocol) {
+              coordinator: (any CreateCoordinatorProtocol)? = nil) {
     self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
     self.coordinator = coordinator
     
     screenStateEnum = .empty(title: noCategoriesText)
     
-    coordinator.router.objectWillChange
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] _ in
-        self?.objectWillChange.send()
-      }
-      .store(in: &cancellables)
+    subscribeToRouterChanges()
   }
   
   func taskWasCalled() {
@@ -44,7 +43,7 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   func categoryRowWasClicked(_ category: CategoriesEntity.Category) {
-    coordinator.categoriesScreenCategoryWasClicked(categoryId: category.id)
+    coordinator?.categoriesScreenCategoryWasClicked(categoryId: category.id)
   }
   
   func loadCategories() {
@@ -74,7 +73,18 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   var routerPath: [CreateRoute] {
-    get { coordinator.router.path }
-    set { coordinator.router.path = newValue }
+    get { coordinator?.router.path ?? [] }
+    set { coordinator?.router.path = newValue }
+  }
+
+  private func subscribeToRouterChanges() {
+    cancellables.removeAll()
+
+    coordinator?.router.objectWillChange
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] _ in
+        self?.objectWillChange.send()
+      }
+      .store(in: &cancellables)
   }
 }

@@ -12,9 +12,14 @@ import ReminderMainTabViewContracts
 @MainActor
 struct ClosestFeatureAssembly: Assembly {
   func assemble(container: Container) {
-    container.register(ClosestCoordinator.self) { resolver in
-      let selectionState = resolver.resolve(MainTabViewSelectionState.self)!
-      return ClosestCoordinator(mainTabViewSelectionState: selectionState)
+    container.register(ClosestViewModel.self) { r in
+      let mainTabViewSelectionState = r.resolve(MainTabViewSelectionState.self)!
+      return ClosestViewModel(mainTabViewSelectionState: mainTabViewSelectionState)
+    }
+    
+    container.register(ClosestCoordinator.self) { r in
+      let closestViewModel = r.resolve(ClosestViewModel.self)!
+      return ClosestCoordinator(closestViewModel: closestViewModel)
     }
     .inObjectScope(.container)
   }

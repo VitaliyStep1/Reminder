@@ -81,7 +81,11 @@ private extension CategoriesScreenView {
   
   @ViewBuilder
   func destinationView(for route: CreateRoute) -> some View {
-    viewModel.coordinator.destination(for: route)
+    if let coordinator = viewModel.coordinator {
+      coordinator.destination(for: route)
+    } else {
+      EmptyView()
+    }
   }
 }
 

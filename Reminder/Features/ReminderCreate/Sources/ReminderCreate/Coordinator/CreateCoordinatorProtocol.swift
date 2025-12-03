@@ -9,7 +9,7 @@ import SwiftUI
 import ReminderNavigationContracts
 import ReminderDomainContracts
 
-public protocol CreateCoordinatorProtocol: CoordinatorProtocol {
+public protocol CreateCoordinatorProtocol: AnyObject, CoordinatorProtocol {
   var router: any CreateRouterProtocol { get }
   func destination(for route: CreateRoute) -> AnyView
   func categoriesScreenCategoryWasClicked(categoryId: Identifier)

@@ -7,51 +7,44 @@
 
 import SwiftUI
 import Swinject
-import ReminderNavigationContracts
 import ReminderResolver
+import ReminderNavigationContracts
 import ReminderDomainContracts
 
 @MainActor
 public final class CreateCoordinator: CreateCoordinatorProtocol {
   private let resolver: Resolver
+  private let categoriesViewModel: CategoriesViewModel
   public let router: any CreateRouterProtocol
+  
+  private let categoryScreenBuilder: CategoryScreenBuilder
 
-  public init(resolver: Resolver) {
+  public init(
+    resolver: Resolver,
+    categoriesViewModel: CategoriesViewModel,
+    router: any CreateRouterProtocol,
+    categoryScreenBuilder: @escaping CategoryScreenBuilder
+  ) {
     self.resolver = resolver
-    self.router = CreateRouter()
+    self.categoriesViewModel = categoriesViewModel
+    self.router = router
+    self.categoryScreenBuilder = categoryScreenBuilder
   }
 
   public func start() -> AnyView {
-    let fetchAllCategoriesUseCase = resolver.fetchAllCategoriesUseCaseProtocol
-    let viewModel = CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase, coordinator: self)
-    let view = CategoriesScreenView(viewModel: viewModel)
+    let view = CategoriesScreenView(viewModel: categoriesViewModel)
     return AnyView(view)
   }
 
   public func destination(for route: CreateRoute) -> AnyView {
     switch route {
     case .category(let categoryId):
-      let viewModel = CategoryViewModel(
-        categoryId: categoryId,
-        fetchEventsUseCase: resolver.fetchEventsUseCaseProtocol,
-        fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
-        router: router
-      )
-      let view = CategoryScreenView(viewModel: viewModel)
+      let view = categoryScreenBuilder(categoryId)
       return AnyView(view)
     case .event(let eventScreenViewType):
-      let store = EventViewStore(eventScreenViewType: eventScreenViewType, router: router)
-      let presenter = EventPresenter(store: store)
-      let interactor = EventInteractor(
-        createEventUseCase: resolver.createEventUseCaseProtocol,
-        editEventUseCase: resolver.editEventUseCaseProtocol,
-        deleteEventUseCase: resolver.deleteEventUseCaseProtocol,
-        fetchEventUseCase: resolver.fetchEventUseCaseProtocol,
-        fetchCategoryUseCase: resolver.fetchCategoryUseCaseProtocol,
-        fetchDefaultRemindTimeDateUseCase: resolver.fetchDefaultRemindTimeDateUseCaseProtocol,
-        presenter: presenter,
-        store: store
-      )
+      let store = resolver.resolve(EventViewStore.self, argument: eventScreenViewType)!
+      let presenter = resolver.resolve(EventPresenter.self, argument: store)!
+      let interactor = resolver.resolve(EventInteractor.self, arguments: store, presenter)!
       let view = EventScreenView(store: store, interactor: interactor)
       return AnyView(view)
     default:
