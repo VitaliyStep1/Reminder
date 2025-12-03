@@ -8,6 +8,7 @@ let package = Package(
   ],
   dependencies: [
     .package(path: "../Reminder/Foundation/ReminderConfigurations"),
+    .package(path: "../Reminder/Foundation/ReminderAppDI"),
     .package(path: "../Reminder/Foundation/ReminderDomainContracts"),
     .package(path: "../Reminder/Foundation/ReminderDomain"),
     .package(path: "../Reminder/Foundation/ReminderPersistenceContracts"),
@@ -19,11 +20,11 @@ let package = Package(
     .package(path: "../Reminder/UIComponents/ReminderDesignSystem"),
     .package(path: "../Reminder/UIComponents/ReminderNavigationContracts"),
     .package(path: "../Reminder/UIComponents/ReminderMainTabViewContracts"),
-    .package(path: "../Reminder/UIComponents/ReminderMainTabView"),
     
+    .package(path: "../Reminder/Features/ReminderStart"),
+    .package(path: "../Reminder/Features/ReminderMainTabView"),
     .package(path: "../Reminder/Features/ReminderCreate"),
     .package(path: "../Reminder/Features/ReminderClosest"),
     .package(path: "../Reminder/Features/ReminderSettings"),
-    .package(path: "../Reminder/Features/ReminderStart"),
   ]
 )

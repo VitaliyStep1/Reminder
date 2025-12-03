@@ -10,21 +10,19 @@ import ReminderDependencies
 import ReminderNavigationContracts
 import ReminderStart
 import ReminderDesignSystem
+import ReminderAppDI
 
 @main
 struct ReminderApp: App {
-  private let startCoordinator: any CoordinatorProtocol
-
+  private let di: AppDI = AppDI.shared
+  
   init() {
     DesignSystemFonts.registerFonts()
-    let di = DIService()
-    let startCoordinator = StartCoordinator(resolver: di.resolver)
-    self.startCoordinator = startCoordinator
   }
 
   var body: some Scene {
     WindowGroup {
-      startCoordinator.start()
+      di.makeRootView()
     }
   }
 }

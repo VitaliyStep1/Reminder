@@ -6,43 +6,35 @@
 //
 
 import SwiftUI
-import Swinject
 import ReminderNavigationContracts
 import ReminderClosest
 import ReminderCreate
 import ReminderMainTabView
 import ReminderSettings
 import ReminderStart
-import ReminderResolver
 import ReminderMainTabViewContracts
+import ReminderConfigurations
+import ReminderDomainContracts
 
 @MainActor
 public final class StartCoordinator: CoordinatorProtocol {
-  private let resolver: Resolver
-  let mainTabViewSelectionState = MainTabViewSelectionState(selection: .closest)
-  private lazy var closestCoordinator = ClosestCoordinator(mainTabViewSelectionState: mainTabViewSelectionState)
-  private lazy var createCoordinator = CreateCoordinator(resolver: resolver)
-  private lazy var settingsCoordinator = SettingsCoordinator(resolver: resolver)
-  private lazy var mainCoordinator = MainCoordinator(
-    mainTabViewSelectionState: mainTabViewSelectionState,
-    closestCoordinator: closestCoordinator,
-    createCoordinator: createCoordinator,
-    settingsCoordinator: settingsCoordinator
-  )
+  let mainCoordinator: MainCoordinator
   
   let splashState = SplashScreenState()
+  
+  let startScreenViewModel: StartScreenViewModel
+  let languageService: LanguageServiceProtocol
+  
+  let splashScreenViewFactory: SplashScreenViewFactoryProtocol
 
-  public nonisolated(unsafe) init(resolver: Resolver) {
-    self.resolver = resolver
+  public init(startScreenViewModel: StartScreenViewModel, splashScreenViewFactory: SplashScreenViewFactoryProtocol, languageService: LanguageServiceProtocol, mainCoordinator: MainCoordinator) {
+    self.startScreenViewModel = startScreenViewModel
+    self.splashScreenViewFactory = splashScreenViewFactory
+    self.languageService = languageService
+    self.mainCoordinator = mainCoordinator
   }
 
   public func start() -> AnyView {
-    let appConfiguration = resolver.appConfigurationProtocol
-    let setupInitialDataUseCase = resolver.setupInitialDataUseCaseProtocol
-    let viewModel = StartScreenViewModel(
-      appConfiguration: appConfiguration,
-      setupInitialDataUseCase: setupInitialDataUseCase
-    )
 
     let splashViewBuilder: StartScreenView.ViewBuilder = {
       let binding = Binding(
@@ -50,12 +42,11 @@ public final class StartCoordinator: CoordinatorProtocol {
         set: { self.splashState.isVisible = $0 }
       )
       return AnyView(SplashScreenView(isSplashScreenVisible: binding))
+      return self.splashScreenViewFactory.makeSplashScreen(isVisible: binding)
     }
     
-    let languageService = resolver.languageServiceProtocol
-
     let startView = StartScreenView(
-      viewModel: viewModel,
+      viewModel: startScreenViewModel,
       splashViewBuilder: splashViewBuilder,
       mainViewBuilder: { [mainCoordinator] in
         mainCoordinator.start()
