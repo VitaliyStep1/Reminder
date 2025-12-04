@@ -10,6 +10,7 @@ import ReminderDesignSystem
 
 public struct SettingsScreenView: View {
   @StateObject var viewModel: SettingsViewModel
+  @Environment(\.locale) private var locale
   
   public init(viewModel: SettingsViewModel) {
     self._viewModel = StateObject(wrappedValue: viewModel)
@@ -20,7 +21,9 @@ public struct SettingsScreenView: View {
       contentView
         .dsScreenPadding()
         .dsScreenBackground()
-        .navigationTitle(Text(Localize.settingsTitle))
+        .navigationTitle(
+          String(localized: Localize.settingsTitle.localed(locale))
+        )
     }
   }
   

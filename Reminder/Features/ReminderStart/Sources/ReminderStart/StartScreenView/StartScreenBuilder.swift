@@ -6,5 +6,6 @@
 //
 
 import SwiftUI
+import ReminderDomain
 
-public typealias StartScreenBuilder = (_ splashState: SplashScreenState) -> StartScreenView
+public typealias StartScreenBuilder = (_ splashState: SplashScreenState, _ languageService: LanguageService) -> StartScreenView

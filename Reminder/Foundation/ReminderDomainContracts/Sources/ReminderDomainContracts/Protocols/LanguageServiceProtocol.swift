@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol LanguageServiceProtocol: AnyObject {
+public protocol LanguageServiceProtocol: ObservableObject {
   var locale: Locale { get }
   func updateLanguage(_ languageEnum: LanguageEnum)
 }

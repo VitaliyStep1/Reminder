@@ -8,24 +8,24 @@
 import SwiftUI
 import ReminderNavigationContracts
 import ReminderDomainContracts
+import ReminderDomain
 
 @MainActor
 public final class StartCoordinator: CoordinatorProtocol {
   let splashState = SplashScreenState()
 
   private let startScreenBuilder: StartScreenBuilder
-  private let languageService: LanguageServiceProtocol
+  let languageService: LanguageService
 
-  public init(startScreenBuilder: @escaping StartScreenBuilder, languageService: LanguageServiceProtocol) {
+  public init(startScreenBuilder: @escaping StartScreenBuilder, languageService: LanguageService) {
     self.startScreenBuilder = startScreenBuilder
     self.languageService = languageService
   }
 
   public func start() -> AnyView {
-    let startView = startScreenBuilder(splashState)
-      .environmentObject(splashState)
-      .environment(\.locale, languageService.locale)
-
-    return AnyView(startView)
+    AnyView(
+      startScreenBuilder(splashState, languageService)
+        .environmentObject(splashState)
+    )
   }
 }

@@ -18,3 +18,11 @@ enum Localize {
   static var language_column: LocalizedStringResource { localizedResource("language_column") }
   static var language: LocalizedStringResource { localizedResource("language") }
 }
+
+extension LocalizedStringResource {
+  func localed(_ locale: Locale) -> LocalizedStringResource {
+    var resource = self
+    resource.locale = locale
+    return resource
+  }
+}

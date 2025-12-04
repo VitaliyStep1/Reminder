@@ -11,6 +11,7 @@ import ReminderStart
 import ReminderMainTabView
 import ReminderConfigurations
 import ReminderDomainContracts
+import ReminderDomain
 
 @MainActor
 struct StartFeatureAssembly: Assembly {
@@ -26,7 +27,7 @@ struct StartFeatureAssembly: Assembly {
     }
     
     container.register(StartCoordinator.self) { r in
-      let languageService = r.resolve(LanguageServiceProtocol.self)!
+      let languageService = r.resolve(LanguageService.self)!
       let startScreenBuilder = r.resolve(StartScreenBuilder.self)!
 
       return StartCoordinator(startScreenBuilder: startScreenBuilder, languageService: languageService)
@@ -34,7 +35,7 @@ struct StartFeatureAssembly: Assembly {
     .inObjectScope(.container)
 
     container.register(StartScreenBuilder.self) { r in
-      { splashState in
+      { splashState, languageService in
         let startScreenViewModel = r.resolve(StartScreenViewModel.self)!
         let splashScreenViewFactory = r.resolve(SplashScreenViewFactoryProtocol.self)!
         let mainCoordinator = r.resolve(MainCoordinator.self)!
@@ -49,6 +50,7 @@ struct StartFeatureAssembly: Assembly {
 
         return StartScreenView(
           viewModel: startScreenViewModel,
+          languageService: languageService,
           splashViewBuilder: splashViewBuilder,
           mainViewBuilder: { [mainCoordinator] in
             mainCoordinator.start()

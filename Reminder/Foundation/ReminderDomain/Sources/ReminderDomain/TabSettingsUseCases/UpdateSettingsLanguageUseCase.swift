@@ -11,9 +11,9 @@ import ReminderUserDefaultsStorage
 
 public class UpdateSettingsLanguageUseCase: UpdateSettingsLanguageUseCaseProtocol {
   private let userDefaultsService: UserDefaultsServiceProtocol
-  private let languageService: LanguageServiceProtocol
+  private let languageService: LanguageService
   
-  public init(userDefaultsService: UserDefaultsServiceProtocol, languageService: LanguageServiceProtocol) {
+  public init(userDefaultsService: UserDefaultsServiceProtocol, languageService: LanguageService) {
     self.userDefaultsService = userDefaultsService
     self.languageService = languageService
   }

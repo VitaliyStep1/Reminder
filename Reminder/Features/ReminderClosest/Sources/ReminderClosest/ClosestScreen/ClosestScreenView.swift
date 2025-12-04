@@ -8,20 +8,24 @@
 import Foundation
 import SwiftUI
 import ReminderDesignSystem
+import ReminderDomain
 
 public struct ClosestScreenView: View {
   @StateObject var viewModel: ClosestViewModel
+  @Environment(\.locale) private var locale
   
   public init(viewModel: ClosestViewModel) {
     _viewModel = StateObject(wrappedValue: viewModel)
   }
   
   public var body: some View {
-    NavigationStack {
+    return NavigationStack {
       contentView
         .dsScreenPadding()
         .dsScreenBackground()
-        .navigationTitle(Text(Localize.closestScreenTitle))
+        .navigationTitle(
+          String(localized: Localize.closestScreenTitle.localed(locale))
+        )
     }
   }
   
