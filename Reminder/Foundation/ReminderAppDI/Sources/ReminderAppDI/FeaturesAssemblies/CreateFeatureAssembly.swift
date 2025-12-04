@@ -17,7 +17,8 @@ struct CreateFeatureAssembly: Assembly {
   func assemble(container: Container) {
     container.register(CategoriesViewModel.self) { r in
       let fetchAllCategoriesUseCase = r.resolve(FetchAllCategoriesUseCaseProtocol.self)!
-      return CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase)
+      let coordinator = r.resolve(CreateCoordinator.self)!
+      return CategoriesViewModel(fetchAllCategoriesUseCase: fetchAllCategoriesUseCase, coordinator: coordinator)
     }
 
     container.register(CreateRouterProtocol.self) { _ in
@@ -63,12 +64,12 @@ struct CreateFeatureAssembly: Assembly {
     .inObjectScope(.transient)
 
     container.register(CreateCoordinator.self) { r in
+      let categoriesScreenBuilder = r.resolve(CategoriesScreenBuilder.self)!
       let categoryScreenBuilder = r.resolve(CategoryScreenBuilder.self)!
+      let eventScreenBuilder = r.resolve(EventScreenBuilder.self)!
       
       let router = r.resolve(CreateRouterProtocol.self)!
-      let categoriesViewModel = r.resolve(CategoriesViewModel.self)!
-      let coordinator = CreateCoordinator(resolver: r, categoriesViewModel: categoriesViewModel, router: router, categoryScreenBuilder: categoryScreenBuilder)
-      categoriesViewModel.coordinator = coordinator
+      let coordinator = CreateCoordinator(router: router, categoriesScreenBuilder: categoriesScreenBuilder, categoryScreenBuilder: categoryScreenBuilder, eventScreenBuilder: eventScreenBuilder)
       return coordinator
     }
     .inObjectScope(.container)
@@ -78,6 +79,27 @@ struct CreateFeatureAssembly: Assembly {
         let viewModel = r.resolve(CategoryViewModel.self, argument: categoryId)!
         return AnyView(
           CategoryScreenView(viewModel: viewModel)
+        )
+      }
+    }
+    
+    container.register(CategoriesScreenBuilder.self) { r in
+      {
+        let viewModel = r.resolve(CategoriesViewModel.self)!
+        return AnyView(
+          CategoriesScreenView(viewModel: viewModel)
+        )
+      }
+    }
+    
+    container.register(EventScreenBuilder.self) { r in
+      { eventScreenViewType in
+        let eventViewStore = r.resolve(EventViewStore.self, argument: eventScreenViewType)!
+        let eventPresenter = r.resolve(EventPresenter.self, argument: eventViewStore)!
+        let eventInteractor = r.resolve(EventInteractor.self, arguments: eventViewStore, eventPresenter)!
+        let viewModel = r.resolve(EventScreenBuilder.self)!
+        return AnyView(
+          EventScreenView(store: eventViewStore, interactor: eventInteractor)
         )
       }
     }

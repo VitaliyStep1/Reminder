@@ -6,33 +6,31 @@
 //
 
 import SwiftUI
-import Swinject
-import ReminderResolver
 import ReminderNavigationContracts
 import ReminderDomainContracts
 
 @MainActor
 public final class CreateCoordinator: CreateCoordinatorProtocol {
-  private let resolver: Resolver
-  private let categoriesViewModel: CategoriesViewModel
   public let router: any CreateRouterProtocol
   
+  private let categoriesScreenBuilder: CategoriesScreenBuilder
   private let categoryScreenBuilder: CategoryScreenBuilder
+  private let eventScreenBuilder: EventScreenBuilder
 
   public init(
-    resolver: Resolver,
-    categoriesViewModel: CategoriesViewModel,
     router: any CreateRouterProtocol,
-    categoryScreenBuilder: @escaping CategoryScreenBuilder
+    categoriesScreenBuilder: @escaping CategoriesScreenBuilder,
+    categoryScreenBuilder: @escaping CategoryScreenBuilder,
+    eventScreenBuilder: @escaping EventScreenBuilder
   ) {
-    self.resolver = resolver
-    self.categoriesViewModel = categoriesViewModel
     self.router = router
+    self.categoriesScreenBuilder = categoriesScreenBuilder
     self.categoryScreenBuilder = categoryScreenBuilder
+    self.eventScreenBuilder = eventScreenBuilder
   }
 
   public func start() -> AnyView {
-    let view = CategoriesScreenView(viewModel: categoriesViewModel)
+    let view = categoriesScreenBuilder()
     return AnyView(view)
   }
 
@@ -42,10 +40,7 @@ public final class CreateCoordinator: CreateCoordinatorProtocol {
       let view = categoryScreenBuilder(categoryId)
       return AnyView(view)
     case .event(let eventScreenViewType):
-      let store = resolver.resolve(EventViewStore.self, argument: eventScreenViewType)!
-      let presenter = resolver.resolve(EventPresenter.self, argument: store)!
-      let interactor = resolver.resolve(EventInteractor.self, arguments: store, presenter)!
-      let view = EventScreenView(store: store, interactor: interactor)
+      let view = eventScreenBuilder(eventScreenViewType)
       return AnyView(view)
     default:
       return AnyView(EmptyView())

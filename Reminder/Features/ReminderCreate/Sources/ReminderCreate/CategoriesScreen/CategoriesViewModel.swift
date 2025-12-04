@@ -29,7 +29,7 @@ public class CategoriesViewModel: ObservableObject {
   private let noCategoriesText = Localize.noCategoriesText
 
   public init(fetchAllCategoriesUseCase: FetchAllCategoriesUseCaseProtocol,
-              coordinator: (any CreateCoordinatorProtocol)? = nil) {
+              coordinator: (any CreateCoordinatorProtocol)) {
     self.fetchAllCategoriesUseCase = fetchAllCategoriesUseCase
     self.coordinator = coordinator
     
