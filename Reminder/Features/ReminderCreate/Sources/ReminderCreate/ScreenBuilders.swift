@@ -8,8 +8,8 @@
 import SwiftUI
 import ReminderDomainContracts
 
-public typealias CategoryScreenBuilder = (_ categoryId: Identifier) -> AnyView
+public typealias CategoryScreenBuilder = (_ categoryId: Identifier) -> CategoryScreenView
 
-public typealias CategoriesScreenBuilder = () -> AnyView
+public typealias CategoriesScreenBuilder = () -> CategoriesScreenView
 
-public typealias EventScreenBuilder = (_ eventScreenViewType: EventScreenViewType) -> AnyView
+public typealias EventScreenBuilder = (_ eventScreenViewType: EventScreenViewType) -> EventScreenView

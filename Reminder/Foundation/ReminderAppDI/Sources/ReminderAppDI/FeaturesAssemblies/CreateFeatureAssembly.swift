@@ -77,18 +77,14 @@ struct CreateFeatureAssembly: Assembly {
     container.register(CategoryScreenBuilder.self) { r in
       { categoryId in
         let viewModel = r.resolve(CategoryViewModel.self, argument: categoryId)!
-        return AnyView(
-          CategoryScreenView(viewModel: viewModel)
-        )
+        return CategoryScreenView(viewModel: viewModel)
       }
     }
     
     container.register(CategoriesScreenBuilder.self) { r in
       {
         let viewModel = r.resolve(CategoriesViewModel.self)!
-        return AnyView(
-          CategoriesScreenView(viewModel: viewModel)
-        )
+        return CategoriesScreenView(viewModel: viewModel)
       }
     }
     
@@ -98,9 +94,7 @@ struct CreateFeatureAssembly: Assembly {
         let eventPresenter = r.resolve(EventPresenter.self, argument: eventViewStore)!
         let eventInteractor = r.resolve(EventInteractor.self, arguments: eventViewStore, eventPresenter)!
         let viewModel = r.resolve(EventScreenBuilder.self)!
-        return AnyView(
-          EventScreenView(store: eventViewStore, interactor: eventInteractor)
-        )
+        return EventScreenView(store: eventViewStore, interactor: eventInteractor)
       }
     }
   }

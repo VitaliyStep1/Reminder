@@ -5,6 +5,7 @@
 //  Created by Vitaliy Stepanenko on 03.12.2025.
 //
 
+import SwiftUI
 import Swinject
 import ReminderClosest
 import ReminderMainTabViewContracts
@@ -18,9 +19,16 @@ struct ClosestFeatureAssembly: Assembly {
     }
     
     container.register(ClosestCoordinator.self) { r in
-      let closestViewModel = r.resolve(ClosestViewModel.self)!
-      return ClosestCoordinator(closestViewModel: closestViewModel)
+      let closestScreenBuilder = r.resolve(ClosestScreenBuilder.self)!
+      return ClosestCoordinator(closestScreenBuilder: closestScreenBuilder)
     }
     .inObjectScope(.container)
+    
+    container.register(ClosestScreenBuilder.self) { r in
+      {
+        let closestViewModel = r.resolve(ClosestViewModel.self)!
+        return ClosestScreenView(viewModel: closestViewModel)
+      }
+    }
   }
 }

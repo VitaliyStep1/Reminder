@@ -13,14 +13,14 @@ import ReminderResolver
 
 @MainActor
 public final class ClosestCoordinator: CoordinatorProtocol {
-  private var closestViewModel: ClosestViewModel
+  private let closestScreenBuilder: ClosestScreenBuilder
 
-  public init(closestViewModel: ClosestViewModel) {
-    self.closestViewModel = closestViewModel
+  public init(closestScreenBuilder: @escaping ClosestScreenBuilder) {
+    self.closestScreenBuilder = closestScreenBuilder
   }
 
   public func start() -> AnyView {
-    let view = ClosestScreenView(viewModel: closestViewModel)
+    let view = closestScreenBuilder()
     return AnyView(view)
   }
 }
