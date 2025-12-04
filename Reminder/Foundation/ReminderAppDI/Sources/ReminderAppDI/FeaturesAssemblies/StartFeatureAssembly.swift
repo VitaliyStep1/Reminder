@@ -8,10 +8,6 @@
 import SwiftUI
 import Swinject
 import ReminderStart
-import ReminderMainTabViewContracts
-import ReminderClosest
-import ReminderCreate
-import ReminderSettings
 import ReminderMainTabView
 import ReminderConfigurations
 import ReminderDomainContracts
@@ -30,14 +26,36 @@ struct StartFeatureAssembly: Assembly {
     }
     
     container.register(StartCoordinator.self) { r in
-      let startScreenViewModel = r.resolve(StartScreenViewModel.self)!
-      let splashScreenViewFactory = r.resolve(SplashScreenViewFactoryProtocol.self)!
       let languageService = r.resolve(LanguageServiceProtocol.self)!
-      let mainCoordinator = r.resolve(MainCoordinator.self)!
-      
-      return StartCoordinator(startScreenViewModel: startScreenViewModel, splashScreenViewFactory: splashScreenViewFactory, languageService: languageService, mainCoordinator: mainCoordinator)
+      let startScreenBuilder = r.resolve(StartScreenBuilder.self)!
+
+      return StartCoordinator(startScreenBuilder: startScreenBuilder, languageService: languageService)
     }
     .inObjectScope(.container)
+
+    container.register(StartScreenBuilder.self) { r in
+      { splashState in
+        let startScreenViewModel = r.resolve(StartScreenViewModel.self)!
+        let splashScreenViewFactory = r.resolve(SplashScreenViewFactoryProtocol.self)!
+        let mainCoordinator = r.resolve(MainCoordinator.self)!
+
+        let splashViewBuilder: StartScreenView.ViewBuilder = {
+          let binding = Binding(
+            get: { splashState.isVisible },
+            set: { splashState.isVisible = $0 }
+          )
+          return splashScreenViewFactory.makeSplashScreen(isVisible: binding)
+        }
+
+        return StartScreenView(
+          viewModel: startScreenViewModel,
+          splashViewBuilder: splashViewBuilder,
+          mainViewBuilder: { [mainCoordinator] in
+            mainCoordinator.start()
+          }
+        )
+      }
+    }
 
     container.register(AnyView.self, name: "RootView") { resolver in
       let coordinator = resolver.resolve(StartCoordinator.self)!

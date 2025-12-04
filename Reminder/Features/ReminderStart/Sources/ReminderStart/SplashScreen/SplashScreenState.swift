@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class SplashScreenState: ObservableObject {
-  @Published var isVisible: Bool = true
+public final class SplashScreenState: ObservableObject {
+  @Published public var isVisible: Bool = true
   
   init() { }
 }
