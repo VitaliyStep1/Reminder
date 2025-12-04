@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import ReminderNavigationContracts
-import ReminderStart
 import ReminderDesignSystem
 import ReminderAppDI
 
