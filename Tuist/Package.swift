@@ -13,7 +13,6 @@ let package = Package(
     .package(path: "../Reminder/Foundation/ReminderDomain"),
     .package(path: "../Reminder/Foundation/ReminderPersistenceContracts"),
     .package(path: "../Reminder/Foundation/ReminderPersistence"),
-    .package(path: "../Reminder/Foundation/ReminderDependencies"),
     .package(path: "../Reminder/Foundation/ReminderUserDefaultsStorage"),
     
     .package(path: "../Reminder/UIComponents/ReminderDesignSystem"),

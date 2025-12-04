@@ -63,7 +63,6 @@ let project = Project(
       dependencies: [
         .external(name: "ReminderConfigurations"),
         .external(name: "ReminderAppDI"),
-        .external(name: "ReminderDependencies"),
         .external(name: "ReminderDomain"),
         .external(name: "ReminderDomainContracts"),
         .external(name: "ReminderPersistence"),
