@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-import Swinject
 import ReminderNavigationContracts
-import ReminderResolver
 import ReminderCreate
 import ReminderMainTabViewContracts
 

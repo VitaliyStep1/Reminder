@@ -23,7 +23,6 @@ let package = Package(
       .package(path: "../ReminderCreate"),
       .package(path: "../ReminderMainTabView"),
       .package(path: "../ReminderSettings"),
-      .package(path: "../ReminderResolver"),
     ],
     targets: [
         .target(
@@ -38,7 +37,6 @@ let package = Package(
               "ReminderCreate",
               "ReminderMainTabView",
               "ReminderSettings",
-              "ReminderResolver",
             ],
             resources: [
               .process("Resources")

@@ -7,6 +7,6 @@
 
 import CoreData
 
-protocol PersistenceContainerServiceProtocol {
+public protocol PersistenceContainerServiceProtocol {
   func createPersistentContainer(inMemory: Bool) -> NSPersistentContainer
 }

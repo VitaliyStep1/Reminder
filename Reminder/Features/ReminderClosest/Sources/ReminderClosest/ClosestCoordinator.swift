@@ -6,22 +6,19 @@
 //
 
 import SwiftUI
-import Swinject
 import ReminderNavigationContracts
 import ReminderMainTabViewContracts
-import ReminderResolver
 
 @MainActor
 public final class ClosestCoordinator: CoordinatorProtocol {
-  private var mainTabViewSelectionState: MainTabViewSelectionState
+  private let closestScreenBuilder: ClosestScreenBuilder
 
-  public init(mainTabViewSelectionState: MainTabViewSelectionState) {
-    self.mainTabViewSelectionState = mainTabViewSelectionState
+  public init(closestScreenBuilder: @escaping ClosestScreenBuilder) {
+    self.closestScreenBuilder = closestScreenBuilder
   }
 
   public func start() -> AnyView {
-    let viewModel = ClosestViewModel(mainTabViewSelectionState: mainTabViewSelectionState)
-    let view = ClosestScreenView(viewModel: viewModel)
+    let view = closestScreenBuilder()
     return AnyView(view)
   }
 }

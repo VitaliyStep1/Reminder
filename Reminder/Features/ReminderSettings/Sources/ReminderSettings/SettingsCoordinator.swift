@@ -6,26 +6,18 @@
 //
 
 import SwiftUI
-import Swinject
 import ReminderNavigationContracts
-import ReminderResolver
 
 @MainActor
 public final class SettingsCoordinator: CoordinatorProtocol {
-  private let resolver: Resolver
+  private let settingsScreenBuilder: SettingsScreenBuilder
 
-  public init(resolver: Resolver) {
-    self.resolver = resolver
+  public init(settingsScreenBuilder: @escaping SettingsScreenBuilder) {
+    self.settingsScreenBuilder = settingsScreenBuilder
   }
 
   public func start() -> AnyView {
-    let viewModel = SettingsViewModel(
-      takeDefaultRemindTimeDateUseCase: resolver.takeDefaultRemindTimeDateUseCaseProtocol,
-      updateDefaultRemindTimeDateUseCase: resolver.updateDefaultRemindTimeDateUseCaseProtocol,
-      takeSettingsLanguageUseCase: resolver.takeSettingsLanguageUseCaseProtocol,
-      updateSettingsLanguageUseCase: resolver.updateSettingsLanguageUseCaseProtocol
-    )
-    let view = SettingsScreenView(viewModel: viewModel)
+    let view = settingsScreenBuilder()
     return AnyView(view)
   }
 }
