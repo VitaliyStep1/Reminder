@@ -68,7 +68,6 @@ let project = Project(
         .external(name: "ReminderDomainContracts"),
         .external(name: "ReminderPersistence"),
         .external(name: "ReminderPersistenceContracts"),
-        .external(name: "ReminderResolver"),
         .external(name: "ReminderUserDefaultsStorage"),
         .external(name: "ReminderMainTabViewContracts"),
         .external(name: "ReminderNavigationContracts"),

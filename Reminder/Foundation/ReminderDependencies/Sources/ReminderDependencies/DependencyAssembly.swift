@@ -11,7 +11,6 @@ import ReminderPersistence
 import ReminderDomainContracts
 import ReminderDomain
 import ReminderConfigurations
-import ReminderResolver
 import ReminderMainTabViewContracts
 import ReminderUserDefaultsStorage
 
@@ -33,93 +32,93 @@ final class DependencyAssembly: Assembly {
     
     // Use Cases
     container.register(SetupInitialDataUseCaseProtocol.self) { resolver in
-      let defaultCategoriesDataService = resolver.defaultCategoriesDataServiceProtocol
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let defaultCategoriesDataService = resolver.resolve(DefaultCategoriesDataServiceProtocol.self)!
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return SetupInitialDataUseCase(
         defaultCategoriesDataService: defaultCategoriesDataService,
         dBCategoriesService: dBCategoriesService
       )
     }
     .inObjectScope(.transient)
-    
+
     container.register(FetchAllCategoriesUseCaseProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return FetchAllCategoriesUseCase(dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(FetchCategoryUseCaseProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return FetchCategoryUseCase(dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(FetchEventsUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return FetchEventsUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(FetchEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return FetchEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(CreateEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return CreateEventUseCase(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(EditEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return EditEventUseCase(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(DeleteEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return DeleteEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(TakeDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
-      let defaultRemindTimeService = resolver.defaultRemindTimeServiceProtocol
+      let defaultRemindTimeService = resolver.resolve(DefaultRemindTimeServiceProtocol.self)!
       return TakeDefaultRemindTimeDateUseCase(defaultRemindTimeService: defaultRemindTimeService)
     }
     .inObjectScope(.transient)
 
     container.register(UpdateDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
-      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
       return UpdateDefaultRemindTimeDateUseCase(userDefaultsService: userDefaultsService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(TakeSettingsLanguageUseCaseProtocol.self) { resolver in
-      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
       return TakeSettingsLanguageUseCase(userDefaultsService: userDefaultsService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(UpdateSettingsLanguageUseCaseProtocol.self) { resolver in
-      let userDefaultsService = resolver.userDefaultsServiceProtocol
-      let languageService = resolver.languageServiceProtocol
+      let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
+      let languageService = resolver.resolve(LanguageServiceProtocol.self)!
       return UpdateSettingsLanguageUseCase(userDefaultsService: userDefaultsService, languageService: languageService)
     }
     .inObjectScope(.transient)
-    
+
     container.register(FetchDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
-      let defaultRemindTimeService = resolver.defaultRemindTimeServiceProtocol
+      let defaultRemindTimeService = resolver.resolve(DefaultRemindTimeServiceProtocol.self)!
       return FetchDefaultRemindTimeDateUseCase(defaultRemindTimeService: defaultRemindTimeService)
     }
-    
+
     // PreviewDataServiceProtocol
     container.register(PreviewDataServiceProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return PreviewDataService(dBCategoriesService: dBCategoriesService, dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
@@ -130,15 +129,15 @@ final class DependencyAssembly: Assembly {
     .inObjectScope(.container)
     
     container.register(DefaultRemindTimeServiceProtocol.self) { resolver in
-      let appConfiguration = resolver.appConfigurationProtocol
-      let userDefaultsService = resolver.userDefaultsServiceProtocol
+      let appConfiguration = resolver.resolve(AppConfigurationProtocol.self)!
+      let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
       
       return DefaultRemindTimeService(appConfiguration: appConfiguration, userDefaultsService: userDefaultsService)
     }
     .inObjectScope(.container)
     
     container.register(LanguageServiceProtocol.self) { resolver in
-      let takeSettingsLanguageUseCase = resolver.takeSettingsLanguageUseCaseProtocol
+      let takeSettingsLanguageUseCase = resolver.resolve(TakeSettingsLanguageUseCaseProtocol.self)!
       
       return LanguageService(takeSettingsLanguageUseCase: takeSettingsLanguageUseCase)
     }

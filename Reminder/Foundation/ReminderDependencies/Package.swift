@@ -15,7 +15,6 @@ let package = Package(
     ],
     dependencies: [
       .package(url: "https://github.com/Swinject/Swinject.git", from: "2.10.0"),
-      .package(path: "../ReminderResolver"),
       .package(path: "../ReminderDomain"),
       .package(path: "../ReminderPersistence"),
       .package(path: "../ReminderPersistenceContracts"),
@@ -27,7 +26,6 @@ let package = Package(
           name: "ReminderDependencies",
           dependencies: [
             .product(name: "Swinject", package: "Swinject"),
-            "ReminderResolver",
             "ReminderDomain",
             "ReminderPersistence",
             "ReminderPersistenceContracts",

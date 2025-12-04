@@ -9,7 +9,6 @@ import CoreData
 import Swinject
 import ReminderPersistence
 import ReminderPersistenceContracts
-import ReminderResolver
 
 struct PersistenceAssembly: Assembly {
   func assemble(container: Container) {

@@ -9,7 +9,6 @@ import SwiftUI
 import Swinject
 import ReminderNavigationContracts
 import ReminderMainTabViewContracts
-import ReminderResolver
 
 @MainActor
 public final class ClosestCoordinator: CoordinatorProtocol {

@@ -10,7 +10,6 @@ import ReminderPersistenceContracts
 import ReminderPersistence
 import ReminderDomainContracts
 import ReminderConfigurations
-import ReminderResolver
 
 public final class DIService {
   let assembler: Assembler
@@ -31,6 +30,5 @@ public final class DIService {
   
   private func validateDependenciesDebugOnly() {
     _ = ResolverPersistenceCheckService.checkDependencies(resolver: resolver)
-    _ = ResolverCheckService.checkDependencies(resolver: resolver)
   }
 }

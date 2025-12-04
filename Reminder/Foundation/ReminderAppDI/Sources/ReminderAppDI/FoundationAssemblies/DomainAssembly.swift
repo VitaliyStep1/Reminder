@@ -10,7 +10,6 @@ import ReminderDomainContracts
 import ReminderDomain
 import ReminderPersistenceContracts
 import ReminderConfigurations
-import ReminderResolver
 
 struct DomainAssembly: Assembly {
   func assemble(container: Container) {
@@ -21,8 +20,8 @@ struct DomainAssembly: Assembly {
     .inObjectScope(.container)
 
     container.register(SetupInitialDataUseCaseProtocol.self) { resolver in
-      let defaultCategoriesDataService = resolver.defaultCategoriesDataServiceProtocol
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let defaultCategoriesDataService = resolver.resolve(DefaultCategoriesDataServiceProtocol.self)!
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return SetupInitialDataUseCase(
         defaultCategoriesDataService: defaultCategoriesDataService,
         dBCategoriesService: dBCategoriesService
@@ -31,52 +30,52 @@ struct DomainAssembly: Assembly {
     .inObjectScope(.transient)
 
     container.register(FetchAllCategoriesUseCaseProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return FetchAllCategoriesUseCase(dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
 
     container.register(FetchCategoryUseCaseProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return FetchCategoryUseCase(dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
 
     container.register(FetchEventsUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return FetchEventsUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(FetchEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return FetchEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(CreateEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return CreateEventUseCase(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
 
     container.register(EditEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
       return EditEventUseCase(dBEventsService: dBEventsService, dBCategoriesService: dBCategoriesService)
     }
     .inObjectScope(.transient)
 
     container.register(DeleteEventUseCaseProtocol.self) { resolver in
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return DeleteEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
 
     container.register(PreviewDataServiceProtocol.self) { resolver in
-      let dBCategoriesService = resolver.dbCategoriesServiceProtocol
-      let dBEventsService = resolver.dbEventsServiceProtocol
+      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
+      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
       return PreviewDataService(dBCategoriesService: dBCategoriesService, dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
