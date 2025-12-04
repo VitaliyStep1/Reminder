@@ -12,31 +12,32 @@ import ReminderDomainContracts
 @Observable
 public class LanguageService: LanguageServiceProtocol {
   @ObservationIgnored let takeSettingsLanguageUseCase: TakeSettingsLanguageUseCaseProtocol
-  
-  private var languageEnum: LanguageEnum
-  
-  public var locale: Locale {
-    let languageCode = takeLanguageCode()
-    let locale = Locale(identifier: languageCode) ?? Locale(identifier: "en")
-    return locale
-  }
+
+  public private(set) var locale: Locale
   
   public init(takeSettingsLanguageUseCase: TakeSettingsLanguageUseCaseProtocol) {
     self.takeSettingsLanguageUseCase = takeSettingsLanguageUseCase
     
-    languageEnum = takeSettingsLanguageUseCase.execute()
+    let language = takeSettingsLanguageUseCase.execute()
+    
+    switch language {
+    case .ukr:
+      locale =  Locale(identifier: "uk")
+    case .eng:
+      locale =  Locale(identifier: "en")
+    }
   }
-  
-  private func takeLanguageCode() -> String {
+
+  private func makeLocale(from languageEnum: LanguageEnum) -> Locale {
     switch languageEnum {
     case .ukr:
-      return "uk"
+      return Locale(identifier: "uk")
     case .eng:
-      return "en"
+      return Locale(identifier: "en")
     }
   }
   
   public func updateLanguage(_ languageEnum: LanguageEnum) {
-    self.languageEnum = languageEnum
+    locale = makeLocale(from: languageEnum)
   }
 }

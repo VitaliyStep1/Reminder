@@ -68,6 +68,9 @@ public struct SettingsScreenView: View {
         Text(Localize.language)
       }
       .pickerStyle(.menu)
+      .onChange(of: languageOptionViewStore.selectedLanguage) { selectedLanguage in
+        languageOptionViewStore.selectedLanguageChangedHandler(selectedLanguage)
+      }
     }
     .dsCellBackground()
     .dsShadow(.r4Heavy)
