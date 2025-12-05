@@ -7,20 +7,25 @@
 
 import SwiftUI
 import ReminderNavigationContracts
+import ReminderDomain
+
 public struct StartScreenView: View {
   public typealias ViewBuilder = @MainActor () -> AnyView
 
   @StateObject var viewModel: StartScreenViewModel
   @EnvironmentObject var splashState: SplashScreenState
+  @StateObject var languageService: LanguageService
   private let splashViewBuilder: ViewBuilder
   private let mainViewBuilder: ViewBuilder
 
   public init(
     viewModel: StartScreenViewModel,
+    languageService: LanguageService,
     splashViewBuilder: @escaping ViewBuilder,
     mainViewBuilder: @escaping ViewBuilder
   ) {
     _viewModel = StateObject(wrappedValue: viewModel)
+    _languageService = StateObject(wrappedValue: languageService)
     self.splashViewBuilder = splashViewBuilder
     self.mainViewBuilder = mainViewBuilder
   }
@@ -33,6 +38,7 @@ public struct StartScreenView: View {
         mainViewBuilder()
       }
     }
+//    .environment(\.locale, languageService.locale)
     .task {
       let viewModel = self.viewModel
       await viewModel.viewTaskCalled()

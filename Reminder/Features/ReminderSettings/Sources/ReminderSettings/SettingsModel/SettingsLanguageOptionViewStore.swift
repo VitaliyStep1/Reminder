@@ -10,11 +10,7 @@ import ReminderDomainContracts
 
 @Observable
 class SettingsLanguageOptionViewStore {
-  var selectedLanguage: SettingsLanguageEnum = .eng {
-    didSet {
-      selectedLanguageChangedHandler(selectedLanguage)
-    }
-  }
+  var selectedLanguage: SettingsLanguageEnum = .eng
   let languages: [SettingsLanguageEnum] = SettingsLanguageEnum.allCases
   
   let selectedLanguageChangedHandler: (SettingsLanguageEnum) -> Void

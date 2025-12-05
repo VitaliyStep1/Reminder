@@ -26,7 +26,7 @@ struct UserDefaultsAssembly: Assembly {
     }
     .inObjectScope(.container)
 
-    container.register(LanguageServiceProtocol.self) { resolver in
+    container.register(LanguageService.self) { resolver in
       let takeSettingsLanguageUseCase = resolver.resolve(TakeSettingsLanguageUseCaseProtocol.self)!
 
       return LanguageService(takeSettingsLanguageUseCase: takeSettingsLanguageUseCase)
@@ -53,7 +53,7 @@ struct UserDefaultsAssembly: Assembly {
 
     container.register(UpdateSettingsLanguageUseCaseProtocol.self) { resolver in
       let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
-      let languageService = resolver.resolve(LanguageServiceProtocol.self)!
+      let languageService = resolver.resolve(LanguageService.self)!
       return UpdateSettingsLanguageUseCase(userDefaultsService: userDefaultsService, languageService: languageService)
     }
     .inObjectScope(.transient)

@@ -16,7 +16,7 @@ public final class AppDI {
   public static let shared = AppDI()
   
   public let container: Container
-  private let assembler: Assembler
+  public let assembler: Assembler
   
   private init() {
     container = Container()
