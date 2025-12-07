@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ReminderNavigationContracts
-import ReminderDomain
+import Language
 
 public struct StartScreenView: View {
   public typealias ViewBuilder = @MainActor () -> AnyView

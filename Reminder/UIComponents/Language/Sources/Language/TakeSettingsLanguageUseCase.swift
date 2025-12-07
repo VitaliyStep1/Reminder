@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ReminderDomainContracts
 import ReminderUserDefaultsStorage
 
 public class TakeSettingsLanguageUseCase: TakeSettingsLanguageUseCaseProtocol {

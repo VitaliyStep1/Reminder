@@ -8,7 +8,7 @@
 import SwiftUI
 import ReminderNavigationContracts
 import ReminderDomainContracts
-import ReminderDomain
+import Language
 
 @MainActor
 public final class StartCoordinator: CoordinatorProtocol {

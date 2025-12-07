@@ -26,13 +26,6 @@ struct UserDefaultsAssembly: Assembly {
     }
     .inObjectScope(.container)
 
-    container.register(LanguageService.self) { resolver in
-      let takeSettingsLanguageUseCase = resolver.resolve(TakeSettingsLanguageUseCaseProtocol.self)!
-
-      return LanguageService(takeSettingsLanguageUseCase: takeSettingsLanguageUseCase)
-    }
-    .inObjectScope(.container)
-
     container.register(TakeDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
       let defaultRemindTimeService = resolver.resolve(DefaultRemindTimeServiceProtocol.self)!
       return TakeDefaultRemindTimeDateUseCase(defaultRemindTimeService: defaultRemindTimeService)
@@ -42,19 +35,6 @@ struct UserDefaultsAssembly: Assembly {
     container.register(UpdateDefaultRemindTimeDateUseCaseProtocol.self) { resolver in
       let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
       return UpdateDefaultRemindTimeDateUseCase(userDefaultsService: userDefaultsService)
-    }
-    .inObjectScope(.transient)
-
-    container.register(TakeSettingsLanguageUseCaseProtocol.self) { resolver in
-      let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
-      return TakeSettingsLanguageUseCase(userDefaultsService: userDefaultsService)
-    }
-    .inObjectScope(.transient)
-
-    container.register(UpdateSettingsLanguageUseCaseProtocol.self) { resolver in
-      let userDefaultsService = resolver.resolve(UserDefaultsServiceProtocol.self)!
-      let languageService = resolver.resolve(LanguageService.self)!
-      return UpdateSettingsLanguageUseCase(userDefaultsService: userDefaultsService, languageService: languageService)
     }
     .inObjectScope(.transient)
 

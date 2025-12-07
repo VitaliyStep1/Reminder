@@ -27,6 +27,7 @@ let package = Package(
       .package(path: "../ReminderMainTabView"),
       .package(path: "../ReminderMainTabViewContracts"),
       .package(path: "../ReminderStart"),
+      .package(path: "../Language"),
     ],
     targets: [
       .target(
@@ -45,6 +46,7 @@ let package = Package(
           "ReminderMainTabView",
           "ReminderMainTabViewContracts",
           "ReminderStart",
+          "Language",
         ]),
       
     ]

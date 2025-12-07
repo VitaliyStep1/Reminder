@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ReminderDomainContracts
+import Language
 
 @Observable
 class SettingsLanguageOptionViewStore {

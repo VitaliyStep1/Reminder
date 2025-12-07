@@ -18,11 +18,13 @@ let package = Package(
     .package(path: "../Reminder/UIComponents/ReminderDesignSystem"),
     .package(path: "../Reminder/UIComponents/ReminderNavigationContracts"),
     .package(path: "../Reminder/UIComponents/ReminderMainTabViewContracts"),
+    .package(path: "../Reminder/UIComponents/Language"),
     
     .package(path: "../Reminder/Features/ReminderStart"),
     .package(path: "../Reminder/Features/ReminderMainTabView"),
     .package(path: "../Reminder/Features/ReminderCreate"),
     .package(path: "../Reminder/Features/ReminderClosest"),
     .package(path: "../Reminder/Features/ReminderSettings"),
+    
   ]
 )

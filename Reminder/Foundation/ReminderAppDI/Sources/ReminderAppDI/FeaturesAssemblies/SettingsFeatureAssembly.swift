@@ -7,6 +7,7 @@
 
 import Swinject
 import ReminderDomainContracts
+import Language
 import ReminderSettings
 
 @MainActor

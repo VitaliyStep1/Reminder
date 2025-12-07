@@ -7,6 +7,7 @@
 
 import Foundation
 import ReminderDomainContracts
+import Language
 
 @MainActor
 public final class SettingsViewModel: ObservableObject {
