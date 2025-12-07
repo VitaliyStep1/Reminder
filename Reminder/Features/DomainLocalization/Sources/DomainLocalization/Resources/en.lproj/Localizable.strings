@@ -1,0 +1,15 @@
+/*
+  Localizable.strings
+  ReminderDomain
+
+  Created by OpenAI's assistant.
+
+*/
+"Birthdays" = "Birthdays";
+"Subscriptions" = "Subscriptions";
+"Utilities" = "Utilities";
+"Aniversaries" = "Aniversaries";
+"Other_repeatEveryYear" = "Other - every year";
+"Other_repeatEveryMonth" = "Other - every month";
+"Other_repeatEveryDay" = "Other - every day";
+"Other_notRepeat" = "Other - one time";

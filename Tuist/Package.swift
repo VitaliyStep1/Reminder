@@ -25,6 +25,7 @@ let package = Package(
     .package(path: "../Reminder/Features/ReminderCreate"),
     .package(path: "../Reminder/Features/ReminderClosest"),
     .package(path: "../Reminder/Features/ReminderSettings"),
+    .package(path: "../Reminder/Features/DomainLocalization"),
     
   ]
 )

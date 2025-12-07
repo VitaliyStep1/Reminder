@@ -20,6 +20,7 @@ let package = Package(
       .package(path: "ReminderDomain"),
       .package(path: "ReminderDesignSystem"),
       .package(path: "Language"),
+      .package(path: "DomainLocalization"),
     ],
     targets: [
         .target(
@@ -31,6 +32,7 @@ let package = Package(
               "ReminderDomain",
               "ReminderDesignSystem",
               "Language",
+              "DomainLocalization",
             ],
             resources: [
               .process("Resources")

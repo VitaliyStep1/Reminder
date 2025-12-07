@@ -6,26 +6,25 @@
 //
 
 import Foundation
-
-// Note. Localization of Domain should be moved outside ReminderDomain
+import ReminderDomain
 
 public class CategoryLocalizationManager {
   public static let shared = CategoryLocalizationManager()
   private init() {}
   
-  lazy var categoryTitleEnumDict: [String: CategoryTitleEnum] = {
-    var dict: [String: CategoryTitleEnum] = [:]
-    for value in CategoryTitleEnum.allCases {
+  lazy var categoryTitleEnumDict: [String: DefaultCategoriesDataService.CategoryKeyEnum] = {
+    var dict: [String: DefaultCategoriesDataService.CategoryKeyEnum] = [:]
+    for value in DefaultCategoriesDataService.CategoryKeyEnum.allCases {
       dict[value.rawValue] = value
     }
     return dict
   }()
   
   public func localize(categoryTitle: String, locale: Locale) -> String {
-    guard let categoryTitleEnum = categoryTitleEnumDict[categoryTitle] else {
+    guard let categoryKeyEnum = categoryTitleEnumDict[categoryTitle] else {
       return categoryTitle
     }
-    var resource = categoryTitleEnum.localizedStringResource
+    var resource = Localize.localized(categoryKey: categoryKeyEnum)
     resource.locale = locale
     return String(localized: resource)
   }

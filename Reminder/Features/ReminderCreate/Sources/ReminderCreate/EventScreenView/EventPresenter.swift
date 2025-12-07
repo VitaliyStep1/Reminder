@@ -117,11 +117,11 @@ public final class EventPresenter {
   private func configureView() {
     switch store.eventScreenViewType {
     case .create:
-      store.screenTitleData.screenTitle = String(localized: Localize.createEventScreenTitle.localed(locale))
+      store.screenTitleData.screenTitle =  Localize.createEventScreenTitle
       store.buttonsData.isDeleteButtonVisible = false
       store.buttonsData.saveButtonTitle = String(localized: Localize.createEventButtonTitle.localed(locale))
     case .edit:
-      store.screenTitleData.screenTitle = String(localized: Localize.editEventScreenTitle.localed(locale))
+      store.screenTitleData.screenTitle = Localize.editEventScreenTitle
       store.buttonsData.isDeleteButtonVisible = true
       store.buttonsData.saveButtonTitle = String(localized: Localize.saveEventButtonTitle.localed(locale))
       store.buttonsData.deleteButtonTitle = String(localized: Localize.deleteButtonTitle.localed(locale))

@@ -72,12 +72,5 @@ struct DomainAssembly: Assembly {
       return DeleteEventUseCase(dBEventsService: dBEventsService)
     }
     .inObjectScope(.transient)
-
-    container.register(PreviewDataServiceProtocol.self) { resolver in
-      let dBCategoriesService = resolver.resolve(DBCategoriesServiceProtocol.self)!
-      let dBEventsService = resolver.resolve(DBEventsServiceProtocol.self)!
-      return PreviewDataService(dBCategoriesService: dBCategoriesService, dBEventsService: dBEventsService)
-    }
-    .inObjectScope(.transient)
   }
 }
