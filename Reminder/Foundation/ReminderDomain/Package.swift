@@ -30,9 +30,6 @@ let package = Package(
               "ReminderPersistenceContracts",
               "ReminderConfigurations",
               "ReminderUserDefaultsStorage",
-            ],
-            resources: [
-              .process("Resources")
             ]
         ),
     ]

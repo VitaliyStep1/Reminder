@@ -11,9 +11,9 @@ import Foundation
 // MARK: - Swift Bundle Accessor - for SPM
 private class BundleFinder {}
 extension Foundation.Bundle {
-/// Since ReminderDomain is a static framework, the bundle containing the resources is copied into the final product.
+/// Since DomainLocalization is a static framework, the bundle containing the resources is copied into the final product.
     static let module: Bundle = {
-        let bundleName = "ReminderDomain_ReminderDomain"
+        let bundleName = "DomainLocalization_DomainLocalization"
         let bundleFinderResourceURL = Bundle(for: BundleFinder.self).resourceURL
         var candidates = [
             Bundle.main.resourceURL,
@@ -50,7 +50,7 @@ extension Foundation.Bundle {
                 return bundle
             }
         }
-        fatalError("unable to find bundle named ReminderDomain_ReminderDomain")
+        fatalError("unable to find bundle named DomainLocalization_DomainLocalization")
     }()
 }
 

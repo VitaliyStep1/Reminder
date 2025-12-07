@@ -9,9 +9,9 @@ import Foundation
 
 @MainActor
 class EventScreenTitleData: ObservableObject {
-  @Published var screenTitle: String
+  @Published var screenTitle: LocalizedStringResource
   
-  init(screenTitle: String) {
+  init(screenTitle: LocalizedStringResource) {
     self.screenTitle = screenTitle
   }
 }

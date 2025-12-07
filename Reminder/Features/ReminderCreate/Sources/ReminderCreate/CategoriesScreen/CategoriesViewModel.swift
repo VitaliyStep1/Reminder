@@ -10,6 +10,7 @@ import Combine
 import ReminderDomainContracts
 import ReminderNavigationContracts
 import ReminderDomain
+import DomainLocalization
 
 @MainActor
 public class CategoriesViewModel: ObservableObject {
@@ -69,7 +70,8 @@ public class CategoriesViewModel: ObservableObject {
   }
   
   func takeLocalizedCategoryTitle(categoryTitle: String, locale: Locale) -> String {
-    CategoryLocalizationManager.shared.localize(categoryTitle: categoryTitle, locale: locale)
+    let title = CategoryLocalizationManager.shared.localize(categoryTitle: categoryTitle, locale: locale)
+    return title
   }
   
   var routerPath: [CreateRoute] {

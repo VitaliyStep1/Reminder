@@ -10,6 +10,7 @@ import Foundation
 import ReminderNavigationContracts
 import ReminderDomainContracts
 import ReminderDomain
+import DomainLocalization
 
 @MainActor
 public class CategoryViewModel: ObservableObject {
