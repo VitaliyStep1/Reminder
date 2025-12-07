@@ -5,7 +5,7 @@
 //  Created by Vitaliy Stepanenko on 20.11.2025.
 //
 
-import ReminderDomainContracts
+import Language
 
 enum SettingsLanguageEnum: String, CaseIterable, Identifiable {
   case eng

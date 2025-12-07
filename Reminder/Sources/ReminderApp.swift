@@ -8,7 +8,7 @@
 import SwiftUI
 import ReminderDesignSystem
 import ReminderAppDI
-import ReminderDomain
+import Language
 
 @main
 struct ReminderApp: App {

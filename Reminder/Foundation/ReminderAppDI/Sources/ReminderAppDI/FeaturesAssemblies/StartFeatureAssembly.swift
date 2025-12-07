@@ -11,7 +11,7 @@ import ReminderStart
 import ReminderMainTabView
 import ReminderConfigurations
 import ReminderDomainContracts
-import ReminderDomain
+import Language
 
 @MainActor
 struct StartFeatureAssembly: Assembly {

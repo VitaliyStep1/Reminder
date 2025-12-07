@@ -30,7 +30,8 @@ public final class AppDI {
         ClosestFeatureAssembly(),
         CreateFeatureAssembly(),
         SettingsFeatureAssembly(),
-        MainTabFeatureAssembly()
+        MainTabFeatureAssembly(),
+        LanguageAssembly(),
       ],
       container: container
     )
